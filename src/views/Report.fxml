@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ReportController">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="213.0" spacing="5.0">
+         <children>
+            <Label text="X Axis" />
+            <ListView prefHeight="123.0" prefWidth="145.0" fx:id="xAxisChoices" />
+            <HBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <Label text="min" fx:id="xMin" />
+                  <TextField prefWidth="100.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <Label text="max" fx:id="xMax" />
+                  <TextField prefWidth="100.0" />
+               </children>
+            </HBox>
+            <Label text="Y Axis" />
+            <ListView fx:id="yAxisChoices" prefHeight="123.0" prefWidth="145.0" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+      <LineChart title="Results">
+        <xAxis>
+          <NumberAxis label="Time" side="BOTTOM" fx:id="xAxis" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="yAxis" label="Speed" side="LEFT" />
+        </yAxis>
+      </LineChart>
+   </children>
+</HBox>
