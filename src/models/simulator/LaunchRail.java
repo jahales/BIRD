@@ -1,4 +1,6 @@
-package models;
+package models.simulator;
+
+import models.rocketmodel.Measurement;
 
 /**
  * A laumch rail

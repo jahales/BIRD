@@ -1,6 +1,10 @@
-package models;
+package models.rocketmodel;
 
 import java.util.List;
+
+import models.rocketmodel.parts.Motor;
+import models.rocketmodel.parts.Parachute;
+import models.rocketmodel.parts.RocketComponent;
 
 /**
  * A rocket

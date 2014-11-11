@@ -1,4 +1,4 @@
-package models;
+package models.report;
 
 import javafx.scene.Group;
 import javafx.scene.shape.Line;

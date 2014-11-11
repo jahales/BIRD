@@ -1,4 +1,4 @@
-package models;
+package models.rocketmodel;
 
 /**
  * A Measurement class container.

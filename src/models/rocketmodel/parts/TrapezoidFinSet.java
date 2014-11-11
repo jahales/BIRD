@@ -1,4 +1,7 @@
-package models;
+package models.rocketmodel.parts;
+
+import models.rocketmodel.Measurement;
+
 
 /**
  * A trapesoid fin set

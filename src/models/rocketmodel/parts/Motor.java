@@ -1,4 +1,7 @@
-package models;
+package models.rocketmodel.parts;
+
+import models.report.DataTable;
+import models.rocketmodel.Measurement;
 
 /**
  * A motor

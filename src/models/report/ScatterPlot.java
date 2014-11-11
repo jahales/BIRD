@@ -1,4 +1,4 @@
-package models;
+package models.report;
 
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.LineChart;

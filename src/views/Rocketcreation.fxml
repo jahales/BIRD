@@ -12,6 +12,6 @@
             <Button mnemonicParsing="false" onAction="#addPart" prefWidth="200.0" text="Add Part" />
          </children>
       </VBox>
-      <fx:include source="Fin.fxml" />
+      <fx:include source="parts/Fin.fxml" />
    </children>
 </HBox>

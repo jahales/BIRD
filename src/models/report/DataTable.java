@@ -1,4 +1,4 @@
-package models;
+package models.report;
 
 import java.util.List;
 import java.util.Map;

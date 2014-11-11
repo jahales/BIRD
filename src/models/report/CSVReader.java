@@ -1,4 +1,4 @@
-package models;
+package models.report;
 
 import java.io.BufferedReader;
 import java.util.List;
