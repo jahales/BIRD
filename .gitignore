@@ -13,3 +13,8 @@ hs_err_pid*
 /bin/
 /.classpath
 /.project
+
+# netbeans
+/nbproject
+/build.xml
+/manifest.mf
