@@ -60,7 +60,6 @@ public class ReportController {
 	    table = CSVReader.loadCSV("A file");
 	} catch (IOException e) {
 	    System.out.println("File wasn't read right");
-	    //e.printStackTrace();
 	}
 
 	// X axis
