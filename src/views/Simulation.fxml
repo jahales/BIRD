@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="350" prefWidth="500" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SimulationController">
+	<children>
+		<Label layoutX="76" layoutY="36" text="Files" />
+		<Label layoutX="120" layoutY="66" text="Rocket File" />
+		<Label layoutX="91" layoutY="92" text="Atmosphere File" />
+		<Label layoutX="120" layoutY="118" text="Engine File" />
+		<Label layoutX="66" layoutY="168" text="Launch Rail" />
+		<Label layoutX="150" layoutY="194" text="Length" />
+		<Label layoutX="124" layoutY="220" text="Polar Angle" />
+		<Label layoutX="108" layoutY="246" text="Azimuth Angle" />
+		<TextField fx:id="rocketFile" layoutX="188" layoutY="62" />
+		<TextField fx:id="AtmosphereFile" layoutX="188" layoutY="88" />
+		<TextField fx:id="engineFile" layoutX="188" layoutY="114" />
+		<TextField fx:id="length" layoutX="188" layoutY="190" />
+		<TextField fx:id="polarAngle" layoutX="188" layoutY="216" />
+		<TextField fx:id="asimuthAngle" layoutX="188" layoutY="242" />
+		<Button layoutX="384" layoutY="242" mnemonicParsing="false" onAction="#run" text="Run Simulation" />
+	</children>
+</AnchorPane>
