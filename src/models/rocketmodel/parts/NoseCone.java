@@ -1,6 +1,6 @@
 package models.rocketmodel.parts;
 
-import models.rocketmodel.Measurement;
+import models.Measurement;
 
 
 /**

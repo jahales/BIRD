@@ -1,7 +1,7 @@
 package models.rocketmodel.parts;
 
 import models.report.DataTable;
-import models.rocketmodel.Measurement;
+import models.Measurement;
 
 /**
  * A motor
@@ -15,7 +15,7 @@ public class Motor extends CircularCylinder {
     private Measurement fuelMass;
     private Measurement polarAngle;
     private Measurement azimuthAngle;
-    private DataTable<Number> thrust;
+    private DataTable thrust;
     
     /**
      * @return manufacturer
@@ -90,14 +90,14 @@ public class Motor extends CircularCylinder {
     /**
      * @return thrust
      */
-    public DataTable<Number> getThrust() {
+    public DataTable getThrust() {
         return thrust;
     }
     
     /**
      * @param thrust
      */
-    public void setThrust(DataTable<Number> thrust) {
+    public void setThrust(DataTable thrust) {
         this.thrust = thrust;
     }
 }

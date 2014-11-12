@@ -1,4 +1,4 @@
-package models.rocketmodel;
+package models;
 
 import models.Unit;
 

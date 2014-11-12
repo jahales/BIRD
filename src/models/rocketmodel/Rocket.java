@@ -2,6 +2,7 @@ package models.rocketmodel;
 
 import java.util.List;
 
+import models.Measurement;
 import models.rocketmodel.parts.Motor;
 import models.rocketmodel.parts.Parachute;
 import models.rocketmodel.parts.RocketComponent;
