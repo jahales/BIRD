@@ -11,8 +11,8 @@ import models.Measurement;
  */
 public class Parachute extends CircularCylinder {
     private Measurement dragCoefficient;
-    private Measurement deployedDiametr;
-    private Measurement deployedAltitude;
+    private Measurement deployedDiameter;
+    private Measurement deploymentAltitude;
     
     /**
      * @return dragCoefficient
@@ -31,28 +31,28 @@ public class Parachute extends CircularCylinder {
     /**
      * @return deployedDiameter
      */
-    public Measurement getDeployedDiametr() {
-        return deployedDiametr;
+    public Measurement getDeployedDiameter() {
+        return deployedDiameter;
     }
     
     /**
-     * @param deployedDiametr
+     * @param deployedDiameter
      */
-    public void setDeployedDiametr(Measurement deployedDiametr) {
-        this.deployedDiametr = deployedDiametr;
+    public void setDeployedDiameter(Measurement deployedDiameter) {
+        this.deployedDiameter = deployedDiameter;
     }
     
     /**
-     * @return deployedAltitude
+     * @return deploymentAltitude
      */
-    public Measurement getDeployedAltitude() {
-        return deployedAltitude;
+    public Measurement getDeploymentAltitude() {
+        return deploymentAltitude;
     }
     
     /**
-     * @param deployedAltitude
+     * @param deploymentAltitude
      */
-    public void setDeployedAltitude(Measurement deployedAltitude) {
-        this.deployedAltitude = deployedAltitude;
+    public void setDeploymentAltitude(Measurement deploymentAltitude) {
+        this.deploymentAltitude = deploymentAltitude;
     }
 }

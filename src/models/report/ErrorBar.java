@@ -3,6 +3,10 @@ package models.report;
 import javafx.scene.Group;
 import javafx.scene.shape.Line;
 
+/**
+ *
+ * @author Jacob
+ */
 public class ErrorBar extends Group {
     private Line topBar;
     private Line bottomBar;
@@ -12,7 +16,11 @@ public class ErrorBar extends Group {
     private double bottomBarHeight;
     private double bottomBarWidth;
 
-    public ErrorBar(double error) {
+  /**
+   *
+   * @param error
+   */
+  public ErrorBar(double error) {
 	topBarHeight = error;
 	topBarWidth = 5;
 	topBar = new Line(-topBarWidth, topBarHeight, topBarWidth, topBarHeight);

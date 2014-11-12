@@ -10,7 +10,7 @@ package models.rocketmodel;
  * @author Jacob
  */
 public interface IRocketRepository {
-  public Rocket Create(String id);
+  public void Create(Rocket rocket);
   public Rocket Retrieve(String id);
   public void Update(Rocket rocket);
   public void Delete(Rocket rocket);
