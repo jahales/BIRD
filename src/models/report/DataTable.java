@@ -1,5 +1,7 @@
 package models.report;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,9 +31,9 @@ public class DataTable {
     }
   }
 
-  private Map<String, List<Number>> columnMap;
-  private List<String> columnNames;
-  private List<List<Number>> data; // List of rows
+  private Map<String, List<Number>> columnMap = new HashMap<String, List<Number>>();
+  private List<String> columnNames = new ArrayList<String>();
+  private List<List<Number>> data = new ArrayList<List<Number>>(); // List of rows
 
   /**
    * Add a column to the table.
@@ -40,9 +42,12 @@ public class DataTable {
    */
   public void addColumn(String columnName) {
     columnNames.add(columnName);
+    List<Number> column = new ArrayList<Number>();
     for (List<Number> row : data) {
       row.add(0);
+      column.add(row.get(row.size() - 1));
     }
+    columnMap.put(columnName, column);
   }
 
   /**
@@ -55,6 +60,9 @@ public class DataTable {
   public void addRow(List<Number> row) throws RowFormatError {
     if (row.size() == columnNames.size()) {
       data.add(row);
+      for (int i = 0; i < columnNames.size(); i++) {
+        columnMap.get(columnNames.get(i)).add(row.get(i));
+      }
     } else {
       throw new RowFormatError("Size of row does match number of columns defined.");
     }
@@ -72,6 +80,16 @@ public class DataTable {
    */
   public List<String> getColumnNames() {
     return columnNames;
+  }
+
+  /**
+   * Get a column by name.
+   * 
+   * @param columnName
+   * @return column
+   */
+  public List<Number> getColumn(String columnName) {
+    return columnMap.get(columnName);
   }
 
   /**
