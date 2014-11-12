@@ -16,7 +16,5 @@ hs_err_pid*
 
 # netbeans
 /nbproject
-/build.xml
-/manifest.mf
 /dist/
 /build/
