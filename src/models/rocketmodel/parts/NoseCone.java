@@ -16,10 +16,18 @@ public class NoseCone extends RocketComponent {
   private Measurement diameter;
   private NoseShape noseShape;
 
+  /**
+   *
+   * @return
+   */
   public NoseShape getNoseShape() {
     return noseShape;
   }
 
+  /**
+   *
+   * @param noseShape
+   */
   public void setNoseShape(NoseShape noseShape) {
     this.noseShape = noseShape;
   }

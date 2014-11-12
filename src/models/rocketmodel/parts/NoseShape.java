@@ -5,8 +5,37 @@ package models.rocketmodel.parts;
  * @author Jacob
  */
 public enum NoseShape {
-  UNKNOWN, OGIVE, PARABOLA, CONE, POWERSERIES;
+
+  /**
+   *
+   */
+  UNKNOWN,
+
+  /**
+   *
+   */
+  OGIVE,
+
+  /**
+   *
+   */
+  PARABOLA,
+
+  /**
+   *
+   */
+  CONE,
+
+  /**
+   *
+   */
+  POWERSERIES;
   
+  /**
+   *
+   * @param noseShape
+   * @return
+   */
   public static NoseShape parseString(String noseShape) 
   {
     switch (noseShape.toUpperCase())

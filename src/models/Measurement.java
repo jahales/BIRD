@@ -41,11 +41,19 @@ public class Measurement {
         this.error = error;
     }
     
-    public Unit getUnit() {
+  /**
+   *
+   * @return
+   */
+  public Unit getUnit() {
         return unit;
     }
     
-    public void setUnit(Unit unit) {
+  /**
+   *
+   * @param unit
+   */
+  public void setUnit(Unit unit) {
         this.unit = unit;
     }
 }

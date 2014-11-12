@@ -42,7 +42,12 @@ public class DataTable {
         return data;
     }
     
-    public void addRow(List<Number> row) throws RowFormatError  {
+  /**
+   *
+   * @param row
+   * @throws RowFormatError
+   */
+  public void addRow(List<Number> row) throws RowFormatError  {
 	if (row.size() == columnNames.size()) {
 	    data.add(row);
 	} else {
@@ -50,9 +55,17 @@ public class DataTable {
 	}
     }
     
-    public class RowFormatError extends Exception {
+  /**
+   *
+   */
+  public class RowFormatError extends Exception {
 	private static final long serialVersionUID = 1L;
-	public RowFormatError(String error) {
+
+      /**
+       *
+       * @param error
+       */
+      public RowFormatError(String error) {
 	    super(error);
 	}
     }
