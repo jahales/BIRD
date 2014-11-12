@@ -4,17 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Generic Data Table
+ * Generic Data Table.
  * 
  * @author Brian Woodruff
  *
- * @param <T>
  */
-public class DataTable<T> {
+public class DataTable {
     private List<String> columnNames;
     private Map<String, List<Double>> columnMap;
-    private List<List<T>> columns;
-    private List<List<T>> rows;
+    private List<List<Number>> data; // List of rows
     
     /**
      * @return columnNames
@@ -38,37 +36,24 @@ public class DataTable<T> {
     }
     
     /**
-     * @param columnMap
-     */
-    public void setColumnMap(Map<String, List<Double>> columnMap) {
-        this.columnMap = columnMap;
-    }
-    
-    /**
      * @return columns
      */
-    public List<List<T>> getColumns() {
-        return columns;
+    public List<List<Number>> getData() {
+        return data;
     }
     
-    /**
-     * @param columns
-     */
-    public void setColumns(List<List<T>> columns) {
-        this.columns = columns;
+    public void addRow(List<Number> row) throws RowFormatError  {
+	if (row.size() == columnNames.size()) {
+	    data.add(row);
+	} else {
+	    throw new RowFormatError("Size of row does match number of columns defined.");
+	}
     }
     
-    /**
-     * @return rows
-     */
-    public List<List<T>> getRows() {
-        return rows;
-    }
-    
-    /**
-     * @param rows
-     */
-    public void setRows(List<List<T>> rows) {
-        this.rows = rows;
+    public class RowFormatError extends Exception {
+	private static final long serialVersionUID = 1L;
+	public RowFormatError(String error) {
+	    super(error);
+	}
     }
 }
