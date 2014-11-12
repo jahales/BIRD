@@ -4,7 +4,9 @@ package models.rocketmodel;
  *
  * @author Jacob
  */
-public class RocketRepository implements IRocketRepository {
+public class XmlRocketRepository implements IRocketRepository {
+  
+  private String fileName;
 
   @Override
   public Rocket Create(String id) {
