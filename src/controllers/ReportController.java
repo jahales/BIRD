@@ -55,12 +55,6 @@ public class ReportController {
    * initialize is called during FXMLoader call
    */
   public void initialize() {
-    try {
-      table = CSVReader.loadCSV("A file");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
 	// X axis
     //xAxisChoices.setItems((ObservableList<String>) table.getColumnNames());
     xList = FXCollections.observableArrayList("1 fish", "2 fish", "Red fish", "Blue fish");
