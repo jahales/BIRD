@@ -1,5 +1,7 @@
 package models.rocketmodel;
 
+import models.Unit;
+
 /**
  * A Measurement class container.
  * 
@@ -9,7 +11,7 @@ package models.rocketmodel;
 public class Measurement {
     private double value;
     private double error;
-    private double Enum;
+    private Unit unit;
     
     /**
      * @return value
@@ -39,17 +41,11 @@ public class Measurement {
         this.error = error;
     }
     
-    /**
-     * @return Enum
-     */
-    public double getEnum() {
-        return Enum;
+    public Unit getUnit() {
+        return unit;
     }
     
-    /**
-     * @param enum1
-     */
-    public void setEnum(double Enum) {
-        this.Enum = Enum;
+    public void setUnit(Unit unit) {
+        this.unit = unit;
     }
 }
