@@ -7,14 +7,13 @@
 <ChoiceBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 	<items>
 		<FXCollections fx:factory="observableArrayList">
-			<String fx:value="Milliseconds" />
-			<String fx:value="Seconds" />
-			<String fx:value="Minutes" />
-			<String fx:value="Hours" />
-			<String fx:value="Pounds" />
+			<String fx:value="milliseconds" />
+			<String fx:value="seconds" />
+			<String fx:value="minutes" />
+			<String fx:value="hours" />
 		</FXCollections>
 	</items>
 	<value>
-		<String fx:value="Seconds" />
+		<String fx:value="seconds" />
 	</value>
 </ChoiceBox>

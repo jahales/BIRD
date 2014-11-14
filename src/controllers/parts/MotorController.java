@@ -125,9 +125,9 @@ public class MotorController {
   public void initialize() {
     motor.setManufacturer("");
     motor.setDelays("");
-    motor.setFuelMass(new Measurement(0, 0, Unit.gram));
-    motor.setPolarAngle(new Measurement(0, 0, Unit.Degree));
-    motor.setAzimuthAngle(new Measurement(0, 0, Unit.Degree));
+    motor.setFuelMass(new Measurement(0, 0, Unit.grams));
+    motor.setPolarAngle(new Measurement(0, 0, Unit.degrees));
+    motor.setAzimuthAngle(new Measurement(0, 0, Unit.degrees));
     motor.setThrust(new DataTable());
     
     manufacturerValue.textProperty().addListener(new ChangeListener<String>() {

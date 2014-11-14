@@ -7,11 +7,11 @@
 <ChoiceBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 	<items>
 		<FXCollections fx:factory="observableArrayList">
-			<String fx:value="Degrees" />
-			<String fx:value="Radians" />
+			<String fx:value="degrees" />
+			<String fx:value="radians" />
 		</FXCollections>
 	</items>
 	<value>
-		<String fx:value="Degrees" />
+		<String fx:value="degrees" />
 	</value>
 </ChoiceBox>

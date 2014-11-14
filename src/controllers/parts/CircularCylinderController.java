@@ -93,7 +93,7 @@ public class CircularCylinderController {
    * Initialize values for circular cylinder and add listeners.
    */
   public void initialize() {
-    circularCylinder.setDiameter(new Measurement(0, 0, Unit.centiMeter));
+    circularCylinder.setDiameter(new Measurement(0, 0, Unit.centimeters));
     
     addValueListener(diameterValue, circularCylinder.getDiameter());
     

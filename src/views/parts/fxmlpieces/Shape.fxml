@@ -7,14 +7,14 @@
 <ChoiceBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 	<items>
 		<FXCollections fx:factory="observableArrayList">
-			<String fx:value="Ogive" />
-			<String fx:value="Parabola" />
-			<String fx:value="Cone" />
-			<String fx:value="PowerSeries" />
-			<String fx:value="Unknown" />
+			<String fx:value="ogive" />
+			<String fx:value="parabola" />
+			<String fx:value="cone" />
+			<String fx:value="powerseries" />
+			<String fx:value="unknown" />
 		</FXCollections>
 	</items>
 	<value>
-		<String fx:value="Parabola" />
+		<String fx:value="parabola" />
 	</value>
 </ChoiceBox>

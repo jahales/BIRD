@@ -5,11 +5,11 @@ package models;
  * @author Jacob, Brian
  */
 public enum Unit {
-  Kilogram, gram, milligram,                    // Mass
-  milliMeter, centiMeter, Meter, KiloMeter,     // Length
-  milliSecond, Second, Minute, Hour,            // Time
-  Degree, Radian,                               // Angle
-  Celsius, Farienheight,                        // Temperature
-  Ogive, Parabola, Cone, PowerSeries, Unknown,  // Shape
-  Number                                        // Counting number
+  kilograms, grams, milligrams,                 // Mass
+  millimeters, centimeters, meters, kilometers, // Length
+  milliseconds, seconds, minutes, hours,        // Time
+  degrees, radians,                             // Angle
+  celsius, farienheight,                        // Temperature
+  ogive, parabola, cone, powerseries, unknown,  // Shape
+  number                                        // Counting number
 }

@@ -102,8 +102,8 @@ public class ConicalFrustumController {
    * Initialize values for concial frustum and add listeners.
    */
   public void initialize() {
-    conicalFrustum.setLowerDiameter(new Measurement(0, 0, Unit.centiMeter));
-    conicalFrustum.setUpperDiameter(new Measurement(0, 0, Unit.centiMeter));
+    conicalFrustum.setLowerDiameter(new Measurement(0, 0, Unit.centimeters));
+    conicalFrustum.setUpperDiameter(new Measurement(0, 0, Unit.centimeters));
     
     addValueListener(lowerDiameterValue, conicalFrustum.getLowerDiameter());
     addValueListener(upperDiameterValue, conicalFrustum.getUpperDiameter());

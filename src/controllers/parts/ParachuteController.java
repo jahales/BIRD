@@ -111,9 +111,9 @@ public class ParachuteController {
    * Initialize the parachute part and add listeners
    */
   public void initialize() {
-    parachute.setDragCoefficient(new Measurement(0, 0, Unit.Number));
-    parachute.setDeployedDiameter(new Measurement(0, 0, Unit.centiMeter));
-    parachute.setDeploymentAltitude(new Measurement(0, 0, Unit.Meter));
+    parachute.setDragCoefficient(new Measurement(0, 0, Unit.number));
+    parachute.setDeployedDiameter(new Measurement(0, 0, Unit.centimeters));
+    parachute.setDeploymentAltitude(new Measurement(0, 0, Unit.meters));
     
     addValueListener(deployedDiameterValue, parachute.getDeployedDiameter());
     addValueListener(deploymentAltitudeValue, parachute.getDeploymentAltitude());

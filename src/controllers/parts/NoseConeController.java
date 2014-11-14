@@ -92,7 +92,7 @@ public class NoseConeController {
    */
   public void initialize() {
     noseCone.setShapeParameter(0);
-    noseCone.setDiameter(new Measurement(0, 0, Unit.centiMeter));
+    noseCone.setDiameter(new Measurement(0, 0, Unit.centimeters));
     
     addUnitListener(diameterUnits, noseCone.getDiameter());
     shape.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {

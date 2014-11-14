@@ -115,9 +115,9 @@ public class FinController {
    */
   public void initialize() {
     fin.setCount(0);
-    fin.setSpanLength(new Measurement(0, 0, Unit.centiMeter));
-    fin.setSweepLength(new Measurement(0, 0, Unit.centiMeter));
-    fin.setRootChord(new Measurement(0, 0, Unit.centiMeter));
+    fin.setSpanLength(new Measurement(0, 0, Unit.centimeters));
+    fin.setSweepLength(new Measurement(0, 0, Unit.centimeters));
+    fin.setRootChord(new Measurement(0, 0, Unit.centimeters));
     
     finCountValue.textProperty().addListener(new ChangeListener<String>() {
       @Override
