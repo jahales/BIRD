@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+
+<ChoiceBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<items>
+		<FXCollections fx:factory="observableArrayList">
+			<String fx:value="Milliseconds" />
+			<String fx:value="Seconds" />
+			<String fx:value="Minutes" />
+			<String fx:value="Hours" />
+			<String fx:value="Pounds" />
+		</FXCollections>
+	</items>
+	<value>
+		<String fx:value="Seconds" />
+	</value>
+</ChoiceBox>

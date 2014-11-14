@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+
+<ChoiceBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<items>
+		<FXCollections fx:factory="observableArrayList">
+			<String fx:value="Grams" />
+			<String fx:value="Kilograms" />
+			<String fx:value="Ounces" />
+			<String fx:value="Pounds" />
+		</FXCollections>
+	</items>
+	<value>
+		<String fx:value="Grams" />
+	</value>
+</ChoiceBox>

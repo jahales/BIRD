@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+
+<ChoiceBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<items>
+		<FXCollections fx:factory="observableArrayList">
+			<String fx:value="Degrees" />
+			<String fx:value="Radians" />
+		</FXCollections>
+	</items>
+	<value>
+		<String fx:value="Degrees" />
+	</value>
+</ChoiceBox>
