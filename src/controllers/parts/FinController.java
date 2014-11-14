@@ -66,12 +66,53 @@ public class FinController {
   @FXML
   private ChoiceBox<String> sweepLengthUnits;
 
+  private void addUnitListener(ChoiceBox<String> field, Measurement measurement) {
+    field.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+      @Override
+      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
+        measurement.setUnit(Unit.valueOf(arg2));
+      }
+    });
+  }
+  
+  private void addValueListener(TextField field, Measurement measurement) {
+    field.textProperty().addListener(new ChangeListener<String>() {
+      @Override
+      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
+        try {
+          measurement.setValue(Double.parseDouble(arg2));
+        } catch (NumberFormatException e) {
+          e.printStackTrace();
+        }
+      }
+    });
+  }
+  
+  private void addErrorListener(TextField field, Measurement measurement) {
+    field.textProperty().addListener(new ChangeListener<String>() {
+      @Override
+      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
+        try {
+          measurement.setError(Double.parseDouble(arg2));
+        } catch (NumberFormatException e) {
+          e.printStackTrace();
+        }
+      }
+    });
+  }
+  
   public void initialize() {
-    rootChordUnits.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-          @Override
-          public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-            System.out.println("You selected: " + arg2);
-          }
-        });
+    addValueListener(finCountValue, finCount);
+    addValueListener(rootChordValue, rootChord);
+    addValueListener(spanLengthValue, spanLength);
+    addValueListener(sweepLengthValue, sweepLength);
+    
+    addErrorListener(rootChordError, rootChord);
+    addErrorListener(spanLengthError, spanLength);
+    addErrorListener(sweepLengthError, sweepLength);
+    
+    addUnitListener(rootChordUnits, rootChord);
+    addUnitListener(spanLengthUnits, spanLength);
+    addUnitListener(sweepLengthUnits, sweepLength);
   }
 }
