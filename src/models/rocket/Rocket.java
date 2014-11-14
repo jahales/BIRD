@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import models.Measurement;
-import models.rocketmodel.parts.Motor;
-import models.rocketmodel.parts.Parachute;
-import models.rocketmodel.parts.RocketComponent;
+import models.rocket.parts.Motor;
+import models.rocket.parts.Parachute;
+import models.rocket.parts.RocketComponent;
 
 /**
  * A rocket
@@ -17,16 +17,12 @@ import models.rocketmodel.parts.RocketComponent;
  */
 public class Rocket {
 
-  private List<RocketComponent> components;
-  private List<RocketComponent> interiorComponents;
-  private List<RocketComponent> exteriorComponents;
-  private List<Motor> motors;
-  private List<Parachute> parachutes;
-  private boolean overrideEnabled;
   private Measurement mass;
   private Measurement radialCenterOfMass;
   private Measurement radialMomentOfInertia;
   private Measurement longitudinalMomentOfInertia;
+  private List<RocketComponent> interiorComponents;
+  private List<RocketComponent> exteriorComponents;
   private Map<String, Measurement> overrides = new HashMap<String, Measurement>();
 
   public Measurement getMass() {
@@ -36,7 +32,7 @@ public class Rocket {
   public void setMass(Measurement mass) {
     this.mass = mass;
   }
-  
+
   /**
    *
    * @return
@@ -51,20 +47,6 @@ public class Rocket {
    */
   public void setOverrides(Map<String, Measurement> overrides) {
     this.overrides = overrides;
-  }
-
-  /**
-   * @return components
-   */
-  public List<RocketComponent> getComponents() {
-    return components;
-  }
-
-  /**
-   * @param components
-   */
-  public void setComponents(List<RocketComponent> components) {
-    this.components = components;
   }
 
   /**
@@ -93,48 +75,6 @@ public class Rocket {
    */
   public void setExteriorComponents(List<RocketComponent> exteriorComponents) {
     this.exteriorComponents = exteriorComponents;
-  }
-
-  /**
-   * @return motors
-   */
-  public List<Motor> getMotors() {
-    return motors;
-  }
-
-  /**
-   * @param motors
-   */
-  public void setMotors(List<Motor> motors) {
-    this.motors = motors;
-  }
-
-  /**
-   * @return parachutes
-   */
-  public List<Parachute> getParachutes() {
-    return parachutes;
-  }
-
-  /**
-   * @param parachutes
-   */
-  public void setParachutes(List<Parachute> parachutes) {
-    this.parachutes = parachutes;
-  }
-
-  /**
-   * @return overrideEnabled
-   */
-  public boolean isOverrideEnabled() {
-    return overrideEnabled;
-  }
-
-  /**
-   * @param overrideEnabled
-   */
-  public void setOverrideEnabled(boolean overrideEnabled) {
-    this.overrideEnabled = overrideEnabled;
   }
 
   /**

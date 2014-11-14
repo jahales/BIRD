@@ -1,4 +1,4 @@
-package models.rocketmodel.parts;
+package models.rocket.parts;
 
 import models.report.DataTable;
 import models.Measurement;
