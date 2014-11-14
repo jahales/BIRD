@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import models.Measurement;
-import models.rocket.parts.Motor;
-import models.rocket.parts.Parachute;
 import models.rocket.parts.RocketComponent;
 
 /**
@@ -16,7 +14,6 @@ import models.rocket.parts.RocketComponent;
  *
  */
 public class Rocket {
-
   private Measurement mass;
   private Measurement radialCenterOfMass;
   private Measurement radialMomentOfInertia;
