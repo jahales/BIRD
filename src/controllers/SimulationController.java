@@ -1,51 +1,59 @@
 package controllers;
 
+import java.io.File;
+
 import models.Measurement;
 import models.Unit;
 import models.simulator.Simulation;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 
+/**
+ * Controller for simulation tab view
+ * 
+ * @author Brian Woodruff
+ *
+ */
 public class SimulationController {
   private Simulation simulation = new Simulation();
   private Measurement length = new Measurement(0, 0, Unit.centimeters);
   private Measurement azimuthAngle = new Measurement(0, 0, Unit.degrees);
   private Measurement polarAngle = new Measurement(0, 0, Unit.degrees);
+
+  @FXML
+  private Label rocketFilePath;
+
+  @FXML
+  private Label atmosphereFilePath;
   
   @FXML
   private Label engineFilePath;
 
   @FXML
-  private TextField lengthValue;
+  private Label launchRailFilePath;
 
   @FXML
-  private TextField azimuthAngleValue;
+  private TextField lengthValue;
 
   @FXML
   private TextField polarAngleValue;
 
   @FXML
-  private TextField lengthError;
+  private TextField azimuthAngleValue;
 
   @FXML
-  private TextField azimuthAngleError;
+  private TextField lengthError;
 
   @FXML
   private TextField polarAngleError;
 
   @FXML
-  private Label atmosphereFilePath;
-
-  @FXML
-  private Label launchRailFilePath;
-
-  @FXML
-  private Label rocketFilePath;
+  private TextField azimuthAngleError;
 
   @FXML
   private ChoiceBox<String> lengthUnits;
@@ -57,28 +65,52 @@ public class SimulationController {
   private ChoiceBox<String> azimuthAngleUnits;
 
   @FXML
-  void runSimulation(ActionEvent event) {
+  void runSimulation() {
     
   }
 
   @FXML
-  void openRocketFile(ActionEvent event) {
-
+  void openRocketFile() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Rocket File");
+    File file = fileChooser.showOpenDialog(rocketFilePath.getScene().getWindow());
+    if (file != null) {
+      rocketFilePath.setText(file.getName());
+      simulation.setRocketFile(file.getAbsolutePath());
+    }
   }
 
   @FXML
-  void openAtmosphereFile(ActionEvent event) {
-
+  void openAtmosphereFile() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Atmosphere File");
+    File file = fileChooser.showOpenDialog(atmosphereFilePath.getScene().getWindow());
+    if (file != null) {
+      atmosphereFilePath.setText(file.getName());
+      simulation.setAtmosphereFile(file.getAbsolutePath());
+    }
   }
 
   @FXML
-  void openEngineFile(ActionEvent event) {
-
+  void openEngineFile() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Engine File");
+    File file = fileChooser.showOpenDialog(engineFilePath.getScene().getWindow());
+    if (file != null) {
+      engineFilePath.setText(file.getName());
+      simulation.setEngineFile(file.getAbsolutePath());
+    }
   }
 
   @FXML
-  void openLaunchRail(ActionEvent event) {
-
+  void openLaunchRail() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Launch Rail File");
+    File file = fileChooser.showOpenDialog(launchRailFilePath.getScene().getWindow());
+    if (file != null) {
+      launchRailFilePath.setText(file.getName());
+      simulation.setLaunchRailFile(file.getAbsolutePath());
+    }
   }
   /**
    * Updates the unit when user selects a unit.
