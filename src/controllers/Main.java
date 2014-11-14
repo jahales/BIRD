@@ -6,10 +6,8 @@ package controllers;
  * and open the template in the editor.
  */
 
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -18,26 +16,19 @@ import javafx.stage.Stage;
  * @author Jacob
  */
 public class Main extends Application {
-
-  /**
-   *
-   * @param args
-   */
-  public static void main(String[] args)
-  {
-    Application.launch(Main.class, (java.lang.String[])null);
+  public static void main(String[] args) {
+    Application.launch(Main.class, (java.lang.String[]) null);
   }
 
   @Override
-    public void start(Stage primaryStage) {
-        try {
-            Parent page = (Parent) FXMLLoader.load(Main.class.getResource("/views/MainView.fxml"));
-            Scene scene = new Scene(page);
-            primaryStage.setScene(scene);
-            primaryStage.setTitle("BIRD");
-            primaryStage.show();
-        } catch (Exception ex) {
-          ex.printStackTrace();
-        }
+  public void start(Stage primaryStage) {
+    try {
+      Scene scene = new Scene(FXMLLoader.load(Main.class.getResource("/views/MainView.fxml")));
+      primaryStage.setScene(scene);
+      primaryStage.setTitle("BIRD");
+      primaryStage.show();
+    } catch (Exception ex) {
+      ex.printStackTrace();
     }
+  }
 }

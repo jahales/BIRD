@@ -18,57 +18,50 @@ import models.report.DataTable.RowFormatError;
  *
  */
 public class CSVReader {
-    /**
-     * Loads a CSV file and returns a data table representation of the file.
-     * 
-     * @param file
-     * @return DataTable
-     * @throws IOException 
-     */
-    public static DataTable loadCSV(String file) throws IOException {
-	DataTable dataTable = new DataTable();
-	BufferedReader bf = new BufferedReader(new FileReader(file));
-	String delimiter = ",";
-	String line;
-	
-	// Read column headers
-	if ((line = bf.readLine()) != null) {
-	    line.split(delimiter);
-	    dataTable.setColumnNames(Arrays.asList(line.split(delimiter)));
-	}
-	
-	// Read the rest, row by row
-	while ((line = bf.readLine()) != null) {
-	    try {
-		dataTable.addRow(stringListToNumberList(Arrays.asList(line.split(delimiter))));
-	    } catch (RowFormatError e) {
-		e.printStackTrace();
-	    }
-	}
-	
-	bf.close();
-	return dataTable;
+  /**
+   * Loads a CSV file and returns a data table representation of the file.
+   * 
+   * @param file
+   * @return DataTable
+   * @throws IOException
+   */
+  public static DataTable loadCSV(String file) throws IOException {
+    DataTable dataTable = new DataTable();
+    BufferedReader bf = new BufferedReader(new FileReader(file));
+    String delimiter = ",";
+    String line;
+
+    // Read column headers
+    if ((line = bf.readLine()) != null) {
+      for (String name : line.split(delimiter)) {
+        dataTable.addColumn(name);
+      }
     }
-    
-    /**
-     * Convert a list of strings to a list of numbers
-     * 
-     * @param stringList
-     * @return numberList
-     */
-    private static List<Number> stringListToNumberList(List<String> stringList) {
-	List<Number> numberList = new ArrayList<Number>();
-	for (String item : stringList) {
-	    numberList.add(Double.parseDouble(item));
-	}
-	return numberList;
+
+    // Read the rest, row by row
+    while ((line = bf.readLine()) != null) {
+      try {
+        dataTable.addRow(stringListToNumberList(Arrays.asList(line.split(delimiter))));
+      } catch (RowFormatError e) {
+        e.printStackTrace();
+      }
     }
+
+    bf.close();
+    return dataTable;
+  }
+
+  /**
+   * Convert a list of strings to a list of numbers
+   * 
+   * @param stringList
+   * @return numberList
+   */
+  private static List<Number> stringListToNumberList(List<String> stringList) {
+    List<Number> numberList = new ArrayList<Number>();
+    for (String item : stringList) {
+      numberList.add(Double.parseDouble(item));
+    }
+    return numberList;
+  }
 }
-
-
-
-
-
-
-
-
