@@ -23,15 +23,32 @@ public class Rocket {
   private List<Motor> motors;
   private List<Parachute> parachutes;
   private boolean overrideEnabled;
+  private Measurement mass;
   private Measurement radialCenterOfMass;
   private Measurement radialMomentOfInertia;
   private Measurement longitudinalMomentOfInertia;
   private Map<String, Measurement> overrides = new HashMap<String, Measurement>();
 
+  public Measurement getMass() {
+    return mass;
+  }
+
+  public void setMass(Measurement mass) {
+    this.mass = mass;
+  }
+  
+  /**
+   *
+   * @return
+   */
   public Map<String, Measurement> getOverrides() {
     return overrides;
   }
 
+  /**
+   *
+   * @param overrides
+   */
   public void setOverrides(Map<String, Measurement> overrides) {
     this.overrides = overrides;
   }

@@ -18,6 +18,11 @@ import javafx.stage.Stage;
  * @author Jacob
  */
 public class Main extends Application {
+
+  /**
+   *
+   * @param args
+   */
   public static void main(String[] args)
   {
     Application.launch(Main.class, (java.lang.String[])null);
