@@ -4,14 +4,11 @@
 <?import java.lang.*?>
 <?import javafx.collections.*?>
 
-<ChoiceBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<ChoiceBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" value="grams">
 	<items>
 		<FXCollections fx:factory="observableArrayList">
 			<String fx:value="grams" />
 			<String fx:value="kilograms" />
 		</FXCollections>
 	</items>
-	<value>
-		<String fx:value="grams" />
-	</value>
 </ChoiceBox>
