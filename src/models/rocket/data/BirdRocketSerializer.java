@@ -11,7 +11,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import models.Measurement;
-import models.rocketmodel.Rocket;
+import models.rocket.Rocket;
 import models.rocket.parts.CircularCylinder;
 import models.rocket.parts.ConicalFrustum;
 import models.rocket.parts.Motor;

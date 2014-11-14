@@ -1,6 +1,6 @@
 package models.rocket.data;
 
-import models.rocketmodel.Rocket;
+import models.rocket.Rocket;
 
 /**
  * Represents a repository of rockets that supports basic data operations (CRUD)

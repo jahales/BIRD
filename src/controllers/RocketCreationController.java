@@ -8,7 +8,7 @@ import javafx.scene.control.TreeView;
  *
  * @author Jacob
  */
-public class RocketcreationController {
+public class RocketCreationController {
 
     @FXML
     private TreeView<?> partList;

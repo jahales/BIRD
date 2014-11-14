@@ -7,10 +7,11 @@ package models.rocket.data;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import models.rocketmodel.Rocket;
+import models.rocket.Rocket;
 
 /**
- *
+ * Serializes and deserializes a rocket for interoperability with other programs using the 
+ * OpenRocket file format. 
  * @author Jacob
  */
 public class OpenRocketSerializer implements IRocketSerializer {

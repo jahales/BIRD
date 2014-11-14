@@ -1,4 +1,4 @@
-package models.rocketmodel;
+package models.rocket;
 
 import models.rocket.data.FileSystemRocketRepository;
 import java.io.ByteArrayInputStream;

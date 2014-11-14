@@ -1,4 +1,4 @@
-package models.rocketmodel;
+package models.rocket;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,10 +25,18 @@ public class Rocket {
   private List<RocketComponent> exteriorComponents;
   private Map<String, Measurement> overrides = new HashMap<String, Measurement>();
 
+  /**
+   *
+   * @return
+   */
   public Measurement getMass() {
     return mass;
   }
 
+  /**
+   *
+   * @param mass
+   */
   public void setMass(Measurement mass) {
     this.mass = mass;
   }
