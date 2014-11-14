@@ -1,60 +1,48 @@
 package controllers.parts;
 
-import models.Measurement;
-import models.Unit;
-import models.rocket.parts.TrapezoidFinSet;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import models.Measurement;
+import models.Unit;
+import models.rocket.parts.ConicalFrustum;
 
 /**
- * A controller for a fin part.
+ * A controller for a conical frustum part.
  * 
  * @author Brian Woodruff
  *
  */
-public class FinController {
-  private TrapezoidFinSet fin = new TrapezoidFinSet();
+public class ConicalFrustumController {
+  private ConicalFrustum conicalFrustum = new ConicalFrustum();
+  
+  @FXML
+  private TextField upperDiameterValue;
 
   @FXML
-  private TextField finCountValue;
+  private TextField lowerDiameterValue;
 
   @FXML
-  private TextField spanLengthValue;
+  private TextField upperDiameterError;
 
   @FXML
-  private TextField spanLengthError;
+  private TextField lowerDiameterError;
 
   @FXML
-  private TextField sweepLengthValue;
+  private ChoiceBox<String> upperDiameterUnits;
 
   @FXML
-  private TextField sweepLengthError;
-
-  @FXML
-  private TextField rootChordError;
-
-  @FXML
-  private TextField rootChordValue;
-
-  @FXML
-  private ChoiceBox<String> rootChordUnits;
-
-  @FXML
-  private ChoiceBox<String> spanLengthUnits;
-
-  @FXML
-  private ChoiceBox<String> sweepLengthUnits;
+  private ChoiceBox<String> lowerDiameterUnits;
 
   /**
-   * Get the trapezoid fin set
+   * Get the conical frustum
    * 
-   * @return fin
+   * @return conicalFrustum
    */
-  public TrapezoidFinSet getFin() {
-    return fin;
+  public ConicalFrustum getConicalFrustum() {
+    return conicalFrustum;
   }
 
   /**
@@ -71,7 +59,7 @@ public class FinController {
       }
     });
   }
-
+  
   /**
    * Updates the value when the user changes it.
    * 
@@ -90,7 +78,7 @@ public class FinController {
       }
     });
   }
-
+  
   /**
    * Updates the error when the user changes it.
    * 
@@ -111,34 +99,19 @@ public class FinController {
   }
   
   /**
-   * Initialize the fin set and add listeners.
+   * Initialize values for concial frustum and add listeners.
    */
   public void initialize() {
-    fin.setCount(0);
-    fin.setSpanLength(new Measurement(0, 0, Unit.centiMeter));
-    fin.setSweepLength(new Measurement(0, 0, Unit.centiMeter));
-    fin.setRootChord(new Measurement(0, 0, Unit.centiMeter));
+    conicalFrustum.setLowerDiameter(new Measurement(0, 0, Unit.centiMeter));
+    conicalFrustum.setUpperDiameter(new Measurement(0, 0, Unit.centiMeter));
     
-    finCountValue.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        try {
-          fin.setCount(Integer.parseInt(arg2));
-        } catch (NumberFormatException e) {
-          e.printStackTrace();
-        }
-      }
-    });
-    addValueListener(rootChordValue, fin.getRootChord());
-    addValueListener(spanLengthValue, fin.getSpanLength());
-    addValueListener(sweepLengthValue, fin.getSweepLength());
+    addValueListener(lowerDiameterValue, conicalFrustum.getLowerDiameter());
+    addValueListener(upperDiameterValue, conicalFrustum.getUpperDiameter());
     
-    addErrorListener(rootChordError, fin.getRootChord());
-    addErrorListener(spanLengthError, fin.getSpanLength());
-    addErrorListener(sweepLengthError, fin.getSweepLength());
+    addErrorListener(lowerDiameterError, conicalFrustum.getLowerDiameter());;
+    addErrorListener(upperDiameterError, conicalFrustum.getUpperDiameter());
     
-    addUnitListener(rootChordUnits, fin.getRootChord());
-    addUnitListener(spanLengthUnits, fin.getSpanLength());
-    addUnitListener(sweepLengthUnits, fin.getSweepLength());
+    addUnitListener(lowerDiameterUnits, conicalFrustum.getLowerDiameter());
+    addUnitListener(upperDiameterUnits, conicalFrustum.getUpperDiameter());
   }
 }

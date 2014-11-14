@@ -1,60 +1,57 @@
 package controllers.parts;
 
-import models.Measurement;
-import models.Unit;
-import models.rocket.parts.TrapezoidFinSet;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import models.Measurement;
+import models.Unit;
+import models.rocket.parts.Parachute;
 
 /**
- * A controller for a fin part.
+ * Controller for the parachute view
  * 
  * @author Brian Woodruff
  *
  */
-public class FinController {
-  private TrapezoidFinSet fin = new TrapezoidFinSet();
+public class ParachuteController {
+  private Parachute parachute = new Parachute();
 
   @FXML
-  private TextField finCountValue;
+  private TextField dragCoefficientValue;
 
   @FXML
-  private TextField spanLengthValue;
+  private TextField deployedDiameterValue;
 
   @FXML
-  private TextField spanLengthError;
+  private TextField deploymentAltitudeValue;
 
   @FXML
-  private TextField sweepLengthValue;
+  private TextField dragCoefficientError;
 
   @FXML
-  private TextField sweepLengthError;
+  private TextField deployedDiameterError;
 
   @FXML
-  private TextField rootChordError;
+  private TextField deploymentAltitudeError;
 
   @FXML
-  private TextField rootChordValue;
+  private ChoiceBox<String> dragCoefficientUnits;
 
   @FXML
-  private ChoiceBox<String> rootChordUnits;
+  private ChoiceBox<String> deployedDiameterUnits;
 
   @FXML
-  private ChoiceBox<String> spanLengthUnits;
-
-  @FXML
-  private ChoiceBox<String> sweepLengthUnits;
-
+  private ChoiceBox<String> deploymentAltitudeUnits;
+  
   /**
-   * Get the trapezoid fin set
+   * Get the parachute part
    * 
-   * @return fin
+   * @return parachute
    */
-  public TrapezoidFinSet getFin() {
-    return fin;
+  public Parachute getParachute() {
+    return parachute;
   }
 
   /**
@@ -111,34 +108,23 @@ public class FinController {
   }
   
   /**
-   * Initialize the fin set and add listeners.
+   * Initialize the parachute part and add listeners
    */
   public void initialize() {
-    fin.setCount(0);
-    fin.setSpanLength(new Measurement(0, 0, Unit.centiMeter));
-    fin.setSweepLength(new Measurement(0, 0, Unit.centiMeter));
-    fin.setRootChord(new Measurement(0, 0, Unit.centiMeter));
+    parachute.setDragCoefficient(new Measurement(0, 0, Unit.Number));
+    parachute.setDeployedDiameter(new Measurement(0, 0, Unit.centiMeter));
+    parachute.setDeploymentAltitude(new Measurement(0, 0, Unit.Meter));
     
-    finCountValue.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        try {
-          fin.setCount(Integer.parseInt(arg2));
-        } catch (NumberFormatException e) {
-          e.printStackTrace();
-        }
-      }
-    });
-    addValueListener(rootChordValue, fin.getRootChord());
-    addValueListener(spanLengthValue, fin.getSpanLength());
-    addValueListener(sweepLengthValue, fin.getSweepLength());
+    addValueListener(deployedDiameterValue, parachute.getDeployedDiameter());
+    addValueListener(deploymentAltitudeValue, parachute.getDeploymentAltitude());
+    addValueListener(dragCoefficientValue, parachute.getDragCoefficient());
     
-    addErrorListener(rootChordError, fin.getRootChord());
-    addErrorListener(spanLengthError, fin.getSpanLength());
-    addErrorListener(sweepLengthError, fin.getSweepLength());
+    addErrorListener(deployedDiameterError, parachute.getDeployedDiameter());
+    addErrorListener(deploymentAltitudeError, parachute.getDeploymentAltitude());
+    addErrorListener(dragCoefficientError, parachute.getDragCoefficient());
     
-    addUnitListener(rootChordUnits, fin.getRootChord());
-    addUnitListener(spanLengthUnits, fin.getSpanLength());
-    addUnitListener(sweepLengthUnits, fin.getSweepLength());
+    addUnitListener(deployedDiameterUnits, parachute.getDeployedDiameter());
+    addUnitListener(deploymentAltitudeUnits, parachute.getDeploymentAltitude());
+    addUnitListener(dragCoefficientUnits, parachute.getDragCoefficient());
   }
 }

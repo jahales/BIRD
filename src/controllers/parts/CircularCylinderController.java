@@ -2,6 +2,7 @@ package controllers.parts;
 
 import models.Measurement;
 import models.Unit;
+import models.rocket.parts.CircularCylinder;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -15,7 +16,7 @@ import javafx.scene.control.TextField;
  *
  */
 public class CircularCylinderController {
-  private Measurement diameter;
+  private CircularCylinder circularCylinder = new CircularCylinder();
   
   @FXML
   private TextField diameterValue;
@@ -25,6 +26,15 @@ public class CircularCylinderController {
 
   @FXML
   private ChoiceBox<String> diameterUnits;
+  
+  /**
+   * Get the circular cylinder
+   * 
+   * @return circularCylinder
+   */
+  public CircularCylinder getCircularCylinder() {
+    return circularCylinder;
+  }
   
   /**
    * Updates the unit when user selects a unit.
@@ -62,6 +72,7 @@ public class CircularCylinderController {
   
   /**
    * Updates the error when the user changes it.
+   * 
    * @param field
    * @param measurement
    */
@@ -79,13 +90,15 @@ public class CircularCylinderController {
   }
   
   /**
-   * Add listeners
+   * Initialize values for circular cylinder and add listeners.
    */
   public void initialize() {
-    addValueListener(diameterValue, diameter);
+    circularCylinder.setDiameter(new Measurement(0, 0, Unit.centiMeter));
     
-    addErrorListener(diameterError, diameter);
+    addValueListener(diameterValue, circularCylinder.getDiameter());
     
-    addUnitListener(diameterUnits, diameter);
+    addErrorListener(diameterError, circularCylinder.getDiameter());
+    
+    addUnitListener(diameterUnits, circularCylinder.getDiameter());
   }
 }
