@@ -5,22 +5,44 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="350" prefWidth="500" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SimulationController">
+<GridPane alignment="CENTER" hgap="3.0" vgap="3.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SimulationController">
+	<columnConstraints>
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+	</columnConstraints>
+	<rowConstraints>
+		<RowConstraints vgrow="SOMETIMES" minHeight="10.0" />
+		<RowConstraints vgrow="SOMETIMES" minHeight="10.0" />
+		<RowConstraints vgrow="SOMETIMES" minHeight="10.0" />
+		<RowConstraints vgrow="SOMETIMES" minHeight="10.0" />
+		<RowConstraints vgrow="SOMETIMES" minHeight="10.0" />
+		<RowConstraints vgrow="SOMETIMES" minHeight="10.0" />
+		<RowConstraints vgrow="SOMETIMES" minHeight="10.0" />
+		<RowConstraints vgrow="SOMETIMES" minHeight="10.0" />
+	</rowConstraints>
 	<children>
-		<Label layoutX="76" layoutY="36" text="Files" />
-		<Label layoutX="120" layoutY="66" text="Rocket File" />
-		<Label layoutX="91" layoutY="92" text="Atmosphere File" />
-		<Label layoutX="120" layoutY="118" text="Engine File" />
-		<Label layoutX="66" layoutY="168" text="Launch Rail" />
-		<Label layoutX="150" layoutY="194" text="Length" />
-		<Label layoutX="124" layoutY="220" text="Polar Angle" />
-		<Label layoutX="108" layoutY="246" text="Azimuth Angle" />
-		<TextField fx:id="rocketFile" layoutX="188" layoutY="62" />
-		<TextField fx:id="AtmosphereFile" layoutX="188" layoutY="88" />
-		<TextField fx:id="engineFile" layoutX="188" layoutY="114" />
-		<TextField fx:id="length" layoutX="188" layoutY="190" />
-		<TextField fx:id="polarAngle" layoutX="188" layoutY="216" />
-		<TextField fx:id="asimuthAngle" layoutX="188" layoutY="242" />
-		<Button layoutX="384" layoutY="242" mnemonicParsing="false" onAction="#run" text="Run Simulation" />
+		<Label text="Rocket File" />
+		<Label text="Atmosphere File" GridPane.rowIndex="1" />
+		<TextField fx:id="polarAngle" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+		<Label text="Launch Rail" GridPane.rowIndex="3" />
+		<Label text="Azimuth Angle" GridPane.rowIndex="6" />
+		<Label text="Engine File" GridPane.rowIndex="2" />
+		<Label text="Polar Angle" GridPane.rowIndex="5" />
+		<TextField fx:id="asimuthAngle" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+		<TextField fx:id="length" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+		<Label text="Length" GridPane.rowIndex="4" />
+		<Button mnemonicParsing="false" onAction="#runSimulation" text="Run Simulation" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+		<Button mnemonicParsing="false" onAction="#openRocketFile" text="Open File" GridPane.columnIndex="2" />
+		<Button mnemonicParsing="false" onAction="#openAtmosphereFile" text="Open File" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+		<Button mnemonicParsing="false" onAction="#openEngineFile" text="Open File" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+		<Button mnemonicParsing="false" onAction="#openLaunchRail" text="Open File" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+		<fx:include fx:id="lengthUnits" source="parts/fxmlpieces/Length.fxml" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+		<fx:include fx:id="polarAngleUnits" source="parts/fxmlpieces/Angle.fxml" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+		<fx:include fx:id="azimuthAngleUnits" source="parts/fxmlpieces/Angle.fxml" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+		<Label fx:id="rocketFilePath" GridPane.columnIndex="1" />
+		<Label fx:id="atmosphereFilePath" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+		<Label fx:id="engineFilePath" GridPane.columnIndex="1" GridPane.rowIndex="2" />	
+		<Label fx:id="launchRailFilePath" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 	</children>
-</AnchorPane>
+</GridPane>
