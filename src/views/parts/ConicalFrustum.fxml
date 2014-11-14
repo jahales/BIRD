@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<columnConstraints>
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+	</columnConstraints>
+	<rowConstraints>
+		<RowConstraints vgrow="SOMETIMES" minHeight="10" prefHeight="30" />
+		<RowConstraints vgrow="SOMETIMES" minHeight="10" prefHeight="30" />
+	</rowConstraints>
+	<children>
+		<Label text="Upper Diameter" />
+		<Label text="Lower Diameter" GridPane.rowIndex="1" />
+		<TextField fx:id="upperDiameter" GridPane.columnIndex="1" />
+		<TextField fx:id="lowerDiameter" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+		<fx:include fx:id="upperDiameterUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="2" />
+		<fx:include fx:id="lowerDiameterUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+	</children>
+</GridPane>

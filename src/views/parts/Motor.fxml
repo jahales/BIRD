@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<columnConstraints>
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+	</columnConstraints>
+	<rowConstraints>
+		<RowConstraints vgrow="SOMETIMES" minHeight="10" prefHeight="30" />
+		<RowConstraints vgrow="SOMETIMES" minHeight="10" prefHeight="30" />
+		<RowConstraints vgrow="SOMETIMES" minHeight="10" prefHeight="30" />
+		<RowConstraints vgrow="SOMETIMES" minHeight="10" prefHeight="30" />
+		<RowConstraints vgrow="SOMETIMES" minHeight="10" prefHeight="30" />
+		<RowConstraints vgrow="SOMETIMES" minHeight="10" prefHeight="30" />
+	</rowConstraints>
+	<children>
+		<Label GridPane.rowIndex="0" text="Manufacturer" />
+		<Label GridPane.rowIndex="1" text="Delays" />
+		<Label GridPane.rowIndex="2" text="Fuel Mass" />
+		<Label GridPane.rowIndex="3" text="Polar Angle" />
+		<Label GridPane.rowIndex="4" text="Asimuth Angle" />
+		<Label GridPane.rowIndex="5" text="Thrust" />
+		<TextField GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="manufacturer" />
+		<TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="delays" />
+		<TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="fuelMass" />
+		<TextField GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="polarAngle" />
+		<TextField GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="asimuthAngle" />
+		<Label GridPane.columnIndex="1" GridPane.rowIndex="5" fx:id="thrustFile" />
+		<fx:include GridPane.columnIndex="2" GridPane.rowIndex="1" source="fxmlpieces/Time.fxml" fx:id="delaysUnits" />
+		<fx:include GridPane.columnIndex="2" GridPane.rowIndex="2" source="fxmlpieces/Mass.fxml" fx:id="fuelMassUnits" />
+		<fx:include GridPane.columnIndex="2" GridPane.rowIndex="3" source="fxmlpieces/Angle.fxml" fx:id="polarAngleUnits" />
+		<fx:include GridPane.columnIndex="2" GridPane.rowIndex="4" source="fxmlpieces/Angle.fxml" fx:id="asimuthAngleUnits" />
+		<Button GridPane.columnIndex="2" GridPane.rowIndex="5" mnemonicParsing="false" prefWidth="150" onAction="#loadThrustFile" text="Choose File" />
+	</children>
+</GridPane>

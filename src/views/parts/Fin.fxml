@@ -1,25 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 
-<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="350.0" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FinController">
+<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.parts.FinController">
+	<columnConstraints>
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100" />
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100" />
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100" />
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100" />
+	</columnConstraints>
+	<rowConstraints>
+		<RowConstraints vgrow="SOMETIMES" minHeight="10" prefHeight="30" />
+		<RowConstraints vgrow="SOMETIMES" minHeight="10" prefHeight="30" />
+		<RowConstraints vgrow="SOMETIMES" minHeight="10" prefHeight="30" />
+		<RowConstraints vgrow="SOMETIMES" minHeight="10" prefHeight="30" />
+		<RowConstraints vgrow="SOMETIMES" minHeight="10" prefHeight="30" />
+	</rowConstraints>
 	<children>
-		<Label layoutX="41.0" layoutY="52.0" text="Fin Count" />
-		<Label layoutX="41.0" layoutY="91.0" text="Root Chord" />
-		<Label layoutX="42.0" layoutY="130.0" text="Span Length" />
-		<Label layoutX="42.0" layoutY="169.0" text="Sweep Length" />
-		<TextField fx:id="finCountValue" layoutX="140.0" layoutY="44.0" prefWidth="75.0" />
-		<TextField fx:id="rootChordValue" layoutX="140.0" layoutY="83.0" prefWidth="75.0" />
-		<TextField fx:id="spanLengthValue" layoutX="139.0" layoutY="122.0" prefWidth="75.0" />
-		<TextField fx:id="sweepLengthValue" layoutX="139.0" layoutY="161.0" prefWidth="75.0" />
-		<TextField fx:id="sweepLengthError" layoutX="232.0" layoutY="161.0" prefWidth="75.0" />
-		<TextField fx:id="spanLengthError" layoutX="232.0" layoutY="122.0" prefWidth="75.0" />
-		<TextField fx:id="rootChordError" layoutX="233.0" layoutY="83.0" prefWidth="75.0" />
-		<TextField disable="true" layoutX="233.0" layoutY="44.0" prefWidth="75.0" />
-		<Label layoutX="152.0" layoutY="14.0" text="Value" />
-		<Label layoutX="256.0" layoutY="14.0" text="Error" />
+		<Label GridPane.rowIndex="1" text="Fin Count" />
+		<Label GridPane.rowIndex="2" text="Root Chord" />
+		<Label GridPane.rowIndex="3" text="Span Length" />
+		<Label GridPane.rowIndex="4" text="Sweep Length" />
+		<Label GridPane.columnIndex="1" text="Value" />
+		<TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="finCountValue" />
+		<TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="rootChordValue" />
+		<TextField GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="spanLengthValue" />
+		<TextField GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="sweepLengthValue" />
+		<Label GridPane.columnIndex="2" text="Error" />
+		<TextField GridPane.columnIndex="2" GridPane.rowIndex="2" fx:id="rootChordError" />
+		<TextField GridPane.columnIndex="2" GridPane.rowIndex="3" fx:id="spanLengthError" />
+		<TextField GridPane.columnIndex="2" GridPane.rowIndex="4" fx:id="sweepLengthError" />
+		<Label GridPane.columnIndex="3" text="Units" />
+		<fx:include GridPane.columnIndex="3" GridPane.rowIndex="2" source="fxmlpieces/Length.fxml" fx:id="rootChordUnits" />
+		<fx:include GridPane.columnIndex="3" GridPane.rowIndex="3" source="fxmlpieces/Length.fxml" fx:id="spanLengthUnits" />
+		<fx:include GridPane.columnIndex="3" GridPane.rowIndex="4" source="fxmlpieces/Length.fxml" fx:id="sweepLengthUnits" />
 	</children>
-</Pane>
+</GridPane>
