@@ -15,11 +15,23 @@ import models.rocketmodel.Rocket;
  */
 public class OpenRocketSerializer implements IRocketSerializer {
 
+  /**
+   * Serializes a rocket to the specified output stream
+   * @param rocket The rocket to serialize
+   * @param outputStream The stream to write to
+   * @throws Exception
+   */
   @Override
   public void serialize(Rocket rocket, OutputStream outputStream) throws Exception {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
+  /**
+   * Deserializes a rocket from the specified input stream
+   * @param inputStream The stream to read from
+   * @return Returns the deserialized Rocket
+   * @throws Exception
+   */
   @Override
   public Rocket deserialize(InputStream inputStream) throws Exception {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

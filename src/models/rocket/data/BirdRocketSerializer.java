@@ -25,15 +25,16 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 /**
- *
+ * Serializes and deserializes a rocket for interoperability with other programs using the BIRD
+ * file format.
  * @author Jacob
  */
 public class BirdRocketSerializer implements IRocketSerializer {
 
   /**
-   *
-   * @param rocket
-   * @param outputStream
+   * Serializes a rocket to the specified output stream
+   * @param rocket The rocket to serialize
+   * @param outputStream The stream to write to
    * @throws Exception
    */
   @Override
@@ -169,9 +170,9 @@ public class BirdRocketSerializer implements IRocketSerializer {
   }
 
   /**
-   *
-   * @param stream
-   * @return
+   * Deserializes a rocket from the specified input stream
+   * @param stream The stream to read from
+   * @return Returns the deserialized Rocket
    * @throws Exception
    */
     @Override
