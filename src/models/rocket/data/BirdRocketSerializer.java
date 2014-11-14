@@ -300,7 +300,8 @@ public class BirdRocketSerializer implements IRocketSerializer {
     NoseCone noseCone = new NoseCone();
     String noseShapeString = getElementValue(element, "NoseShape");
     String noseParameterString = getElementValue(element, "NoseParameter", "0");
-    noseCone.setNoseShape(NoseShape.parseString(noseShapeString));
+    noseCone.setNoseShape(NoseShape.valueOf(noseShapeString));
+    
     noseCone.setShapeParameter(Double.parseDouble(noseParameterString));
     noseCone.setDiameter(loadMeasurementElement(element, "Diameter"));
     return noseCone;
