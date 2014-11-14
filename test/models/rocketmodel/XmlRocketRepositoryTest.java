@@ -1,5 +1,6 @@
 package models.rocketmodel;
 
+import models.rocketmodel.data.FileSystemRocketRepository;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.logging.Level;
@@ -23,12 +24,14 @@ public class XmlRocketRepositoryTest {
 
   private Rocket loadXmlString(String s)
   { 
-    try {
-      XmlRocketRepository repository = new XmlRocketRepository();
+    /*try {
+      FileSystemRocketRepository repository = new FileSystemRocketRepository();
       return repository.load(new ByteArrayInputStream(s.getBytes()));
     } catch (Exception ex) {
       return null;
-    }
+    }*/
+    
+    return null;
   }
   
   private String buildRocketXmlString(String override, String exterior, String interior)
