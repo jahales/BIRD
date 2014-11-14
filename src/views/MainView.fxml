@@ -48,7 +48,7 @@
         <tabs>
           <Tab text="Rocket Creation">
                <content>
-      			<fx:include source="Rocketcreation.fxml" />
+      			<fx:include source="RocketCreation.fxml" />
                </content>
           </Tab>
           <Tab text="Simulation">

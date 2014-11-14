@@ -5,7 +5,7 @@ package models.simulator;
  * @author Brian Woodruff
  *
  */
-public class BIRDSimulatorEngine {
+public class BirdSimulatorEngine {
     private Simulation simulation;
     private Process process;
     
