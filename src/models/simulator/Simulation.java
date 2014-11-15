@@ -11,6 +11,7 @@ public class Simulation {
     private String engineFile;
     private String atmosphereFile;
     private String launchRailFile;
+    private LaunchRail launchRail;
     
     /**
      * @return rocketFile
@@ -66,5 +67,19 @@ public class Simulation {
      */
     public void setLaunchRailFile(String launchRailFile) {
         this.launchRailFile = launchRailFile;
+    }
+
+    /**
+     * @return launchRail
+     */
+    public LaunchRail getLaunchRail() {
+      return launchRail;
+    }
+
+    /**
+     * @param launchRail
+     */
+    public void setLaunchRail(LaunchRail launchRail) {
+      this.launchRail = launchRail;
     }
 }
