@@ -1,7 +1,5 @@
 package controllers;
 
-import controllers.RocketCreationController.RocketPart;
-import controllers.parts.PartChooser;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -27,10 +25,6 @@ public class Main extends Application {
       primaryStage.setScene(scene);
       primaryStage.setTitle("BIRD");
       primaryStage.show();
-      PartChooser partChooser = new PartChooser();
-      //RocketPart part 
-      int part = partChooser.showPartDialog(primaryStage.getScene().getWindow());
-      System.out.println("You finally picked: " + part);
     } catch (Exception ex) {
       ex.printStackTrace();
     }
