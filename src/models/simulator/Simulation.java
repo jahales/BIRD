@@ -11,7 +11,7 @@ public class Simulation {
     private String engineFile;
     private String atmosphereFile;
     private String launchRailFile;
-    private LaunchRail launchRail;
+    private LaunchRail launchRail = new LaunchRail();
     
     /**
      * @return rocketFile

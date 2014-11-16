@@ -11,8 +11,8 @@ import models.simulator.Simulation;
 public class AppState {
   private static AppState appState;
   
-  private Rocket rocket;
-  private Simulation simulation;
+  private Rocket rocket = new Rocket();
+  private Simulation simulation = new Simulation();
   //private Property property;
   
   /**
