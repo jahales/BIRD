@@ -4,8 +4,6 @@ import controllers.RocketCreationController.RocketPart;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -36,9 +34,6 @@ public class PartChooser {
     Button addPart = new Button("Add Part");
     Button cancel = new Button("Cancel");
     
-    addPart.setOnAction(close);
-    cancel.setOnAction(close);
-    
     hbox.getChildren().addAll(addPart, cancel);
     vbox.getChildren().addAll(partsList, hbox);
     
@@ -47,15 +42,21 @@ public class PartChooser {
     stage.initOwner(window);
     stage.initModality(Modality.WINDOW_MODAL);
     stage.setScene(new Scene(vbox));
+    
+    addPart.setOnAction((e) -> {
+      stage.close();
+    });
+    cancel.setOnAction((e) -> {
+      selectedRocketPart = null;
+      stage.close();
+    });
+    stage.setOnCloseRequest((e) -> {
+      selectedRocketPart = null;
+      stage.close();
+    });
+    
     stage.showAndWait();
     
     return selectedRocketPart;
   }
-  
-  private EventHandler<ActionEvent> close = new EventHandler<ActionEvent>() {
-    @Override
-    public void handle(ActionEvent arg0) {
-      stage.close();
-    }
-  };
 }

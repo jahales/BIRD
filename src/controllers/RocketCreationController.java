@@ -26,7 +26,7 @@ public class RocketCreationController {
   };
   
   private TreeItem<RocketPart> treeViewRoot;
-  private Map<RocketPart, String> itemFilePath = new HashMap<RocketPart, String>();
+  
   private Map<RocketPart, Parent> itemParent = new HashMap<RocketPart, Parent>();
 
   @FXML
@@ -35,12 +35,19 @@ public class RocketCreationController {
   @FXML
   private AnchorPane partViewer;
 
+  /**
+   * Open PartChooser dialog window and add chosen part to tree view
+   * 
+   * @param event
+   */
   @FXML
   void addPart(ActionEvent event) {
     PartChooser partChooser = new PartChooser();
     RocketPart part = partChooser.showPartDialog(partViewer.getScene().getWindow());
     TreeItem<RocketPart> newPart = new TreeItem<RocketPart>(part);
-    treeViewRoot.getChildren().add(newPart);
+    if (newPart != null) {
+      treeViewRoot.getChildren().add(newPart);
+    }
   }
 
   private ChangeListener<TreeItem<RocketPart>> selectionEvent = new ChangeListener<TreeItem<RocketPart>>() {
@@ -53,37 +60,27 @@ public class RocketCreationController {
     }
   };
   
+  /**
+   * Setup a map from RocketParts to the editor for each part.
+   * 
+   * @throws IOException
+   */
   private void setMaps() throws IOException {
-    itemFilePath.put(RocketPart.CircularCylinder, "/views/parts/CircularCylinder.fxml");
-    itemFilePath.put(RocketPart.ConicalFrustum,   "/views/parts/ConicalFrustum.fxml");
-    itemFilePath.put(RocketPart.Motor,            "/views/parts/Motor.fxml");
-    itemFilePath.put(RocketPart.NoseCone,         "/views/parts/NoseCone.fxml");
-    itemFilePath.put(RocketPart.Parachute,        "/views/parts/Parachute.fxml");
-    itemFilePath.put(RocketPart.TrapezoidFinSet,  "/views/parts/TrapezoidFinSet.fxml");
-    
-    Parent circularCylinder = (Parent) FXMLLoader.load(getClass().getResource(itemFilePath.get(RocketPart.CircularCylinder))); // Good
-    Parent conicalFrustum   = (Parent) FXMLLoader.load(getClass().getResource(itemFilePath.get(RocketPart.ConicalFrustum))); // Bad
-    Parent motor            = (Parent) FXMLLoader.load(getClass().getResource(itemFilePath.get(RocketPart.Motor))); // Good
-    Parent noseCone         = (Parent) FXMLLoader.load(getClass().getResource(itemFilePath.get(RocketPart.NoseCone))); // Bad
-    Parent parachute        = (Parent) FXMLLoader.load(getClass().getResource(itemFilePath.get(RocketPart.Parachute))); // Bad
-    Parent trapezoidFinSet  = (Parent) FXMLLoader.load(getClass().getResource(itemFilePath.get(RocketPart.TrapezoidFinSet))); // Good
-
-    itemParent.put(RocketPart.CircularCylinder, circularCylinder);
-    itemParent.put(RocketPart.ConicalFrustum, conicalFrustum);
-    itemParent.put(RocketPart.Motor, motor);
-    itemParent.put(RocketPart.NoseCone, noseCone);
-    itemParent.put(RocketPart.Parachute, parachute);
-    itemParent.put(RocketPart.TrapezoidFinSet, trapezoidFinSet);
+    itemParent.put(RocketPart.CircularCylinder, (Parent) FXMLLoader.load(getClass().getResource("/views/parts/CircularCylinder.fxml")));
+    itemParent.put(RocketPart.ConicalFrustum,   (Parent) FXMLLoader.load(getClass().getResource("/views/parts/ConicalFrustum.fxml")));
+    itemParent.put(RocketPart.Motor,            (Parent) FXMLLoader.load(getClass().getResource("/views/parts/Motor.fxml")));
+    itemParent.put(RocketPart.NoseCone,         (Parent) FXMLLoader.load(getClass().getResource("/views/parts/NoseCone.fxml")));
+    itemParent.put(RocketPart.Parachute,        (Parent) FXMLLoader.load(getClass().getResource("/views/parts/Parachute.fxml")));
+    itemParent.put(RocketPart.TrapezoidFinSet,  (Parent) FXMLLoader.load(getClass().getResource("/views/parts/TrapezoidFinSet.fxml")));
   }
 
+  /**
+   * Set tree view, listeners and maps
+   * 
+   * @throws IOException
+   */
   public void initialize() throws IOException {
-    
     setMaps();
-    partViewer.getChildren().add(itemParent.get(RocketPart.CircularCylinder));
-    partViewer.getChildren().clear();
-    partViewer.getChildren().add(itemParent.get(RocketPart.Motor));
-    partViewer.getChildren().clear();
-    partViewer.getChildren().add(itemParent.get(RocketPart.TrapezoidFinSet));
     
     treeViewRoot = new TreeItem<RocketPart>();
     treeViewRoot.setExpanded(true);
