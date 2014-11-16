@@ -1,10 +1,12 @@
 package models.rocket;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import models.Measurement;
+import models.Unit;
 import models.rocket.parts.RocketComponent;
 
 /**
@@ -14,12 +16,12 @@ import models.rocket.parts.RocketComponent;
  *
  */
 public class Rocket {
-  private Measurement mass;
-  private Measurement radialCenterOfMass;
-  private Measurement radialMomentOfInertia;
-  private Measurement longitudinalMomentOfInertia;
-  private List<RocketComponent> interiorComponents;
-  private List<RocketComponent> exteriorComponents;
+  private Measurement mass = new Measurement(0, 0, Unit.grams);
+  private Measurement radialCenterOfMass = new Measurement(0, 0, Unit.unknown);
+  private Measurement radialMomentOfInertia = new Measurement(0, 0, Unit.unknown);
+  private Measurement longitudinalMomentOfInertia = new Measurement(0, 0, Unit.unknown);
+  private List<RocketComponent> interiorComponents = new ArrayList<RocketComponent>();
+  private List<RocketComponent> exteriorComponents = new ArrayList<RocketComponent>();
   private Map<String, Measurement> overrides = new HashMap<String, Measurement>();
 
   /**
