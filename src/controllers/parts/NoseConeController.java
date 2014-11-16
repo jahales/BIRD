@@ -91,17 +91,6 @@ public class NoseConeController {
    * Initialize nosecone values and add listeners
    */
   public void initialize() {
-    try {
-      // Assert things are initialized
-      if (shapeParameter == null) throw new Exception("'shapeParameter' not initialized correctly. Please check Parachute.fxml");
-      if (diameterValue  == null) throw new Exception("'diameterValue' not initialized correctly. Please check Parachute.fxml");
-      if (diameterError  == null) throw new Exception("'diameterError' not initialized correctly. Please check Parachute.fxml");
-      if (diameterUnits  == null) throw new Exception("'diameterUnits' not initialized correctly. Please check Parachute.fxml");
-      if (shape          == null) throw new Exception("'shape' not initialized correctly. Please check Parachute.fxml");
-    } catch (Exception e) {
-      System.out.println(e.getLocalizedMessage());
-    }
-    
     noseCone.setShapeParameter(0);
     noseCone.setDiameter(new Measurement(0, 0, Unit.centimeters));
     

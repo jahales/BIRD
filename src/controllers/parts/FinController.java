@@ -119,16 +119,6 @@ public class FinController {
     fin.setSweepLength(new Measurement(0, 0, Unit.centimeters));
     fin.setRootChord(new Measurement(0, 0, Unit.centimeters));
     
-    finCountValue.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        try {
-          fin.setCount(Integer.parseInt(arg2));
-        } catch (NumberFormatException e) {
-          e.printStackTrace();
-        }
-      }
-    });
     addValueListener(rootChordValue, fin.getRootChord());
     addValueListener(spanLengthValue, fin.getSpanLength());
     addValueListener(sweepLengthValue, fin.getSweepLength());

@@ -113,24 +113,6 @@ public class ParachuteController {
    * Initialize the parachute part and add listeners
    */
   public void initialize() {
-    try {
-      // Assert values are initialized
-      if (deployedDiameterValue   == null) throw new Exception("'deployedDiameterValue' not initialized correctly. Please check Parachute.fxml");
-      if (deploymentAltitudeValue == null) throw new Exception("'deploymentAltitudeValue' not initialized correctly. Please check Parachute.fxml");
-      if (dragCoefficientValue    == null) throw new Exception("'dragCoefficientValue' not initialized correctly. Please check Parachute.fxml");
-      
-      // Assert errors are initialized
-      if (deployedDiameterError   == null) throw new Exception("'deployedDiameterError' not initialized correctly. Please check Parachute.fxml");
-      if (deploymentAltitudeError == null) throw new Exception("'deploymentAltitudeError' not initialized correctly. Please check Parachute.fxml");
-      if (dragCoefficientError    == null) throw new Exception("'deploymentAltitudeError' not initialized correctly. Please check Parachute.fxml");
-      
-      // Assert units are initialized
-      if (deployedDiameterUnits   == null) throw new Exception("'deployedDiameterUnits' not initialized correctly. Please check Parachute.fxml");
-      if (deployedAltitudeUnits   == null) throw new Exception("'deployedAltitudeUnits' not initialized correctly. Please check Parachute.fxml");
-    } catch (Exception e) {
-      System.out.println(e.getLocalizedMessage());
-    }
-    
     parachute.setDragCoefficient(new Measurement(0, 0, Unit.number));
     parachute.setDeployedDiameter(new Measurement(0, 0, Unit.centimeters));
     parachute.setDeploymentAltitude(new Measurement(0, 0, Unit.meters));

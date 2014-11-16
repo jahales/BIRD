@@ -1,5 +1,6 @@
 package controllers.parts;
 
+import controllers.AppState;
 import models.Measurement;
 import models.Unit;
 import models.rocket.parts.CircularCylinder;
@@ -93,14 +94,8 @@ public class CircularCylinderController {
    * Initialize values for circular cylinder and add listeners.
    */
   public void initialize() {
-    try {
-      // Assert values are initialized
-      if (diameterValue == null) throw new Exception("'diameterValue' not initialized correctly. Please check CircularCylinder.fxml");
-      if (diameterError == null) throw new Exception("'diameterError' not initialized correctly. Please check CircularCylinder.fxml");
-      if (diameterUnits == null) throw new Exception("'diameterUnits' not initialized correctly. Please check CircularCylinder.fxml");
-    } catch (Exception e) {
-      System.out.println(e.getLocalizedMessage());
-    }
+    AppState.getInstance().getRocket().getInteriorComponents().add(circularCylinder);
+    
     circularCylinder.setDiameter(new Measurement(0, 0, Unit.centimeters));
     
     addValueListener(diameterValue, circularCylinder.getDiameter());
