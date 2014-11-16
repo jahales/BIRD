@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 
-<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.parts.ParachuteController" >
 	<columnConstraints>
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="125" />
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
@@ -23,9 +23,9 @@
 		<Label GridPane.rowIndex="3" text="Deployment Altitude" />
 		
 		<Label GridPane.columnIndex="1" text="Value" />
-		<TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="dragCoefficient" />
-		<TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="deployedDiameter" />
-		<TextField GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="deploymentAltitude" />
+		<TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="dragCoefficientValue" />
+		<TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="deployedDiameterValue" />
+		<TextField GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="deploymentAltitudeValue" />
 		
 		<Label GridPane.columnIndex="2" text="Error" />
 		<TextField GridPane.columnIndex="2" GridPane.rowIndex="1" fx:id="dragCoefficientError" />

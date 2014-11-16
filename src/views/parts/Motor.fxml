@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 
-<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.parts.MotorController" >
 	<columnConstraints>
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />

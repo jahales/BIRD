@@ -102,6 +102,20 @@ public class ConicalFrustumController {
    * Initialize values for concial frustum and add listeners.
    */
   public void initialize() {
+    try {
+      // Assert upper diameter things are initialized
+      if (upperDiameterValue == null) throw new Exception("'upperDiameterValue' not initialized correctly. Please check ConicalFrustum.fxml");
+      if (upperDiameterError == null) throw new Exception("'upperDiameterError' not initialized correctly. Please check ConicalFrustum.fxml");
+      if (upperDiameterUnits == null) throw new Exception("'upperDiameterUnits' not initialized correctly. Please check ConicalFrustum.fxml");
+      
+      // Assert lower diameter things are initialized
+      if (lowerDiameterValue == null) throw new Exception("'lowerDiameterValue' not initialized correctly. Please check ConicalFrustum.fxml");
+      if (lowerDiameterError == null) throw new Exception("'lowerDiameterError' not initialized correctly. Please check ConicalFrustum.fxml");
+      if (lowerDiameterUnits == null) throw new Exception("'lowerDiameterUnits' not initialized correctly. Please check ConicalFrustum.fxml");
+    } catch (Exception e) {
+      System.out.println(e.getLocalizedMessage());
+    }
+    
     conicalFrustum.setLowerDiameter(new Measurement(0, 0, Unit.centimeters));
     conicalFrustum.setUpperDiameter(new Measurement(0, 0, Unit.centimeters));
     

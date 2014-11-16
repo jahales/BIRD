@@ -8,8 +8,8 @@
    <children>
       <VBox prefWidth="175.0">
          <children>
-            <TreeView fx:id="partList" VBox.vgrow="ALWAYS" />
             <Button mnemonicParsing="false" onAction="#addPart" prefWidth="200.0" text="Add Part" />
+            <TreeView fx:id="partList" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
       <AnchorPane fx:id="partViewer" />

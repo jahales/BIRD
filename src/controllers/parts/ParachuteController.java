@@ -37,13 +37,10 @@ public class ParachuteController {
   private TextField deploymentAltitudeError;
 
   @FXML
-  private ChoiceBox<String> dragCoefficientUnits;
-
-  @FXML
   private ChoiceBox<String> deployedDiameterUnits;
 
   @FXML
-  private ChoiceBox<String> deploymentAltitudeUnits;
+  private ChoiceBox<String> deployedAltitudeUnits;
   
   /**
    * Get the parachute part
@@ -61,6 +58,9 @@ public class ParachuteController {
    * @param measurement
    */
   private void addUnitListener(ChoiceBox<String> field, Measurement measurement) {
+    assert field != null : "'field' in 'addUnitListener' is null";
+    assert field.getSelectionModel() != null : "'field.getSelectionModel()' in 'addUnitListener' is null";
+    assert field.getSelectionModel().selectedItemProperty() != null : "'field.getSelectionModel().selectedItemProperty()' in 'addUnitListener' is null";
     field.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
@@ -76,6 +76,7 @@ public class ParachuteController {
    * @param measurement
    */
   private void addValueListener(TextField field, Measurement measurement) {
+    assert field != null : "'field' in 'addValueListener' is null";
     field.textProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
@@ -95,6 +96,7 @@ public class ParachuteController {
    * @param measurement
    */
   private void addErrorListener(TextField field, Measurement measurement) {
+    assert field != null : "'field' in 'addErrorListener' is null";
     field.textProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
@@ -111,6 +113,24 @@ public class ParachuteController {
    * Initialize the parachute part and add listeners
    */
   public void initialize() {
+    try {
+      // Assert values are initialized
+      if (deployedDiameterValue   == null) throw new Exception("'deployedDiameterValue' not initialized correctly. Please check Parachute.fxml");
+      if (deploymentAltitudeValue == null) throw new Exception("'deploymentAltitudeValue' not initialized correctly. Please check Parachute.fxml");
+      if (dragCoefficientValue    == null) throw new Exception("'dragCoefficientValue' not initialized correctly. Please check Parachute.fxml");
+      
+      // Assert errors are initialized
+      if (deployedDiameterError   == null) throw new Exception("'deployedDiameterError' not initialized correctly. Please check Parachute.fxml");
+      if (deploymentAltitudeError == null) throw new Exception("'deploymentAltitudeError' not initialized correctly. Please check Parachute.fxml");
+      if (dragCoefficientError    == null) throw new Exception("'deploymentAltitudeError' not initialized correctly. Please check Parachute.fxml");
+      
+      // Assert units are initialized
+      if (deployedDiameterUnits   == null) throw new Exception("'deployedDiameterUnits' not initialized correctly. Please check Parachute.fxml");
+      if (deployedAltitudeUnits   == null) throw new Exception("'deployedAltitudeUnits' not initialized correctly. Please check Parachute.fxml");
+    } catch (Exception e) {
+      System.out.println(e.getLocalizedMessage());
+    }
+    
     parachute.setDragCoefficient(new Measurement(0, 0, Unit.number));
     parachute.setDeployedDiameter(new Measurement(0, 0, Unit.centimeters));
     parachute.setDeploymentAltitude(new Measurement(0, 0, Unit.meters));
@@ -124,7 +144,6 @@ public class ParachuteController {
     addErrorListener(dragCoefficientError, parachute.getDragCoefficient());
     
     addUnitListener(deployedDiameterUnits, parachute.getDeployedDiameter());
-    addUnitListener(deploymentAltitudeUnits, parachute.getDeploymentAltitude());
-    addUnitListener(dragCoefficientUnits, parachute.getDragCoefficient());
+    addUnitListener(deployedAltitudeUnits, parachute.getDeploymentAltitude());
   }
 }

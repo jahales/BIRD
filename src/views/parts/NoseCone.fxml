@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 
-<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.parts.NoseConeController" >
 	<columnConstraints>
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
@@ -24,7 +24,7 @@
 		
 		<Label text="Value" GridPane.columnIndex="1" />
 		<TextField fx:id="shapeParameter" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-		<TextField fx:id="diameter" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+		<TextField fx:id="diameterValue" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 		
 		<Label text="Error" GridPane.columnIndex="2" />
 		<TextField fx:id="diameterError" GridPane.columnIndex="2" GridPane.rowIndex="2" />
