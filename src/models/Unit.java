@@ -10,6 +10,6 @@ public enum Unit {
   milliseconds, seconds, minutes, hours,        // Time
   degrees, radians,                             // Angle
   celsius, farienheight,                        // Temperature
-  ogive, parabola, cone, powerseries, unknown,  // Shape
-  number                                        // Counting number
+  kilogramSquareMeters, poundSquareFeet,        // Moments of inertia
+  number, other                                 // Counting number
 }
