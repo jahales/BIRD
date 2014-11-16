@@ -1,5 +1,6 @@
 package controllers.parts;
 
+import controllers.AppState;
 import models.Measurement;
 import models.Unit;
 import models.rocket.parts.TrapezoidFinSet;
@@ -16,7 +17,7 @@ import javafx.scene.control.TextField;
  *
  */
 public class FinController {
-  private TrapezoidFinSet fin = new TrapezoidFinSet();
+  private TrapezoidFinSet trapezoidFinSet = new TrapezoidFinSet();
 
   @FXML
   private TextField finCountValue;
@@ -54,7 +55,7 @@ public class FinController {
    * @return fin
    */
   public TrapezoidFinSet getFin() {
-    return fin;
+    return trapezoidFinSet;
   }
 
   /**
@@ -114,21 +115,23 @@ public class FinController {
    * Initialize the fin set and add listeners.
    */
   public void initialize() {
-    fin.setCount(0);
-    fin.setSpanLength(new Measurement(0, 0, Unit.centimeters));
-    fin.setSweepLength(new Measurement(0, 0, Unit.centimeters));
-    fin.setRootChord(new Measurement(0, 0, Unit.centimeters));
+    AppState.getInstance().getRocket().getExteriorComponents().add(trapezoidFinSet);
     
-    addValueListener(rootChordValue, fin.getRootChord());
-    addValueListener(spanLengthValue, fin.getSpanLength());
-    addValueListener(sweepLengthValue, fin.getSweepLength());
+    trapezoidFinSet.setCount(0);
+    trapezoidFinSet.setSpanLength(new Measurement(0, 0, Unit.centimeters));
+    trapezoidFinSet.setSweepLength(new Measurement(0, 0, Unit.centimeters));
+    trapezoidFinSet.setRootChord(new Measurement(0, 0, Unit.centimeters));
     
-    addErrorListener(rootChordError, fin.getRootChord());
-    addErrorListener(spanLengthError, fin.getSpanLength());
-    addErrorListener(sweepLengthError, fin.getSweepLength());
+    addValueListener(rootChordValue, trapezoidFinSet.getRootChord());
+    addValueListener(spanLengthValue, trapezoidFinSet.getSpanLength());
+    addValueListener(sweepLengthValue, trapezoidFinSet.getSweepLength());
     
-    addUnitListener(rootChordUnits, fin.getRootChord());
-    addUnitListener(spanLengthUnits, fin.getSpanLength());
-    addUnitListener(sweepLengthUnits, fin.getSweepLength());
+    addErrorListener(rootChordError, trapezoidFinSet.getRootChord());
+    addErrorListener(spanLengthError, trapezoidFinSet.getSpanLength());
+    addErrorListener(sweepLengthError, trapezoidFinSet.getSweepLength());
+    
+    addUnitListener(rootChordUnits, trapezoidFinSet.getRootChord());
+    addUnitListener(spanLengthUnits, trapezoidFinSet.getSpanLength());
+    addUnitListener(sweepLengthUnits, trapezoidFinSet.getSweepLength());
   }
 }

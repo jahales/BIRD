@@ -20,10 +20,10 @@ import javafx.stage.FileChooser;
  *
  */
 public class SimulationController {
-  private Simulation simulation = new Simulation();
-  private Measurement length = new Measurement(0, 0, Unit.centimeters);
-  private Measurement azimuthAngle = new Measurement(0, 0, Unit.degrees);
-  private Measurement polarAngle = new Measurement(0, 0, Unit.degrees);
+  private Simulation simulation = AppState.getInstance().getSimulation();
+  private Measurement length;
+  private Measurement azimuthAngle;
+  private Measurement polarAngle;
 
   @FXML
   private Label rocketFilePath;
@@ -166,6 +166,10 @@ public class SimulationController {
   }
 
   public void initialize() {
+    length = simulation.getLaunchRail().getLength();
+    azimuthAngle = simulation.getLaunchRail().getAzimuthAngle();
+    polarAngle = simulation.getLaunchRail().getPolarAngle();
+    
     addValueListener(lengthValue, length);
     addValueListener(polarAngleValue, polarAngle);
     addValueListener(azimuthAngleValue, azimuthAngle);

@@ -1,5 +1,6 @@
 package controllers.parts;
 
+import controllers.AppState;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -91,6 +92,8 @@ public class NoseConeController {
    * Initialize nosecone values and add listeners
    */
   public void initialize() {
+    AppState.getInstance().getRocket().getExteriorComponents().add(noseCone);
+    
     noseCone.setShapeParameter(0);
     noseCone.setDiameter(new Measurement(0, 0, Unit.centimeters));
     

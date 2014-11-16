@@ -1,5 +1,6 @@
 package controllers.parts;
 
+import controllers.AppState;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -123,6 +124,8 @@ public class MotorController {
    * Initialize the motor part and set listeners
    */
   public void initialize() {
+    AppState.getInstance().getRocket().getInteriorComponents().add(motor);
+    
     motor.setManufacturer("");
     motor.setDelays("");
     motor.setFuelMass(new Measurement(0, 0, Unit.grams));

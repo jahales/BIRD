@@ -1,5 +1,6 @@
 package controllers.parts;
 
+import controllers.AppState;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -102,6 +103,7 @@ public class ConicalFrustumController {
    * Initialize values for concial frustum and add listeners.
    */
   public void initialize() {
+    AppState.getInstance().getRocket().getExteriorComponents().add(conicalFrustum);
     
     conicalFrustum.setLowerDiameter(new Measurement(0, 0, Unit.centimeters));
     conicalFrustum.setUpperDiameter(new Measurement(0, 0, Unit.centimeters));

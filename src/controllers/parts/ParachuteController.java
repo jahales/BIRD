@@ -1,5 +1,6 @@
 package controllers.parts;
 
+import controllers.AppState;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -113,6 +114,8 @@ public class ParachuteController {
    * Initialize the parachute part and add listeners
    */
   public void initialize() {
+    AppState.getInstance().getRocket().getInteriorComponents().add(parachute);
+    
     parachute.setDragCoefficient(new Measurement(0, 0, Unit.number));
     parachute.setDeployedDiameter(new Measurement(0, 0, Unit.centimeters));
     parachute.setDeploymentAltitude(new Measurement(0, 0, Unit.meters));
