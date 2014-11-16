@@ -1,5 +1,12 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import models.Unit;
 
 /**
@@ -65,5 +72,116 @@ public class Measurement {
    */
   public void setUnit(Unit unit) {
     this.unit = unit;
+  }
+  
+  public Measurement convert(Measurement from, Unit toUnit) {
+    if (from.getUnit().equals(toUnit)) {
+      return from; // Don't bother if it's the same unit
+    }
+    Unit fromUnit = from.getUnit();
+    
+    List<Unit> mass =            FXCollections.observableArrayList(Unit.kilograms, Unit.grams, Unit.milligrams);
+    List<Unit> length =          FXCollections.observableArrayList(Unit.kilometers, Unit.meters, Unit.centimeters, Unit.millimeters);
+    List<Unit> time =            FXCollections.observableArrayList(Unit.hours, Unit.minutes, Unit.seconds, Unit.milliseconds);
+    List<Unit> angle =           FXCollections.observableArrayList(Unit.degrees, Unit.radians);
+    List<Unit> temperature =     FXCollections.observableArrayList(Unit.farienheight, Unit.celsius);
+    List<Unit> momentOfInertia = FXCollections.observableArrayList(Unit.kilogramSquareMeters, Unit.poundSquareFeet);
+    List<Unit> other =           FXCollections.observableArrayList(Unit.number);
+    
+    if (mass.contains(fromUnit) && mass.contains(toUnit)) {
+      switch (fromUnit) {
+      case kilograms:
+        switch (toUnit) {
+        case grams: return new Measurement(from.value * 1000.0, from.error * 1000.0, Unit.grams);
+        case milligrams: return new Measurement(from.value * 1000000.0, from.error * 1000000.0, Unit.milligrams);
+        }
+      case grams:
+        switch (toUnit) {
+        case kilograms: return new Measurement(from.value / 1000.0, from.error / 1000.0, Unit.kilograms);
+        case milligrams: return new Measurement(from.value * 1000.0, from.error * 1000.0, Unit.milligrams);
+        }
+      case milligrams:
+        switch (toUnit) {
+        case kilograms: return new Measurement(from.value / 1000000.0, from.error / 1000000.0, Unit.kilograms);
+        case grams: return new Measurement(from.value / 1000.0, from.error / 1000.0, Unit.grams);
+        }
+      }
+    } else if (length.contains(fromUnit) && length.contains(toUnit)) {
+      switch (fromUnit) {
+      case kilometers:
+        switch (toUnit) {
+        case meters: return new Measurement(from.value * 1000.0, from.error * 1000.0, Unit.meters);
+        case centimeters: return new Measurement(from.value * 100000.0, from.error * 100000.0, Unit.centimeters);
+        case millimeters: return new Measurement(from.value * 1000000.0, from.error * 1000000.0, Unit.centimeters);
+        }
+      case meters:
+        switch (toUnit) {
+        case kilometers: return new Measurement(from.value / 1000.0, from.error / 1000.0, Unit.kilometers);
+        case centimeters: return new Measurement(from.value * 100.0, from.error * 100.0, Unit.centimeters);
+        case millimeters: return new Measurement(from.value * 1000.0, from.error * 1000.0, Unit.millimeters);
+        }
+      case centimeters:
+        switch (toUnit) {
+        case kilometers: return new Measurement(from.value / 100000.0, from.error / 100000.0, Unit.kilometers);
+        case meters: return new Measurement(from.value / 100.0, from.error, Unit.meters);
+        case millimeters: return new Measurement(from.value * 10.0, from.error, Unit.millimeters);
+        }
+      case millimeters:
+        switch (toUnit) {
+        case kilometers: return new Measurement(from.value / 1000000.0, from.error / 1000000.0, Unit.kilometers);
+        case meters: return new Measurement(from.value / 1000.0, from.error / 1000.0, Unit.meters);
+        case centimeters: return new Measurement(from.value / 10.0, from.error / 10.0, Unit.centimeters);
+        }
+      }
+    } else if (time.contains(fromUnit) && time.contains(toUnit)) {
+      switch (fromUnit) {
+      case hours:
+        switch (toUnit) {
+        case minutes: return new Measurement(from.value * 60.0, from.error * 60.0, Unit.minutes);
+        case seconds: return new Measurement(from.value * 3600.0, from.error * 3600.0, Unit.seconds);
+        case milliseconds: return new Measurement(from.value *3600000.0, from.error * 3600000.0, Unit.milliseconds);
+        }
+      case minutes:
+        switch (toUnit) {
+        case hours: return new Measurement(from.value / 60.0, from.error / 60.0, Unit.hours);
+        case seconds: return new Measurement(from.value * 60.0, from.error * 60.0, Unit.seconds);
+        case milliseconds: return new Measurement(from.value * 60000.0, from.error * 60000.0, Unit.milliseconds);
+        }
+      case seconds:
+        switch (toUnit) {
+        case hours: return new Measurement(from.value / 3600.0, from.error / 3600.0, Unit.hours);
+        case minutes: return new Measurement(from.value / 60.0, from.error / 60.0, Unit.minutes);
+        case milliseconds: return new Measurement(from.value * 1000.0, from.error * 1000.0, Unit.milliseconds);
+        }
+      case milliseconds:
+        switch (toUnit) {
+        case hours: return new Measurement(from.value / 3600000.0, from.error / 3600000.0, Unit.hours);
+        case minutes: return new Measurement(from.value / 60000.0, from.error / 60000.0, Unit.minutes);
+        case seconds: return new Measurement(from.value / 1000.0, from.error / 1000.0, Unit.seconds);
+        }
+      }
+    } else if (angle.contains(fromUnit) && angle.contains(toUnit)) {
+      if (toUnit.equals(Unit.degrees)) {
+        return new Measurement(from.value * 180.0 / Math.PI, from.error * 180 / Math.PI, Unit.degrees);
+      } else {
+        return new Measurement(from.value * Math.PI / 180.0, from.error * Math.PI / 180.0, Unit.radians);
+      }
+    } else if (temperature.contains(fromUnit) && temperature.contains(toUnit)) {
+      if (toUnit.equals(Unit.farienheight)) {
+        return new Measurement((from.value - 32.0) / 1.8, from.error, Unit.farienheight);
+      } else {
+        return new Measurement(from.value * 1.8 + 32.0, from.error, Unit.celsius);
+      }
+    } else if (momentOfInertia.contains(fromUnit) && momentOfInertia.contains(toUnit)) {
+      if (toUnit.equals(Unit.kilogramSquareMeters)) {
+        return new Measurement(from.value / 23.730360404, from.error / 23.730360404, Unit.kilogramSquareMeters);
+      } else {
+        return new Measurement(from.value * 23.730360404, from.error * 23.730360404, Unit.poundSquareFeet);
+      }
+    } else if (other.contains(fromUnit) && other.contains(toUnit)) {
+      return from;
+    }
+    
+    return null;
   }
 }
