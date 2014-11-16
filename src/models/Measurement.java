@@ -1,12 +1,7 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import models.Unit;
 
 /**
@@ -74,7 +69,14 @@ public class Measurement {
     this.unit = unit;
   }
   
-  public Measurement convert(Measurement from, Unit toUnit) {
+  /**
+   * Unit conversion
+   * 
+   * @param from
+   * @param toUnit
+   * @return newMeasurement
+   */
+  public static Measurement convert(Measurement from, Unit toUnit) {
     if (from.getUnit().equals(toUnit)) {
       return from; // Don't bother if it's the same unit
     }
@@ -86,9 +88,8 @@ public class Measurement {
     List<Unit> angle =           FXCollections.observableArrayList(Unit.degrees, Unit.radians);
     List<Unit> temperature =     FXCollections.observableArrayList(Unit.farienheight, Unit.celsius);
     List<Unit> momentOfInertia = FXCollections.observableArrayList(Unit.kilogramSquareMeters, Unit.poundSquareFeet);
-    List<Unit> other =           FXCollections.observableArrayList(Unit.number);
     
-    if (mass.contains(fromUnit) && mass.contains(toUnit)) {
+    if (mass.contains(fromUnit) && mass.contains(toUnit)) {               // Mass
       switch (fromUnit) {
       case kilograms:
         switch (toUnit) {
@@ -106,7 +107,7 @@ public class Measurement {
         case grams: return new Measurement(from.value / 1000.0, from.error / 1000.0, Unit.grams);
         }
       }
-    } else if (length.contains(fromUnit) && length.contains(toUnit)) {
+    } else if (length.contains(fromUnit) && length.contains(toUnit)) {    // Length
       switch (fromUnit) {
       case kilometers:
         switch (toUnit) {
@@ -133,7 +134,7 @@ public class Measurement {
         case centimeters: return new Measurement(from.value / 10.0, from.error / 10.0, Unit.centimeters);
         }
       }
-    } else if (time.contains(fromUnit) && time.contains(toUnit)) {
+    } else if (time.contains(fromUnit) && time.contains(toUnit)) {      // Time
       switch (fromUnit) {
       case hours:
         switch (toUnit) {
@@ -160,7 +161,7 @@ public class Measurement {
         case seconds: return new Measurement(from.value / 1000.0, from.error / 1000.0, Unit.seconds);
         }
       }
-    } else if (angle.contains(fromUnit) && angle.contains(toUnit)) {
+    } else if (angle.contains(fromUnit) && angle.contains(toUnit)) {      // Angle
       if (toUnit.equals(Unit.degrees)) {
         return new Measurement(from.value * 180.0 / Math.PI, from.error * 180 / Math.PI, Unit.degrees);
       } else {
@@ -178,10 +179,8 @@ public class Measurement {
       } else {
         return new Measurement(from.value * 23.730360404, from.error * 23.730360404, Unit.poundSquareFeet);
       }
-    } else if (other.contains(fromUnit) && other.contains(toUnit)) {
-      return from;
     }
     
-    return null;
+    return from; // Other
   }
 }
