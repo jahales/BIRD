@@ -1,11 +1,11 @@
 package controllers.parts;
 
-import controllers.AppState;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import models.AppState;
 import models.Measurement;
 import models.Unit;
 import models.rocket.parts.ConicalFrustum;

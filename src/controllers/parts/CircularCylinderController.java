@@ -1,6 +1,6 @@
 package controllers.parts;
 
-import controllers.AppState;
+import models.AppState;
 import models.Measurement;
 import models.Unit;
 import models.rocket.parts.CircularCylinder;

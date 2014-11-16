@@ -1,4 +1,4 @@
-package controllers;
+package models;
 
 import models.rocket.Rocket;
 import models.simulator.Simulation;
