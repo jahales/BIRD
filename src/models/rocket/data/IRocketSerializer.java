@@ -10,6 +10,10 @@ import models.rocket.Rocket;
  */
 public interface IRocketSerializer {
 
+  /**
+   *
+   * @return
+   */
   String getDefaultExtension();
   
   /**

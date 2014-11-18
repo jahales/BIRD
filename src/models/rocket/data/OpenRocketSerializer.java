@@ -16,6 +16,10 @@ import models.rocket.Rocket;
  */
 public class OpenRocketSerializer implements IRocketSerializer {
 
+  /**
+   *
+   * @return
+   */
   @Override
   public String getDefaultExtension()
   {

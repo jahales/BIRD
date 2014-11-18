@@ -31,6 +31,10 @@ import org.w3c.dom.NodeList;
  */
 public class BirdRocketSerializer implements IRocketSerializer {
 
+  /**
+   *
+   * @return
+   */
   @Override
   public String getDefaultExtension()
   {

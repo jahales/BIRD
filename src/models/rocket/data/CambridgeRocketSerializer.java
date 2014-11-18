@@ -16,6 +16,10 @@ import models.rocket.Rocket;
  */
 public class CambridgeRocketSerializer implements IRocketSerializer {
 
+  /**
+   *
+   * @return
+   */
   @Override
   public String getDefaultExtension()
   {

@@ -40,7 +40,7 @@ public class FileSystemRocketRepository implements IRocketRepository {
    * @throws models.ApplicationException
    */
   @Override
-  public void Create(Rocket rocket) throws ApplicationException {
+  public void create(Rocket rocket) throws ApplicationException {
     String fileName = Paths.get(folder, rocket.getName() + serializer.getDefaultExtension()).toString();
     
     try (OutputStream stream = new FileOutputStream(fileName))
@@ -58,7 +58,7 @@ public class FileSystemRocketRepository implements IRocketRepository {
    * @throws models.ApplicationException
    */
   @Override
-  public Rocket Retrieve(String id) throws ApplicationException {
+  public Rocket retrieve(String id) throws ApplicationException {
     String fileName = Paths.get(folder, id + serializer.getDefaultExtension()).toString();
     
      try (InputStream stream = new FileInputStream(fileName))
@@ -75,8 +75,8 @@ public class FileSystemRocketRepository implements IRocketRepository {
    * @throws models.ApplicationException
    */
   @Override
-  public void Update(Rocket rocket) throws ApplicationException {
-    Create(rocket);
+  public void update(Rocket rocket) throws ApplicationException {
+    create(rocket);
   }
 
   /**
@@ -85,7 +85,7 @@ public class FileSystemRocketRepository implements IRocketRepository {
    * @throws models.ApplicationException
    */
   @Override
-  public void Delete(Rocket rocket) throws ApplicationException {
+  public void delete(Rocket rocket) throws ApplicationException {
     try {
       Path path = Paths.get(folder, rocket.getName() + serializer.getDefaultExtension());
       Files.delete(path);

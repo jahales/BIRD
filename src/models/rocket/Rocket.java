@@ -25,10 +25,18 @@ public class Rocket {
   private List<RocketComponent> exteriorComponents = new ArrayList<RocketComponent>();
   private Map<String, Measurement> overrides = new HashMap<String, Measurement>();
 
+  /**
+   *
+   * @return
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   *
+   * @param name
+   */
   public void setName(String name) {
     this.name = name;
   }
