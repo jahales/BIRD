@@ -166,6 +166,9 @@ public class SimulationController {
     });
   }
 
+  /**
+   *
+   */
   public void initialize() {
     length = simulation.getLaunchRail().getLength();
     azimuthAngle = simulation.getLaunchRail().getAzimuthAngle();

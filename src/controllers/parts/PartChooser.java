@@ -13,11 +13,20 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+/**
+ *
+ * @author Jacob
+ */
 public class PartChooser {
   private RocketPart selectedRocketPart;
   private Stage stage;
   private ListView<RocketPart> partsList;
 
+  /**
+   *
+   * @param window
+   * @return
+   */
   public RocketPart showPartDialog(Window window) {
     partsList = new ListView<RocketPart>();
     partsList.setItems(FXCollections.observableArrayList(RocketPart.values()));

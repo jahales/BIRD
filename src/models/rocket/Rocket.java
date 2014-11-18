@@ -16,6 +16,7 @@ import models.rocket.parts.RocketComponent;
  *
  */
 public class Rocket {
+  private String name = "";
   private Measurement mass = new Measurement(0, 0, Unit.grams);
   private Measurement radialCenterOfMass = new Measurement(0, 0, Unit.other);
   private Measurement radialMomentOfInertia = new Measurement(0, 0, Unit.kilogramSquareMeters);
@@ -24,6 +25,14 @@ public class Rocket {
   private List<RocketComponent> exteriorComponents = new ArrayList<RocketComponent>();
   private Map<String, Measurement> overrides = new HashMap<String, Measurement>();
 
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+  
   /**
    *
    * @return

@@ -21,8 +21,41 @@ import javafx.scene.layout.AnchorPane;
  * @author Jacob, Brian
  */
 public class RocketCreationController {
+
+  /**
+   *
+   */
   public enum RocketPart {
-    CircularCylinder, ConicalFrustum, TrapezoidFinSet, Motor, NoseCone, Parachute
+
+    /**
+     *
+     */
+    CircularCylinder,
+
+    /**
+     *
+     */
+    ConicalFrustum,
+
+    /**
+     *
+     */
+    TrapezoidFinSet,
+
+    /**
+     *
+     */
+    Motor,
+
+    /**
+     *
+     */
+    NoseCone,
+
+    /**
+     *
+     */
+    Parachute
   };
   
   private TreeItem<RocketPart> treeViewRoot;
