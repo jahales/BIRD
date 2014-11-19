@@ -15,9 +15,9 @@ import org.testng.annotations.BeforeMethod;
  *
  * @author Jacob
  */
-public class BIRDSimulatorEngineTest {
+public class BIRDSimulatorEngineTests {
   
-  public BIRDSimulatorEngineTest() {
+  public BIRDSimulatorEngineTests() {
   }
 
     // TODO add test methods here.
