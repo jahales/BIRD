@@ -2,6 +2,7 @@ package models.rocket.parts;
 
 import models.report.DataTable;
 import models.Measurement;
+import models.Unit;
 
 /**
  * A motor
@@ -10,11 +11,11 @@ import models.Measurement;
  *
  */
 public class Motor extends CircularCylinder {
-    private String manufacturer;
-    private String delays;
-    private Measurement fuelMass;
-    private Measurement polarAngle;
-    private Measurement azimuthAngle;
+    private String manufacturer = "";
+    private String delays = "";
+    private Measurement fuelMass = new Measurement(0, 0, Unit.meters);
+    private Measurement polarAngle = new Measurement(0, 0, Unit.meters);
+    private Measurement azimuthAngle = new Measurement(0, 0, Unit.meters);
     private DataTable thrust;
     
     /**

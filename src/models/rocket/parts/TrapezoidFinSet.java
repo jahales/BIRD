@@ -1,9 +1,10 @@
 package models.rocket.parts;
 
 import models.Measurement;
+import models.Unit;
 
 /**
- * A trapesoid fin set
+ * A trapezoid fin set
  *
  * @author Brian Woodruff
  *
@@ -11,12 +12,12 @@ import models.Measurement;
 public class TrapezoidFinSet extends RocketComponent {
 
   private int count;
-  private Measurement rootChord;
-  private Measurement tipChord;
-  private Measurement spanLength;
-  private Measurement sweepLength;
-  private Measurement cantAngle;
-  private Measurement bodyDiameter;
+  private Measurement rootChord = new Measurement(0, 0, Unit.meters);
+  private Measurement tipChord = new Measurement(0, 0, Unit.meters);
+  private Measurement spanLength = new Measurement(0, 0, Unit.meters);
+  private Measurement sweepLength = new Measurement(0, 0, Unit.meters);
+  private Measurement cantAngle = new Measurement(0, 0, Unit.radians);
+  private Measurement bodyDiameter = new Measurement(0, 0, Unit.meters);
 
   /**
    *

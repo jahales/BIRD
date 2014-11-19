@@ -79,7 +79,7 @@ public enum Unit {
   /**
    *
    */
-  farienheight,                        // Temperature
+  fahrenheit,                        // Temperature
  
   /**
    *

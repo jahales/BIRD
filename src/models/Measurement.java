@@ -95,7 +95,7 @@ public class Measurement {
     List<Unit> length =          FXCollections.observableArrayList(Unit.kilometers, Unit.meters, Unit.centimeters, Unit.millimeters);
     List<Unit> time =            FXCollections.observableArrayList(Unit.hours, Unit.minutes, Unit.seconds, Unit.milliseconds);
     List<Unit> angle =           FXCollections.observableArrayList(Unit.degrees, Unit.radians);
-    List<Unit> temperature =     FXCollections.observableArrayList(Unit.farienheight, Unit.celsius);
+    List<Unit> temperature =     FXCollections.observableArrayList(Unit.fahrenheit, Unit.celsius);
     List<Unit> momentOfInertia = FXCollections.observableArrayList(Unit.kilogramSquareMeters, Unit.poundSquareFeet);
     
     if (mass.contains(fromUnit) && mass.contains(toUnit)) {               // Mass
@@ -177,8 +177,8 @@ public class Measurement {
         return new Measurement(from.value * Math.PI / 180.0, from.error * Math.PI / 180.0, Unit.radians);
       }
     } else if (temperature.contains(fromUnit) && temperature.contains(toUnit)) {
-      if (toUnit.equals(Unit.farienheight)) {
-        return new Measurement((from.value - 32.0) / 1.8, from.error, Unit.farienheight);
+      if (toUnit.equals(Unit.fahrenheit)) {
+        return new Measurement((from.value - 32.0) / 1.8, from.error, Unit.fahrenheit);
       } else {
         return new Measurement(from.value * 1.8 + 32.0, from.error, Unit.celsius);
       }

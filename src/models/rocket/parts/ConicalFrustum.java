@@ -1,6 +1,7 @@
 package models.rocket.parts;
 
 import models.Measurement;
+import models.Unit;
 
 
 /**
@@ -10,8 +11,8 @@ import models.Measurement;
  *
  */
 public class ConicalFrustum extends RocketComponent {
-    private Measurement upperDiameter;
-    private Measurement lowerDiameter;
+    private Measurement upperDiameter  = new Measurement(0, 0, Unit.meters);
+    private Measurement lowerDiameter = new Measurement(0, 0, Unit.meters);
     
     /**
      * @return upperDiameter

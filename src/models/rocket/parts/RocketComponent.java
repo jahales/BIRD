@@ -1,6 +1,7 @@
 package models.rocket.parts;
 
 import models.Measurement;
+import models.Unit;
 
 
 /**
@@ -10,12 +11,12 @@ import models.Measurement;
  *
  */
 public class RocketComponent {
-    private String name;
-    private Measurement mass;
-    private Measurement axialLength;
-    private Measurement axialOffset;
-    private Measurement radialOffset;
-    private Measurement thickness;
+    private String name = "";
+    private Measurement mass = new Measurement(0, 0, Unit.kilograms);
+    private Measurement axialLength = new Measurement(0, 0, Unit.meters);
+    private Measurement axialOffset = new Measurement(0, 0, Unit.meters);
+    private Measurement radialOffset = new Measurement(0, 0, Unit.meters);
+    private Measurement thickness = new Measurement(0, 0, Unit.meters);
     
     /**
      * @return name

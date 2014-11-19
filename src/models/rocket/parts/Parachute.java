@@ -1,6 +1,7 @@
 package models.rocket.parts;
 
 import models.Measurement;
+import models.Unit;
 
 
 /**
@@ -10,9 +11,10 @@ import models.Measurement;
  *
  */
 public class Parachute extends CircularCylinder {
-    private Measurement dragCoefficient;
-    private Measurement deployedDiameter;
-    private Measurement deploymentAltitude;
+    private Measurement dragCoefficient  = new Measurement(0, 0, Unit.meters);
+    private Measurement deployedDiameter = new Measurement(0, 0, Unit.meters);
+    private Measurement deploymentAltitude = new Measurement(0, 0, Unit.meters);
+    private Boolean deployAtApogee = false;
     
     /**
      * @return dragCoefficient
@@ -55,4 +57,12 @@ public class Parachute extends CircularCylinder {
     public void setDeploymentAltitude(Measurement deploymentAltitude) {
         this.deploymentAltitude = deploymentAltitude;
     }
+
+  public Boolean getDeployAtApogee() {
+    return deployAtApogee;
+  }
+
+  public void setDeployAtApogee(Boolean deployAtApogee) {
+    this.deployAtApogee = deployAtApogee;
+  }
 }
