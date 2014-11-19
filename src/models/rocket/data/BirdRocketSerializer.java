@@ -32,6 +32,16 @@ import org.w3c.dom.NodeList;
 public class BirdRocketSerializer implements IRocketSerializer {
 
   /**
+   *
+   * @return
+   */
+  @Override
+  public String getDefaultExtension()
+  {
+    return ".xml";
+  }
+  
+  /**
    * Serializes a rocket to the specified output stream
    * @param rocket The rocket to serialize
    * @param outputStream The stream to write to

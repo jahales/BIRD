@@ -15,12 +15,21 @@ public class Measurement {
   private double error;
   private Unit unit;
   
+  /**
+   *
+   * @param value
+   * @param error
+   * @param unit
+   */
   public Measurement(double value, double error, Unit unit) {
     this.value = value;
     this.error = error;
     this.unit = unit;
   }
   
+  /**
+   *
+   */
   public Measurement() {
   }
 
