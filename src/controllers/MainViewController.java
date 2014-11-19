@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import models.AppSettings;
 
 /**
  * Main view of our program.
@@ -27,7 +28,9 @@ public class MainViewController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         //Set initial file path
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        fileChooser.setInitialDirectory(new File(
+                System.getProperty(AppSettings.getInstance().getDefaultRocketPath())));
+        
         fileChooser.showOpenDialog(new Stage());
     }
 

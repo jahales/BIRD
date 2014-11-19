@@ -22,7 +22,23 @@ public class AppSettings {
     private static AppSettings appSettings;
 
     //TODO: add properties for most recently used files.
-    private static String defaultRocketPath;
+    private String defaultRocketPath;
+
+    /**
+     * 
+     * @return 
+     */
+    public String getDefaultRocketPath() {
+        return defaultRocketPath;
+    }
+
+    /**
+     * 
+     * @param defaultRocketPath 
+     */
+    public void setDefaultRocketPath(String defaultRocketPath) {
+        AppSettings.getInstance().defaultRocketPath = defaultRocketPath;
+    }
 
     /**
      * Private constructor
@@ -44,7 +60,7 @@ public class AppSettings {
     /**
      * 
      */
-    public static void loadProperties() {
+    public void loadProperties() {
         Properties prop = new Properties();
     	InputStream input = null;
  
@@ -79,12 +95,11 @@ public class AppSettings {
     /**
      * 
      */
-    public static void saveProperties() {
+    public void saveProperties() {
         Properties prop = new Properties();
         OutputStream output = null;
 
         try {
-
             output = new FileOutputStream("config.properties");
 
             // set the property values
