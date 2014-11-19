@@ -2,7 +2,6 @@
  * AppSettings controls access to the application properties file, 
  * and follows the singleton design pattern. 
  * 
- * and open the template in the editor.
  */
 package models;
 
@@ -12,33 +11,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Joseph
  */
 public class AppSettings {
-
+    Logger logger = Logger.getLogger(AppSettings.class.getName());
     private static AppSettings appSettings;
-
     //TODO: add properties for most recently used files.
     private String defaultRocketPath;
-
-    /**
-     * 
-     * @return 
-     */
-    public String getDefaultRocketPath() {
-        return defaultRocketPath;
-    }
-
-    /**
-     * 
-     * @param defaultRocketPath 
-     */
-    public void setDefaultRocketPath(String defaultRocketPath) {
-        AppSettings.getInstance().defaultRocketPath = defaultRocketPath;
-    }
 
     /**
      * Private constructor
@@ -58,49 +42,28 @@ public class AppSettings {
     }
 
     /**
-     * 
+     *
      */
     public void loadProperties() {
-        Properties prop = new Properties();
-    	InputStream input = null;
- 
-    	try {
- 
-    		String filename = "AppSettings.properties";
-    		input = AppSettings.class.getClassLoader().getResourceAsStream(filename);
-    		if(input==null){
-    	            System.out.println("Sorry, unable to find " + filename);
-    		    return;
-    		}
- 
-    		//load a properties file from class path, inside static method
-    		prop.load(input);
- 
-                //get the property values and store it in the object
-                defaultRocketPath = prop.getProperty("defaultRocketPath");
- 
-    	} catch (IOException ex) {
-    		ex.printStackTrace();
-        } finally{
-        	if(input!=null){
-        		try {
-				input.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-        	}
+        try {
+            Properties prop = new Properties();
+            prop.load(getClass().getClassLoader().getResourceAsStream("models/AppSettings.properties"));
+            //Load property values
+            defaultRocketPath = prop.getProperty("defaultRocketPath");
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, "Load Properties Failed", ex);
         }
     }
-    
+
     /**
-     * 
+     * UNTESTED
      */
     public void saveProperties() {
         Properties prop = new Properties();
         OutputStream output = null;
 
         try {
-            output = new FileOutputStream("config.properties");
+            output = new FileOutputStream("models/AppSettings.properties");
 
             // set the property values
             prop.setProperty("defaultRocketPath", defaultRocketPath);
@@ -118,7 +81,22 @@ public class AppSettings {
                     e.printStackTrace();
                 }
             }
-
         }
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public String getDefaultRocketPath() {
+        return defaultRocketPath;
+    }
+
+    /**
+     *
+     * @param defaultRocketPath
+     */
+    public void setDefaultRocketPath(String defaultRocketPath) {
+        AppSettings.getInstance().defaultRocketPath = defaultRocketPath;
     }
 }
