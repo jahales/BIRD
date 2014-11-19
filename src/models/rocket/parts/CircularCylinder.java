@@ -1,15 +1,17 @@
 package models.rocket.parts;
 
 import models.Measurement;
+import models.Unit;
 
 /**
  * A circular cylinder
- * 
+ *
  * @author Brian Woodruff
  *
  */
 public class CircularCylinder extends RocketComponent {
-  private Measurement diameter;
+
+  private Measurement diameter = new Measurement(0, 0, Unit.meters);
 
   /**
    * @return diameter
