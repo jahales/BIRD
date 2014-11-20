@@ -5,7 +5,6 @@ import java.io.File;
 import models.ModelState;
 import models.Measurement;
 import models.Unit;
-import models.simulator.Simulation;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;

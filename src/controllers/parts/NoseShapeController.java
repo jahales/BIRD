@@ -4,7 +4,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
-import models.ModelState;
 import models.rocket.Rocket;
 import models.rocket.parts.NoseShape;
 

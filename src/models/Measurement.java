@@ -103,17 +103,17 @@ public class Measurement {
       case kilograms:
         switch (toUnit) {
         case grams: return new Measurement(from.value * 1000.0, from.error * 1000.0, Unit.grams);
-        case milligrams: return new Measurement(from.value * 1000000.0, from.error * 1000000.0, Unit.milligrams);
+        default: return new Measurement(from.value * 1000000.0, from.error * 1000000.0, Unit.milligrams);
         }
       case grams:
         switch (toUnit) {
         case kilograms: return new Measurement(from.value / 1000.0, from.error / 1000.0, Unit.kilograms);
-        case milligrams: return new Measurement(from.value * 1000.0, from.error * 1000.0, Unit.milligrams);
+        default: return new Measurement(from.value * 1000.0, from.error * 1000.0, Unit.milligrams);
         }
-      case milligrams:
+      default: // milligrams
         switch (toUnit) {
         case kilograms: return new Measurement(from.value / 1000000.0, from.error / 1000000.0, Unit.kilograms);
-        case grams: return new Measurement(from.value / 1000.0, from.error / 1000.0, Unit.grams);
+        default: return new Measurement(from.value / 1000.0, from.error / 1000.0, Unit.grams);
         }
       }
     } else if (length.contains(fromUnit) && length.contains(toUnit)) {    // Length
@@ -122,25 +122,25 @@ public class Measurement {
         switch (toUnit) {
         case meters: return new Measurement(from.value * 1000.0, from.error * 1000.0, Unit.meters);
         case centimeters: return new Measurement(from.value * 100000.0, from.error * 100000.0, Unit.centimeters);
-        case millimeters: return new Measurement(from.value * 1000000.0, from.error * 1000000.0, Unit.centimeters);
+        default: return new Measurement(from.value * 1000000.0, from.error * 1000000.0, Unit.centimeters);
         }
       case meters:
         switch (toUnit) {
         case kilometers: return new Measurement(from.value / 1000.0, from.error / 1000.0, Unit.kilometers);
         case centimeters: return new Measurement(from.value * 100.0, from.error * 100.0, Unit.centimeters);
-        case millimeters: return new Measurement(from.value * 1000.0, from.error * 1000.0, Unit.millimeters);
+        default: return new Measurement(from.value * 1000.0, from.error * 1000.0, Unit.millimeters);
         }
       case centimeters:
         switch (toUnit) {
         case kilometers: return new Measurement(from.value / 100000.0, from.error / 100000.0, Unit.kilometers);
         case meters: return new Measurement(from.value / 100.0, from.error, Unit.meters);
-        case millimeters: return new Measurement(from.value * 10.0, from.error, Unit.millimeters);
+        default: return new Measurement(from.value * 10.0, from.error, Unit.millimeters);
         }
-      case millimeters:
+      default: // millimeters
         switch (toUnit) {
         case kilometers: return new Measurement(from.value / 1000000.0, from.error / 1000000.0, Unit.kilometers);
         case meters: return new Measurement(from.value / 1000.0, from.error / 1000.0, Unit.meters);
-        case centimeters: return new Measurement(from.value / 10.0, from.error / 10.0, Unit.centimeters);
+        default: return new Measurement(from.value / 10.0, from.error / 10.0, Unit.centimeters);
         }
       }
     } else if (time.contains(fromUnit) && time.contains(toUnit)) {      // Time
@@ -149,25 +149,25 @@ public class Measurement {
         switch (toUnit) {
         case minutes: return new Measurement(from.value * 60.0, from.error * 60.0, Unit.minutes);
         case seconds: return new Measurement(from.value * 3600.0, from.error * 3600.0, Unit.seconds);
-        case milliseconds: return new Measurement(from.value *3600000.0, from.error * 3600000.0, Unit.milliseconds);
+        default: return new Measurement(from.value *3600000.0, from.error * 3600000.0, Unit.milliseconds);
         }
       case minutes:
         switch (toUnit) {
         case hours: return new Measurement(from.value / 60.0, from.error / 60.0, Unit.hours);
         case seconds: return new Measurement(from.value * 60.0, from.error * 60.0, Unit.seconds);
-        case milliseconds: return new Measurement(from.value * 60000.0, from.error * 60000.0, Unit.milliseconds);
+        default: return new Measurement(from.value * 60000.0, from.error * 60000.0, Unit.milliseconds);
         }
       case seconds:
         switch (toUnit) {
         case hours: return new Measurement(from.value / 3600.0, from.error / 3600.0, Unit.hours);
         case minutes: return new Measurement(from.value / 60.0, from.error / 60.0, Unit.minutes);
-        case milliseconds: return new Measurement(from.value * 1000.0, from.error * 1000.0, Unit.milliseconds);
+        default: return new Measurement(from.value * 1000.0, from.error * 1000.0, Unit.milliseconds);
         }
-      case milliseconds:
+      default: // milliseconds
         switch (toUnit) {
         case hours: return new Measurement(from.value / 3600000.0, from.error / 3600000.0, Unit.hours);
         case minutes: return new Measurement(from.value / 60000.0, from.error / 60000.0, Unit.minutes);
-        case seconds: return new Measurement(from.value / 1000.0, from.error / 1000.0, Unit.seconds);
+        default: return new Measurement(from.value / 1000.0, from.error / 1000.0, Unit.seconds);
         }
       }
     } else if (angle.contains(fromUnit) && angle.contains(toUnit)) {      // Angle
