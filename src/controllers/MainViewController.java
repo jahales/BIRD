@@ -10,6 +10,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.AppSettings;
 import models.AppState;
+import models.rocket.Rocket;
 
 /**
  * Main view of our program. 3 Tabs are included. This controller focuses on
@@ -21,7 +22,13 @@ import models.AppState;
 public class MainViewController {
 
     final static Logger logger = Logger.getLogger(MainViewController.class.getName());
-
+    Rocket rocket;
+        
+    public MainViewController(Rocket rocket)
+    {
+      this.rocket = rocket;
+    }
+    
     /**
      * File->New
      *

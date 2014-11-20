@@ -1,9 +1,12 @@
 package controllers;
 
+import java.net.URL;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import models.rocket.Rocket;
 
 /**
  *
@@ -21,7 +24,15 @@ public class Main extends Application {
   @Override
   public void start(Stage primaryStage) {
     try {
-      Scene scene = new Scene(FXMLLoader.load(Main.class.getResource("/views/MainView.fxml")));
+      // Initialize the FXML loader 
+      ControllerFactory factory = new ControllerFactory();
+      factory.addSingleton(new Rocket());
+      
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(Main.class.getResource("/views/MainView.fxml"));
+      loader.setControllerFactory(factory);
+      
+      Scene scene = new Scene(loader.load());
       primaryStage.setScene(scene);
       primaryStage.setTitle("BIRD");
       primaryStage.show();
