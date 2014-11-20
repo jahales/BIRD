@@ -5,27 +5,36 @@ import models.rocket.Rocket;
 import models.simulator.Simulation;
 
 /**
- * Singleton pattern that stores a rocket and simulation object. A property object will be defined soon.
+ * Singleton pattern that stores a rocket and simulation object. A property
+ * object will be defined soon.
+ * 
  * @author Brian Woodruff
  *
  */
 public class ModelState {
-  private static ModelState modelState;
-  
+  private static ModelState modelState = new ModelState();
+
   private boolean unsaved = false;
   private boolean neverBeenSaved = true;
   private File presentWorkingFile;
   private File presentWorkingDirectory;
   private Rocket rocket = new Rocket();
   private Simulation simulation = new Simulation();
-  //private Property property;
+
+  // private Property property;
   
+  /**
+   * @return modelState
+   */
+  public static ModelState getInstance() {
+    return modelState;
+  }
+
   /**
    * Private constructor
    */
-  public ModelState() {
-    rocket = new Rocket();
-    simulation = new Simulation();
+  private ModelState() {
+
   }
 
   /**
@@ -42,35 +51,59 @@ public class ModelState {
     return simulation;
   }
 
+  /**
+   * @return neverBeenSaved
+   */
   public boolean hasNeverBeenSaved() {
-      return neverBeenSaved;
+    return neverBeenSaved;
   }
 
+  /**
+   * @param unsaved
+   */
   public void setNeverBeenSaved(boolean unsaved) {
-      this.neverBeenSaved = unsaved;
-  }
-   public File getPresentWorkingFile() {
-      return presentWorkingFile;
+    this.neverBeenSaved = unsaved;
   }
 
+  /**
+   * @return presentWorkingFile
+   */
+  public File getPresentWorkingFile() {
+    return presentWorkingFile;
+  }
+
+  /**
+   * @param presentWorkingFile
+   */
   public void setPresentWorkingFile(File presentWorkingFile) {
-      this.presentWorkingFile = presentWorkingFile;
+    this.presentWorkingFile = presentWorkingFile;
   }
 
+  /**
+   * @return presentWorkingDirectory
+   */
   public File getPresentWorkingDirectory() {
-      return presentWorkingDirectory;
+    return presentWorkingDirectory;
   }
 
+  /**
+   * @param presentWorkingDirectory
+   */
   public void setPresentWorkingDirectory(File presentWorkingDirectory) {
-      this.presentWorkingDirectory = presentWorkingDirectory;
+    this.presentWorkingDirectory = presentWorkingDirectory;
   }
 
+  /**
+   * @return unsaved
+   */
   public boolean isUnsaved() {
-      return unsaved;
+    return unsaved;
   }
 
+  /**
+   * @param unsaved
+   */
   public void setUnsaved(boolean unsaved) {
-      this.unsaved = unsaved;
+    this.unsaved = unsaved;
   }
-  
 }

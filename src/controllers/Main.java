@@ -27,7 +27,7 @@ public class Main extends Application {
   @Override
   public void start(Stage primaryStage) {
     try {
-      Object view = ViewFactory.create("/views/MainView.fxml", new Object[] { new ModelState() });
+      Object view = ViewFactory.create("/views/MainView.fxml", new Object[] { ModelState.getInstance() });
       Scene scene = new Scene((Parent)view);
       primaryStage.setScene(scene);
       primaryStage.setTitle("BIRD");
