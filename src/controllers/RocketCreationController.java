@@ -16,7 +16,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
-import models.AppState;
+import models.ModelState;
+import views.ViewFactory;
 
 /**
  * Controller for the rocket creation view
@@ -25,7 +26,7 @@ import models.AppState;
  */
 public class RocketCreationController {
 
-  AppState appState;
+  ModelState appState;
   
   /**
    *
@@ -62,7 +63,7 @@ public class RocketCreationController {
   {
   }
   
-  public RocketCreationController(AppState appState)
+  public RocketCreationController(ModelState appState)
     {
       this.appState = appState;
     }
@@ -104,12 +105,8 @@ public class RocketCreationController {
 
   private Parent loadComponentView(String url)  {
     try {
-      ControllerFactory factory = new ControllerFactory();
-      factory.addSingleton(appState);
-      FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource(url));
-      loader.setControllerFactory(factory);
-      return loader.load();
+      Object view = ViewFactory.create(url, new Object[] { appState.getRocket() });      
+      return (Parent)view;
     } catch (IOException ex) {
       Logger.getLogger(RocketCreationController.class.getName()).log(Level.SEVERE, null, ex);
       return null;

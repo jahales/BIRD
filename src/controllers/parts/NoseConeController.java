@@ -5,31 +5,32 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import models.AppState;
+import models.ModelState;
 import models.Measurement;
 import models.Unit;
+import models.rocket.Rocket;
 import models.rocket.parts.NoseCone;
 import models.rocket.parts.NoseShape;
 
 /**
  * Controller for the nosecone view.
- * 
+ *
  * @author Brian Woodruff
  *
  */
 public class NoseConeController {
+
   private NoseCone noseCone = new NoseCone();
 
-  AppState appState;
-        
-    public NoseConeController(AppState appState)
-    {
-      this.appState = appState;
-    }
-  
+  Rocket rocket;
+
+  public NoseConeController(Rocket rocket) {
+    this.rocket = rocket;
+  }
+
   @FXML
   private TextField shapeParameter;
-  
+
   @FXML
   private TextField diameterValue;
 
@@ -38,13 +39,13 @@ public class NoseConeController {
 
   @FXML
   private ChoiceBox<String> diameterUnits;
-  
+
   @FXML
   private ChoiceBox<String> shape;
 
   /**
    * Updates the unit when user selects a unit.
-   * 
+   *
    * @param field
    * @param measurement
    */
@@ -56,10 +57,10 @@ public class NoseConeController {
       }
     });
   }
-  
+
   /**
    * Updates the value when the user changes it.
-   * 
+   *
    * @param field
    * @param measurement
    */
@@ -75,10 +76,10 @@ public class NoseConeController {
       }
     });
   }
-  
+
   /**
    * Updates the error when the user changes it.
-   * 
+   *
    * @param field
    * @param measurement
    */
@@ -94,16 +95,16 @@ public class NoseConeController {
       }
     });
   }
-  
+
   /**
    * Initialize nosecone values and add listeners
    */
   public void initialize() {
-    appState.getRocket().getExteriorComponents().add(noseCone);
-    
+    rocket.getExteriorComponents().add(noseCone);
+
     noseCone.setShapeParameter(0);
     noseCone.setDiameter(new Measurement(0, 0, Unit.centimeters));
-    
+
     addUnitListener(diameterUnits, noseCone.getDiameter());
     shape.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
       @Override
@@ -111,7 +112,7 @@ public class NoseConeController {
         noseCone.setNoseShape(NoseShape.valueOf(arg2));
       }
     });
-    
+
     addValueListener(diameterValue, noseCone.getDiameter());
     shapeParameter.textProperty().addListener(new ChangeListener<String>() {
       @Override
@@ -123,7 +124,7 @@ public class NoseConeController {
         }
       }
     });
-    
+
     addErrorListener(diameterError, noseCone.getDiameter());
   }
 }

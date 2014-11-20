@@ -4,31 +4,34 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
-import models.AppState;
-import models.rocket.parts.NoseShape;;
+import models.ModelState;
+import models.rocket.Rocket;
+import models.rocket.parts.NoseShape;
+
+;
 
 /**
  * Controller for the nose shape view
- * 
+ *
  * @author Brian Woodruff
  *
  */
 public class NoseShapeController {
+
   private NoseShape noseShape;
-  
-  AppState appState;
-        
-    public NoseShapeController(AppState appState)
-    {
-      this.appState = appState;
-    }
-  
+
+  Rocket rocket;
+
+  public NoseShapeController(Rocket rocket) {
+    this.rocket = rocket;
+  }
+
   @FXML
   private ChoiceBox<String> shape;
-  
+
   /**
    * Get the noseshape part.
-   * 
+   *
    * @return noseShape
    */
   public NoseShape getNoseShape() {
@@ -37,7 +40,7 @@ public class NoseShapeController {
 
   /**
    * Updates the unit when user selects a unit.
-   * 
+   *
    * @param field
    * @param measurement
    */

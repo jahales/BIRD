@@ -9,8 +9,8 @@ import models.simulator.Simulation;
  * @author Brian Woodruff
  *
  */
-public class AppState {
-  private static AppState appState;
+public class ModelState {
+  private static ModelState appState;
   
   private boolean unsaved = false;
   private boolean neverBeenSaved = true;
@@ -23,7 +23,7 @@ public class AppState {
   /**
    * Private constructor
    */
-  public AppState() {
+  public ModelState() {
     rocket = new Rocket();
     simulation = new Simulation();
   }

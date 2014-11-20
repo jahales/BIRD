@@ -5,27 +5,28 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import models.AppState;
+import models.ModelState;
 import models.Measurement;
 import models.Unit;
+import models.rocket.Rocket;
 import models.rocket.parts.Parachute;
 
 /**
  * Controller for the parachute view
- * 
+ *
  * @author Brian Woodruff
  *
  */
 public class ParachuteController {
+
   private Parachute parachute = new Parachute();
 
-  AppState appState;
-        
-    public ParachuteController(AppState appState)
-    {
-      this.appState = appState;
-    }
-  
+  Rocket rocket;
+
+  public ParachuteController(Rocket rocket) {
+    this.rocket = rocket;
+  }
+
   @FXML
   private TextField dragCoefficientValue;
 
@@ -49,10 +50,10 @@ public class ParachuteController {
 
   @FXML
   private ChoiceBox<String> deployedAltitudeUnits;
-  
+
   /**
    * Get the parachute part
-   * 
+   *
    * @return parachute
    */
   public Parachute getParachute() {
@@ -61,7 +62,7 @@ public class ParachuteController {
 
   /**
    * Updates the unit when user selects a unit.
-   * 
+   *
    * @param field
    * @param measurement
    */
@@ -79,7 +80,7 @@ public class ParachuteController {
 
   /**
    * Updates the value when the user changes it.
-   * 
+   *
    * @param field
    * @param measurement
    */
@@ -99,7 +100,7 @@ public class ParachuteController {
 
   /**
    * Updates the error when the user changes it.
-   * 
+   *
    * @param field
    * @param measurement
    */
@@ -116,25 +117,25 @@ public class ParachuteController {
       }
     });
   }
-  
+
   /**
    * Initialize the parachute part and add listeners
    */
   public void initialize() {
-    appState.getRocket().getInteriorComponents().add(parachute);
-    
+    rocket.getInteriorComponents().add(parachute);
+
     parachute.setDragCoefficient(new Measurement(0, 0, Unit.number));
     parachute.setDeployedDiameter(new Measurement(0, 0, Unit.centimeters));
     parachute.setDeploymentAltitude(new Measurement(0, 0, Unit.meters));
-    
+
     addValueListener(deployedDiameterValue, parachute.getDeployedDiameter());
     addValueListener(deploymentAltitudeValue, parachute.getDeploymentAltitude());
     addValueListener(dragCoefficientValue, parachute.getDragCoefficient());
-    
+
     addErrorListener(deployedDiameterError, parachute.getDeployedDiameter());
     addErrorListener(deploymentAltitudeError, parachute.getDeploymentAltitude());
     addErrorListener(dragCoefficientError, parachute.getDragCoefficient());
-    
+
     addUnitListener(deployedDiameterUnits, parachute.getDeployedDiameter());
     addUnitListener(deployedAltitudeUnits, parachute.getDeploymentAltitude());
   }

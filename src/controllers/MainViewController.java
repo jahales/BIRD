@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.AppSettings;
-import models.AppState;
+import models.ModelState;
 import models.rocket.Rocket;
 
 /**
@@ -22,9 +22,9 @@ import models.rocket.Rocket;
 public class MainViewController {
 
     final static Logger logger = Logger.getLogger(MainViewController.class.getName());
-    AppState appState;
+    ModelState appState;
         
-    public MainViewController(AppState appState)
+    public MainViewController(ModelState appState)
     {
       this.appState = appState;
     }

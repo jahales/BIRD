@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
 import models.rocket.Rocket;
 
 /**
@@ -24,16 +25,21 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
   final static Logger logger = Logger.getLogger(ControllerFactory.class.getName());
   Map<Class<?>, Object> typeInstanceMap = new HashMap<>();
 
-    @Override
+  @Override
   public Object call(Class<?> param) {
     return resolveInstance(param);
   }
-  
-  public void addSingleton(Object instance)
-  {
+
+  public void addSingleton(Object instance) {
     typeInstanceMap.put(instance.getClass(), instance);
   }
-  
+
+  public void addSingletons(Object[] instances) {
+    for (Object singleton : instances) {
+      addSingleton(singleton);
+    }
+  }
+
   private Object resolveInstance(Class<?> param) {
     // Sort the constructors by the maximum number of parameters
     List<Constructor> constructors = new ArrayList<>();
@@ -45,12 +51,11 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
 
     // Attempt to resolveInstance at least one constructor
     for (Constructor constructor : constructors) {
-        Object instance = resolveConstructor(constructor);
-        
-        if (instance != null)
-        {
-          return instance;
-        }
+      Object instance = resolveConstructor(constructor);
+
+      if (instance != null) {
+        return instance;
+      }
     }
 
     return null;
@@ -73,13 +78,11 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
       return null;
     }
   }
-  
-  private Object resolveParameter(Class<?> type)
-  {
+
+  private Object resolveParameter(Class<?> type) {
     Object instance = typeInstanceMap.get(type);
-    
-    if (instance == null)
-    {
+
+    if (instance == null) {
       try {
         instance = type.newInstance();
       } catch (Exception ex) {
@@ -87,7 +90,7 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
         instance = null;
       }
     }
-    
+
     return instance;
   }
 }

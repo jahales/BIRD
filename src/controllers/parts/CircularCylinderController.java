@@ -1,6 +1,6 @@
 package controllers.parts;
 
-import models.AppState;
+import models.ModelState;
 import models.Measurement;
 import models.Unit;
 import models.rocket.parts.CircularCylinder;
@@ -9,44 +9,45 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import models.rocket.Rocket;
 
 /**
  * Controller for Circular Cylinder view.
- * 
+ *
  * @author Brian Woodruff
  *
  */
-public class CircularCylinderController  {
+public class CircularCylinderController {
+
   private CircularCylinder circularCylinder = new CircularCylinder();
-  
-  AppState appState;
-        
-    public CircularCylinderController(AppState appState)
-    {
-      this.appState = appState;
-    }
-  
+
+  Rocket rocket;
+
+  public CircularCylinderController(Rocket rocket) {
+    this.rocket = rocket;
+  }
+
   @FXML
   private TextField diameterValue;
-  
+
   @FXML
   private TextField diameterError;
 
   @FXML
   private ChoiceBox<String> diameterUnits;
-  
+
   /**
    * Get the circular cylinder
-   * 
+   *
    * @return circularCylinder
    */
   public CircularCylinder getCircularCylinder() {
     return circularCylinder;
   }
-  
+
   /**
    * Updates the unit when user selects a unit.
-   * 
+   *
    * @param field
    * @param measurement
    */
@@ -58,10 +59,10 @@ public class CircularCylinderController  {
       }
     });
   }
-  
+
   /**
    * Updates the value when the user changes it.
-   * 
+   *
    * @param field
    * @param measurement
    */
@@ -77,10 +78,10 @@ public class CircularCylinderController  {
       }
     });
   }
-  
+
   /**
    * Updates the error when the user changes it.
-   * 
+   *
    * @param field
    * @param measurement
    */
@@ -96,19 +97,19 @@ public class CircularCylinderController  {
       }
     });
   }
-  
+
   /**
    * Initialize values for circular cylinder and add listeners.
    */
   public void initialize() {
-    appState.getRocket().getInteriorComponents().add(circularCylinder);
-    
+    rocket.getInteriorComponents().add(circularCylinder);
+
     circularCylinder.setDiameter(new Measurement(0, 0, Unit.centimeters));
-    
+
     addValueListener(diameterValue, circularCylinder.getDiameter());
-    
+
     addErrorListener(diameterError, circularCylinder.getDiameter());
-    
+
     addUnitListener(diameterUnits, circularCylinder.getDiameter());
   }
 }

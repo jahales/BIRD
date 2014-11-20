@@ -2,7 +2,7 @@ package controllers;
 
 import java.io.File;
 
-import models.AppState;
+import models.ModelState;
 import models.Measurement;
 import models.Unit;
 import models.simulator.Simulation;
@@ -25,9 +25,9 @@ public class SimulationController {
   private Measurement azimuthAngle;
   private Measurement polarAngle;
   
-  AppState appState;
+  ModelState appState;
         
-    public SimulationController(AppState appState)
+    public SimulationController(ModelState appState)
     {
       this.appState = appState;
     }

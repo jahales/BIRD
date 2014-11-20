@@ -1,6 +1,6 @@
 package controllers.parts;
 
-import models.AppState;
+import models.ModelState;
 import models.Measurement;
 import models.Unit;
 import models.rocket.parts.TrapezoidFinSet;
@@ -9,23 +9,24 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import models.rocket.Rocket;
 
 /**
  * A controller for a fin part.
- * 
+ *
  * @author Brian Woodruff
  *
  */
 public class FinController {
+
   private TrapezoidFinSet trapezoidFinSet = new TrapezoidFinSet();
 
-  AppState appState;
-        
-    public FinController(AppState appState)
-    {
-      this.appState = appState;
-    }
-  
+  Rocket rocket;
+
+  public FinController(Rocket rocket) {
+    this.rocket = rocket;
+  }
+
   @FXML
   private TextField finCountValue;
 
@@ -58,7 +59,7 @@ public class FinController {
 
   /**
    * Get the trapezoid fin set
-   * 
+   *
    * @return fin
    */
   public TrapezoidFinSet getFin() {
@@ -67,7 +68,7 @@ public class FinController {
 
   /**
    * Updates the unit when user selects a unit.
-   * 
+   *
    * @param field
    * @param measurement
    */
@@ -82,7 +83,7 @@ public class FinController {
 
   /**
    * Updates the value when the user changes it.
-   * 
+   *
    * @param field
    * @param measurement
    */
@@ -101,7 +102,7 @@ public class FinController {
 
   /**
    * Updates the error when the user changes it.
-   * 
+   *
    * @param field
    * @param measurement
    */
@@ -117,26 +118,26 @@ public class FinController {
       }
     });
   }
-  
+
   /**
    * Initialize the fin set and add listeners.
    */
   public void initialize() {
-    appState.getRocket().getExteriorComponents().add(trapezoidFinSet);
-    
+    rocket.getExteriorComponents().add(trapezoidFinSet);
+
     trapezoidFinSet.setCount(0);
     trapezoidFinSet.setSpanLength(new Measurement(0, 0, Unit.centimeters));
     trapezoidFinSet.setSweepLength(new Measurement(0, 0, Unit.centimeters));
     trapezoidFinSet.setRootChord(new Measurement(0, 0, Unit.centimeters));
-    
+
     addValueListener(rootChordValue, trapezoidFinSet.getRootChord());
     addValueListener(spanLengthValue, trapezoidFinSet.getSpanLength());
     addValueListener(sweepLengthValue, trapezoidFinSet.getSweepLength());
-    
+
     addErrorListener(rootChordError, trapezoidFinSet.getRootChord());
     addErrorListener(spanLengthError, trapezoidFinSet.getSpanLength());
     addErrorListener(sweepLengthError, trapezoidFinSet.getSweepLength());
-    
+
     addUnitListener(rootChordUnits, trapezoidFinSet.getRootChord());
     addUnitListener(spanLengthUnits, trapezoidFinSet.getSpanLength());
     addUnitListener(sweepLengthUnits, trapezoidFinSet.getSweepLength());
