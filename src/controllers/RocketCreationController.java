@@ -26,7 +26,7 @@ import views.ViewFactory;
  */
 public class RocketCreationController {
 
-  ModelState appState;
+  ModelState modelState;
   
   /**
    *
@@ -63,9 +63,9 @@ public class RocketCreationController {
   {
   }
   
-  public RocketCreationController(ModelState appState)
+  public RocketCreationController(ModelState modelState)
     {
-      this.appState = appState;
+      this.modelState = modelState;
     }
 
   private TreeItem<RocketPart> treeViewRoot;
@@ -105,7 +105,7 @@ public class RocketCreationController {
 
   private Parent loadComponentView(String url)  {
     try {
-      Object view = ViewFactory.create(url, new Object[] { appState.getRocket() });      
+      Object view = ViewFactory.create(url, new Object[] { modelState.getRocket() });      
       return (Parent)view;
     } catch (IOException ex) {
       Logger.getLogger(RocketCreationController.class.getName()).log(Level.SEVERE, null, ex);

@@ -22,11 +22,11 @@ import models.rocket.Rocket;
 public class MainViewController {
 
     final static Logger logger = Logger.getLogger(MainViewController.class.getName());
-    ModelState appState;
+    ModelState modelState;
         
-    public MainViewController(ModelState appState)
+    public MainViewController(ModelState modelState)
     {
-      this.appState = appState;
+      this.modelState = modelState;
     }
     
     /**
@@ -36,7 +36,7 @@ public class MainViewController {
      */
     @FXML
     void fileNew(ActionEvent event) {
-        if (appState.isUnsaved()) {
+        if (modelState.isUnsaved()) {
             //prompt user if he wants to save or not
         }
         // Create a new rocket and begin work
@@ -55,11 +55,11 @@ public class MainViewController {
         //Set initial file path
         try {
             //If there's a present working directory, open up to that directory
-            if (appState.getPresentWorkingDirectory() == null) {
+            if (modelState.getPresentWorkingDirectory() == null) {
                 fileChooser.setInitialDirectory(
                         new File(AppSettings.getInstance().getDefaultRocketPath()));
             } else {
-                fileChooser.setInitialDirectory(appState.getPresentWorkingDirectory());
+                fileChooser.setInitialDirectory(modelState.getPresentWorkingDirectory());
             }
             openFile = fileChooser.showOpenDialog(null); //How do I access the view's window?
         } catch (Exception ex) {
@@ -70,15 +70,15 @@ public class MainViewController {
 
         try {
             //Set the new present working directory to the save file's directory
-            appState.setPresentWorkingDirectory(openFile.getParentFile());
+            modelState.setPresentWorkingDirectory(openFile.getParentFile());
             //Call appropiate model load function
         } catch (NullPointerException npe) {
             logger.log(Level.FINE, "File Chooser did not choose a file");
         }
 
         //This should be placed inside of the model save function, but is here for testing
-        appState.setNeverBeenSaved(false);
-        appState.setUnsaved(false);
+        modelState.setNeverBeenSaved(false);
+        modelState.setUnsaved(false);
     }
 
     /**
@@ -89,17 +89,17 @@ public class MainViewController {
     @FXML
     void fileSave(ActionEvent event) {
         File saveFile;
-        if (appState.hasNeverBeenSaved()) {
+        if (modelState.hasNeverBeenSaved()) {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open Resource File");
             //Set initial file path
             try {
                 //If there's a present working directory, open up to that directory
-                if (appState.getPresentWorkingDirectory() == null) {
+                if (modelState.getPresentWorkingDirectory() == null) {
                     fileChooser.setInitialDirectory(
                             new File(AppSettings.getInstance().getDefaultRocketPath()));
                 } else {
-                    fileChooser.setInitialDirectory(appState.getPresentWorkingDirectory());
+                    fileChooser.setInitialDirectory(modelState.getPresentWorkingDirectory());
                 }
                 saveFile = fileChooser.showOpenDialog(null);
             } catch (Exception ex) {
@@ -110,18 +110,18 @@ public class MainViewController {
 
             try {
                 //Set the new present working directory to the save file's directory
-                appState.setPresentWorkingDirectory(saveFile.getParentFile());
+                modelState.setPresentWorkingDirectory(saveFile.getParentFile());
                 //Call appropiate model load function
             } catch (NullPointerException npe) {
                 logger.log(Level.FINE, "File Chooser did not choose a file");
             }
         } else {
-            if (appState.isUnsaved()) {
-                saveFile = appState.getPresentWorkingFile();
+            if (modelState.isUnsaved()) {
+                saveFile = modelState.getPresentWorkingFile();
 
                 try {
                     //Set the new present working directory to the save file's directory
-                    appState.setPresentWorkingDirectory(saveFile.getParentFile());
+                    modelState.setPresentWorkingDirectory(saveFile.getParentFile());
                     //Call appropiate model load function
                 } catch (NullPointerException npe) {
                     logger.log(Level.FINE, "File Chooser did not choose a file");
@@ -130,7 +130,7 @@ public class MainViewController {
         }
 
         //This should be placed inside of the model save function, but is here for testing
-        appState.setNeverBeenSaved(false);
+        modelState.setNeverBeenSaved(false);
     }
 
     /**
@@ -146,11 +146,11 @@ public class MainViewController {
         //Set initial file path
         try {
             //If there's a present working directory, open up to that directory
-            if (appState.getPresentWorkingDirectory() == null) {
+            if (modelState.getPresentWorkingDirectory() == null) {
                 fileChooser.setInitialDirectory(
                         new File(AppSettings.getInstance().getDefaultRocketPath()));
             } else {
-                fileChooser.setInitialDirectory(appState.getPresentWorkingDirectory());
+                fileChooser.setInitialDirectory(modelState.getPresentWorkingDirectory());
             }
             saveFile = fileChooser.showOpenDialog(null);
         } catch (Exception ex) {
@@ -161,13 +161,13 @@ public class MainViewController {
 
         try {
             //Set the new present working directory to the save file's directory
-            appState.setPresentWorkingDirectory(saveFile.getParentFile());
+            modelState.setPresentWorkingDirectory(saveFile.getParentFile());
             //Call appropiate model load function
         } catch (NullPointerException npe) {
             logger.log(Level.FINE, "File Chooser did not choose a file");
         }
         //This should be placed inside of the model save function, but is here for testing
-        appState.setNeverBeenSaved(false);
+        modelState.setNeverBeenSaved(false);
     }
 
     /**

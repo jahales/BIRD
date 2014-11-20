@@ -25,11 +25,11 @@ public class SimulationController {
   private Measurement azimuthAngle;
   private Measurement polarAngle;
   
-  ModelState appState;
+  ModelState modelState;
         
-    public SimulationController(ModelState appState)
+    public SimulationController(ModelState modelState)
     {
-      this.appState = appState;
+      this.modelState = modelState;
     }
 
   @FXML
@@ -83,7 +83,7 @@ public class SimulationController {
     File file = fileChooser.showOpenDialog(rocketFilePath.getScene().getWindow());
     if (file != null) {
       rocketFilePath.setText(file.getName());
-      appState.getSimulation().setRocketFile(file.getAbsolutePath());
+      modelState.getSimulation().setRocketFile(file.getAbsolutePath());
     }
   }
 
@@ -94,7 +94,7 @@ public class SimulationController {
     File file = fileChooser.showOpenDialog(atmosphereFilePath.getScene().getWindow());
     if (file != null) {
       atmosphereFilePath.setText(file.getName());
-      appState.getSimulation().setAtmosphereFile(file.getAbsolutePath());
+      modelState.getSimulation().setAtmosphereFile(file.getAbsolutePath());
     }
   }
 
@@ -105,7 +105,7 @@ public class SimulationController {
     File file = fileChooser.showOpenDialog(engineFilePath.getScene().getWindow());
     if (file != null) {
       engineFilePath.setText(file.getName());
-      appState.getSimulation().setEngineFile(file.getAbsolutePath());
+      modelState.getSimulation().setEngineFile(file.getAbsolutePath());
     }
   }
 
@@ -116,7 +116,7 @@ public class SimulationController {
     File file = fileChooser.showOpenDialog(launchRailFilePath.getScene().getWindow());
     if (file != null) {
       launchRailFilePath.setText(file.getName());
-      appState.getSimulation().setLaunchRailFile(file.getAbsolutePath());
+      modelState.getSimulation().setLaunchRailFile(file.getAbsolutePath());
     }
   }
   /**
@@ -176,9 +176,9 @@ public class SimulationController {
    *
    */
   public void initialize() {
-    length = appState.getSimulation().getLaunchRail().getLength();
-    azimuthAngle = appState.getSimulation().getLaunchRail().getAzimuthAngle();
-    polarAngle = appState.getSimulation().getLaunchRail().getPolarAngle();
+    length = modelState.getSimulation().getLaunchRail().getLength();
+    azimuthAngle = modelState.getSimulation().getLaunchRail().getAzimuthAngle();
+    polarAngle = modelState.getSimulation().getLaunchRail().getPolarAngle();
     
     addValueListener(lengthValue, length);
     addValueListener(polarAngleValue, polarAngle);

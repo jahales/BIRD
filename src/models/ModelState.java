@@ -10,7 +10,7 @@ import models.simulator.Simulation;
  *
  */
 public class ModelState {
-  private static ModelState appState;
+  private static ModelState modelState;
   
   private boolean unsaved = false;
   private boolean neverBeenSaved = true;
