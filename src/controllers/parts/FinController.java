@@ -19,6 +19,13 @@ import javafx.scene.control.TextField;
 public class FinController {
   private TrapezoidFinSet trapezoidFinSet = new TrapezoidFinSet();
 
+  AppState appState;
+        
+    public FinController(AppState appState)
+    {
+      this.appState = appState;
+    }
+  
   @FXML
   private TextField finCountValue;
 
@@ -115,7 +122,7 @@ public class FinController {
    * Initialize the fin set and add listeners.
    */
   public void initialize() {
-    AppState.getInstance().getRocket().getExteriorComponents().add(trapezoidFinSet);
+    appState.getRocket().getExteriorComponents().add(trapezoidFinSet);
     
     trapezoidFinSet.setCount(0);
     trapezoidFinSet.setSpanLength(new Measurement(0, 0, Unit.centimeters));

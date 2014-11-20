@@ -23,19 +23,9 @@ public class AppState {
   /**
    * Private constructor
    */
-  private AppState() {
+  public AppState() {
     rocket = new Rocket();
     simulation = new Simulation();
-  }
-  
-  /**
-   * @return appState
-   */
-  public static AppState getInstance() {
-    if (appState == null) {
-      appState = new AppState();
-    }
-    return appState;
   }
 
   /**

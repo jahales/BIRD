@@ -19,6 +19,13 @@ import models.rocket.parts.Parachute;
 public class ParachuteController {
   private Parachute parachute = new Parachute();
 
+  AppState appState;
+        
+    public ParachuteController(AppState appState)
+    {
+      this.appState = appState;
+    }
+  
   @FXML
   private TextField dragCoefficientValue;
 
@@ -114,7 +121,7 @@ public class ParachuteController {
    * Initialize the parachute part and add listeners
    */
   public void initialize() {
-    AppState.getInstance().getRocket().getInteriorComponents().add(parachute);
+    appState.getRocket().getInteriorComponents().add(parachute);
     
     parachute.setDragCoefficient(new Measurement(0, 0, Unit.number));
     parachute.setDeployedDiameter(new Measurement(0, 0, Unit.centimeters));

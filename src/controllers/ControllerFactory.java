@@ -41,6 +41,7 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
     Collections.sort(constructors, (Constructor o1, Constructor o2) -> {
       return Integer.compare(o1.getParameterCount(), o2.getParameterCount());
     });
+    Collections.reverse(constructors);
 
     // Attempt to resolveInstance at least one constructor
     for (Constructor constructor : constructors) {

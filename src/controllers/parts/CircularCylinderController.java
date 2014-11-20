@@ -16,8 +16,15 @@ import javafx.scene.control.TextField;
  * @author Brian Woodruff
  *
  */
-public class CircularCylinderController {
+public class CircularCylinderController  {
   private CircularCylinder circularCylinder = new CircularCylinder();
+  
+  AppState appState;
+        
+    public CircularCylinderController(AppState appState)
+    {
+      this.appState = appState;
+    }
   
   @FXML
   private TextField diameterValue;
@@ -94,7 +101,7 @@ public class CircularCylinderController {
    * Initialize values for circular cylinder and add listeners.
    */
   public void initialize() {
-    AppState.getInstance().getRocket().getInteriorComponents().add(circularCylinder);
+    appState.getRocket().getInteriorComponents().add(circularCylinder);
     
     circularCylinder.setDiameter(new Measurement(0, 0, Unit.centimeters));
     

@@ -4,6 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import models.AppState;
 import models.rocket.parts.NoseShape;;
 
 /**
@@ -14,6 +15,13 @@ import models.rocket.parts.NoseShape;;
  */
 public class NoseShapeController {
   private NoseShape noseShape;
+  
+  AppState appState;
+        
+    public NoseShapeController(AppState appState)
+    {
+      this.appState = appState;
+    }
   
   @FXML
   private ChoiceBox<String> shape;

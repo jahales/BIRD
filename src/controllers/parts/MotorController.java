@@ -20,6 +20,13 @@ import models.rocket.parts.Motor;
 public class MotorController {
   private Motor motor = new Motor();
   
+  AppState appState;
+        
+    public MotorController(AppState appState)
+    {
+      this.appState = appState;
+    }
+  
   @FXML
   private TextField manufacturerValue;
   
@@ -124,7 +131,7 @@ public class MotorController {
    * Initialize the motor part and set listeners
    */
   public void initialize() {
-    AppState.getInstance().getRocket().getInteriorComponents().add(motor);
+    appState.getRocket().getInteriorComponents().add(motor);
     
     motor.setManufacturer("");
     motor.setDelays("");

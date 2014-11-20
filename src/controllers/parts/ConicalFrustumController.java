@@ -16,8 +16,15 @@ import models.rocket.parts.ConicalFrustum;
  * @author Brian Woodruff
  *
  */
-public class ConicalFrustumController {
+public class ConicalFrustumController  {
   private ConicalFrustum conicalFrustum = new ConicalFrustum();
+  
+  AppState appState;
+        
+    public ConicalFrustumController(AppState appState)
+    {
+      this.appState = appState;
+    }
   
   @FXML
   private TextField upperDiameterValue;
@@ -103,7 +110,7 @@ public class ConicalFrustumController {
    * Initialize values for concial frustum and add listeners.
    */
   public void initialize() {
-    AppState.getInstance().getRocket().getExteriorComponents().add(conicalFrustum);
+    appState.getRocket().getExteriorComponents().add(conicalFrustum);
     
     conicalFrustum.setLowerDiameter(new Measurement(0, 0, Unit.centimeters));
     conicalFrustum.setUpperDiameter(new Measurement(0, 0, Unit.centimeters));

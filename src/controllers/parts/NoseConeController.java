@@ -20,6 +20,13 @@ import models.rocket.parts.NoseShape;
 public class NoseConeController {
   private NoseCone noseCone = new NoseCone();
 
+  AppState appState;
+        
+    public NoseConeController(AppState appState)
+    {
+      this.appState = appState;
+    }
+  
   @FXML
   private TextField shapeParameter;
   
@@ -92,7 +99,7 @@ public class NoseConeController {
    * Initialize nosecone values and add listeners
    */
   public void initialize() {
-    AppState.getInstance().getRocket().getExteriorComponents().add(noseCone);
+    appState.getRocket().getExteriorComponents().add(noseCone);
     
     noseCone.setShapeParameter(0);
     noseCone.setDiameter(new Measurement(0, 0, Unit.centimeters));

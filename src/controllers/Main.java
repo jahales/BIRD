@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import models.AppState;
 import models.rocket.Rocket;
 
 /**
@@ -26,7 +27,7 @@ public class Main extends Application {
     try {
       // Initialize the FXML loader 
       ControllerFactory factory = new ControllerFactory();
-      factory.addSingleton(new Rocket());
+      factory.addSingleton(new AppState());
       
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(Main.class.getResource("/views/MainView.fxml"));
