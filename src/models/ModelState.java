@@ -12,8 +12,6 @@ import models.simulator.Simulation;
  *
  */
 public class ModelState {
-  private static ModelState modelState = new ModelState();
-
   private boolean unsaved = false;
   private boolean neverBeenSaved = true;
   private File presentWorkingFile;
@@ -22,20 +20,7 @@ public class ModelState {
   private Simulation simulation = new Simulation();
 
   // private Property property;
-  
-  /**
-   * @return modelState
-   */
-  public static ModelState getInstance() {
-    return modelState;
-  }
-
-  /**
-   * Private constructor
-   */
-  private ModelState() {
-
-  }
+ 
 
   /**
    * @return rocket
