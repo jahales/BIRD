@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +11,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -77,7 +75,7 @@ public class RocketCreationController {
 //  private RocketPartTreeItem internalTreePartsRoot = new RocketPartTreeItem("Internal");
 //  private RocketPartTreeItem externalTreePartsRoot = new RocketPartTreeItem("External");
   
-  private Map<RocketPart, URL> itemURL = new HashMap<RocketPart, URL>();
+  private Map<RocketPart, String> itemURL = new HashMap<RocketPart, String>();
   private Map<RocketPart, Parent> itemParent = new HashMap<RocketPart, Parent>();
 
   @FXML
@@ -119,7 +117,8 @@ public class RocketCreationController {
     if (part != null) {
       if (itemURL.get(part) != null) {
         treeViewRoot.getChildren().add(new TreeItem<RocketPart>(part));
-        Parent parent = (Parent) FXMLLoader.load(itemURL.get(part));
+//        Parent parent = (Parent) FXMLLoader.load(getClass().getResource(itemURL.get(part)));
+        Parent parent = loadComponentView(itemURL.get(part));
         itemParent.put(part, parent);
       }
     }
@@ -162,11 +161,11 @@ public class RocketCreationController {
    * @throws IOException
    */
   private void setMaps() throws IOException {
-    itemURL.put(RocketPart.CircularCylinder, getClass().getResource("/views/parts/CircularCylinder.fxml"));
-    itemURL.put(RocketPart.ConicalFrustum,   getClass().getResource("/views/parts/ConicalFrustum.fxml"));
-    itemURL.put(RocketPart.Motor,            getClass().getResource("/views/parts/Motor.fxml"));
-    itemURL.put(RocketPart.NoseCone,         getClass().getResource("/views/parts/NoseCone.fxml"));
-    itemURL.put(RocketPart.Parachute,        getClass().getResource("/views/parts/Parachute.fxml"));
-    itemURL.put(RocketPart.TrapezoidFinSet,  getClass().getResource("/views/parts/TrapezoidFinSet.fxml"));
+    itemURL.put(RocketPart.CircularCylinder, "/views/parts/CircularCylinder.fxml");
+    itemURL.put(RocketPart.ConicalFrustum,   "/views/parts/ConicalFrustum.fxml");
+    itemURL.put(RocketPart.Motor,            "/views/parts/Motor.fxml");
+    itemURL.put(RocketPart.NoseCone,         "/views/parts/NoseCone.fxml");
+    itemURL.put(RocketPart.Parachute,        "/views/parts/Parachute.fxml");
+    itemURL.put(RocketPart.TrapezoidFinSet,  "/views/parts/TrapezoidFinSet.fxml");
   }
 }

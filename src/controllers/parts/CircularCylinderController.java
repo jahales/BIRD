@@ -17,7 +17,6 @@ import models.rocket.Rocket;
  *
  */
 public class CircularCylinderController {
-
   private CircularCylinder circularCylinder = new CircularCylinder();
 
   Rocket rocket;

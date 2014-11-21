@@ -4,6 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import models.Measurement;
 import models.Unit;
@@ -18,7 +19,6 @@ import models.rocket.parts.Motor;
  *
  */
 public class MotorController {
-
   private Motor motor = new Motor();
 
   Rocket rocket;
@@ -26,6 +26,9 @@ public class MotorController {
   public MotorController(Rocket rocket) {
     this.rocket = rocket;
   }
+  
+  @FXML
+  private Label thrustFile;
 
   @FXML
   private TextField manufacturerValue;
