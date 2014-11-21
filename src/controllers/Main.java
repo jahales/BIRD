@@ -12,6 +12,7 @@ import views.ViewFactory;
  * @author Jacob
  */
 public class Main extends Application {
+
   /**
    *
    * @param args
@@ -24,17 +25,16 @@ public class Main extends Application {
   public void start(Stage primaryStage) {
     startNewInstance(primaryStage);
   }
-  
-  public static void startNewInstance()
-  {
-      startNewInstance(new Stage());
+
+  public static void startNewInstance() {
+    startNewInstance(new Stage());
   }
-  
-  public static void startNewInstance(Stage primaryStage)
-  {
-      try {
-      Object view = ViewFactory.create("/views/MainView.fxml", new Object[] { new ModelState() });
-      Scene scene = new Scene((Parent)view);
+
+  public static void startNewInstance(Stage primaryStage) {
+    try {
+      ViewFactory viewFactory = new ViewFactory();
+      Object view = viewFactory.create("/views/MainView.fxml", new Object[]{new ModelState()});
+      Scene scene = new Scene((Parent) view);
       primaryStage.setScene(scene);
       primaryStage.setTitle("BIRD");
       primaryStage.show();
