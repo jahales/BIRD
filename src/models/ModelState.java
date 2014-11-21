@@ -5,10 +5,9 @@ import models.rocket.Rocket;
 import models.simulator.Simulation;
 
 /**
- * Singleton pattern that stores a rocket and simulation object. A property
- * object will be defined soon.
+ * Object representing the overall state of the model.
  * 
- * @author Brian Woodruff
+ * @author Brian Woodruff, Jacob Hales
  *
  */
 public class ModelState {
@@ -18,9 +17,6 @@ public class ModelState {
   private File presentWorkingDirectory;
   private Rocket rocket = new Rocket();
   private Simulation simulation = new Simulation();
-
-  // private Property property;
- 
 
   /**
    * @return rocket
