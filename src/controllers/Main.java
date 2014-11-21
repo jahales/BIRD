@@ -53,7 +53,7 @@ public class Main extends Application {
   public static void startNewMainView(Stage stage, MainViewModel model) {
     try {
       ViewFactory viewFactory = new ViewFactory();
-      Object view = viewFactory.create("/views/MainView.fxml", new Object[]{model});
+      Object view = viewFactory.create("/views/MainView.fxml", new Object[]{model, model.getRocket()});
       Scene scene = new Scene((Parent) view);
       stage.setScene(scene);
       stage.setTitle("BIRD");
