@@ -6,11 +6,12 @@ import models.simulator.Simulation;
 
 /**
  * Object representing the overall state of the model.
- * 
+ *
  * @author Brian Woodruff, Jacob Hales
  *
  */
 public class MainViewModel {
+
   private boolean unsaved = false;
   private boolean neverBeenSaved = true;
   private File presentWorkingFile;
@@ -26,12 +27,28 @@ public class MainViewModel {
   }
 
   /**
+   *
+   * @param rocket
+   */
+  public void setRocket(Rocket rocket) {
+    this.rocket = rocket;
+  }
+
+  /**
    * @return simulation
    */
   public Simulation getSimulation() {
     return simulation;
   }
-
+  
+  /**
+   *
+   * @param simulation
+   */
+  public void setSimulation(Simulation simulation) {
+    this.simulation = simulation;
+  }
+  
   /**
    * @return neverBeenSaved
    */
