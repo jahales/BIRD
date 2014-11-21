@@ -3,8 +3,6 @@ package controllers.parts;
 import models.Measurement;
 import models.Unit;
 import models.rocket.parts.CircularCylinder;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -16,18 +14,9 @@ import models.rocket.Rocket;
  * @author Brian Woodruff
  *
  */
-public class CircularCylinderController {
+public class CircularCylinderController extends PartController {
   private CircularCylinder circularCylinder = new CircularCylinder();
-
-  Rocket rocket;
-
-  /**
-   *
-   * @param rocket
-   */
-  public CircularCylinderController(Rocket rocket) {
-    this.rocket = rocket;
-  }
+  private Rocket rocket;
 
   @FXML
   private TextField diameterValue;
@@ -39,65 +28,11 @@ public class CircularCylinderController {
   private ChoiceBox<String> diameterUnits;
 
   /**
-   * Get the circular cylinder
    *
-   * @return circularCylinder
+   * @param rocket
    */
-  public CircularCylinder getCircularCylinder() {
-    return circularCylinder;
-  }
-
-  /**
-   * Updates the unit when user selects a unit.
-   *
-   * @param field
-   * @param measurement
-   */
-  private void addUnitListener(ChoiceBox<String> field, Measurement measurement) {
-    field.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        measurement.setUnit(Unit.valueOf(arg2));
-      }
-    });
-  }
-
-  /**
-   * Updates the value when the user changes it.
-   *
-   * @param field
-   * @param measurement
-   */
-  private void addValueListener(TextField field, Measurement measurement) {
-    field.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        try {
-          measurement.setValue(Double.parseDouble(arg2));
-        } catch (NumberFormatException e) {
-          e.printStackTrace();
-        }
-      }
-    });
-  }
-
-  /**
-   * Updates the error when the user changes it.
-   *
-   * @param field
-   * @param measurement
-   */
-  private void addErrorListener(TextField field, Measurement measurement) {
-    field.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        try {
-          measurement.setError(Double.parseDouble(arg2));
-        } catch (NumberFormatException e) {
-          e.printStackTrace();
-        }
-      }
-    });
+  public CircularCylinderController(Rocket rocket) {
+    this.rocket = rocket;
   }
 
   /**

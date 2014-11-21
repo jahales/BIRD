@@ -1,7 +1,5 @@
 package controllers.parts;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -16,18 +14,9 @@ import models.rocket.parts.ConicalFrustum;
  * @author Brian Woodruff
  *
  */
-public class ConicalFrustumController {
+public class ConicalFrustumController extends PartController {
   private ConicalFrustum conicalFrustum = new ConicalFrustum();
-
-  Rocket rocket;
-
-  /**
-   *
-   * @param rocket
-   */
-  public ConicalFrustumController(Rocket rocket) {
-    this.rocket = rocket;
-  }
+  private Rocket rocket;
 
   @FXML
   private TextField upperDiameterValue;
@@ -48,65 +37,11 @@ public class ConicalFrustumController {
   private ChoiceBox<String> lowerDiameterUnits;
 
   /**
-   * Get the conical frustum
    *
-   * @return conicalFrustum
+   * @param rocket
    */
-  public ConicalFrustum getConicalFrustum() {
-    return conicalFrustum;
-  }
-
-  /**
-   * Updates the unit when user selects a unit.
-   *
-   * @param field
-   * @param measurement
-   */
-  private void addUnitListener(ChoiceBox<String> field, Measurement measurement) {
-    field.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        measurement.setUnit(Unit.valueOf(arg2));
-      }
-    });
-  }
-
-  /**
-   * Updates the value when the user changes it.
-   *
-   * @param field
-   * @param measurement
-   */
-  private void addValueListener(TextField field, Measurement measurement) {
-    field.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        try {
-          measurement.setValue(Double.parseDouble(arg2));
-        } catch (NumberFormatException e) {
-          e.printStackTrace();
-        }
-      }
-    });
-  }
-
-  /**
-   * Updates the error when the user changes it.
-   *
-   * @param field
-   * @param measurement
-   */
-  private void addErrorListener(TextField field, Measurement measurement) {
-    field.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        try {
-          measurement.setError(Double.parseDouble(arg2));
-        } catch (NumberFormatException e) {
-          e.printStackTrace();
-        }
-      }
-    });
+  public ConicalFrustumController(Rocket rocket) {
+    this.rocket = rocket;
   }
 
   /**

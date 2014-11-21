@@ -18,18 +18,9 @@ import models.rocket.parts.Motor;
  * @author Brian Woodruff
  *
  */
-public class MotorController {
+public class MotorController extends PartController {
   private Motor motor = new Motor();
-
-  Rocket rocket;
-
-  /**
-   *
-   * @param rocket
-   */
-  public MotorController(Rocket rocket) {
-    this.rocket = rocket;
-  }
+  private Rocket rocket;
   
   @FXML
   private Label thrustFile;
@@ -73,65 +64,11 @@ public class MotorController {
   }
 
   /**
-   * Get the motor part.
    *
-   * @return motor
+   * @param rocket
    */
-  public Motor getMotor() {
-    return motor;
-  }
-
-  /**
-   * Updates the unit when user selects a unit.
-   *
-   * @param field
-   * @param measurement
-   */
-  private void addUnitListener(ChoiceBox<String> field, Measurement measurement) {
-    field.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        measurement.setUnit(Unit.valueOf(arg2));
-      }
-    });
-  }
-
-  /**
-   * Updates the value when the user changes it.
-   *
-   * @param field
-   * @param measurement
-   */
-  private void addValueListener(TextField field, Measurement measurement) {
-    field.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        try {
-          measurement.setValue(Double.parseDouble(arg2));
-        } catch (NumberFormatException e) {
-          e.printStackTrace();
-        }
-      }
-    });
-  }
-
-  /**
-   * Updates the error when the user changes it.
-   *
-   * @param field
-   * @param measurement
-   */
-  private void addErrorListener(TextField field, Measurement measurement) {
-    field.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        try {
-          measurement.setError(Double.parseDouble(arg2));
-        } catch (NumberFormatException e) {
-          e.printStackTrace();
-        }
-      }
-    });
+  public MotorController(Rocket rocket) {
+    this.rocket = rocket;
   }
 
   /**

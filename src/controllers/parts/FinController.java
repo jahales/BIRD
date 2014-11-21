@@ -17,18 +17,8 @@ import models.rocket.Rocket;
  *
  */
 public class FinController {
-
   private TrapezoidFinSet trapezoidFinSet = new TrapezoidFinSet();
-
-  Rocket rocket;
-
-  /**
-   *
-   * @param rocket
-   */
-  public FinController(Rocket rocket) {
-    this.rocket = rocket;
-  }
+  private Rocket rocket;
 
   @FXML
   private TextField finCountValue;
@@ -61,12 +51,11 @@ public class FinController {
   private ChoiceBox<String> sweepLengthUnits;
 
   /**
-   * Get the trapezoid fin set
    *
-   * @return fin
+   * @param rocket
    */
-  public TrapezoidFinSet getFin() {
-    return trapezoidFinSet;
+  public FinController(Rocket rocket) {
+    this.rocket = rocket;
   }
 
   /**
@@ -78,8 +67,8 @@ public class FinController {
   private void addUnitListener(ChoiceBox<String> field, Measurement measurement) {
     field.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
       @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        measurement.setUnit(Unit.valueOf(arg2));
+      public void changed(ObservableValue<? extends String> reserved, String old, String current) {
+        measurement.setUnit(Unit.valueOf(current));
       }
     });
   }
@@ -93,9 +82,9 @@ public class FinController {
   private void addValueListener(TextField field, Measurement measurement) {
     field.textProperty().addListener(new ChangeListener<String>() {
       @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
+      public void changed(ObservableValue<? extends String> reserved, String old, String current) {
         try {
-          measurement.setValue(Double.parseDouble(arg2));
+          measurement.setValue(Double.parseDouble(current));
         } catch (NumberFormatException e) {
           e.printStackTrace();
         }
@@ -112,9 +101,9 @@ public class FinController {
   private void addErrorListener(TextField field, Measurement measurement) {
     field.textProperty().addListener(new ChangeListener<String>() {
       @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
+      public void changed(ObservableValue<? extends String> reserved, String old, String current) {
         try {
-          measurement.setError(Double.parseDouble(arg2));
+          measurement.setError(Double.parseDouble(current));
         } catch (NumberFormatException e) {
           e.printStackTrace();
         }

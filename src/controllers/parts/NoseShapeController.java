@@ -7,19 +7,18 @@ import javafx.scene.control.ChoiceBox;
 import models.rocket.Rocket;
 import models.rocket.parts.NoseShape;
 
-;
-
 /**
  * Controller for the nose shape view
  *
  * @author Brian Woodruff
  *
  */
-public class NoseShapeController {
-
+public class NoseShapeController extends PartController {
   private NoseShape noseShape;
+  private Rocket rocket;
 
-  Rocket rocket;
+  @FXML
+  private ChoiceBox<String> shape;
 
   /**
    *
@@ -27,18 +26,6 @@ public class NoseShapeController {
    */
   public NoseShapeController(Rocket rocket) {
     this.rocket = rocket;
-  }
-
-  @FXML
-  private ChoiceBox<String> shape;
-
-  /**
-   * Get the noseshape part.
-   *
-   * @return noseShape
-   */
-  public NoseShape getNoseShape() {
-    return noseShape;
   }
 
   /**
@@ -50,8 +37,8 @@ public class NoseShapeController {
   private void addUnitListener(ChoiceBox<String> field, NoseShape measurement) {
     field.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
       @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        noseShape = NoseShape.valueOf(arg2);
+      public void changed(ObservableValue<? extends String> reserved, String old, String current) {
+        noseShape = NoseShape.valueOf(current);
       }
     });
   }

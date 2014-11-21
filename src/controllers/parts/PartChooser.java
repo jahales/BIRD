@@ -19,26 +19,26 @@ import javafx.stage.Window;
 
 /**
  *
- * @author Jacob
+ * @author Jacob, Brian Woodruff
  */
 public class PartChooser {
-
   private RocketPart selectedRocketPart;
   private Stage stage;
   private ListView<RocketPart> partsList;
 
   /**
-   *
+   * Selection dialog that returns the selected part.
+   * 
    * @param window
-   * @return
+   * @return selected Rocket Part
    */
   public RocketPart showPartDialog(Window window) {
     partsList = new ListView<RocketPart>();
     partsList.setItems(FXCollections.observableArrayList(RocketPart.values()));
     partsList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<RocketPart>() {
       @Override
-      public void changed(ObservableValue<? extends RocketPart> arg0, RocketPart arg1, RocketPart arg2) {
-        selectedRocketPart = arg2;
+      public void changed(ObservableValue<? extends RocketPart> reserved, RocketPart old, RocketPart current) {
+        selectedRocketPart = current;
       }
     });
 
