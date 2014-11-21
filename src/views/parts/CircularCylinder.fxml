@@ -6,10 +6,10 @@
 
 <GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.parts.CircularCylinderController">
 	<columnConstraints>
-		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
 	</columnConstraints>
 	<rowConstraints>
 		<RowConstraints vgrow="SOMETIMES" minHeight="30" prefHeight="30" />
