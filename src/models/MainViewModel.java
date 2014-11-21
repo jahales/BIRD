@@ -10,7 +10,7 @@ import models.simulator.Simulation;
  * @author Brian Woodruff, Jacob Hales
  *
  */
-public class ModelState {
+public class MainViewModel {
   private boolean unsaved = false;
   private boolean neverBeenSaved = true;
   private File presentWorkingFile;

@@ -6,7 +6,7 @@ import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import models.ModelState;
+import models.MainViewModel;
 import views.ViewFactory;
 
 /**
@@ -27,22 +27,22 @@ public class Main extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    startNewInstance(primaryStage, new ModelState());
+    startNewMainView(primaryStage, new MainViewModel());
   }
 
   /**
    * Creates a new instance of the main view.
    */
-  public static void startNewInstance() {
-    startNewInstance(new Stage(), new ModelState());
+  public static void startNewMainView() {
+    startNewMainView(new Stage(), new MainViewModel());
   }
   
   /**
    * Creates a new instance of the main view.
    * @param model Model representing the initial state of the view.
    */
-  public static void startNewInstance(ModelState model) {
-    startNewInstance(new Stage(), model);
+  public static void startNewMainView(MainViewModel model) {
+    startNewMainView(new Stage(), model);
   }
 
   /**
@@ -50,7 +50,7 @@ public class Main extends Application {
    * @param stage Stage that will host the main view.
    * @param model Model representing the initial state of the view.
    */
-  public static void startNewInstance(Stage stage, ModelState model) {
+  public static void startNewMainView(Stage stage, MainViewModel model) {
     try {
       ViewFactory viewFactory = new ViewFactory();
       Object view = viewFactory.create("/views/MainView.fxml", new Object[]{model});

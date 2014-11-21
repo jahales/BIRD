@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
 import models.AppSettings;
-import models.ModelState;
+import models.MainViewModel;
 
 /**
  * Main view of our program. 3 Tabs are included. This controller focuses on
@@ -18,12 +18,12 @@ import models.ModelState;
  */
 public class MainViewController {
   final static Logger logger = Logger.getLogger(MainViewController.class.getName());
-  ModelState modelState;
+  MainViewModel modelState;
 
   /**
    * @param modelState
    */
-  public MainViewController(ModelState modelState) {
+  public MainViewController(MainViewModel modelState) {
     this.modelState = modelState;
   }
 

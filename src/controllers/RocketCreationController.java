@@ -17,7 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
-import models.ModelState;
+import models.MainViewModel;
 import views.ViewFactory;
 
 /**
@@ -70,7 +70,7 @@ public class RocketCreationController {
 //    }
 //  };
 
-  ModelState modelState;
+  MainViewModel modelState;
 
   private TreeItem<RocketPart> treeViewRoot = new TreeItem<RocketPart>();
   
@@ -109,7 +109,7 @@ public class RocketCreationController {
    *
    * @param modelState
    */
-  public RocketCreationController(ModelState modelState) {
+  public RocketCreationController(MainViewModel modelState) {
     this.modelState = modelState;
   }
 

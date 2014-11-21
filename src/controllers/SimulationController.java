@@ -2,7 +2,7 @@ package controllers;
 
 import java.io.File;
 
-import models.ModelState;
+import models.MainViewModel;
 import models.Measurement;
 import models.Unit;
 import javafx.beans.value.ChangeListener;
@@ -24,13 +24,13 @@ public class SimulationController {
   private Measurement azimuthAngle;
   private Measurement polarAngle;
   
-  ModelState modelState;
+  MainViewModel modelState;
         
   /**
    *
    * @param modelState
    */
-  public SimulationController(ModelState modelState)
+  public SimulationController(MainViewModel modelState)
     {
       this.modelState = modelState;
     }
