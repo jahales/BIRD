@@ -21,6 +21,10 @@ public class CircularCylinderController {
 
   Rocket rocket;
 
+  /**
+   *
+   * @param rocket
+   */
   public CircularCylinderController(Rocket rocket) {
     this.rocket = rocket;
   }

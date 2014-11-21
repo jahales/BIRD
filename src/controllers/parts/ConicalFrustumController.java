@@ -21,6 +21,10 @@ public class ConicalFrustumController {
 
   Rocket rocket;
 
+  /**
+   *
+   * @param rocket
+   */
   public ConicalFrustumController(Rocket rocket) {
     this.rocket = rocket;
   }

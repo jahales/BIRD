@@ -1,20 +1,25 @@
 package controllers;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import models.ModelState;
+import models.MainViewModel;
 import views.ViewFactory;
 
 /**
- *
+ * Main class that contains the entry point for the JavaFX application.
  * @author Jacob
  */
 public class Main extends Application {
+  
+  final static Logger logger = Logger.getLogger(Main.class.getName());
+
   /**
-   *
-   * @param args
+   * Entry point for the application.
+   * @param args Command line arguments.
    */
   public static void main(String[] args) {
     Application.launch(Main.class, (java.lang.String[]) null);
@@ -22,14 +27,39 @@ public class Main extends Application {
 
   @Override
   public void start(Stage primaryStage) {
+    startNewMainView(primaryStage, new MainViewModel());
+  }
+
+  /**
+   * Creates a new instance of the main view.
+   */
+  public static void startNewMainView() {
+    startNewMainView(new Stage(), new MainViewModel());
+  }
+  
+  /**
+   * Creates a new instance of the main view.
+   * @param model Model representing the initial state of the view.
+   */
+  public static void startNewMainView(MainViewModel model) {
+    startNewMainView(new Stage(), model);
+  }
+
+  /**
+   * Creates a new instance of the main view.
+   * @param stage Stage that will host the main view.
+   * @param model Model representing the initial state of the view.
+   */
+  public static void startNewMainView(Stage stage, MainViewModel model) {
     try {
-      Object view = ViewFactory.create("/views/MainView.fxml", new Object[] { ModelState.getInstance() });
-      Scene scene = new Scene((Parent)view);
-      primaryStage.setScene(scene);
-      primaryStage.setTitle("BIRD");
-      primaryStage.show();
+      ViewFactory viewFactory = new ViewFactory();
+      Object view = viewFactory.create("/views/MainView.fxml", new Object[]{model, model.getRocket()});
+      Scene scene = new Scene((Parent) view);
+      stage.setScene(scene);
+      stage.setTitle("BIRD");
+      stage.show();
     } catch (Exception ex) {
-      ex.printStackTrace();
+      logger.log(Level.WARNING, "Failed to create new MainView.", ex);
     }
   }
 }

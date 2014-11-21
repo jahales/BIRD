@@ -21,6 +21,10 @@ public class NoseShapeController {
 
   Rocket rocket;
 
+  /**
+   *
+   * @param rocket
+   */
   public NoseShapeController(Rocket rocket) {
     this.rocket = rocket;
   }

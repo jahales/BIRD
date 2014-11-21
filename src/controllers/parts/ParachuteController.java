@@ -22,6 +22,10 @@ public class ParachuteController {
 
   Rocket rocket;
 
+  /**
+   *
+   * @param rocket
+   */
   public ParachuteController(Rocket rocket) {
     this.rocket = rocket;
   }

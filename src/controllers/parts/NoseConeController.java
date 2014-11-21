@@ -23,6 +23,10 @@ public class NoseConeController {
 
   Rocket rocket;
 
+  /**
+   *
+   * @param rocket
+   */
   public NoseConeController(Rocket rocket) {
     this.rocket = rocket;
   }

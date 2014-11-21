@@ -15,7 +15,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
-import models.ModelState;
+import models.MainViewModel;
+import models.rocket.Rocket;
 import views.ViewFactory;
 
 /**
@@ -24,6 +25,7 @@ import views.ViewFactory;
  * @author Jacob, Brian
  */
 public class RocketCreationController {
+
   /**
    *
    */
@@ -54,7 +56,7 @@ public class RocketCreationController {
      */
     Parachute
   }
-  
+
 //  private final class RocketPartTreeItem extends TreeItem<RocketPart> {
 //    private String name;
 //    
@@ -67,15 +69,14 @@ public class RocketCreationController {
 //      return name;
 //    }
 //  };
-
-  ModelState modelState;
+  Rocket rocket;
 
   private TreeItem<RocketPart> treeViewRoot = new TreeItem<RocketPart>();
-  
+
 //  private RocketPartTreeItem internalTreePartsRoot = new RocketPartTreeItem("Internal");
 //  private RocketPartTreeItem externalTreePartsRoot = new RocketPartTreeItem("External");
-  
-  private Map<RocketPart, String> itemURL = new HashMap<RocketPart, String>();
+
+  private Map<RocketPart, String> itemURL = new HashMap<>();
   private Map<RocketPart, Parent> itemParent = new HashMap<RocketPart, Parent>();
 
   @FXML
@@ -90,25 +91,32 @@ public class RocketCreationController {
       partViewer.getChildren().clear();
       if (arg2.getValue() != null) {
         if (itemURL.get(arg2.getValue()) != null) {
-          
+
           partViewer.getChildren().add(itemParent.get(arg2.getValue()));
         }
       }
     }
   };
 
+  /**
+   *
+   */
   public RocketCreationController() {
   }
 
-  public RocketCreationController(ModelState modelState) {
-    this.modelState = modelState;
+  /**
+   *
+   * @param mainViewModel
+   */
+  public RocketCreationController(Rocket rocket) {
+    this.rocket = rocket;
   }
 
   /**
    * Open PartChooser dialog window and add chosen part to tree view
    *
    * @param event
-   * @throws IOException 
+   * @throws IOException
    */
   @FXML
   void addPart(ActionEvent event) throws IOException {
@@ -116,9 +124,12 @@ public class RocketCreationController {
     RocketPart part = partChooser.showPartDialog(partViewer.getScene().getWindow());
     if (part != null) {
       if (itemURL.get(part) != null) {
+//        ViewFactory factory = new ViewFactory(); // Why?
+//        Parent parent = (Parent) factory.create(itemURL.get(part), new Object[]{rocket}); Why?
+        
         treeViewRoot.getChildren().add(new TreeItem<RocketPart>(part));
-//        Parent parent = (Parent) FXMLLoader.load(getClass().getResource(itemURL.get(part)));
         Parent parent = loadComponentView(itemURL.get(part));
+
         itemParent.put(part, parent);
       }
     }
@@ -135,7 +146,7 @@ public class RocketCreationController {
     treeViewRoot.setExpanded(true);
 //    treeViewRoot.getChildren().add(internalTreePartsRoot);
 //    treeViewRoot.getChildren().add(externalTreePartsRoot);
-    
+
     partList.getSelectionModel().selectedItemProperty().addListener(selectionEvent);
     partList.setRoot(treeViewRoot);
     partList.setShowRoot(false);
@@ -145,9 +156,10 @@ public class RocketCreationController {
    * @param url
    * @return view
    */
-  private Parent loadComponentView(String url)  {
+  private Parent loadComponentView(String url) {
     try {
-      Object view = ViewFactory.create(url, new Object[] { modelState.getRocket() });      
+      ViewFactory viewFactory = new ViewFactory();
+      Object view = viewFactory.create(url, new Object[]{rocket});
       return (Parent) view;
     } catch (IOException ex) {
       Logger.getLogger(RocketCreationController.class.getName()).log(Level.SEVERE, null, ex);
