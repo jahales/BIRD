@@ -5,7 +5,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import models.ModelState;
 import models.Measurement;
 import models.Unit;
 import models.rocket.Rocket;
@@ -18,7 +17,6 @@ import models.rocket.parts.ConicalFrustum;
  *
  */
 public class ConicalFrustumController {
-
   private ConicalFrustum conicalFrustum = new ConicalFrustum();
 
   Rocket rocket;

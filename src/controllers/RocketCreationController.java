@@ -142,10 +142,14 @@ public class RocketCreationController {
     partList.setShowRoot(false);
   }
 
+  /**
+   * @param url
+   * @return view
+   */
   private Parent loadComponentView(String url)  {
     try {
       Object view = ViewFactory.create(url, new Object[] { modelState.getRocket() });      
-      return (Parent)view;
+      return (Parent) view;
     } catch (IOException ex) {
       Logger.getLogger(RocketCreationController.class.getName()).log(Level.SEVERE, null, ex);
       return null;
