@@ -13,9 +13,6 @@ import models.simulator.Simulation;
  */
 public class ModelState {
   private boolean unsaved = false;
-  private boolean neverBeenSaved = true;
-  private File presentWorkingFile;
-  private File presentWorkingDirectory;
   private Rocket rocket = new Rocket();
   private Simulation simulation = new Simulation();
 
@@ -34,48 +31,6 @@ public class ModelState {
    */
   public Simulation getSimulation() {
     return simulation;
-  }
-
-  /**
-   * @return neverBeenSaved
-   */
-  public boolean hasNeverBeenSaved() {
-    return neverBeenSaved;
-  }
-
-  /**
-   * @param unsaved
-   */
-  public void setNeverBeenSaved(boolean unsaved) {
-    this.neverBeenSaved = unsaved;
-  }
-
-  /**
-   * @return presentWorkingFile
-   */
-  public File getPresentWorkingFile() {
-    return presentWorkingFile;
-  }
-
-  /**
-   * @param presentWorkingFile
-   */
-  public void setPresentWorkingFile(File presentWorkingFile) {
-    this.presentWorkingFile = presentWorkingFile;
-  }
-
-  /**
-   * @return presentWorkingDirectory
-   */
-  public File getPresentWorkingDirectory() {
-    return presentWorkingDirectory;
-  }
-
-  /**
-   * @param presentWorkingDirectory
-   */
-  public void setPresentWorkingDirectory(File presentWorkingDirectory) {
-    this.presentWorkingDirectory = presentWorkingDirectory;
   }
 
   /**
