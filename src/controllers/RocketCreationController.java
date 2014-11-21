@@ -70,7 +70,7 @@ public class RocketCreationController {
 //    }
 //  };
 
-  MainViewModel modelState;
+  MainViewModel mainViewModel;
 
   private TreeItem<RocketPart> treeViewRoot = new TreeItem<RocketPart>();
   
@@ -107,10 +107,10 @@ public class RocketCreationController {
 
   /**
    *
-   * @param modelState
+   * @param mainViewModel
    */
-  public RocketCreationController(MainViewModel modelState) {
-    this.modelState = modelState;
+  public RocketCreationController(MainViewModel mainViewModel) {
+    this.mainViewModel = mainViewModel;
   }
 
   /**
@@ -156,7 +156,7 @@ public class RocketCreationController {
   private Parent loadComponentView(String url)  {
     try {
       ViewFactory viewFactory = new ViewFactory();
-      Object view = viewFactory.create(url, new Object[] { modelState.getRocket() });      
+      Object view = viewFactory.create(url, new Object[] { mainViewModel.getRocket() });      
       return (Parent) view;
     } catch (IOException ex) {
       Logger.getLogger(RocketCreationController.class.getName()).log(Level.SEVERE, null, ex);
