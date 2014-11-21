@@ -31,8 +31,8 @@ public class MainViewController {
   /**
    * @param modelState
    */
-  public MainViewController(MainViewModel modelState) {
-    this.mainViewModel = modelState;
+  public MainViewController(MainViewModel mainViewState) {
+    this.mainViewModel = mainViewState;
   }
 
   /**
@@ -133,7 +133,8 @@ public class MainViewController {
    */
   @FXML
   void fileQuit() {
-    // ???
+    // prompt for save, then quit. Use SaveDialog.fxml <--- How do I use the factory for this?
+    
   }
 
   /**
