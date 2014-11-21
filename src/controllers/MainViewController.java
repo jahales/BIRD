@@ -42,7 +42,7 @@ public class MainViewController {
 
   /**
    * File->Open
-   *
+   * ...
    * @param event
    */
   @FXML
