@@ -148,7 +148,8 @@ public class RocketCreationController {
    */
   private Parent loadComponentView(String url)  {
     try {
-      Object view = ViewFactory.create(url, new Object[] { modelState.getRocket() });      
+      ViewFactory viewFactory = new ViewFactory();
+      Object view = viewFactory.create(url, new Object[] { modelState.getRocket() });      
       return (Parent) view;
     } catch (IOException ex) {
       Logger.getLogger(RocketCreationController.class.getName()).log(Level.SEVERE, null, ex);
