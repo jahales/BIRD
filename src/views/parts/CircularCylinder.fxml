@@ -18,10 +18,10 @@
 	<children>
 		<Label text="Diameter" GridPane.rowIndex="1" />
 		<Label text="Value" GridPane.columnIndex="1" />
-		<TextField fx:id="diameterValue" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-		<Label text="Error" GridPane.columnIndex="2" />
-		<TextField fx:id="diameterError" GridPane.columnIndex="2" GridPane.rowIndex="1" />
 		<Label text="Units" GridPane.columnIndex="3" />
+		<Label text="Error" GridPane.columnIndex="2" />
+                <TextField fx:id="diameterValue" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+		<TextField fx:id="diameterError" GridPane.columnIndex="2" GridPane.rowIndex="1" />
 		<fx:include fx:id="diameterUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="1" />
 	</children>
 </GridPane>
