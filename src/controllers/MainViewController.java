@@ -1,5 +1,6 @@
 package controllers;
 
+import static controllers.Main.startNewInstance;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,13 +11,16 @@ import models.AppSettings;
 import models.ModelState;
 
 /**
- * Main view of our program. 3 Tabs are included. This controller focuses on
- * menu items.
+ * Main view of our program. 3 Tabs are included. This controller focuses on menu items.
  *
  * @author Brian Woodruff
  *
  */
 public class MainViewController {
+
+  private boolean neverBeenSaved = true;
+  private File presentWorkingFile;
+  private File presentWorkingDirectory;
   final static Logger logger = Logger.getLogger(MainViewController.class.getName());
   ModelState modelState;
 
@@ -34,10 +38,8 @@ public class MainViewController {
    */
   @FXML
   void fileNew() {
-    if (modelState.isUnsaved()) {
-      // prompt user if he wants to save or not
-    }
-    // Create a new rocket and begin work
+    //Spawn a empty window
+    startNewInstance();
   }
 
   /**
@@ -53,13 +55,13 @@ public class MainViewController {
     // Set initial file path
     try {
       // If there's a present working directory, open up to that directory
-      if (modelState.getPresentWorkingDirectory() == null) {
+      if (presentWorkingDirectory == null) {
         fileChooser.setInitialDirectory(new File(AppSettings.getInstance().getDefaultRocketPath()));
       } else {
-        fileChooser.setInitialDirectory(modelState.getPresentWorkingDirectory());
+        fileChooser.setInitialDirectory(presentWorkingDirectory);
       }
       openFile = fileChooser.showOpenDialog(null); // How do I access the view's
-                                                   // window?
+      // window?
     } catch (Exception ex) {
       logger.warning("Invalid initial directory path");
       fileChooser.setInitialDirectory(null);
@@ -68,15 +70,12 @@ public class MainViewController {
 
     try {
       // Set the new present working directory to the save file's directory
-      modelState.setPresentWorkingDirectory(openFile.getParentFile());
+      presentWorkingDirectory = openFile.getParentFile();
       // Call appropiate model load function
     } catch (NullPointerException npe) {
       logger.log(Level.FINE, "File Chooser did not choose a file");
     }
-
-    // This should be placed inside of the model save function, but is here for
-    // testing
-    modelState.setNeverBeenSaved(false);
+    neverBeenSaved = false;
     modelState.setUnsaved(false);
   }
 
@@ -88,16 +87,16 @@ public class MainViewController {
   @FXML
   void fileSave() {
     File saveFile;
-    if (modelState.hasNeverBeenSaved()) {
+    if (neverBeenSaved) {
       FileChooser fileChooser = new FileChooser();
       fileChooser.setTitle("Open Resource File");
       // Set initial file path
       try {
         // If there's a present working directory, open up to that directory
-        if (modelState.getPresentWorkingDirectory() == null) {
+        if (presentWorkingDirectory == null) {
           fileChooser.setInitialDirectory(new File(AppSettings.getInstance().getDefaultRocketPath()));
         } else {
-          fileChooser.setInitialDirectory(modelState.getPresentWorkingDirectory());
+          fileChooser.setInitialDirectory(presentWorkingDirectory);
         }
         saveFile = fileChooser.showOpenDialog(null);
       } catch (Exception ex) {
@@ -108,27 +107,24 @@ public class MainViewController {
 
       try {
         // Set the new present working directory to the save file's directory
-        modelState.setPresentWorkingDirectory(saveFile.getParentFile());
+        presentWorkingDirectory = saveFile.getParentFile();
         // Call appropiate model load function
       } catch (NullPointerException npe) {
         logger.log(Level.FINE, "File Chooser did not choose a file");
       }
     } else {
       if (modelState.isUnsaved()) {
-        saveFile = modelState.getPresentWorkingFile();
+        saveFile = presentWorkingFile;
         try {
           // Set the new present working directory to the save file's directory
-          modelState.setPresentWorkingDirectory(saveFile.getParentFile());
+          presentWorkingDirectory = saveFile.getParentFile();
           // Call appropiate model load function
         } catch (NullPointerException npe) {
           logger.log(Level.FINE, "File Chooser did not choose a file");
         }
       }
     }
-
-    // This should be placed inside of the model save function, but is here for
-    // testing
-    modelState.setNeverBeenSaved(false);
+    neverBeenSaved = false;
   }
 
   /**
@@ -144,10 +140,10 @@ public class MainViewController {
     // Set initial file path
     try {
       // If there's a present working directory, open up to that directory
-      if (modelState.getPresentWorkingDirectory() == null) {
+      if (presentWorkingDirectory == null) {
         fileChooser.setInitialDirectory(new File(AppSettings.getInstance().getDefaultRocketPath()));
       } else {
-        fileChooser.setInitialDirectory(modelState.getPresentWorkingDirectory());
+        fileChooser.setInitialDirectory(presentWorkingDirectory);
       }
       saveFile = fileChooser.showOpenDialog(null);
     } catch (Exception ex) {
@@ -158,14 +154,12 @@ public class MainViewController {
 
     try {
       // Set the new present working directory to the save file's directory
-      modelState.setPresentWorkingDirectory(saveFile.getParentFile());
+      presentWorkingDirectory = saveFile.getParentFile();
       // Call appropiate model load function
     } catch (NullPointerException npe) {
       logger.log(Level.FINE, "File Chooser did not choose a file");
     }
-    // This should be placed inside of the model save function, but is here for
-    // testing
-    modelState.setNeverBeenSaved(false);
+    neverBeenSaved = false;
   }
 
   /**

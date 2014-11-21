@@ -10,12 +10,20 @@ import javafx.fxml.FXMLLoader;
  */
 public class ViewFactory {
 
-  public static Object create(String url, Object[] singletons) throws IOException {
+  public Object create(String url, Object[] singletons) throws IOException {
     ControllerFactory factory = new ControllerFactory();
     factory.addSingletons(singletons);
     FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(ControllerFactory.class.getResource(url));
+    loader.setLocation(ViewFactory.class.getResource(url));
     loader.setControllerFactory(factory);
+    return loader.load();
+  }
+  
+  public Object create(String url, Object controller) throws IOException
+  {
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(ViewFactory.class.getResource(url));
+    loader.setController(controller);
     return loader.load();
   }
 }
