@@ -1,5 +1,6 @@
 package controllers;
 
+import static controllers.Main.startNewInstance;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +38,8 @@ public class MainViewController {
    */
   @FXML
   void fileNew() {
-    //Spawn a empty window 
+    //Spawn a empty window
+    startNewInstance();
   }
 
   /**

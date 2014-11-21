@@ -5,25 +5,32 @@ import models.rocket.Rocket;
 import models.simulator.Simulation;
 
 /**
- * Singleton pattern that stores a rocket and simulation object. A property
- * object will be defined soon.
- * 
+ * Singleton pattern that stores a rocket and simulation object. A property object will be defined
+ * soon.
+ *
  * @author Brian Woodruff
  *
  */
 public class ModelState {
+
   private boolean unsaved = false;
   private Rocket rocket = new Rocket();
   private Simulation simulation = new Simulation();
 
   // private Property property;
- 
-
   /**
    * @return rocket
    */
   public Rocket getRocket() {
     return rocket;
+  }
+
+  /**
+   *
+   * @param rocket
+   */
+  public void setRocket(Rocket rocket) {
+    this.rocket = rocket;
   }
 
   /**
