@@ -26,7 +26,11 @@ public class SimulationController {
   
   ModelState modelState;
         
-    public SimulationController(ModelState modelState)
+  /**
+   *
+   * @param modelState
+   */
+  public SimulationController(ModelState modelState)
     {
       this.modelState = modelState;
     }

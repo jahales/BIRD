@@ -23,6 +23,10 @@ public class MotorController {
 
   Rocket rocket;
 
+  /**
+   *
+   * @param rocket
+   */
   public MotorController(Rocket rocket) {
     this.rocket = rocket;
   }

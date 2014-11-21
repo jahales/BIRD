@@ -58,10 +58,18 @@ public class Parachute extends CircularCylinder {
         this.deploymentAltitude = deploymentAltitude;
     }
 
+  /**
+   *
+   * @return
+   */
   public Boolean getDeployAtApogee() {
     return deployAtApogee;
   }
 
+  /**
+   *
+   * @param deployAtApogee
+   */
   public void setDeployAtApogee(Boolean deployAtApogee) {
     this.deployAtApogee = deployAtApogee;
   }

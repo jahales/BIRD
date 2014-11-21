@@ -22,6 +22,10 @@ public class FinController {
 
   Rocket rocket;
 
+  /**
+   *
+   * @param rocket
+   */
   public FinController(Rocket rocket) {
     this.rocket = rocket;
   }
