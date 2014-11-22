@@ -160,10 +160,10 @@ public class RocketCreationController {
 
   private ChangeListener<TreeItem<String>> selectionEvent = new ChangeListener<TreeItem<String>>() {
     @Override
-    public void changed(ObservableValue<? extends TreeItem<String>> arg0, TreeItem<String> arg1,
-        TreeItem<String> arg2) {
-      if (arg2 instanceof TreeComponent) {
-        ((TreeComponent) arg2).setPaneNode(partViewer);
+    public void changed(ObservableValue<? extends TreeItem<String>> reserved, TreeItem<String> old,
+        TreeItem<String> current) {
+      if (current instanceof TreeComponent) {
+        ((TreeComponent) current).setPaneNode(partViewer);
       }
     }
   };
