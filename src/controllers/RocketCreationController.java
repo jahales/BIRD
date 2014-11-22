@@ -15,9 +15,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 import models.rocket.Rocket;
 import views.ViewFactory;
 
@@ -113,20 +115,20 @@ public class RocketCreationController {
       super("External Components");
     }
   }
-  
+
   public interface RocketPart {
     String getValue();
   }
 
   public enum InternalRocketPart implements RocketPart {
     CIRCULAR_CYLINDER, CONICAL_FRUSTUM, MOTOR, PARACHUTE;
-    
+
     @Override
     public String getValue() {
       return toString();
     }
   }
-  
+
   public enum ExternalRocketPart implements RocketPart {
     CIRCULAR_CYLINDER, CONICAL_FRUSTUM, TRAPEZOID_FIN_SET, NOSE_CONE;
 
@@ -136,15 +138,41 @@ public class RocketCreationController {
     }
   }
 
+  static class MyTreeCell extends TreeCell<String> {
+
+    @Override
+    protected void updateItem(String item, boolean empty) {
+      super.updateItem(item, empty);
+      if (!empty) {
+        setText(toCamelCase(item));
+      }
+    }
+
+    static String toCamelCase(String string) {
+      String[] parts = string.split("_");
+      String camelCaseString = "";
+      for (String part : parts) {
+        camelCaseString += " " + toProperCase(part);
+      }
+      return camelCaseString;
+    }
+
+    static String toProperCase(String string) {
+      return string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
+    }
+  }
+
   Rocket rocket;
 
   private TreeItem<String> treeViewRoot = new TreeItem<String>();
 
   private TreeComponent internalTreePartsRoot = new InternalComponents();
   private TreeComponent externalTreePartsRoot = new ExternalComponents();
-  
-  private List<RocketPart> internalParts = FXCollections.observableArrayList(InternalRocketPart.values());
-  private List<RocketPart> externalParts = FXCollections.observableArrayList(ExternalRocketPart.values());
+
+  private List<RocketPart> internalParts = FXCollections.observableArrayList(InternalRocketPart
+      .values());
+  private List<RocketPart> externalParts = FXCollections.observableArrayList(ExternalRocketPart
+      .values());
 
   private Map<RocketPart, String> itemURL = new HashMap<>();
 
@@ -181,13 +209,20 @@ public class RocketCreationController {
   @FXML
   void addPart() throws IOException {
     PartChooser partChooser = new PartChooser();
-
-    RocketPart part = partChooser.showPartDialog(internalParts, externalParts, partViewer.getScene().getWindow());
+    RocketPart part = partChooser.showPartDialog(internalParts, externalParts, partViewer
+        .getScene().getWindow());
+    
     if (part != null) {
       if (part instanceof InternalRocketPart) {
         internalTreePartsRoot.getChildren().add(new IndividualRocketComponent(part));
+        if (part == InternalRocketPart.MOTOR) {
+          internalParts.remove(part);
+        }
       } else {
         externalTreePartsRoot.getChildren().add(new IndividualRocketComponent(part));
+        if (part == ExternalRocketPart.NOSE_CONE || part == ExternalRocketPart.TRAPEZOID_FIN_SET) {
+          externalParts.remove(part);
+        }
       }
     }
   }
@@ -199,6 +234,13 @@ public class RocketCreationController {
    */
   public void initialize() throws IOException {
     setMaps();
+
+    partList.setCellFactory(new Callback<TreeView<String>, TreeCell<String>>() {
+      @Override
+      public TreeCell<String> call(TreeView<String> arg0) {
+        return new MyTreeCell();
+      }
+    });
 
     treeViewRoot.setExpanded(true);
     treeViewRoot.getChildren().add(internalTreePartsRoot);
