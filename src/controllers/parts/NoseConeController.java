@@ -9,7 +9,7 @@ import models.Measurement;
 import models.Unit;
 import models.rocket.Rocket;
 import models.rocket.parts.NoseCone;
-import models.rocket.parts.NoseShape;
+import models.rocket.parts.NoseCone.NoseShape;
 
 /**
  * Controller for the {@link NoseCone} view
