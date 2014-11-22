@@ -25,6 +25,7 @@ public class NoseShapeController extends PartController {
    * @param rocket
    */
   public NoseShapeController(Rocket rocket) {
+    super(null);
     this.rocket = rocket;
   }
 

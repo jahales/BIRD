@@ -15,7 +15,7 @@ import models.rocket.Rocket;
  *
  */
 public class CircularCylinderController extends PartController {
-  private CircularCylinder circularCylinder = new CircularCylinder();
+  private static CircularCylinder circularCylinder = new CircularCylinder();
   private Rocket rocket;
 
   @FXML
@@ -32,6 +32,7 @@ public class CircularCylinderController extends PartController {
    * @param rocket
    */
   public CircularCylinderController(Rocket rocket) {
+    super(circularCylinder);
     this.rocket = rocket;
   }
 

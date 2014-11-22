@@ -15,7 +15,7 @@ import models.rocket.parts.ConicalFrustum;
  *
  */
 public class ConicalFrustumController extends PartController {
-  private ConicalFrustum conicalFrustum = new ConicalFrustum();
+  private static ConicalFrustum conicalFrustum = new ConicalFrustum();
   private Rocket rocket;
 
   @FXML
@@ -41,6 +41,7 @@ public class ConicalFrustumController extends PartController {
    * @param rocket
    */
   public ConicalFrustumController(Rocket rocket) {
+    super(conicalFrustum);
     this.rocket = rocket;
   }
 

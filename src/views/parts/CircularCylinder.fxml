@@ -4,24 +4,26 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 
-<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.parts.CircularCylinderController">
-	<columnConstraints>
-		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
-		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
-		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
-		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
-	</columnConstraints>
-	<rowConstraints>
-		<RowConstraints vgrow="SOMETIMES" minHeight="30" prefHeight="30" />
-		<RowConstraints vgrow="SOMETIMES" minHeight="30" prefHeight="30" />
-	</rowConstraints>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.parts.CircularCylinderController">
 	<children>
-		<Label text="Diameter" GridPane.rowIndex="1" />
-		<Label text="Value" GridPane.columnIndex="1" />
-		<Label text="Units" GridPane.columnIndex="3" />
-		<Label text="Error" GridPane.columnIndex="2" />
-                <TextField fx:id="diameterValue" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-		<TextField fx:id="diameterError" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-		<fx:include fx:id="diameterUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+		<fx:include source="RocketComponent.fxml" />
+		<GridPane>
+			<columnConstraints>
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints minHeight="30" prefHeight="30" vgrow="SOMETIMES" />
+			</rowConstraints>
+			<children>
+				<Label text="Diameter" />
+				<TextField fx:id="diameterValue" GridPane.columnIndex="1" />
+				<TextField fx:id="diameterError" GridPane.columnIndex="2" />
+				<fx:include fx:id="diameterUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="3" />
+			</children>
+		</GridPane>
 	</children>
-</GridPane>
+</VBox>

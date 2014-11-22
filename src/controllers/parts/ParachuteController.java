@@ -15,7 +15,7 @@ import models.rocket.parts.Parachute;
  *
  */
 public class ParachuteController extends PartController {
-  private Parachute parachute = new Parachute();
+  private static Parachute parachute = new Parachute();
   private Rocket rocket;
 
   @FXML
@@ -47,6 +47,7 @@ public class ParachuteController extends PartController {
    * @param rocket
    */
   public ParachuteController(Rocket rocket) {
+    super(parachute);
     this.rocket = rocket;
   }
   

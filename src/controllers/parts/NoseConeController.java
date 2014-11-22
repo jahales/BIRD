@@ -18,7 +18,7 @@ import models.rocket.parts.NoseShape;
  *
  */
 public class NoseConeController extends PartController {
-  private NoseCone noseCone = new NoseCone();
+  private static NoseCone noseCone = new NoseCone();
   private Rocket rocket;
 
   @FXML
@@ -41,6 +41,7 @@ public class NoseConeController extends PartController {
    * @param rocket
    */
   public NoseConeController(Rocket rocket) {
+    super(noseCone);
     this.rocket = rocket;
   }
 

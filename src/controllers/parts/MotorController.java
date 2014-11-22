@@ -19,7 +19,7 @@ import models.rocket.parts.Motor;
  *
  */
 public class MotorController extends PartController {
-  private Motor motor = new Motor();
+  private static Motor motor = new Motor();
   private Rocket rocket;
   
   @FXML
@@ -68,6 +68,7 @@ public class MotorController extends PartController {
    * @param rocket
    */
   public MotorController(Rocket rocket) {
+    super(motor);
     this.rocket = rocket;
   }
 
