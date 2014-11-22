@@ -17,3 +17,6 @@ hs_err_pid*
 # netbeans
 /dist/
 /build/
+
+# javadoc
+/doc/
