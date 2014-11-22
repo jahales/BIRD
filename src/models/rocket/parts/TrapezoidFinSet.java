@@ -10,7 +10,6 @@ import models.Unit;
  *
  */
 public class TrapezoidFinSet extends RocketComponent {
-
   private int count;
   private Measurement rootChord = new Measurement(0, 0, Unit.meters);
   private Measurement tipChord = new Measurement(0, 0, Unit.meters);
@@ -20,23 +19,22 @@ public class TrapezoidFinSet extends RocketComponent {
   private Measurement bodyDiameter = new Measurement(0, 0, Unit.meters);
 
   /**
-   *
-   * @return
+   * @return a {@link Measurement} for tip chord
    */
   public Measurement getTipChord() {
     return tipChord;
   }
 
   /**
-   *
    * @param tipChord
+   *          a {@link Measurement} for tip chord
    */
   public void setTipChord(Measurement tipChord) {
     this.tipChord = tipChord;
   }
 
   /**
-   * @return count
+   * @return number of fins
    */
   public int getCount() {
     return count;
@@ -44,13 +42,14 @@ public class TrapezoidFinSet extends RocketComponent {
 
   /**
    * @param count
+   *          number of fins
    */
   public void setCount(int count) {
     this.count = count;
   }
 
   /**
-   * @return rootChord
+   * @return a {@link Measurement} for root chord
    */
   public Measurement getRootChord() {
     return rootChord;
@@ -58,13 +57,14 @@ public class TrapezoidFinSet extends RocketComponent {
 
   /**
    * @param rootChord
+   *          a {@link Measurement} for root chord
    */
   public void setRootChord(Measurement rootChord) {
     this.rootChord = rootChord;
   }
 
   /**
-   * @return spanLength
+   * @return a {@link Measurement} for span length
    */
   public Measurement getSpanLength() {
     return spanLength;
@@ -72,13 +72,14 @@ public class TrapezoidFinSet extends RocketComponent {
 
   /**
    * @param spanLength
+   *          a {@link Measurement} for span length
    */
   public void setSpanLength(Measurement spanLength) {
     this.spanLength = spanLength;
   }
 
   /**
-   * @return sweepLength
+   * @return a {@link Measurement} for sweep length
    */
   public Measurement getSweepLength() {
     return sweepLength;
@@ -86,13 +87,14 @@ public class TrapezoidFinSet extends RocketComponent {
 
   /**
    * @param sweepLength
+   *          a {@link Measurement} for sweep length
    */
   public void setSweepLength(Measurement sweepLength) {
     this.sweepLength = sweepLength;
   }
 
   /**
-   * @return cantAngle
+   * @return a {@link Measurement} for cant angle
    */
   public Measurement getCantAngle() {
     return cantAngle;
@@ -100,13 +102,14 @@ public class TrapezoidFinSet extends RocketComponent {
 
   /**
    * @param cantAngle
+   *          a {@link Measurement} for cant angle
    */
   public void setCantAngle(Measurement cantAngle) {
     this.cantAngle = cantAngle;
   }
 
   /**
-   * @return bodyDiameter
+   * @return a {@link Measurement} for body diameter
    */
   public Measurement getBodyDiameter() {
     return bodyDiameter;
@@ -114,6 +117,7 @@ public class TrapezoidFinSet extends RocketComponent {
 
   /**
    * @param bodyDiameter
+   *          a {@link Measurement} for body diamter
    */
   public void setBodyDiameter(Measurement bodyDiameter) {
     this.bodyDiameter = bodyDiameter;

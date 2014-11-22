@@ -13,7 +13,7 @@ import models.rocket.Rocket;
 import models.rocket.parts.Motor;
 
 /**
- * Controller for a motor view.
+ * Controller for the {@link Motor} view
  *
  * @author Brian Woodruff
  *
@@ -64,8 +64,8 @@ public class MotorController extends PartController {
   }
 
   /**
-   *
    * @param rocket
+   *          a rocket this view will modify
    */
   public MotorController(Rocket rocket) {
     super(motor);
@@ -73,7 +73,7 @@ public class MotorController extends PartController {
   }
 
   /**
-   * Initialize the motor part and set listeners
+   * Initialize values and set listeners
    */
   public void initialize() {
     rocket.getInteriorComponents().add(motor);

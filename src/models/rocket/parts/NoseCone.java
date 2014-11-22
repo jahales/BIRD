@@ -10,7 +10,6 @@ import models.Unit;
  *
  */
 public class NoseCone extends RocketComponent {
-
   private double shapeParameter = 0.0;
   private Measurement diameter = new Measurement(0, 0, Unit.meters);
   private NoseShape noseShape = NoseShape.OGIVE;

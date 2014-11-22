@@ -22,7 +22,9 @@ import javafx.util.Callback;
 import controllers.RocketCreationController.RocketPart;
 
 /**
- *
+ * Part chooser dialog window. Pass a list of internal and external parts to
+ * choose from.
+ * 
  * @author Jacob, Brian Woodruff
  */
 public class PartChooser {
@@ -36,39 +38,49 @@ public class PartChooser {
 
   private TabPane tabs = new TabPane();
 
-  private Tab internalParts = new Tab("Internal");
-  private Tab externalParts = new Tab("External");
-  
-  Callback<ListView<RocketPart>, ListCell<RocketPart>> cellFactory = new Callback<ListView<RocketPart>, ListCell<RocketPart>>() {
-    @Override
-    public ListCell<RocketPart> call(ListView<RocketPart> arg0) {
-      return new MyListCell();
-    }
+  private Tab internalPartsTab = new Tab("Internal");
+  private Tab externalPartsTab = new Tab("External");
+
+  private Callback<ListView<RocketPart>, ListCell<RocketPart>> cellFactory = (event) -> {
+    return new MyListCell();
   };
 
   /**
-   * Selection dialog that returns the selected part.
+   * Show dialog that returns the selected part
    * 
+   * @param internal
+   *          list of internal {@link RocketPart} to choose from
+   * @param external
+   *          list of external {@link RocketPart} to choose from
    * @param window
-   * @return selected Rocket Part
+   *          the parent window that will own this child window
+   * @return the selected {@link RocketPart}
+   *         <p>
+   *         <b>Note:</b> returns null if nothing was selected
    */
-  public RocketPart showPartDialog(List<RocketPart> internal, List<RocketPart> external, Window window) {
+  public RocketPart showPartDialog(List<RocketPart> internal, List<RocketPart> external,
+      Window window) {
     externalPartsList.setCellFactory(cellFactory);
     internalPartsList.setCellFactory(cellFactory);
 
     externalPartsList.setItems(FXCollections.observableArrayList(internal));
     internalPartsList.setItems(FXCollections.observableArrayList(external));
 
-    selectedItem(internalPartsList, internalParts);
-    selectedItem(externalPartsList, externalParts);
+    keyEvent(internalPartsList);
+    keyEvent(externalPartsList);
+
+    selectedItem(internalPartsList, internalPartsTab);
+    selectedItem(externalPartsList, externalPartsTab);
+
+    setOnAction();
+
+    internalPartsTab.setContent(internalPartsList);
+    externalPartsTab.setContent(externalPartsList);
+
+    tabs.getTabs().addAll(internalPartsTab, externalPartsTab);
 
     VBox vbox = new VBox();
     HBox hbox = new HBox();
-
-    internalParts.setContent(internalPartsList);
-    externalParts.setContent(externalPartsList);
-
-    tabs.getTabs().addAll(internalParts, externalParts);
 
     hbox.getChildren().addAll(addPart, cancel);
     vbox.getChildren().addAll(tabs, hbox);
@@ -77,18 +89,18 @@ public class PartChooser {
     stage.initOwner(window);
     stage.initModality(Modality.WINDOW_MODAL);
     stage.setScene(new Scene(vbox));
-
-    keyEvent(internalPartsList);
-    keyEvent(externalPartsList);
-
-    setOnAction();
-
     stage.showAndWait();
 
     return selectedRocketPart;
   }
 
-  static class MyListCell extends ListCell<RocketPart> {
+  /**
+   * Custom list cell to manually display name in more readable format
+   * 
+   * @author Brian Woodruff
+   *
+   */
+  private class MyListCell extends ListCell<RocketPart> {
     @Override
     protected void updateItem(RocketPart item, boolean empty) {
       super.updateItem(item, empty);
@@ -96,8 +108,16 @@ public class PartChooser {
         setText(toCamelCase(item.toString()));
       }
     }
-    
-    static String toCamelCase(String string) {
+
+    /**
+     * EXAMPLE_ONE to Example One
+     * 
+     * @param string
+     *          a string to be formatted from enum style to more human readable
+     *          format
+     * @return camel case string
+     */
+    private String toCamelCase(String string) {
       String[] parts = string.split("_");
       String camelCaseString = "";
       for (String part : parts) {
@@ -105,16 +125,32 @@ public class PartChooser {
       }
       return camelCaseString;
     }
-    
-    static String toProperCase(String string) {
+
+    /**
+     * ExAmPLE to Example
+     * 
+     * @param string
+     *          a string to be formated
+     * @return a string formated in proper case
+     */
+    private String toProperCase(String string) {
       return string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
     }
   }
 
+  /**
+   * If tab is selected, set selected part to whatever is selected in the list
+   * 
+   * @param list
+   *          list to insert into tab
+   * @param tab
+   *          tab to insert list into
+   */
   private void selectedItem(ListView<RocketPart> list, Tab tab) {
     list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<RocketPart>() {
       @Override
-      public void changed(ObservableValue<? extends RocketPart> reserved, RocketPart old, RocketPart current) {
+      public void changed(ObservableValue<? extends RocketPart> reserved, RocketPart old,
+          RocketPart current) {
         if (tab.isSelected()) {
           selectedRocketPart = current;
         }
@@ -122,6 +158,12 @@ public class PartChooser {
     });
   }
 
+  /**
+   * Set event for pressing 'Enter' and double clicking
+   * 
+   * @param list
+   *          list to setup listeners for
+   */
   private void keyEvent(ListView<RocketPart> list) {
     list.setOnKeyPressed((event) -> {
       if (event.getCode() == KeyCode.ENTER) {
@@ -136,6 +178,9 @@ public class PartChooser {
     });
   }
 
+  /**
+   * Set events for pushing buttons and stuff
+   */
   private void setOnAction() {
     addPart.setOnAction((event) -> {
       stage.close();

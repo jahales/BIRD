@@ -12,57 +12,60 @@ import javafx.scene.chart.XYChart;
  *
  */
 public class ScatterPlot extends LineChart<Number, Number> {
+  /**
+   * @param xAxis
+   *          the x-axis
+   * @param yAxis
+   *          the y-axis
+   */
+  public ScatterPlot(Axis<Number> xAxis, Axis<Number> yAxis) {
+    super(xAxis, yAxis);
+  }
 
-    /**
-     * Constructor
-     * 
-     * @param xAxis
-     * @param yAxis
-     */
-    public ScatterPlot(Axis<Number> xAxis, Axis<Number> yAxis) {
-	super(xAxis, yAxis);
-    }
+  /**
+   * Add a point to the chart.
+   * 
+   * @param data
+   *          a point
+   */
+  public void addPoint(XYChart.Data<Number, Number> data) {
 
-    /**
-     * Add a point to the chart.
-     * 
-     * @param data
-     */
-    public void addPoint(XYChart.Data<Number, Number> data) {
+  }
 
-    }
+  /**
+   * Remove all points in the chart.
+   */
+  public void clear() {
 
-    /**
-     * Remove all points in the chart.
-     */
-    public void clear() {
+  }
 
-    }
+  /**
+   * Set chart title.
+   * 
+   * @param title
+   *          title for the chart
+   */
+  public void setChartTitle(String title) {
 
-    /**
-     * Set chart title.
-     * 
-     * @param title
-     */
-    public void setChartTitle(String title) {
+  }
 
-    }
+  /**
+   * Set X-axis name
+   * 
+   * @param name
+   *          x-axis name
+   */
+  public void setXAxisName(String name) {
 
-    /**
-     * Set X-axis name.
-     * 
-     * @param name
-     */
-    public void setXAxisName(String name) {
+  }
 
-    }
+  /**
+   * Set Y-axis name
+   * 
+   * @param name
+   *          y-axis name
+   */
+  public void setYAxisName(String name) {
 
-    /**
-     * Set Y-axis name.
-     * @param name
-     */
-    public void setYAxisName(String name) {
-
-    }
-
+  }
 }

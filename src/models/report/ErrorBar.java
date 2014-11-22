@@ -4,32 +4,29 @@ import javafx.scene.Group;
 import javafx.scene.shape.Line;
 
 /**
- *
- * @author Jacob
+ * A group of lines and stuff that look like 'I'. Width is defined in the
+ * constructor
+ * 
+ * @author Jacob, Brian
  */
 public class ErrorBar extends Group {
-    private Line topBar;
-    private Line bottomBar;
-    private Line verticalBar;
-    private double topBarHeight;
-    private double topBarWidth;
-    private double bottomBarHeight;
-    private double bottomBarWidth;
+  private Line topBar;
+  private Line bottomBar;
+  private Line verticalBar;
+  private double barHeight;
+  private double barWidth = 5;
 
   /**
-   *
    * @param error
+   *          height of error bar
    */
   public ErrorBar(double error) {
-	topBarHeight = error;
-	topBarWidth = 5;
-	topBar = new Line(-topBarWidth, topBarHeight, topBarWidth, topBarHeight);
-	
-	bottomBarHeight = error;
-	bottomBarWidth = 5;
-	bottomBar = new Line(-bottomBarWidth, -bottomBarHeight, bottomBarWidth, -bottomBarHeight);
-	
-	verticalBar = new Line(0, topBarHeight, 0, -bottomBarHeight);
-	getChildren().addAll(topBar, bottomBar, verticalBar);
-    }
+    barHeight = error;
+    topBar = new Line(-barWidth, barHeight, barWidth, barHeight);
+
+    bottomBar = new Line(-barWidth, barHeight, barWidth, barHeight);
+
+    verticalBar = new Line(0, barHeight, 0, -barHeight);
+    getChildren().addAll(topBar, bottomBar, verticalBar);
+  }
 }

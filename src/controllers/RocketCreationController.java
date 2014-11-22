@@ -19,7 +19,6 @@ import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Callback;
 import models.rocket.Rocket;
 import views.ViewFactory;
 
@@ -29,56 +28,56 @@ import views.ViewFactory;
  * @author Jacob, Brian
  */
 public class RocketCreationController {
-
   /**
    * Tree Component
    * 
    * @author Brian Woodruff
    *
    */
-  abstract class TreeComponent extends TreeItem<String> {
+  private abstract class TreeComponent extends TreeItem<String> {
     /**
      * Used to set string variable for TreeItem<String>
      * 
      * @param name
+     *          a string that will be displayed in the tree
      */
     public TreeComponent(String name) {
       super(name);
     }
 
     /**
-     * Usually left alone for non-individual pieces
+     * Usually left alone. But can be overloaded to say, set the view to a
+     * Parent of {@link RocketPart}.
      * 
      * @param pane
+     *          an AchorPane to set the view
      */
     public void setPaneNode(AnchorPane pane) {
     }
   }
 
   /**
-   * Individual Rocket Component
+   * Individual Rocket Component that extends {@link TreeComponent}.
+   * <p>
+   * Overloads setPaneNode to set the view to Parent of {@link RocketPart}
    * 
    * @author Brian Woodruff
    *
    */
-  class IndividualRocketComponent extends TreeComponent {
+  private class IndividualRocketComponent extends TreeComponent {
     private Parent view;
 
     /**
      * Set name and load view
      * 
      * @param part
+     *          a {@link RocketPart} to be stored in this {@link TreeComponent}
      */
     public IndividualRocketComponent(RocketPart part) {
       super(part.toString());
       view = loadComponentView(itemURL.get(part));
     }
 
-    /**
-     * Set pane view to this view
-     * 
-     * @param pane
-     */
     @Override
     public void setPaneNode(AnchorPane pane) {
       pane.getChildren().clear();
@@ -92,9 +91,9 @@ public class RocketCreationController {
    * @author Brian Woodruff
    *
    */
-  class InternalComponents extends TreeComponent {
+  private class InternalComponents extends TreeComponent {
     /**
-     * Set label 'Internal Components'
+     * Sets label text to 'Internal Components'
      */
     public InternalComponents() {
       super("Internal Components");
@@ -107,19 +106,34 @@ public class RocketCreationController {
    * @author Brian Woodruff
    *
    */
-  class ExternalComponents extends TreeComponent {
+  private class ExternalComponents extends TreeComponent {
     /**
-     * Set label 'External Components'
+     * Sets label text to 'External Components'
      */
     public ExternalComponents() {
       super("External Components");
     }
   }
 
+  /**
+   * Generic rocket part interface
+   * 
+   * @author Brian Woodruff
+   *
+   */
   public interface RocketPart {
+    /**
+     * @return a string of the value
+     */
     String getValue();
   }
 
+  /**
+   * Internal rocket parts
+   * 
+   * @author Brian Woodruff
+   *
+   */
   public enum InternalRocketPart implements RocketPart {
     CIRCULAR_CYLINDER, CONICAL_FRUSTUM, MOTOR, PARACHUTE;
 
@@ -129,6 +143,12 @@ public class RocketCreationController {
     }
   }
 
+  /**
+   * External rocket parts
+   * 
+   * @author Brian Woodruff
+   *
+   */
   public enum ExternalRocketPart implements RocketPart {
     CIRCULAR_CYLINDER, CONICAL_FRUSTUM, TRAPEZOID_FIN_SET, NOSE_CONE;
 
@@ -138,8 +158,13 @@ public class RocketCreationController {
     }
   }
 
-  static class MyTreeCell extends TreeCell<String> {
-
+  /**
+   * Tree cell to convert name to more friendly format
+   * 
+   * @author Brian Woodruff
+   *
+   */
+  private class MyTreeCell extends TreeCell<String> {
     @Override
     protected void updateItem(String item, boolean empty) {
       super.updateItem(item, empty);
@@ -148,7 +173,15 @@ public class RocketCreationController {
       }
     }
 
-    static String toCamelCase(String string) {
+    /**
+     * EXAMPLE_ONE to Example One
+     * 
+     * @param string
+     *          a string to be formatted from enum style to more human readable
+     *          format
+     * @return camel case string
+     */
+    private String toCamelCase(String string) {
       String[] parts = string.split("_");
       String camelCaseString = "";
       for (String part : parts) {
@@ -157,14 +190,25 @@ public class RocketCreationController {
       return camelCaseString;
     }
 
-    static String toProperCase(String string) {
+    /**
+     * ExAmPLE to Example
+     * 
+     * @param string
+     *          a string to be formated
+     * @return a string formated in proper case
+     */
+    private String toProperCase(String string) {
       return string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
     }
   }
 
-  Rocket rocket;
+  @FXML
+  private TreeView<String> partList;
 
-  private TreeItem<String> treeViewRoot = new TreeItem<String>();
+  @FXML
+  private AnchorPane partViewer;
+
+  Rocket rocket;
 
   private TreeComponent internalTreePartsRoot = new InternalComponents();
   private TreeComponent externalTreePartsRoot = new ExternalComponents();
@@ -175,12 +219,6 @@ public class RocketCreationController {
       .values());
 
   private Map<RocketPart, String> itemURL = new HashMap<>();
-
-  @FXML
-  private TreeView<String> partList;
-
-  @FXML
-  private AnchorPane partViewer;
 
   private ChangeListener<TreeItem<String>> selectionEvent = new ChangeListener<TreeItem<String>>() {
     @Override
@@ -193,33 +231,35 @@ public class RocketCreationController {
   };
 
   /**
-   *
-   * @param mainViewModel
+   * @param rocket
+   *          a rocket that will be modified in this view.
    */
   public RocketCreationController(Rocket rocket) {
     this.rocket = rocket;
   }
 
   /**
-   * Open PartChooser dialog window and add chosen part to tree view
-   *
-   * @param event
-   * @throws IOException
+   * Opens a {@link PartChooser} dialog window. Passes a list of internal and
+   * external parts to choose from.
+   * <p>
+   * If window returns a part, it is added to tree view.
    */
   @FXML
-  void addPart() throws IOException {
+  void addPart() {
     PartChooser partChooser = new PartChooser();
     RocketPart part = partChooser.showPartDialog(internalParts, externalParts, partViewer
         .getScene().getWindow());
-    
+
     if (part != null) {
       if (part instanceof InternalRocketPart) {
         internalTreePartsRoot.getChildren().add(new IndividualRocketComponent(part));
+        internalTreePartsRoot.setExpanded(true);
         if (part == InternalRocketPart.MOTOR) {
           internalParts.remove(part);
         }
       } else {
         externalTreePartsRoot.getChildren().add(new IndividualRocketComponent(part));
+        externalTreePartsRoot.setExpanded(true);
         if (part == ExternalRocketPart.NOSE_CONE || part == ExternalRocketPart.TRAPEZOID_FIN_SET) {
           externalParts.remove(part);
         }
@@ -228,19 +268,17 @@ public class RocketCreationController {
   }
 
   /**
-   * Set tree view, listeners and maps
-   *
-   * @throws IOException
+   * Sets up the view for the Rocket Creation View. Tree View is populated with
+   * two roots: internal and external.
    */
-  public void initialize() throws IOException {
+  public void initialize() {
     setMaps();
 
-    partList.setCellFactory(new Callback<TreeView<String>, TreeCell<String>>() {
-      @Override
-      public TreeCell<String> call(TreeView<String> arg0) {
-        return new MyTreeCell();
-      }
+    partList.setCellFactory((event) -> {
+      return new MyTreeCell();
     });
+
+    TreeItem<String> treeViewRoot = new TreeItem<String>();
 
     treeViewRoot.setExpanded(true);
     treeViewRoot.getChildren().add(internalTreePartsRoot);
@@ -253,7 +291,8 @@ public class RocketCreationController {
 
   /**
    * @param url
-   * @return view
+   *          location of component
+   * @return the Parent from the url
    */
   private Parent loadComponentView(String url) {
     try {
@@ -268,10 +307,8 @@ public class RocketCreationController {
 
   /**
    * Setup a map from RocketParts to the editor for each part.
-   *
-   * @throws IOException
    */
-  private void setMaps() throws IOException {
+  private void setMaps() {
     itemURL.put(InternalRocketPart.CIRCULAR_CYLINDER, "/views/parts/CircularCylinder.fxml");
     itemURL.put(InternalRocketPart.CONICAL_FRUSTUM, "/views/parts/ConicalFrustum.fxml");
     itemURL.put(InternalRocketPart.MOTOR, "/views/parts/Motor.fxml");

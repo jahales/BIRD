@@ -6,14 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Generic Data Table.
+ * Generic Data Table. Stores values as {@link Number}
  * 
  * @author Brian Woodruff
  *
  */
 public class DataTable {
   /**
-   * Exception class of my own. Don't know if I really want it though.
    * 
    * @author Brian Woodruff
    *
@@ -22,9 +21,8 @@ public class DataTable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Make an error with whatever message you want.
-     * 
      * @param error
+     *          error message
      */
     public RowFormatError(String error) {
       super(error);
@@ -33,12 +31,14 @@ public class DataTable {
 
   private Map<String, List<Number>> columnMap = new HashMap<String, List<Number>>();
   private List<String> columnNames = new ArrayList<String>();
-  private List<List<Number>> data = new ArrayList<List<Number>>(); // List of rows
+  private List<List<Number>> data = new ArrayList<List<Number>>(); // List of
+                                                                   // rows
 
   /**
    * Add a column to the table.
    * 
    * @param columnName
+   *          name of new column
    */
   public void addColumn(String columnName) {
     columnNames.add(columnName);
@@ -55,7 +55,9 @@ public class DataTable {
    * header length.
    * 
    * @param row
+   *          a list of {@link Number}
    * @throws RowFormatError
+   *           row length doesn't match
    */
   public void addRow(List<Number> row) throws RowFormatError {
     if (row.size() == columnNames.size()) {
@@ -69,14 +71,14 @@ public class DataTable {
   }
 
   /**
-   * @return columnMap
+   * @return a map of column name to column list
    */
   public Map<String, List<Number>> getColumnMap() {
     return columnMap;
   }
 
   /**
-   * @return columnNames
+   * @return list of names for the columns
    */
   public List<String> getColumnNames() {
     return columnNames;
@@ -86,14 +88,15 @@ public class DataTable {
    * Get a column by name.
    * 
    * @param columnName
-   * @return column
+   *          name of column
+   * @return the column as a list
    */
   public List<Number> getColumn(String columnName) {
     return columnMap.get(columnName);
   }
 
   /**
-   * @return data
+   * @return the internal representation of the data
    */
   public List<List<Number>> getData() {
     return data;

@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import models.rocket.Rocket;
 
 /**
- * Controller for Circular Cylinder view.
+ * Controller for {@link CircularCylinder} view
  *
  * @author Brian Woodruff
  *
@@ -28,8 +28,8 @@ public class CircularCylinderController extends PartController {
   private ChoiceBox<String> diameterUnits;
 
   /**
-   *
    * @param rocket
+   *          a rocket this view will modify
    */
   public CircularCylinderController(Rocket rocket) {
     super(circularCylinder);
@@ -37,7 +37,7 @@ public class CircularCylinderController extends PartController {
   }
 
   /**
-   * Initialize values for circular cylinder and add listeners.
+   * Initialize values and add listeners
    */
   public void initialize() {
     rocket.getInteriorComponents().add(circularCylinder);

@@ -11,8 +11,8 @@ import models.report.DataTable.RowFormatError;
 
 /**
  * A csv reader that can read or write contents to a file. Contents may be
- * edited. This is a generic class. I would suggest using strings but ints or
- * whatever can be used.
+ * edited. This is a generic class. I would suggest using strings but
+ * {@link Number} or whatever can be used.
  * 
  * @author Brian Woodruff
  *
@@ -22,8 +22,10 @@ public class CSVReader {
    * Loads a CSV file and returns a data table representation of the file.
    * 
    * @param file
-   * @return DataTable
+   *          file path to load file
+   * @return a {@link DataTable} representation of the file
    * @throws IOException
+   *           if there is trouble reading the file
    */
   public static DataTable loadCSV(String file) throws IOException {
     DataTable dataTable = new DataTable();
@@ -55,7 +57,8 @@ public class CSVReader {
    * Convert a list of strings to a list of numbers
    * 
    * @param stringList
-   * @return numberList
+   *          a list of strings to convert to a list of numbers
+   * @return a list of numbers
    */
   private static List<Number> stringListToNumberList(List<String> stringList) {
     List<Number> numberList = new ArrayList<Number>();

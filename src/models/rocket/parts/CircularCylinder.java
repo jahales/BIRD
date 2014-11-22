@@ -10,11 +10,10 @@ import models.Unit;
  *
  */
 public class CircularCylinder extends RocketComponent {
-
   private Measurement diameter = new Measurement(0, 0, Unit.meters);
 
   /**
-   * @return diameter
+   * @return a {@link Measurement} for diameter
    */
   public Measurement getDiameter() {
     return diameter;
@@ -22,9 +21,9 @@ public class CircularCylinder extends RocketComponent {
 
   /**
    * @param diameter
+   *          a {@link Measurement} for diameter
    */
   public void setDiameter(Measurement diameter) {
     this.diameter = diameter;
   }
-
 }

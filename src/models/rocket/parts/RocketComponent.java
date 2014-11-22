@@ -3,7 +3,6 @@ package models.rocket.parts;
 import models.Measurement;
 import models.Unit;
 
-
 /**
  * A rocket component
  * 
@@ -11,94 +10,100 @@ import models.Unit;
  *
  */
 public class RocketComponent {
-    private String name = "";
-    private Measurement mass = new Measurement(0, 0, Unit.kilograms);
-    private Measurement axialLength = new Measurement(0, 0, Unit.meters);
-    private Measurement axialOffset = new Measurement(0, 0, Unit.meters);
-    private Measurement radialOffset = new Measurement(0, 0, Unit.meters);
-    private Measurement thickness = new Measurement(0, 0, Unit.meters);
-    
-    /**
-     * @return name
-     */
-    public String getName() {
-        return name;
-    }
-    
-    /**
-     * @param name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    /**
-     * @return mass
-     */
-    public Measurement getMass() {
-        return mass;
-    }
-    
-    /**
-     * @param mass
-     */
-    public void setMass(Measurement mass) {
-        this.mass = mass;
-    }
-    
-    /**
-     * @return axialLength
-     */
-    public Measurement getAxialLength() {
-        return axialLength;
-    }
-    
-    /**
-     * @param axialLength
-     */
-    public void setAxialLength(Measurement axialLength) {
-        this.axialLength = axialLength;
-    }
-    
-    /**
-     * @return axialOffset
-     */
-    public Measurement getAxialOffset() {
-        return axialOffset;
-    }
-    
-    /**
-     * @param axialOffset
-     */
-    public void setAxialOffset(Measurement axialOffset) {
-        this.axialOffset = axialOffset;
-    }
-    
-    /**
-     * @return radialOffset
-     */
-    public Measurement getRadialOffset() {
-        return radialOffset;
-    }
-    
-    /**
-     * @param radialOffset
-     */
-    public void setRadialOffset(Measurement radialOffset) {
-        this.radialOffset = radialOffset;
-    }
-    
-    /**
-     *  @return thickness
-     */
-    public Measurement getThickness() {
-        return thickness;
-    }
-    
-    /**
-     * @param thickness
-     */
-    public void setThickness(Measurement thickness) {
-        this.thickness = thickness;
-    }
+  private String name = "";
+  private Measurement mass = new Measurement(0, 0, Unit.kilograms);
+  private Measurement axialLength = new Measurement(0, 0, Unit.meters);
+  private Measurement axialOffset = new Measurement(0, 0, Unit.meters);
+  private Measurement radialOffset = new Measurement(0, 0, Unit.meters);
+  private Measurement thickness = new Measurement(0, 0, Unit.meters);
+
+  /**
+   * @return name of component
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * @param name
+   *          name of component
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  /**
+   * @return a {@link Measurement} for mass
+   */
+  public Measurement getMass() {
+    return mass;
+  }
+
+  /**
+   * @param mass
+   *          a {@link Measurement} for mass
+   */
+  public void setMass(Measurement mass) {
+    this.mass = mass;
+  }
+
+  /**
+   * @return a {@link Measurement} for axial length
+   */
+  public Measurement getAxialLength() {
+    return axialLength;
+  }
+
+  /**
+   * @param axialLength
+   *          a {@link Measurement} for axial length
+   */
+  public void setAxialLength(Measurement axialLength) {
+    this.axialLength = axialLength;
+  }
+
+  /**
+   * @return a {@link Measurement} for axial offset
+   */
+  public Measurement getAxialOffset() {
+    return axialOffset;
+  }
+
+  /**
+   * @param axialOffset
+   *          a {@link Measurement} for axial offset
+   */
+  public void setAxialOffset(Measurement axialOffset) {
+    this.axialOffset = axialOffset;
+  }
+
+  /**
+   * @return a {@link Measurement} for radial offset
+   */
+  public Measurement getRadialOffset() {
+    return radialOffset;
+  }
+
+  /**
+   * @param radialOffset
+   *          a {@link Measurement} for radial offset
+   */
+  public void setRadialOffset(Measurement radialOffset) {
+    this.radialOffset = radialOffset;
+  }
+
+  /**
+   * @return a {@link Measurement} for thickness
+   */
+  public Measurement getThickness() {
+    return thickness;
+  }
+
+  /**
+   * @param thickness
+   *          a {@link Measurement} for thickness
+   */
+  public void setThickness(Measurement thickness) {
+    this.thickness = thickness;
+  }
 }

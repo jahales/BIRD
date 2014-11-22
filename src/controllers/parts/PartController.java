@@ -1,5 +1,6 @@
 package controllers.parts;
 
+import controllers.RocketCreationController.RocketPart;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -9,6 +10,12 @@ import models.Measurement;
 import models.Unit;
 import models.rocket.parts.RocketComponent;
 
+/**
+ * Abstract controller for a {@link RocketPart}
+ * 
+ * @author Brian Woodruff
+ *
+ */
 public abstract class PartController {
   @FXML
   private TextField name;
@@ -51,18 +58,20 @@ public abstract class PartController {
 
   @FXML
   private ChoiceBox<String> axialOffsetUnits;
-  
+
   @FXML
   private ChoiceBox<String> radialOffsetUnits;
-  
+
   @FXML
   private ChoiceBox<String> thicknessUnits;
-  
+
   /**
-   * Updates the unit when user selects a unit.
+   * Updates the measurement when user selects a unit
    *
    * @param field
+   *          ChoiceBox to add listener to
    * @param measurement
+   *          measurement to set
    */
   void addUnitListener(ChoiceBox<String> field, Measurement measurement) {
     field.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -74,10 +83,12 @@ public abstract class PartController {
   }
 
   /**
-   * Updates the value when the user changes it.
+   * Updates the value when the user changes it
    *
    * @param field
+   *          TextField to add listner to
    * @param measurement
+   *          measurement to set
    */
   void addValueListener(TextField field, Measurement measurement) {
     field.textProperty().addListener(new ChangeListener<String>() {
@@ -93,10 +104,12 @@ public abstract class PartController {
   }
 
   /**
-   * Updates the error when the user changes it.
+   * Updates the error when the user changes it
    *
    * @param field
+   *          TextField to add listener to
    * @param measurement
+   *          measurement to set
    */
   void addErrorListener(TextField field, Measurement measurement) {
     field.textProperty().addListener(new ChangeListener<String>() {
@@ -110,7 +123,13 @@ public abstract class PartController {
       }
     });
   }
-  
+
+  /**
+   * Adds listeners to all common elements of a {@link RocketComponent}.
+   * 
+   * @param component
+   *          a {@link RocketComponent} this controller will modify
+   */
   public PartController(RocketComponent component) {
     name.textProperty().addListener(new ChangeListener<String>() {
       @Override

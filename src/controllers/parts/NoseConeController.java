@@ -12,7 +12,7 @@ import models.rocket.parts.NoseCone;
 import models.rocket.parts.NoseShape;
 
 /**
- * Controller for the nosecone view.
+ * Controller for the {@link NoseCone} view
  *
  * @author Brian Woodruff
  *
@@ -37,8 +37,8 @@ public class NoseConeController extends PartController {
   private ChoiceBox<String> shape;
 
   /**
-   *
    * @param rocket
+   *          a rocket this view will modify
    */
   public NoseConeController(Rocket rocket) {
     super(noseCone);
@@ -46,7 +46,7 @@ public class NoseConeController extends PartController {
   }
 
   /**
-   * Initialize nosecone values and add listeners
+   * Initialize values and add listeners
    */
   public void initialize() {
     rocket.getExteriorComponents().add(noseCone);

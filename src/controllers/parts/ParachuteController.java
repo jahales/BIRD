@@ -9,7 +9,7 @@ import models.rocket.Rocket;
 import models.rocket.parts.Parachute;
 
 /**
- * Controller for the parachute view
+ * Controller for the {@link Parachute} view
  *
  * @author Brian Woodruff
  *
@@ -43,8 +43,8 @@ public class ParachuteController extends PartController {
   private ChoiceBox<String> deployedAltitudeUnits;
 
   /**
-   *
    * @param rocket
+   *          a rocket this view will modify
    */
   public ParachuteController(Rocket rocket) {
     super(parachute);
@@ -52,7 +52,7 @@ public class ParachuteController extends PartController {
   }
   
   /**
-   * Initialize the parachute part and add listeners
+   * Initialize values and add listeners
    */
   public void initialize() {
     rocket.getInteriorComponents().add(parachute);

@@ -9,7 +9,7 @@ import models.rocket.Rocket;
 import models.rocket.parts.ConicalFrustum;
 
 /**
- * A controller for a conical frustum part.
+ * Controller for a {@link ConicalFrustum} view
  *
  * @author Brian Woodruff
  *
@@ -37,8 +37,8 @@ public class ConicalFrustumController extends PartController {
   private ChoiceBox<String> lowerDiameterUnits;
 
   /**
-   *
    * @param rocket
+   *          a rocket this view will modify
    */
   public ConicalFrustumController(Rocket rocket) {
     super(conicalFrustum);
@@ -46,7 +46,7 @@ public class ConicalFrustumController extends PartController {
   }
 
   /**
-   * Initialize values for concial frustum and add listeners.
+   * Initialize values and add listeners
    */
   public void initialize() {
     rocket.getExteriorComponents().add(conicalFrustum);
@@ -57,7 +57,8 @@ public class ConicalFrustumController extends PartController {
     addValueListener(lowerDiameterValue, conicalFrustum.getLowerDiameter());
     addValueListener(upperDiameterValue, conicalFrustum.getUpperDiameter());
 
-    addErrorListener(lowerDiameterError, conicalFrustum.getLowerDiameter());;
+    addErrorListener(lowerDiameterError, conicalFrustum.getLowerDiameter());
+    ;
     addErrorListener(upperDiameterError, conicalFrustum.getUpperDiameter());
 
     addUnitListener(lowerDiameterUnits, conicalFrustum.getLowerDiameter());

@@ -3,21 +3,19 @@ package controllers.parts;
 import models.Measurement;
 import models.Unit;
 import models.rocket.parts.TrapezoidFinSet;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import models.rocket.Rocket;
 
 /**
- * A controller for a fin part.
+ * Controller for {@link TrapezoidFinSet} view
  *
  * @author Brian Woodruff
  *
  */
-public class FinController {
-  private TrapezoidFinSet trapezoidFinSet = new TrapezoidFinSet();
+public class FinController extends PartController {
+  private static TrapezoidFinSet trapezoidFinSet = new TrapezoidFinSet();
   private Rocket rocket;
 
   @FXML
@@ -51,68 +49,16 @@ public class FinController {
   private ChoiceBox<String> sweepLengthUnits;
 
   /**
-   *
    * @param rocket
+   *          a rocket this view will modify
    */
   public FinController(Rocket rocket) {
+    super(trapezoidFinSet);
     this.rocket = rocket;
   }
 
   /**
-   * Updates the unit when user selects a unit.
-   *
-   * @param field
-   * @param measurement
-   */
-  private void addUnitListener(ChoiceBox<String> field, Measurement measurement) {
-    field.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> reserved, String old, String current) {
-        measurement.setUnit(Unit.valueOf(current));
-      }
-    });
-  }
-
-  /**
-   * Updates the value when the user changes it.
-   *
-   * @param field
-   * @param measurement
-   */
-  private void addValueListener(TextField field, Measurement measurement) {
-    field.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> reserved, String old, String current) {
-        try {
-          measurement.setValue(Double.parseDouble(current));
-        } catch (NumberFormatException e) {
-          e.printStackTrace();
-        }
-      }
-    });
-  }
-
-  /**
-   * Updates the error when the user changes it.
-   *
-   * @param field
-   * @param measurement
-   */
-  private void addErrorListener(TextField field, Measurement measurement) {
-    field.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> reserved, String old, String current) {
-        try {
-          measurement.setError(Double.parseDouble(current));
-        } catch (NumberFormatException e) {
-          e.printStackTrace();
-        }
-      }
-    });
-  }
-
-  /**
-   * Initialize the fin set and add listeners.
+   * Initialize values and add listeners.
    */
   public void initialize() {
     rocket.getExteriorComponents().add(trapezoidFinSet);
