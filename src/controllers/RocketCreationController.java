@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import controllers.parts.PartChooser;
@@ -11,6 +12,7 @@ import java.util.logging.Logger;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.TreeItem;
@@ -111,36 +113,27 @@ public class RocketCreationController {
       super("External Components");
     }
   }
+  
+  public interface RocketPart {
+    String getValue();
+  }
 
-  /**
-   *
-   */
-  public enum RocketPart {
+  public enum InternalRocketPart implements RocketPart {
+    CIRCULAR_CYLINDER, CONICAL_FRUSTUM, MOTOR, PARACHUTE;
+    
+    @Override
+    public String getValue() {
+      return toString();
+    }
+  }
+  
+  public enum ExternalRocketPart implements RocketPart {
+    CIRCULAR_CYLINDER, CONICAL_FRUSTUM, TRAPEZOID_FIN_SET, NOSE_CONE;
 
-    /**
-     *
-     */
-    CircularCylinder,
-    /**
-     *
-     */
-    ConicalFrustum,
-    /**
-     *
-     */
-    TrapezoidFinSet,
-    /**
-     *
-     */
-    Motor,
-    /**
-     *
-     */
-    NoseCone,
-    /**
-     *
-     */
-    Parachute
+    @Override
+    public String getValue() {
+      return toString();
+    }
   }
 
   Rocket rocket;
@@ -149,6 +142,9 @@ public class RocketCreationController {
 
   private TreeComponent internalTreePartsRoot = new InternalComponents();
   private TreeComponent externalTreePartsRoot = new ExternalComponents();
+  
+  private List<RocketPart> internalParts = FXCollections.observableArrayList(InternalRocketPart.values());
+  private List<RocketPart> externalParts = FXCollections.observableArrayList(ExternalRocketPart.values());
 
   private Map<RocketPart, String> itemURL = new HashMap<>();
 
@@ -185,9 +181,14 @@ public class RocketCreationController {
   @FXML
   void addPart() throws IOException {
     PartChooser partChooser = new PartChooser();
-    RocketPart part = partChooser.showPartDialog(partViewer.getScene().getWindow());
+
+    RocketPart part = partChooser.showPartDialog(internalParts, externalParts, partViewer.getScene().getWindow());
     if (part != null) {
-      internalTreePartsRoot.getChildren().add(new IndividualRocketComponent(part));
+      if (part instanceof InternalRocketPart) {
+        internalTreePartsRoot.getChildren().add(new IndividualRocketComponent(part));
+      } else {
+        externalTreePartsRoot.getChildren().add(new IndividualRocketComponent(part));
+      }
     }
   }
 
@@ -229,11 +230,14 @@ public class RocketCreationController {
    * @throws IOException
    */
   private void setMaps() throws IOException {
-    itemURL.put(RocketPart.CircularCylinder, "/views/parts/CircularCylinder.fxml");
-    itemURL.put(RocketPart.ConicalFrustum, "/views/parts/ConicalFrustum.fxml");
-    itemURL.put(RocketPart.Motor, "/views/parts/Motor.fxml");
-    itemURL.put(RocketPart.NoseCone, "/views/parts/NoseCone.fxml");
-    itemURL.put(RocketPart.Parachute, "/views/parts/Parachute.fxml");
-    itemURL.put(RocketPart.TrapezoidFinSet, "/views/parts/TrapezoidFinSet.fxml");
+    itemURL.put(InternalRocketPart.CIRCULAR_CYLINDER, "/views/parts/CircularCylinder.fxml");
+    itemURL.put(InternalRocketPart.CONICAL_FRUSTUM, "/views/parts/ConicalFrustum.fxml");
+    itemURL.put(InternalRocketPart.MOTOR, "/views/parts/Motor.fxml");
+    itemURL.put(InternalRocketPart.PARACHUTE, "/views/parts/Parachute.fxml");
+
+    itemURL.put(ExternalRocketPart.CIRCULAR_CYLINDER, "/views/parts/CircularCylinder.fxml");
+    itemURL.put(ExternalRocketPart.CONICAL_FRUSTUM, "/views/parts/ConicalFrustum.fxml");
+    itemURL.put(ExternalRocketPart.NOSE_CONE, "/views/parts/NoseCone.fxml");
+    itemURL.put(ExternalRocketPart.TRAPEZOID_FIN_SET, "/views/parts/TrapezoidFinSet.fxml");
   }
 }
