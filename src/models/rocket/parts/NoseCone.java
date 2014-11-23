@@ -10,6 +10,34 @@ import models.Unit;
  *
  */
 public class NoseCone extends RocketComponent {
+  public enum NoseShape {
+
+    /**
+     * Unknown nose shape
+     */
+    UNKNOWN,
+
+    /**
+     * Ogive nose
+     */
+    OGIVE,
+
+    /**
+     * Parabolic nose
+     */
+    PARABOLA,
+
+    /**
+     * Conical nose
+     */
+    CONE,
+
+    /**
+     * Power series nose
+     */
+    POWERSERIES;
+  }
+  
   private double shapeParameter = 0.0;
   private Measurement diameter = new Measurement(0, 0, Unit.meters);
   private NoseShape noseShape = NoseShape.OGIVE;
