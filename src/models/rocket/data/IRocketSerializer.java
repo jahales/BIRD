@@ -9,12 +9,6 @@ import models.rocket.Rocket;
  * @author Jacob
  */
 public interface IRocketSerializer {
-
-  /**
-   *
-   * @return
-   */
-  String getDefaultExtension();
   
   /**
    * Serializes a rocket to the specified output stream

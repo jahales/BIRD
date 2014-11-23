@@ -15,16 +15,6 @@ import models.rocket.Rocket;
  * @author Jacob
  */
 public class OpenRocketSerializer implements IRocketSerializer {
-
-  /**
-   *
-   * @return
-   */
-  @Override
-  public String getDefaultExtension()
-  {
-    return ".ork";
-  }
   
   /**
    * Serializes a rocket to the specified output stream

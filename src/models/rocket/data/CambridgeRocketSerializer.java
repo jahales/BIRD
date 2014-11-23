@@ -15,16 +15,6 @@ import models.rocket.Rocket;
  * @author Jacob
  */
 public class CambridgeRocketSerializer implements IRocketSerializer {
-
-  /**
-   *
-   * @return
-   */
-  @Override
-  public String getDefaultExtension()
-  {
-    return ".xml";
-  }
   
   /**
    * Serializes a rocket to the specified output stream

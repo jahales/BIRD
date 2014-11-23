@@ -31,15 +31,6 @@ import org.w3c.dom.NodeList;
 public class BirdRocketSerializer implements IRocketSerializer {
 
   /**
-   *
-   * @return
-   */
-  @Override
-  public String getDefaultExtension() {
-    return ".xml";
-  }
-
-  /**
    * Serializes a rocket to the specified output stream
    *
    * @param rocket The rocket to serialize
@@ -88,7 +79,7 @@ public class BirdRocketSerializer implements IRocketSerializer {
   private Element createMeasurementElement(Document document, String name, Measurement measurement) {
     Element measurementElement = document.createElement(name);
     measurementElement.setAttribute("Error", Double.toString(measurement.getError()));
-    measurementElement.setNodeValue(Double.toString(measurement.getValue()));
+    measurementElement.setTextContent(Double.toString(measurement.getValue()));
     return measurementElement;
   }
   
@@ -146,9 +137,9 @@ public class BirdRocketSerializer implements IRocketSerializer {
   private Element createNoseConeElement(Document document, NoseCone component) {
     Element element = document.createElement("NoseCone");
     Element noseShapeElement = document.createElement("NoseShape");
-    noseShapeElement.setNodeValue(component.getNoseShape().toString());
+    noseShapeElement.setTextContent(component.getNoseShape().toString());
     Element shapeParameterElement = document.createElement("ShapeParameter");
-    shapeParameterElement.setNodeValue(Double.toString(component.getShapeParameter()));
+    shapeParameterElement.setTextContent(Double.toString(component.getShapeParameter()));
     element.appendChild(noseShapeElement);
     element.appendChild(shapeParameterElement);
     element.appendChild(createMeasurementElement(document, "Diameter", component.getDiameter()));
@@ -167,7 +158,7 @@ public class BirdRocketSerializer implements IRocketSerializer {
   private Element createTrapezoidFinSetElement(Document document, TrapezoidFinSet component) {
     Element element = document.createElement("TrapezoidFinSet");
     Element finCountElement = document.createElement("FinCount");
-    finCountElement.setNodeValue(Integer.toString(component.getCount()));
+    finCountElement.setTextContent(Integer.toString(component.getCount()));
     element.appendChild(finCountElement);
     element.appendChild(createMeasurementElement(document, "RootChord", component.getRootChord()));
     element.appendChild(createMeasurementElement(document, "TipChord", component.getTipChord()));
@@ -249,7 +240,7 @@ public class BirdRocketSerializer implements IRocketSerializer {
   private String getElementValue(Element parentElement, String elementName, String defaultValue) {
     NodeList childElements = parentElement.getElementsByTagName(elementName);
     
-    if (childElements.getLength() == 1) {
+    if (childElements.getLength() < 1) {
       return defaultValue;
     }
     
@@ -333,10 +324,10 @@ public class BirdRocketSerializer implements IRocketSerializer {
     NoseCone noseCone = new NoseCone();
     String noseShapeString = getElementValue(element, "NoseShape");
     String noseParameterString = getElementValue(element, "NoseParameter", "0");
-    noseCone.setNoseShape(NoseShape.valueOf(noseShapeString));
+    noseCone.setNoseShape(NoseShape.valueOf(noseShapeString.toUpperCase()));
     
-    noseCone.setShapeParameter(Double.parseDouble(noseParameterString));
     noseCone.setDiameter(loadMeasurementElement(element, "Diameter"));
+    noseCone.setShapeParameter(Double.parseDouble(noseParameterString));    
     return noseCone;
   }
   
@@ -368,6 +359,8 @@ public class BirdRocketSerializer implements IRocketSerializer {
   
   private RocketComponent loadParachute(Element element) {
     Parachute parachute = new Parachute();
+    String deployAtApogeeString = getElementValue(element, "DeployAtApogee");
+    parachute.setDeployAtApogee(Boolean.parseBoolean(deployAtApogeeString));
     parachute.setDragCoefficient(loadMeasurementElement(element, "DragCoefficient"));
     parachute.setDeployedDiameter(loadMeasurementElement(element, "DeployedDiameter"));
     parachute.setDeploymentAltitude(loadMeasurementElement(element, "DeploymentAltitude"));
