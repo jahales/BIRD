@@ -63,8 +63,8 @@ public class PartChooser {
     externalPartsList.setCellFactory(cellFactory);
     internalPartsList.setCellFactory(cellFactory);
 
-    externalPartsList.setItems(FXCollections.observableArrayList(internal));
-    internalPartsList.setItems(FXCollections.observableArrayList(external));
+    externalPartsList.setItems(FXCollections.observableArrayList(external));
+    internalPartsList.setItems(FXCollections.observableArrayList(internal));
 
     keyEvent(internalPartsList);
     keyEvent(externalPartsList);

@@ -135,7 +135,7 @@ public class RocketCreationController {
    *
    */
   public enum InternalRocketPart implements RocketPart {
-    CIRCULAR_CYLINDER, CONICAL_FRUSTUM, MOTOR, PARACHUTE;
+    CIRCULAR_CYLINDER, MOTOR, PARACHUTE;
 
     @Override
     public String getValue() {
@@ -310,7 +310,6 @@ public class RocketCreationController {
    */
   private void setMaps() {
     itemURL.put(InternalRocketPart.CIRCULAR_CYLINDER, "/views/parts/CircularCylinder.fxml");
-    itemURL.put(InternalRocketPart.CONICAL_FRUSTUM, "/views/parts/ConicalFrustum.fxml");
     itemURL.put(InternalRocketPart.MOTOR, "/views/parts/Motor.fxml");
     itemURL.put(InternalRocketPart.PARACHUTE, "/views/parts/Parachute.fxml");
 
