@@ -43,14 +43,14 @@ public class BirdRocketSerializer implements IRocketSerializer {
   @Override
   public void serialize(Rocket rocket, OutputStream outputStream) throws Exception {
     Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-    
+
     Element rootElement = document.createElement("Rocket");
     document.appendChild(rootElement);
 
     // Create the override element
     Element overrideElement = document.createElement("Override");
     rootElement.appendChild(overrideElement);
-    
+
     for (String name : rocket.getOverrides().keySet()) {
       Measurement measurement = rocket.getOverrides().get(name);
       overrideElement.appendChild(createMeasurementElement(document, name, measurement));
@@ -59,7 +59,7 @@ public class BirdRocketSerializer implements IRocketSerializer {
     // Create the interior element
     Element interiorElement = document.createElement("Interior");
     rootElement.appendChild(interiorElement);
-    
+
     for (RocketComponent rocketComponent : rocket.getInteriorComponents()) {
       interiorElement.appendChild(createRocketComponentElement(document, rocketComponent));
     }
@@ -67,7 +67,7 @@ public class BirdRocketSerializer implements IRocketSerializer {
     // Create the exterior element
     Element exteriorElement = document.createElement("Exterior");
     rootElement.appendChild(exteriorElement);
-    
+
     for (RocketComponent rocketComponent : rocket.getExteriorComponents()) {
       exteriorElement.appendChild(createRocketComponentElement(document, rocketComponent));
     }
@@ -78,14 +78,14 @@ public class BirdRocketSerializer implements IRocketSerializer {
     transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
     transformer.transform(new DOMSource(document), new StreamResult(outputStream));
   }
-  
+
   private Element createMeasurementElement(Document document, String name, Measurement measurement) {
     Element measurementElement = document.createElement(name);
     measurementElement.setAttribute("Error", Double.toString(measurement.getError()));
     measurementElement.setTextContent(Double.toString(measurement.getValue()));
     return measurementElement;
   }
-  
+
   private Element createRocketComponentElement(Document document, RocketComponent component) throws Exception {
     Element element = null;
 
@@ -113,30 +113,30 @@ public class BirdRocketSerializer implements IRocketSerializer {
     element.appendChild(createMeasurementElement(document, "Mass", component.getMass()));
     element.appendChild(createMeasurementElement(document, "RadialOffset", component.getRadialOffset()));
     element.appendChild(createMeasurementElement(document, "Thickness", component.getThickness()));
-    
+
     return element;
   }
-  
+
   private Element createCircularCylinderElement(Document document, CircularCylinder component) {
     Element element = document.createElement("CircularCylinder");
     element.appendChild(createMeasurementElement(document, "Diameter", component.getDiameter()));
     return element;
   }
-  
+
   private Element createConicalFrustumElement(Document document, ConicalFrustum component) {
     Element element = document.createElement("ConicalFrustum");
     element.appendChild(createMeasurementElement(document, "UpperDiameter", component.getUpperDiameter()));
     element.appendChild(createMeasurementElement(document, "LowerDiameter", component.getLowerDiameter()));
-    
+
     return element;
   }
-  
+
   private Element createMotorElement(Document document, Motor component) {
     Element element = document.createElement("Motor");
     element.appendChild(createMeasurementElement(document, "Diameter", component.getDiameter()));
     return element;
   }
-  
+
   private Element createNoseConeElement(Document document, NoseCone component) {
     Element element = document.createElement("NoseCone");
     Element noseShapeElement = document.createElement("NoseShape");
@@ -148,7 +148,7 @@ public class BirdRocketSerializer implements IRocketSerializer {
     element.appendChild(createMeasurementElement(document, "Diameter", component.getDiameter()));
     return element;
   }
-  
+
   private Element createParachuteElement(Document document, Parachute component) {
     Element element = document.createElement("Parachute");
     element.appendChild(createMeasurementElement(document, "Diameter", component.getDiameter()));
@@ -157,7 +157,7 @@ public class BirdRocketSerializer implements IRocketSerializer {
     element.appendChild(createMeasurementElement(document, "DeploymentAltitude", component.getDeploymentAltitude()));
     return element;
   }
-  
+
   private Element createTrapezoidFinSetElement(Document document, TrapezoidFinSet component) {
     Element element = document.createElement("TrapezoidFinSet");
     Element finCountElement = document.createElement("FinCount");
@@ -182,22 +182,26 @@ public class BirdRocketSerializer implements IRocketSerializer {
   @Override
   public Rocket deserialize(InputStream stream) throws Exception {
     Rocket rocket = new Rocket();
-    
+
     Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(stream);
     doc.normalize();
-    
+
     if (!doc.getDocumentElement().getNodeName().equalsIgnoreCase("Rocket")) {
       throw new Exception("Invalid root node: " + doc.getDocumentElement().getNodeName());
     }
 
     // Load all of the override settings    
     NodeList overrideElements = doc.getElementsByTagName("Override");
-    
+
     for (int i = 0; i < overrideElements.getLength(); i++) {
       Element overrideElement = (Element) overrideElements.item(i);
-      NodeList childElements = overrideElement.getElementsByTagName("*");
-      
+      NodeList childElements = overrideElement.getChildNodes();
+
       for (int j = 0; j < childElements.getLength(); j++) {
+        if (!(childElements.item(j) instanceof Element)) {
+          continue;
+        }
+
         Element childElement = (Element) childElements.item(j);
         String overrideName = childElement.getTagName();
         Measurement overrideMeasurement = loadMeasurementElement(childElement);
@@ -207,12 +211,16 @@ public class BirdRocketSerializer implements IRocketSerializer {
 
     // Load all of the exterior settings    
     NodeList exteriorElements = doc.getElementsByTagName("Exterior");
-    
+
     for (int i = 0; i < exteriorElements.getLength(); i++) {
       Element exteriorElement = (Element) exteriorElements.item(i);
-      NodeList childElements = exteriorElement.getElementsByTagName("*");
-      
+      NodeList childElements = exteriorElement.getChildNodes();
+
       for (int j = 0; j < childElements.getLength(); j++) {
+        if (!(childElements.item(j) instanceof Element)) {
+          continue;
+        }
+
         Element childElement = (Element) childElements.item(j);
         RocketComponent exteriorComponent = loadComponentElement(childElement);
         rocket.getExteriorComponents().add(exteriorComponent);
@@ -221,35 +229,39 @@ public class BirdRocketSerializer implements IRocketSerializer {
 
     // Load all of the interior settings    
     NodeList interiorElements = doc.getElementsByTagName("Interior");
-    
+
     for (int i = 0; i < interiorElements.getLength(); i++) {
       Element interiorElement = (Element) interiorElements.item(i);
-      NodeList childElements = interiorElement.getElementsByTagName("*");
-      
+      NodeList childElements = interiorElement.getChildNodes();
+
       for (int j = 0; j < childElements.getLength(); j++) {
+        if (!(childElements.item(j) instanceof Element)) {
+          continue;
+        }
+
         Element childElement = (Element) childElements.item(j);
         RocketComponent interiorComponent = loadComponentElement(childElement);
-        rocket.getExteriorComponents().add(interiorComponent);
+        rocket.getInteriorComponents().add(interiorComponent);
       }
     }
-    
+
     return rocket;
   }
-  
+
   private String getElementValue(Element parentElement, String elementName) {
     return getElementValue(parentElement, elementName, "");
   }
-  
+
   private String getElementValue(Element parentElement, String elementName, String defaultValue) {
     NodeList childElements = parentElement.getElementsByTagName(elementName);
-    
+
     if (childElements.getLength() < 1) {
       return defaultValue;
     }
-    
+
     return childElements.item(0).getTextContent();
   }
-  
+
   private Measurement loadMeasurementElement(Element element) {
     Measurement measurement = new Measurement();
 
@@ -262,33 +274,33 @@ public class BirdRocketSerializer implements IRocketSerializer {
 
     // Attempt to parse the error of the measurement
     String errorString = element.getAttribute("Error");
-    
-    if (errorString != null) {      
+
+    if (errorString != null) {
       try {
         measurement.setError(Double.parseDouble(errorString));
       } catch (Exception ex) {
         measurement.setError(0);
       }
     }
-    
+
     return measurement;
   }
-  
+
   private Measurement loadMeasurementElement(Element parentElement, String elementName) {
     NodeList childElements = parentElement.getElementsByTagName(elementName);
-    
+
     if (childElements.getLength() != 1) {
       return new Measurement();
     }
-    
+
     return loadMeasurementElement((Element) childElements.item(0));
   }
-  
+
   private RocketComponent loadComponentElement(Element element) throws Exception {
     // Load the component properties specific to the component type
     String componentType = element.getTagName();
     RocketComponent component = null;
-    
+
     switch (componentType.toUpperCase()) {
       case "NOSECONE":
         component = loadNoseCone(element);
@@ -319,21 +331,21 @@ public class BirdRocketSerializer implements IRocketSerializer {
     component.setRadialOffset(loadMeasurementElement(element, "RadialOffset"));
     component.setAxialLength(loadMeasurementElement(element, "AxialLength"));
     component.setThickness(loadMeasurementElement(element, "Thickness"));
-    
+
     return component;
   }
-  
+
   private RocketComponent loadNoseCone(Element element) {
     NoseCone noseCone = new NoseCone();
     String noseShapeString = getElementValue(element, "NoseShape");
     String noseParameterString = getElementValue(element, "NoseParameter", "0");
     noseCone.setNoseShape(NoseShape.valueOf(noseShapeString.toUpperCase()));
-    
+
     noseCone.setDiameter(loadMeasurementElement(element, "Diameter"));
-    noseCone.setShapeParameter(Double.parseDouble(noseParameterString));    
+    noseCone.setShapeParameter(Double.parseDouble(noseParameterString));
     return noseCone;
   }
-  
+
   private RocketComponent loadTrapezoidFinSet(Element element) {
     TrapezoidFinSet trapezoidFinSet = new TrapezoidFinSet();
     String finCountString = getElementValue(element, "Count", "0");
@@ -346,20 +358,20 @@ public class BirdRocketSerializer implements IRocketSerializer {
     trapezoidFinSet.setBodyDiameter(loadMeasurementElement(element, "BodyDiameter"));
     return trapezoidFinSet;
   }
-  
+
   private RocketComponent loadConicalFrustum(Element element) {
     ConicalFrustum conicalFrustum = new ConicalFrustum();
     conicalFrustum.setUpperDiameter(loadMeasurementElement(element, "UpperDiameter"));
     conicalFrustum.setLowerDiameter(loadMeasurementElement(element, "LowerDiameter"));
     return conicalFrustum;
   }
-  
+
   private RocketComponent loadCircularCylinder(Element element) {
     CircularCylinder circularCylinder = new CircularCylinder();
     circularCylinder.setDiameter(loadMeasurementElement(element, "Diameter"));
     return circularCylinder;
   }
-  
+
   private RocketComponent loadParachute(Element element) {
     Parachute parachute = new Parachute();
     String deployAtApogeeString = getElementValue(element, "DeployAtApogee");
@@ -369,7 +381,7 @@ public class BirdRocketSerializer implements IRocketSerializer {
     parachute.setDeploymentAltitude(loadMeasurementElement(element, "DeploymentAltitude"));
     return parachute;
   }
-  
+
   private RocketComponent loadMotor(Element element) {
     Motor motor = new Motor();
     return motor;
