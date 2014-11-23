@@ -6,40 +6,37 @@
 
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.parts.FinController">
-   <children>
-      <fx:include source="RocketComponent.fxml" />
-      <GridPane>
-      	<columnConstraints>
-      		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100" />
-      		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100" />
-      		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100" />
-      		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100" />
-      	</columnConstraints>
-      	<rowConstraints>
-      		<RowConstraints minHeight="10" prefHeight="30" vgrow="SOMETIMES" />
-      		<RowConstraints minHeight="10" prefHeight="30" vgrow="SOMETIMES" />
-      		<RowConstraints minHeight="10" prefHeight="30" vgrow="SOMETIMES" />
-      		<RowConstraints minHeight="10" prefHeight="30" vgrow="SOMETIMES" />
-      	</rowConstraints>
-      	<children>
-      		<Label text="Fin Count" />
-      		<TextField fx:id="finCountValue" GridPane.columnIndex="1" />
-      		
-      		<Label text="Root Chord" GridPane.rowIndex="1" />
-      		<TextField fx:id="rootChordValue" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      		<TextField fx:id="rootChordError" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      		<fx:include fx:id="rootChordUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-      		
-      		<Label text="Span Length" GridPane.rowIndex="2" />
-      		<TextField fx:id="spanLengthValue" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      		<TextField fx:id="spanLengthError" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      		<fx:include fx:id="spanLengthUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-      		
-      		<Label text="Sweep Length" GridPane.rowIndex="3" />
-      		<TextField fx:id="sweepLengthValue" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      		<TextField fx:id="sweepLengthError" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      		<fx:include fx:id="sweepLengthUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-      	</children>
-      </GridPane>
-   </children>
+	<children>
+		<fx:include source="RocketComponent.fxml" />
+		<GridPane>
+			<columnConstraints>
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100" />
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100" />
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100" />
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints minHeight="10" prefHeight="30" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10" prefHeight="30" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10" prefHeight="30" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10" prefHeight="30" vgrow="SOMETIMES" />
+			</rowConstraints>
+			<children>
+				<Label text="Fin Count" />
+				<TextField fx:id="finCountValue" GridPane.columnIndex="1" />
+				<Label text="Root Chord" GridPane.rowIndex="1" />
+				<TextField fx:id="rootChordValue" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+				<TextField fx:id="rootChordError" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+				<fx:include fx:id="rootChordUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+				<Label text="Span Length" GridPane.rowIndex="2" />
+				<TextField fx:id="spanLengthValue" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+				<TextField fx:id="spanLengthError" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+				<fx:include fx:id="spanLengthUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+				<Label text="Sweep Length" GridPane.rowIndex="3" />
+				<TextField fx:id="sweepLengthValue" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+				<TextField fx:id="sweepLengthError" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+				<fx:include fx:id="sweepLengthUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+			</children>
+		</GridPane>
+	</children>
 </VBox>

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+
 <GridPane alignment="CENTER" hgap="3.0" vgap="3.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SimulationController">
 	<columnConstraints>
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100" />
@@ -33,7 +34,7 @@
 		<Label text="Azimuth Angle" GridPane.rowIndex="7" />
 		<Label fx:id="rocketFilePath" GridPane.columnIndex="1" />
 		<Label fx:id="atmosphereFilePath" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-		<Label fx:id="engineFilePath" GridPane.columnIndex="1" GridPane.rowIndex="2" />	
+		<Label fx:id="engineFilePath" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 		<Label fx:id="launchRailFilePath" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 		<HBox alignment="CENTER_LEFT" spacing="50.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
 			<children>
@@ -72,7 +73,7 @@
 	<padding>
 		<Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
 	</padding>
-   <opaqueInsets>
-      <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-   </opaqueInsets>
+	<opaqueInsets>
+		<Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+	</opaqueInsets>
 </GridPane>

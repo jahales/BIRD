@@ -6,35 +6,33 @@
 
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.parts.ParachuteController">
-   <children>
-      <fx:include source="RocketComponent.fxml" />
-      <GridPane>
-      	<columnConstraints>
-      		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="125" />
-      		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
-      		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
-      		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
-      	</columnConstraints>
-      	<rowConstraints>
-      		<RowConstraints minHeight="10" prefHeight="30" vgrow="SOMETIMES" />
-      		<RowConstraints minHeight="10" prefHeight="30" vgrow="SOMETIMES" />
-      		<RowConstraints minHeight="10" prefHeight="30" vgrow="SOMETIMES" />
-      	</rowConstraints>
-      	<children>
-      		<Label text="Drag Coefficient" />
-      		<TextField fx:id="dragCoefficientValue" GridPane.columnIndex="1" />
-      		<TextField fx:id="dragCoefficientError" GridPane.columnIndex="2" />
-      		
-      		<Label text="Deployed Diameter" GridPane.rowIndex="1" />
-      		<TextField fx:id="deployedDiameterValue" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      		<TextField fx:id="deployedDiameterError" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      		<fx:include fx:id="deployedDiameterUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-      		
-      		<Label text="Deployment Altitude" GridPane.rowIndex="2" />
-      		<TextField fx:id="deploymentAltitudeValue" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      		<TextField fx:id="deploymentAltitudeError" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      		<fx:include fx:id="deployedAltitudeUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-      	</children>
-      </GridPane>
-   </children>
+	<children>
+		<fx:include source="RocketComponent.fxml" />
+		<GridPane>
+			<columnConstraints>
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10"  prefWidth="125" />
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints minHeight="10" prefHeight="30" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10" prefHeight="30" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10" prefHeight="30" vgrow="SOMETIMES" />
+			</rowConstraints>
+			<children>
+				<Label text="Drag Coefficient" />
+				<TextField fx:id="dragCoefficientValue" GridPane.columnIndex="1" />
+				<TextField fx:id="dragCoefficientError" GridPane.columnIndex="2" />
+				<Label text="Deployed Diameter" GridPane.rowIndex="1" />
+				<TextField fx:id="deployedDiameterValue" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+				<TextField fx:id="deployedDiameterError" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+				<fx:include fx:id="deployedDiameterUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+				<Label text="Deployment Altitude" GridPane.rowIndex="2" />
+				<TextField fx:id="deploymentAltitudeValue" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+				<TextField fx:id="deploymentAltitudeError" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+				<fx:include fx:id="deployedAltitudeUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+			</children>
+		</GridPane>
+	</children>
 </VBox>

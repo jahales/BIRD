@@ -4,6 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.collections.*?>
 
+
 <ChoiceBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" value="grams">
 	<items>
 		<FXCollections fx:factory="observableArrayList">
