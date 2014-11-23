@@ -8,7 +8,6 @@ import models.rocket.Rocket;
 import models.rocket.parts.CircularCylinder;
 import models.rocket.parts.ConicalFrustum;
 import models.rocket.parts.NoseCone;
-import models.rocket.parts.NoseShape;
 import models.rocket.parts.Parachute;
 import models.rocket.parts.RocketComponent;
 import models.rocket.parts.TrapezoidFinSet;
@@ -259,7 +258,7 @@ public class BirdRocketSerializerTests {
     Assert.assertEquals(c.getShapeParameter(), 11.0);
     Assert.assertEquals(c.getDiameter().getValue(), 7.0);
     Assert.assertEquals(c.getDiameter().getError(), 1.0);
-    Assert.assertEquals(c.getNoseShape(), NoseShape.OGIVE);
+    Assert.assertEquals(c.getNoseShape(), NoseCone.NoseShape.OGIVE);
   }
   
   @Test
