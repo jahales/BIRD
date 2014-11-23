@@ -21,9 +21,6 @@ import models.rocket.parts.Motor;
 public class MotorController extends PartController {
   private static Motor motor = new Motor();
   private Rocket rocket;
-  
-  @FXML
-  private Label thrustFile;
 
   @FXML
   private TextField manufacturerValue;
@@ -35,28 +32,31 @@ public class MotorController extends PartController {
   private TextField fuelMassValue;
 
   @FXML
-  private TextField polarAngleValue;
-
-  @FXML
-  private TextField asimuthAngleValue;
-
-  @FXML
   private TextField fuelMassError;
-
-  @FXML
-  private TextField polarAngleError;
-
-  @FXML
-  private TextField asimuthAngleError;
 
   @FXML
   private ChoiceBox<String> fuelMassUnits;
 
   @FXML
+  private TextField polarAngleValue;
+
+  @FXML
+  private TextField polarAngleError;
+
+  @FXML
   private ChoiceBox<String> polarAngleUnits;
 
   @FXML
+  private TextField asimuthAngleValue;
+
+  @FXML
+  private TextField asimuthAngleError;
+
+  @FXML
   private ChoiceBox<String> asimuthAngleUnits;
+  
+  @FXML
+  private Label thrustFile;
 
   @FXML
   private void loadThrustFile() {
