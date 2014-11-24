@@ -17,9 +17,9 @@ import models.rocket.parts.NoseCone.NoseShape;
  * @author Brian Woodruff
  *
  */
-public class NoseConeController extends PartController {
-  private static NoseCone noseCone = new NoseCone();
-  private Rocket rocket;
+public class NoseConeController {
+
+  private NoseCone noseCone;
 
   @FXML
   private TextField shapeParameter;
@@ -37,24 +37,20 @@ public class NoseConeController extends PartController {
   private ChoiceBox<String> shape;
 
   /**
-   * @param rocket
-   *          a rocket this view will modify
+   * @param rocket a rocket this view will modify
    */
-  public NoseConeController(Rocket rocket) {
-    super(noseCone);
-    this.rocket = rocket;
+  public NoseConeController(NoseCone noseCone) {
+    this.noseCone = noseCone;
   }
 
   /**
    * Initialize values and add listeners
    */
   public void initialize() {
-    rocket.getExteriorComponents().add(noseCone);
-
     noseCone.setShapeParameter(0);
     noseCone.setDiameter(new Measurement(0, 0, Unit.centimeters));
 
-    addUnitListener(diameterUnits, noseCone.getDiameter());
+    ListenerHelpers.addUnitListener(diameterUnits, noseCone.getDiameter());
     shape.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
@@ -62,7 +58,7 @@ public class NoseConeController extends PartController {
       }
     });
 
-    addValueListener(diameterValue, noseCone.getDiameter());
+    ListenerHelpers.addValueListener(diameterValue, noseCone.getDiameter());
     shapeParameter.textProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
@@ -74,6 +70,6 @@ public class NoseConeController extends PartController {
       }
     });
 
-    addErrorListener(diameterError, noseCone.getDiameter());
+    ListenerHelpers.addErrorListener(diameterError, noseCone.getDiameter());
   }
 }

@@ -18,9 +18,9 @@ import models.rocket.parts.Motor;
  * @author Brian Woodruff
  *
  */
-public class MotorController extends PartController {
-  private static Motor motor = new Motor();
-  private Rocket rocket;
+public class MotorController {
+
+  private Motor motor;
 
   @FXML
   private TextField manufacturerValue;
@@ -54,7 +54,7 @@ public class MotorController extends PartController {
 
   @FXML
   private ChoiceBox<String> asimuthAngleUnits;
-  
+
   @FXML
   private Label thrustFile;
 
@@ -64,49 +64,40 @@ public class MotorController extends PartController {
   }
 
   /**
-   * @param rocket
-   *          a rocket this view will modify
+   * @param rocket a rocket this view will modify
    */
-  public MotorController(Rocket rocket) {
-    super(motor);
-    this.rocket = rocket;
+  public MotorController(Motor motor) {
+    this.motor = motor;
   }
 
   /**
    * Initialize values and set listeners
    */
   public void initialize() {
-    rocket.getInteriorComponents().add(motor);
-
-    motor.setManufacturer("");
-    motor.setDelays("");
-    motor.setFuelMass(new Measurement(0, 0, Unit.grams));
-    motor.setPolarAngle(new Measurement(0, 0, Unit.degrees));
-    motor.setAzimuthAngle(new Measurement(0, 0, Unit.degrees));
-    motor.setThrust(new DataTable());
-
     manufacturerValue.textProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
         motor.setManufacturer(arg2);
       }
     });
+
     delaysValue.textProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
         motor.setDelays(arg2);
       }
     });
-    addValueListener(fuelMassValue, motor.getFuelMass());
-    addValueListener(polarAngleError, motor.getPolarAngle());
-    addValueListener(asimuthAngleValue, motor.getAzimuthAngle());
 
-    addErrorListener(fuelMassError, motor.getFuelMass());
-    addErrorListener(polarAngleError, motor.getPolarAngle());
-    addErrorListener(asimuthAngleError, motor.getAzimuthAngle());
+    ListenerHelpers.addValueListener(fuelMassValue, motor.getFuelMass());
+    ListenerHelpers.addValueListener(polarAngleError, motor.getPolarAngle());
+    ListenerHelpers.addValueListener(asimuthAngleValue, motor.getAzimuthAngle());
 
-    addUnitListener(fuelMassUnits, motor.getFuelMass());
-    addUnitListener(polarAngleUnits, motor.getPolarAngle());
-    addUnitListener(asimuthAngleUnits, motor.getAzimuthAngle());
+    ListenerHelpers.addErrorListener(fuelMassError, motor.getFuelMass());
+    ListenerHelpers.addErrorListener(polarAngleError, motor.getPolarAngle());
+    ListenerHelpers.addErrorListener(asimuthAngleError, motor.getAzimuthAngle());
+
+    ListenerHelpers.addUnitListener(fuelMassUnits, motor.getFuelMass());
+    ListenerHelpers.addUnitListener(polarAngleUnits, motor.getPolarAngle());
+    ListenerHelpers.addUnitListener(asimuthAngleUnits, motor.getAzimuthAngle());
   }
 }

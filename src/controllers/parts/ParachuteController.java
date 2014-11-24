@@ -14,9 +14,9 @@ import models.rocket.parts.Parachute;
  * @author Brian Woodruff
  *
  */
-public class ParachuteController extends PartController {
-  private static Parachute parachute = new Parachute();
-  private Rocket rocket;
+public class ParachuteController {
+
+  private Parachute parachute;
 
   @FXML
   private TextField dragCoefficientValue;
@@ -43,33 +43,25 @@ public class ParachuteController extends PartController {
   private ChoiceBox<String> deployedAltitudeUnits;
 
   /**
-   * @param rocket
-   *          a rocket this view will modify
+   * @param rocket a rocket this view will modify
    */
-  public ParachuteController(Rocket rocket) {
-    super(parachute);
-    this.rocket = rocket;
+  public ParachuteController(Parachute parachute) {
+    this.parachute = parachute;
   }
-  
+
   /**
    * Initialize values and add listeners
    */
   public void initialize() {
-    rocket.getInteriorComponents().add(parachute);
+    ListenerHelpers.addValueListener(deployedDiameterValue, parachute.getDeployedDiameter());
+    ListenerHelpers.addValueListener(deploymentAltitudeValue, parachute.getDeploymentAltitude());
+    ListenerHelpers.addValueListener(dragCoefficientValue, parachute.getDragCoefficient());
 
-    parachute.setDragCoefficient(new Measurement(0, 0, Unit.number));
-    parachute.setDeployedDiameter(new Measurement(0, 0, Unit.centimeters));
-    parachute.setDeploymentAltitude(new Measurement(0, 0, Unit.meters));
+    ListenerHelpers.addErrorListener(deployedDiameterError, parachute.getDeployedDiameter());
+    ListenerHelpers.addErrorListener(deploymentAltitudeError, parachute.getDeploymentAltitude());
+    ListenerHelpers.addErrorListener(dragCoefficientError, parachute.getDragCoefficient());
 
-    addValueListener(deployedDiameterValue, parachute.getDeployedDiameter());
-    addValueListener(deploymentAltitudeValue, parachute.getDeploymentAltitude());
-    addValueListener(dragCoefficientValue, parachute.getDragCoefficient());
-
-    addErrorListener(deployedDiameterError, parachute.getDeployedDiameter());
-    addErrorListener(deploymentAltitudeError, parachute.getDeploymentAltitude());
-    addErrorListener(dragCoefficientError, parachute.getDragCoefficient());
-
-    addUnitListener(deployedDiameterUnits, parachute.getDeployedDiameter());
-    addUnitListener(deployedAltitudeUnits, parachute.getDeploymentAltitude());
+    ListenerHelpers.addUnitListener(deployedDiameterUnits, parachute.getDeployedDiameter());
+    ListenerHelpers.addUnitListener(deployedAltitudeUnits, parachute.getDeploymentAltitude());
   }
 }

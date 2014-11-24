@@ -14,9 +14,9 @@ import models.rocket.Rocket;
  * @author Brian Woodruff
  *
  */
-public class FinController extends PartController {
-  private static TrapezoidFinSet trapezoidFinSet = new TrapezoidFinSet();
-  private Rocket rocket;
+public class FinController {
+
+  private TrapezoidFinSet trapezoidFinSet;
 
   @FXML
   private TextField finCountValue;
@@ -49,35 +49,26 @@ public class FinController extends PartController {
   private ChoiceBox<String> sweepLengthUnits;
 
   /**
-   * @param rocket
-   *          a rocket this view will modify
+   * @param rocket a rocket this view will modify
    */
-  public FinController(Rocket rocket) {
-    super(trapezoidFinSet);
-    this.rocket = rocket;
+  public FinController(TrapezoidFinSet trapezoidFinSet) {
+    this.trapezoidFinSet = trapezoidFinSet;
   }
 
   /**
    * Initialize values and add listeners.
    */
   public void initialize() {
-    rocket.getExteriorComponents().add(trapezoidFinSet);
+    ListenerHelpers.addValueListener(rootChordValue, trapezoidFinSet.getRootChord());
+    ListenerHelpers.addValueListener(spanLengthValue, trapezoidFinSet.getSpanLength());
+    ListenerHelpers.addValueListener(sweepLengthValue, trapezoidFinSet.getSweepLength());
 
-    trapezoidFinSet.setCount(0);
-    trapezoidFinSet.setSpanLength(new Measurement(0, 0, Unit.centimeters));
-    trapezoidFinSet.setSweepLength(new Measurement(0, 0, Unit.centimeters));
-    trapezoidFinSet.setRootChord(new Measurement(0, 0, Unit.centimeters));
+    ListenerHelpers.addErrorListener(rootChordError, trapezoidFinSet.getRootChord());
+    ListenerHelpers.addErrorListener(spanLengthError, trapezoidFinSet.getSpanLength());
+    ListenerHelpers.addErrorListener(sweepLengthError, trapezoidFinSet.getSweepLength());
 
-    addValueListener(rootChordValue, trapezoidFinSet.getRootChord());
-    addValueListener(spanLengthValue, trapezoidFinSet.getSpanLength());
-    addValueListener(sweepLengthValue, trapezoidFinSet.getSweepLength());
-
-    addErrorListener(rootChordError, trapezoidFinSet.getRootChord());
-    addErrorListener(spanLengthError, trapezoidFinSet.getSpanLength());
-    addErrorListener(sweepLengthError, trapezoidFinSet.getSweepLength());
-
-    addUnitListener(rootChordUnits, trapezoidFinSet.getRootChord());
-    addUnitListener(spanLengthUnits, trapezoidFinSet.getSpanLength());
-    addUnitListener(sweepLengthUnits, trapezoidFinSet.getSweepLength());
+    ListenerHelpers.addUnitListener(rootChordUnits, trapezoidFinSet.getRootChord());
+    ListenerHelpers.addUnitListener(spanLengthUnits, trapezoidFinSet.getSpanLength());
+    ListenerHelpers.addUnitListener(sweepLengthUnits, trapezoidFinSet.getSweepLength());
   }
 }

@@ -4,6 +4,7 @@ import models.Measurement;
 import models.Unit;
 import models.rocket.parts.CircularCylinder;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import models.rocket.Rocket;
@@ -14,9 +15,9 @@ import models.rocket.Rocket;
  * @author Brian Woodruff
  *
  */
-public class CircularCylinderController extends PartController {
-  private static CircularCylinder circularCylinder = new CircularCylinder();
-  private Rocket rocket;
+public class CircularCylinderController {
+
+  private CircularCylinder circularCylinder;
 
   @FXML
   private TextField diameterValue;
@@ -28,26 +29,20 @@ public class CircularCylinderController extends PartController {
   private ChoiceBox<String> diameterUnits;
 
   /**
-   * @param rocket
-   *          a rocket this view will modify
+   * @param rocket a rocket this view will modify
    */
-  public CircularCylinderController(Rocket rocket) {
-    super(circularCylinder);
-    this.rocket = rocket;
+  public CircularCylinderController(CircularCylinder circularCylinder) {
+    this.circularCylinder = circularCylinder;
   }
 
   /**
    * Initialize values and add listeners
    */
   public void initialize() {
-    rocket.getInteriorComponents().add(circularCylinder);
+    ListenerHelpers.addValueListener(diameterValue, circularCylinder.getDiameter());
 
-    circularCylinder.setDiameter(new Measurement(0, 0, Unit.centimeters));
+    ListenerHelpers.addErrorListener(diameterError, circularCylinder.getDiameter());
 
-    addValueListener(diameterValue, circularCylinder.getDiameter());
-
-    addErrorListener(diameterError, circularCylinder.getDiameter());
-
-    addUnitListener(diameterUnits, circularCylinder.getDiameter());
+    ListenerHelpers.addUnitListener(diameterUnits, circularCylinder.getDiameter());
   }
 }

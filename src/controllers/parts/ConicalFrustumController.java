@@ -14,9 +14,9 @@ import models.rocket.parts.ConicalFrustum;
  * @author Brian Woodruff
  *
  */
-public class ConicalFrustumController extends PartController {
-  private static ConicalFrustum conicalFrustum = new ConicalFrustum();
-  private Rocket rocket;
+public class ConicalFrustumController {
+
+  private ConicalFrustum conicalFrustum;
 
   @FXML
   private TextField upperDiameterValue;
@@ -37,31 +37,23 @@ public class ConicalFrustumController extends PartController {
   private ChoiceBox<String> lowerDiameterUnits;
 
   /**
-   * @param rocket
-   *          a rocket this view will modify
+   * @param rocket a rocket this view will modify
    */
-  public ConicalFrustumController(Rocket rocket) {
-    super(conicalFrustum);
-    this.rocket = rocket;
+  public ConicalFrustumController(ConicalFrustum conicalFrustum) {
+    this.conicalFrustum = conicalFrustum;
   }
 
   /**
    * Initialize values and add listeners
    */
   public void initialize() {
-    rocket.getExteriorComponents().add(conicalFrustum);
+    ListenerHelpers.addValueListener(lowerDiameterValue, conicalFrustum.getLowerDiameter());
+    ListenerHelpers.addValueListener(upperDiameterValue, conicalFrustum.getUpperDiameter());
 
-    conicalFrustum.setLowerDiameter(new Measurement(0, 0, Unit.centimeters));
-    conicalFrustum.setUpperDiameter(new Measurement(0, 0, Unit.centimeters));
+    ListenerHelpers.addErrorListener(lowerDiameterError, conicalFrustum.getLowerDiameter());
+    ListenerHelpers.addErrorListener(upperDiameterError, conicalFrustum.getUpperDiameter());
 
-    addValueListener(lowerDiameterValue, conicalFrustum.getLowerDiameter());
-    addValueListener(upperDiameterValue, conicalFrustum.getUpperDiameter());
-
-    addErrorListener(lowerDiameterError, conicalFrustum.getLowerDiameter());
-    ;
-    addErrorListener(upperDiameterError, conicalFrustum.getUpperDiameter());
-
-    addUnitListener(lowerDiameterUnits, conicalFrustum.getLowerDiameter());
-    addUnitListener(upperDiameterUnits, conicalFrustum.getUpperDiameter());
+    ListenerHelpers.addUnitListener(lowerDiameterUnits, conicalFrustum.getLowerDiameter());
+    ListenerHelpers.addUnitListener(upperDiameterUnits, conicalFrustum.getUpperDiameter());
   }
 }

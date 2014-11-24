@@ -22,12 +22,12 @@ import javafx.util.Callback;
 import controllers.RocketCreationController.RocketPart;
 
 /**
- * Part chooser dialog window. Pass a list of internal and external parts to
- * choose from.
- * 
+ * Part chooser dialog window. Pass a list of internal and external parts to choose from.
+ *
  * @author Jacob, Brian Woodruff
  */
 public class PartChooser {
+
   private RocketPart selectedRocketPart;
   private Stage stage = new Stage();
   private ListView<RocketPart> internalPartsList = new ListView<RocketPart>();
@@ -47,16 +47,13 @@ public class PartChooser {
 
   /**
    * Show dialog that returns the selected part
-   * 
-   * @param internal
-   *          list of internal {@link RocketPart} to choose from
-   * @param external
-   *          list of external {@link RocketPart} to choose from
-   * @param window
-   *          the parent window that will own this child window
+   *
+   * @param internal list of internal {@link RocketPart} to choose from
+   * @param external list of external {@link RocketPart} to choose from
+   * @param window the parent window that will own this child window
    * @return the selected {@link RocketPart}
-   *         <p>
-   *         <b>Note:</b> returns null if nothing was selected
+   * <p>
+   * <b>Note:</b> returns null if nothing was selected
    */
   public RocketPart showPartDialog(List<RocketPart> internal, List<RocketPart> external,
       Window window) {
@@ -96,11 +93,12 @@ public class PartChooser {
 
   /**
    * Custom list cell to manually display name in more readable format
-   * 
+   *
    * @author Brian Woodruff
    *
    */
   private class MyListCell extends ListCell<RocketPart> {
+
     @Override
     protected void updateItem(RocketPart item, boolean empty) {
       super.updateItem(item, empty);
@@ -111,10 +109,8 @@ public class PartChooser {
 
     /**
      * EXAMPLE_ONE to Example One
-     * 
-     * @param string
-     *          a string to be formatted from enum style to more human readable
-     *          format
+     *
+     * @param string a string to be formatted from enum style to more human readable format
      * @return camel case string
      */
     private String toCamelCase(String string) {
@@ -128,9 +124,8 @@ public class PartChooser {
 
     /**
      * ExAmPLE to Example
-     * 
-     * @param string
-     *          a string to be formated
+     *
+     * @param string a string to be formated
      * @return a string formated in proper case
      */
     private String toProperCase(String string) {
@@ -140,11 +135,9 @@ public class PartChooser {
 
   /**
    * If tab is selected, set selected part to whatever is selected in the list
-   * 
-   * @param list
-   *          list to insert into tab
-   * @param tab
-   *          tab to insert list into
+   *
+   * @param list list to insert into tab
+   * @param tab tab to insert list into
    */
   private void selectedItem(ListView<RocketPart> list, Tab tab) {
     list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<RocketPart>() {
@@ -160,9 +153,8 @@ public class PartChooser {
 
   /**
    * Set event for pressing 'Enter' and double clicking
-   * 
-   * @param list
-   *          list to setup listeners for
+   *
+   * @param list list to setup listeners for
    */
   private void keyEvent(ListView<RocketPart> list) {
     list.setOnKeyPressed((event) -> {

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.parts.ComponentController">
 	<columnConstraints>
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
@@ -35,9 +35,9 @@
 		<Label text="Axial Length" GridPane.rowIndex="3" />
 		<TextField fx:id="axialLengthValue" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 		<TextField fx:id="axialLengthError" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-		<fx:include fx:id="AxialLengthUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+		<fx:include fx:id="axialLengthUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="3" />
 		<Label text="Axial Offset" GridPane.rowIndex="4" />
-		<TextField fx:id="AxialOffsetValue" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+		<TextField fx:id="axialOffsetValue" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 		<TextField fx:id="axialOffsetError" GridPane.columnIndex="2" GridPane.rowIndex="4" />
 		<fx:include fx:id="axialOffsetUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="4" />
 		<Label text="Radial Offset" GridPane.rowIndex="5" />
