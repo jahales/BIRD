@@ -90,7 +90,7 @@ public class ComponentController {
     ListenerHelpers.addValueListener(radialOffsetValue, component.getRadialOffset());
     ListenerHelpers.addValueListener(thicknessValue, component.getThickness());
 
-    ListenerHelpers.addErrorListener(massValue, component.getMass());
+    ListenerHelpers.addErrorListener(massError, component.getMass());
     ListenerHelpers.addErrorListener(axialLengthError, component.getAxialLength());
     ListenerHelpers.addErrorListener(axialOffsetError, component.getAxialOffset());
     ListenerHelpers.addErrorListener(radialOffsetError, component.getRadialOffset());
