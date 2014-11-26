@@ -1,5 +1,6 @@
 package controllers;
 
+import static controllers.MainViewController.logger;
 import java.io.File;
 
 import models.MainViewModel;
@@ -12,6 +13,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import models.AppSettings;
 
 /**
  * Controller for simulation tab view
@@ -43,9 +45,6 @@ public class SimulationController {
   
   @FXML
   private Label engineFilePath;
-
-  @FXML
-  private Label launchRailFilePath;
 
   @FXML
   private TextField lengthValue;
@@ -80,7 +79,7 @@ public class SimulationController {
   }
 
   @FXML
-  void openRocketFile() {
+  void btnChooseFin() {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Rocket File");
     File file = fileChooser.showOpenDialog(rocketFilePath.getScene().getWindow());
@@ -94,6 +93,7 @@ public class SimulationController {
   void openAtmosphereFile() {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Atmosphere File");
+    configInitialDirectory(fileChooser);
     File file = fileChooser.showOpenDialog(atmosphereFilePath.getScene().getWindow());
     if (file != null) {
       atmosphereFilePath.setText(file.getName());
@@ -102,7 +102,7 @@ public class SimulationController {
   }
 
   @FXML
-  void openEngineFile() {
+  void btnChooseMotor() {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Engine File");
     File file = fileChooser.showOpenDialog(engineFilePath.getScene().getWindow());
@@ -112,16 +112,22 @@ public class SimulationController {
     }
   }
 
-  @FXML
-  void openLaunchRail() {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Open Launch Rail File");
-    File file = fileChooser.showOpenDialog(launchRailFilePath.getScene().getWindow());
-    if (file != null) {
-      launchRailFilePath.setText(file.getName());
-      mainViewModel.getSimulation().setLaunchRailFile(file.getAbsolutePath());
+  private void configInitialDirectory(FileChooser fileChooser) {
+    if (mainViewModel.getPresentWorkingDirectory() == null) {
+      //If no present working directory, use default
+      fileChooser.setInitialDirectory(
+        new File(AppSettings.getInstance().getDefaultRocketPath()));
+    } else {
+      //If there's a present working directory, open up to that directory
+      fileChooser.setInitialDirectory(mainViewModel.getPresentWorkingDirectory());
+    }
+    //Make sure the initial directory is a directory    
+    if (!fileChooser.getInitialDirectory().isDirectory()) {
+      logger.warning("Invalid initial directory path");
+      fileChooser.setInitialDirectory(null);
     }
   }
+  
   /**
    * Updates the unit when user selects a unit.
    * 
@@ -174,7 +180,7 @@ public class SimulationController {
       }
     });
   }
-
+  
   /**
    *
    */

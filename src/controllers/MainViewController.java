@@ -191,6 +191,10 @@ public class MainViewController {
     newModel.setRocket(rocket);
     startNewMainView(newModel);
   }
+  
+  private void promptSaveQuestion()
+  {
+  }
 
   private void configInitialDirectory(FileChooser fileChooser) {
     if (mainViewModel.getPresentWorkingDirectory() == null) {
