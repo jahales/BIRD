@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainViewController">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainViewController" fx:id="root">
 	<children>
 		<MenuBar>
 			<menus>
@@ -33,7 +33,7 @@
 								<KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
 							</accelerator>
 						</MenuItem>
-						<MenuItem mnemonicParsing="false" onAction="#fileQuit" text="Quit" />
+						<MenuItem fx:id="exitOption" mnemonicParsing="false" onAction="#fileQuit" text="Quit" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Edit" />

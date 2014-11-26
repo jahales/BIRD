@@ -4,18 +4,25 @@ import static controllers.Main.startNewMainView;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import models.AppSettings;
 import models.MainViewModel;
 import models.rocket.Rocket;
 import models.rocket.data.BirdRocketSerializer;
 import models.rocket.data.IRocketSerializer;
+import views.ViewFactory;
 
 /**
  * Main view of our program. 3 Tabs are included. This controller focuses on menu items.
@@ -28,6 +35,8 @@ public class MainViewController {
   final static Logger logger = Logger.getLogger(MainViewController.class.getName());
   MainViewModel mainViewModel;
 
+  @FXML private javafx.scene.layout.Pane root;
+  
   /**
    * @param modelState
    */
@@ -61,8 +70,8 @@ public class MainViewController {
     fileChooser.setTitle("Open Resource File");
     //Set initial file path
     configInitialDirectory(fileChooser);
-    openFile = fileChooser.showOpenDialog(null);
-    
+    openFile = fileChooser.showOpenDialog((Stage) root.getScene().getWindow());
+
     try {
       spawnNewInstance(loadRocket(openFile));
     } catch (Exception ex) {
@@ -83,8 +92,8 @@ public class MainViewController {
       FileChooser fileChooser = new FileChooser();
       fileChooser.setTitle("Open Resource File");
       configInitialDirectory(fileChooser);
-      saveFile = fileChooser.showSaveDialog(null);
-      
+      saveFile = fileChooser.showSaveDialog((Stage) root.getScene().getWindow());
+
       try {
         saveRocket(saveFile);
         mainViewModel.setNeverBeenSaved(false);
@@ -116,7 +125,7 @@ public class MainViewController {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");
     configInitialDirectory(fileChooser);
-    saveFile = fileChooser.showSaveDialog(null);
+    saveFile = fileChooser.showSaveDialog((Stage) root.getScene().getWindow());
 
     try {
       saveRocket(saveFile);
@@ -133,8 +142,10 @@ public class MainViewController {
    */
   @FXML
   void fileQuit() {
-    // prompt for save, then quit. Use SaveDialog.fxml <--- How do I use the factory for this?
-    
+    if (promptSaveQuit()) {
+      Stage stage = (Stage) root.getScene().getWindow();
+      stage.close();
+    }
   }
 
   /**
@@ -191,9 +202,32 @@ public class MainViewController {
     newModel.setRocket(rocket);
     startNewMainView(newModel);
   }
-  
-  private void promptSaveQuestion()
-  {
+
+  private boolean promptSaveQuit() {
+    try {
+      //Create the view and controller
+      Stage stage = new Stage();
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(ViewFactory.class.getResource("/views/SaveDialog.fxml"));
+      Object view = loader.load();
+      SaveDialogController controller = loader.getController();
+      Scene scene = new Scene((Parent) view);
+      //Setup the stage
+      stage.setScene(scene);
+      stage.initOwner((Stage) root.getScene().getWindow());
+      stage.setTitle("Do you wish to save?");
+      //run
+      stage.showAndWait();
+      //get results from the controller
+      if (controller.isDoSave()) {
+        fileSave();
+      }
+      return controller.isDoContinue();
+
+    } catch (Exception ex) {
+      logger.log(Level.WARNING, "Failed to show save dialog.", ex);
+      return false;
+    }
   }
 
   private void configInitialDirectory(FileChooser fileChooser) {
