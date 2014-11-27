@@ -17,32 +17,32 @@ import models.AppSettings;
 
 /**
  * Controller for simulation tab view
- * 
+ *
  * @author Brian Woodruff
  *
  */
 public class SimulationController {
+
   private Measurement length;
   private Measurement azimuthAngle;
   private Measurement polarAngle;
-  
+
   MainViewModel mainViewModel;
-        
+
   /**
    *
    * @param mainViewModel
    */
-  public SimulationController(MainViewModel mainViewModel)
-    {
-      this.mainViewModel = mainViewModel;
-    }
+  public SimulationController(MainViewModel mainViewModel) {
+    this.mainViewModel = mainViewModel;
+  }
 
   @FXML
   private Label rocketFilePath;
 
   @FXML
   private Label atmosphereFilePath;
-  
+
   @FXML
   private Label engineFilePath;
 
@@ -74,8 +74,19 @@ public class SimulationController {
   private ChoiceBox<String> azimuthAngleUnits;
 
   @FXML
-  void runSimulation() {
-    
+  void setDefaultRail() {
+    AppSettings.getInstance().setLaunchRail(mainViewModel.getSimulation().getLaunchRail());
+  }
+  
+  @FXML
+  void btnChooseMotor() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Engine File");
+    File file = fileChooser.showOpenDialog(engineFilePath.getScene().getWindow());
+    if (file != null) {
+      engineFilePath.setText(file.getName());
+      mainViewModel.getSimulation().setEngineFile(file.getAbsolutePath());
+    }
   }
 
   @FXML
@@ -101,14 +112,27 @@ public class SimulationController {
     }
   }
 
-  @FXML
-  void btnChooseMotor() {
+    @FXML
+  void runSimulation() {
     FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Open Engine File");
-    File file = fileChooser.showOpenDialog(engineFilePath.getScene().getWindow());
+    fileChooser.setTitle("Open Atmosphere File");
+    configInitialDirectory(fileChooser);
+    File file = fileChooser.showOpenDialog(atmosphereFilePath.getScene().getWindow());
     if (file != null) {
-      engineFilePath.setText(file.getName());
-      mainViewModel.getSimulation().setEngineFile(file.getAbsolutePath());
+      atmosphereFilePath.setText(file.getName());
+      mainViewModel.getSimulation().setAtmosphereFile(file.getAbsolutePath());
+    }
+  }
+  
+    @FXML
+  void runMonteCarlo() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Atmosphere File");
+    configInitialDirectory(fileChooser);
+    File file = fileChooser.showOpenDialog(atmosphereFilePath.getScene().getWindow());
+    if (file != null) {
+      atmosphereFilePath.setText(file.getName());
+      mainViewModel.getSimulation().setAtmosphereFile(file.getAbsolutePath());
     }
   }
 
@@ -127,10 +151,10 @@ public class SimulationController {
       fileChooser.setInitialDirectory(null);
     }
   }
-  
+
   /**
    * Updates the unit when user selects a unit.
-   * 
+   *
    * @param field
    * @param measurement
    */
@@ -142,10 +166,10 @@ public class SimulationController {
       }
     });
   }
-  
+
   /**
    * Updates the value when the user changes it.
-   * 
+   *
    * @param field
    * @param measurement
    */
@@ -161,10 +185,10 @@ public class SimulationController {
       }
     });
   }
-  
+
   /**
    * Updates the error when the user changes it.
-   * 
+   *
    * @param field
    * @param measurement
    */
@@ -180,7 +204,7 @@ public class SimulationController {
       }
     });
   }
-  
+
   /**
    *
    */
@@ -188,15 +212,15 @@ public class SimulationController {
     length = mainViewModel.getSimulation().getLaunchRail().getLength();
     azimuthAngle = mainViewModel.getSimulation().getLaunchRail().getAzimuthAngle();
     polarAngle = mainViewModel.getSimulation().getLaunchRail().getPolarAngle();
-    
+
     addValueListener(lengthValue, length);
     addValueListener(polarAngleValue, polarAngle);
     addValueListener(azimuthAngleValue, azimuthAngle);
-    
+
     addErrorListener(lengthError, length);
     addErrorListener(polarAngleError, polarAngle);
     addErrorListener(azimuthAngleError, azimuthAngle);
-    
+
     addUnitListener(lengthUnits, length);
     addUnitListener(polarAngleUnits, polarAngle);
     addUnitListener(azimuthAngleUnits, azimuthAngle);
