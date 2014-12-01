@@ -1,5 +1,6 @@
 package controllers.parts;
 
+import controllers.BaseController;
 import models.Measurement;
 import models.Unit;
 import models.rocket.parts.TrapezoidFinSet;
@@ -14,7 +15,7 @@ import models.rocket.Rocket;
  * @author Brian Woodruff
  *
  */
-public class FinController {
+public class FinController extends BaseController {
 
   private TrapezoidFinSet trapezoidFinSet;
 

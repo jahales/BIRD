@@ -30,7 +30,7 @@ import views.ViewFactory;
  * @author Brian Woodruff
  *
  */
-public class MainViewController {
+public class MainViewController extends BaseController {
 
   final static Logger logger = Logger.getLogger(MainViewController.class.getName());
   MainViewModel mainViewModel;

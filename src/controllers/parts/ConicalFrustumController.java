@@ -1,5 +1,6 @@
 package controllers.parts;
 
+import controllers.BaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -14,7 +15,7 @@ import models.rocket.parts.ConicalFrustum;
  * @author Brian Woodruff
  *
  */
-public class ConicalFrustumController {
+public class ConicalFrustumController extends BaseController {
 
   private ConicalFrustum conicalFrustum;
 

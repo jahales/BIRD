@@ -1,5 +1,6 @@
 package controllers.parts;
 
+import controllers.BaseController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -18,7 +19,7 @@ import models.rocket.parts.Motor;
  * @author Brian Woodruff
  *
  */
-public class MotorController {
+public class MotorController extends BaseController {
 
   private Motor motor;
 

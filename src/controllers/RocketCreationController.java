@@ -34,7 +34,7 @@ import views.ViewFactory;
  *
  * @author Jacob, Brian
  */
-public class RocketCreationController {
+public class RocketCreationController extends BaseController {
 
   /**
    * Tree Component

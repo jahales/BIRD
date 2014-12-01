@@ -1,5 +1,6 @@
 package controllers.parts;
 
+import controllers.BaseController;
 import models.Measurement;
 import models.Unit;
 import models.rocket.parts.CircularCylinder;
@@ -15,7 +16,7 @@ import models.rocket.Rocket;
  * @author Brian Woodruff
  *
  */
-public class CircularCylinderController {
+public class CircularCylinderController extends BaseController {
 
   private CircularCylinder circularCylinder;
 

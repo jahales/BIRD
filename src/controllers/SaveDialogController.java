@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author Joseph
  */
-public class SaveDialogController implements Initializable {
+public class SaveDialogController  extends BaseController implements Initializable {
 
   private boolean doSave = false;
   private boolean doContinue = false;
