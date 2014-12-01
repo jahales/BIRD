@@ -21,9 +21,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import models.AppSettings;
+import models.ISerializer;
 import models.rocket.Rocket;
-import models.rocket.data.BirdRocketSerializer;
-import models.rocket.data.IRocketSerializer;
+import models.rocket.data.XmlRocketSerializer;
 import models.rocket.parts.Motor;
 import models.rocket.parts.RocketComponent;
 import models.rocket.parts.TrapezoidFinSet;
@@ -209,7 +209,7 @@ public class SimulationController extends BaseController {
       for (Motor motor : motors) {
         File tempRocketPath = createTemporaryRocketFile(finSet, motor, notFins, notMotors);
         Simulation simulation = createSimulation(tempRocketPath, motor, mainViewModel.getSimulation().getAtmosphereFile());
-        ISimulationEngine sim = new ISimulationEngine();
+        ISimulationEngine sim = new BirdSimulatorEngine();
         sim.run(simulation);
       }
     } else {
@@ -240,7 +240,7 @@ public class SimulationController extends BaseController {
     File rocketFile = new File(mainViewModel.getPresentWorkingDirectory(), "tempRocket.xml");
     try {
       OutputStream outStream = new FileOutputStream(rocketFile);
-      IRocketSerializer serializer = new BirdRocketSerializer();
+      ISerializer<Rocket> serializer = new XmlRocketSerializer();
       serializer.serialize(rocket, outStream);
     } catch (Exception ex) {
       logger.log(Level.WARNING, null, ex);
