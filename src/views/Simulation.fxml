@@ -29,7 +29,7 @@
         <fx:include fx:id="lengthUnits" source="parts/fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="1" />
         <fx:include fx:id="polarAngleUnits" source="parts/fxmlpieces/Angle.fxml" GridPane.columnIndex="3" GridPane.rowIndex="2" />
         <fx:include fx:id="azimuthAngleUnits" source="parts/fxmlpieces/Angle.fxml" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-        <Button mnemonicParsing="false" onAction="#runSimulation" text="Run Monte Carlo Simulation" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+        <Button mnemonicParsing="false" onAction="#btnMonteCarlo" text="Run Monte Carlo Simulation" GridPane.columnIndex="4" GridPane.rowIndex="5" />
         <Label prefHeight="17.0" prefWidth="36.0" text="Units" GridPane.columnIndex="3" />
         <TextField fx:id="lengthError" prefHeight="25.0" prefWidth="50.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
         <TextField fx:id="lengthValue" prefHeight="25.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -39,17 +39,17 @@
         <TextField fx:id="azimuthAngleValue" prefHeight="25.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
         <Label prefHeight="17.0" prefWidth="65.0" text="Error" GridPane.columnIndex="2" />
         <Label prefHeight="17.0" prefWidth="69.0" text="Value" GridPane.columnIndex="1" />
-        <CheckBox mnemonicParsing="false" text="Use all motor variants" GridPane.columnIndex="4" />
-        <CheckBox mnemonicParsing="false" text="Use all fin variants" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-        <Button mnemonicParsing="false" text="Choose Fin Set" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+        <CheckBox fx:id="motorChkBox" mnemonicParsing="false" onAction="#motorChkBoxChange" text="Use all motor variants" GridPane.columnIndex="4" />
+        <CheckBox fx:id="finChkBox" mnemonicParsing="false" onAction="#finChkBoxChange" text="Use all fin variants" GridPane.columnIndex="4" GridPane.rowIndex="2" />
         <Button mnemonicParsing="false" onAction="#openAtmosphereFile" text="Open Atmosphere File" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-        <Button mnemonicParsing="false" onAction="#btnChooseMotor" text="Choose Motor" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-        <Button mnemonicParsing="false" text="Run Simulation" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+        <Button mnemonicParsing="false" onAction="#btnSimulation" text="Run Simulation" GridPane.columnIndex="3" GridPane.rowIndex="5" />
         <Label text="Length" GridPane.rowIndex="1" />
         <Label text="Launch Rail" />
         <Label text="Azimuth Angle" GridPane.rowIndex="3" />
         <Label text="Polar Angle" GridPane.rowIndex="2" />
         <Button mnemonicParsing="false" text="Set as Default Rail" GridPane.rowIndex="4" />
+      <ChoiceBox fx:id="finChcBox" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+      <ChoiceBox fx:id="motorChcBox" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
     </children>
     <padding>
         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />

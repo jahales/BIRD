@@ -245,6 +245,14 @@ public class RocketCreationController extends BaseController {
    */
   public RocketCreationController(Rocket rocket) {
     this.rocket = rocket;
+    
+    for (RocketComponent component : rocket.getExteriorComponents())
+    {
+    }
+    
+    for (RocketComponent component : rocket.getInteriorComponents())
+    {
+    }
   }
 
   /**
@@ -286,6 +294,10 @@ public class RocketCreationController extends BaseController {
         externalParts.remove(part);
       }
     }
+  }
+  
+  void addPart(RocketComponent component)
+  {
   }
 
   /**

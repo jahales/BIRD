@@ -9,6 +9,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import models.ISerializer;
 
 import models.Measurement;
 import models.rocket.Rocket;
@@ -31,7 +32,7 @@ import org.w3c.dom.NodeList;
  *
  * @author Jacob
  */
-public class BirdRocketSerializer implements IRocketSerializer {
+public class XmlRocketSerializer implements ISerializer<Rocket> {
 
   /**
    * Serializes a rocket to the specified output stream

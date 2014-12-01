@@ -2,18 +2,34 @@ package controllers;
 
 import static controllers.MainViewController.logger;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.logging.Level;
 
 import models.MainViewModel;
 import models.Measurement;
 import models.Unit;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import models.AppSettings;
+import models.ISerializer;
+import models.rocket.Rocket;
+import models.rocket.data.XmlRocketSerializer;
+import models.rocket.parts.Motor;
+import models.rocket.parts.RocketComponent;
+import models.rocket.parts.TrapezoidFinSet;
+import models.simulator.BirdSimulatorEngine;
+import models.simulator.ISimulationEngine;
+import models.simulator.Simulation;
 
 /**
  * Controller for simulation tab view
@@ -74,10 +90,31 @@ public class SimulationController extends BaseController {
   private ChoiceBox<String> azimuthAngleUnits;
 
   @FXML
+  private CheckBox motorChkBox;
+
+  @FXML
+  private CheckBox finChkBox;
+
+  @FXML
+  private ChoiceBox finChcBox;
+
+  @FXML
+  private ChoiceBox motorChcBox;
+
+  @FXML
   void setDefaultRail() {
     AppSettings.getInstance().setLaunchRail(mainViewModel.getSimulation().getLaunchRail());
   }
-  
+
+  @FXML
+  void motorChkBoxChange() {
+    if (motorChkBox.isSelected()) {
+      motorChcBox.setDisable(true);
+    } else {
+      motorChcBox.setDisable(false);
+    }
+  }
+
   @FXML
   void btnChooseMotor() {
     FileChooser fileChooser = new FileChooser();
@@ -86,6 +123,15 @@ public class SimulationController extends BaseController {
     if (file != null) {
       engineFilePath.setText(file.getName());
       mainViewModel.getSimulation().setEngineFile(file.getAbsolutePath());
+    }
+  }
+
+  @FXML
+  void finChkBoxChange() {
+    if (finChkBox.isSelected()) {
+      finChcBox.setDisable(true);
+    } else {
+      finChcBox.setDisable(false);
     }
   }
 
@@ -112,28 +158,100 @@ public class SimulationController extends BaseController {
     }
   }
 
-    @FXML
-  void runSimulation() {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Open Atmosphere File");
-    configInitialDirectory(fileChooser);
-    File file = fileChooser.showOpenDialog(atmosphereFilePath.getScene().getWindow());
-    if (file != null) {
-      atmosphereFilePath.setText(file.getName());
-      mainViewModel.getSimulation().setAtmosphereFile(file.getAbsolutePath());
+  @FXML
+  void btnSimulation() {
+    ArrayList<TrapezoidFinSet> finSets = new ArrayList<>();
+    ArrayList<Motor> motors = new ArrayList<>();
+    ArrayList<RocketComponent> notFins = new ArrayList<>();
+    ArrayList<RocketComponent> notMotors = new ArrayList<>();
+
+    for (RocketComponent component : mainViewModel.getRocket().getExteriorComponents()) {
+      if (component.getClass().isInstance(new TrapezoidFinSet())) {
+        finSets.add((TrapezoidFinSet) component);
+      } else {
+        notFins.add(component);
+      }
+    }
+    for (RocketComponent component : mainViewModel.getRocket().getInteriorComponents()) {
+      if (component.getClass().isInstance(new Motor())) {
+        motors.add((Motor) component);
+      } else {
+        notMotors.add(component);
+      }
+    }
+    if (motors.size() == 0) {
+      //report an error to the user
+      return;
+    }
+    if (finSets.size() == 0) {
+      //report an error to the user
+      return;
+    }
+    if (mainViewModel.getSimulation().getAtmosphereFile() == null) {
+      //report an error to the user
+      return;
+    }
+    //TODO: Check for nose cone and at least 1 exterior cylinder
+
+    if (finChkBox.isSelected()) {
+      for (TrapezoidFinSet finSet : finSets) {
+        motorsLoop(finSet, motors, notFins, notMotors);
+      }
+    } else {
+      //get the user selected fin
     }
   }
-  
-    @FXML
-  void runMonteCarlo() {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Open Atmosphere File");
-    configInitialDirectory(fileChooser);
-    File file = fileChooser.showOpenDialog(atmosphereFilePath.getScene().getWindow());
-    if (file != null) {
-      atmosphereFilePath.setText(file.getName());
-      mainViewModel.getSimulation().setAtmosphereFile(file.getAbsolutePath());
+
+  private void motorsLoop(TrapezoidFinSet finSet, ArrayList<Motor> motors,
+    ArrayList<RocketComponent> notFins, ArrayList<RocketComponent> notMotors) {
+
+    if (motorChkBox.isSelected()) {
+      for (Motor motor : motors) {
+        File tempRocketPath = createTemporaryRocketFile(finSet, motor, notFins, notMotors);
+        Simulation simulation = createSimulation(tempRocketPath, motor, mainViewModel.getSimulation().getAtmosphereFile());
+        ISimulationEngine sim = new BirdSimulatorEngine();
+        sim.run(simulation);
+      }
+    } else {
+      //get the user selected motor
     }
+  }
+
+  private Simulation createSimulation(File tempRocketFile, Motor motor, String atmosphereFile) {
+    Simulation simulation = new Simulation();
+    simulation.setAtmosphereFile(atmosphereFile);
+    simulation.setEngineFile(motor.getENGFilePath());
+    simulation.setLaunchRail(mainViewModel.getSimulation().getLaunchRail());
+    simulation.setRocketFile(tempRocketFile.getAbsolutePath());
+    //simulation.createSimulationFile(); Create a new serializer class for this?
+    return simulation;
+  }
+
+  private File createTemporaryRocketFile(TrapezoidFinSet finSet, Motor motor,
+    ArrayList<RocketComponent> exteriors, ArrayList<RocketComponent> interiors) {
+
+    Rocket rocket = new Rocket();
+    exteriors.add(finSet);
+    interiors.add(motor);
+    rocket.setExteriorComponents(exteriors);
+    rocket.setInteriorComponents(interiors);
+    // TODO: set other aspects of the rocket
+
+    File rocketFile = new File(mainViewModel.getPresentWorkingDirectory(), "tempRocket.xml");
+    try {
+      OutputStream outStream = new FileOutputStream(rocketFile);
+      ISerializer<Rocket> serializer = new XmlRocketSerializer();
+      serializer.serialize(rocket, outStream);
+    } catch (Exception ex) {
+      logger.log(Level.WARNING, null, ex);
+    }
+
+    return rocketFile;
+  }
+
+  @FXML
+  void btnMonteCarlo() {
+    btnSimulation();
   }
 
   private void configInitialDirectory(FileChooser fileChooser) {
@@ -224,5 +342,11 @@ public class SimulationController extends BaseController {
     addUnitListener(lengthUnits, length);
     addUnitListener(polarAngleUnits, polarAngle);
     addUnitListener(azimuthAngleUnits, azimuthAngle);
+    
+
+    motorChcBox.setItems(FXCollections.observableArrayList("First", "Second", "Third"));
+    finChcBox.setItems(FXCollections.observableArrayList("First", "Second", "Third"));
+    //motorChcBox. FXCollections.observableArrayList(
+    //"First", "Second", "Third"));
   }
 }
