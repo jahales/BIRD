@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.MainViewModel;
-import views.ViewFactory;
 
 /**
  * Main class that contains the entry point for the JavaFX application.
@@ -52,9 +51,9 @@ public class Main extends Application {
    */
   public static void startNewMainView(Stage stage, MainViewModel model) {
     try {
-      ViewFactory viewFactory = new ViewFactory();
-      Object view = viewFactory.create("/views/MainView.fxml", new Object[]{model, model.getRocket()});
-      Scene scene = new Scene((Parent) view);
+      ControllerFactory controllerFactory = new ControllerFactory();
+      IController controller = controllerFactory.load("/views/MainView.fxml", new Object[]{model, model.getRocket()});
+      Scene scene = new Scene((Parent)controller.getView());
       stage.setScene(scene);
       stage.setTitle("BIRD");
       stage.show();

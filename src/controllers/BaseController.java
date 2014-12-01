@@ -7,15 +7,17 @@ import javafx.scene.Node;
  * @author Jacob
  */
 public class BaseController implements IController {
+  
+  private Node view;
 
   @Override
   public Node getView() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return view;
   }
 
   @Override
   public void setView(Node view) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    this.view = view;
   }
   
 }

@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 
 /**
  * Factory class for creating new controllers. Constructor injection is used to share class
@@ -32,6 +35,21 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
     return resolveInstance(param);
   }
 
+  public IController load(String url) throws IOException {
+    return load(url, null);
+  }
+
+  public IController load(String url, Object[] sharedInstances) throws IOException {
+    addSharedInstances(sharedInstances);
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(ControllerFactory.class.getResource(url));
+    loader.setControllerFactory(this);
+    Node view = (Node) loader.load();
+    IController controller = (IController) loader.getController();
+    controller.setView(view);
+    return controller;
+  }
+
   /**
    * Adds a class instance to be shared with all controllers created with this factory instance.
    *
@@ -49,6 +67,10 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
    * @param instances Class instances to be shared.
    */
   public void addSharedInstances(Object[] instances) {
+    if (instances == null) {
+      return;
+    }
+
     for (Object singleton : instances) {
       addSharedInstance(singleton);
     }
