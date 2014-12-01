@@ -12,6 +12,7 @@ import models.Measurement;
 import models.Unit;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -26,6 +27,8 @@ import models.rocket.data.IRocketSerializer;
 import models.rocket.parts.Motor;
 import models.rocket.parts.RocketComponent;
 import models.rocket.parts.TrapezoidFinSet;
+import models.simulator.BirdSimulatorEngine;
+import models.simulator.ISimulationEngine;
 import models.simulator.Simulation;
 
 /**
@@ -93,10 +96,10 @@ public class SimulationController extends BaseController {
   private CheckBox finChkBox;
 
   @FXML
-  private Button finBtn;
+  private ChoiceBox finChcBox;
 
   @FXML
-  private Button motorBtn;
+  private ChoiceBox motorChcBox;
 
   @FXML
   void setDefaultRail() {
@@ -106,9 +109,9 @@ public class SimulationController extends BaseController {
   @FXML
   void motorChkBoxChange() {
     if (motorChkBox.isSelected()) {
-      motorBtn.setDisable(true);
+      motorChcBox.setDisable(true);
     } else {
-      motorBtn.setDisable(false);
+      motorChcBox.setDisable(false);
     }
   }
 
@@ -126,9 +129,9 @@ public class SimulationController extends BaseController {
   @FXML
   void finChkBoxChange() {
     if (finChkBox.isSelected()) {
-      finBtn.setDisable(true);
+      finChcBox.setDisable(true);
     } else {
-      finBtn.setDisable(false);
+      finChcBox.setDisable(false);
     }
   }
 
@@ -157,10 +160,10 @@ public class SimulationController extends BaseController {
 
   @FXML
   void btnSimulation() {
-    ArrayList<TrapezoidFinSet> finSets = new ArrayList<TrapezoidFinSet>();
-    ArrayList<Motor> motors = new ArrayList<Motor>();
-    ArrayList<RocketComponent> notFins = new ArrayList<RocketComponent>();
-    ArrayList<RocketComponent> notMotors = new ArrayList<RocketComponent>();
+    ArrayList<TrapezoidFinSet> finSets = new ArrayList<>();
+    ArrayList<Motor> motors = new ArrayList<>();
+    ArrayList<RocketComponent> notFins = new ArrayList<>();
+    ArrayList<RocketComponent> notMotors = new ArrayList<>();
 
     for (RocketComponent component : mainViewModel.getRocket().getExteriorComponents()) {
       if (component.getClass().isInstance(new TrapezoidFinSet())) {
@@ -188,6 +191,7 @@ public class SimulationController extends BaseController {
       //report an error to the user
       return;
     }
+    //TODO: Check for nose cone and at least 1 exterior cylinder
 
     if (finChkBox.isSelected()) {
       for (TrapezoidFinSet finSet : finSets) {
@@ -198,29 +202,29 @@ public class SimulationController extends BaseController {
     }
   }
 
-  private void motorsLoop(TrapezoidFinSet finSet, ArrayList<Motor> motors, 
+  private void motorsLoop(TrapezoidFinSet finSet, ArrayList<Motor> motors,
     ArrayList<RocketComponent> notFins, ArrayList<RocketComponent> notMotors) {
-    
+
     if (motorChkBox.isSelected()) {
       for (Motor motor : motors) {
         File tempRocketPath = createTemporaryRocketFile(finSet, motor, notFins, notMotors);
-        File simulationFile = createSimulationFile(tempRocketPath, motor, mainViewModel.getSimulation().getAtmosphereFile());
-        //runSimulation(simulationFile); Who runs the simulation? Controller or model?
+        Simulation simulation = createSimulation(tempRocketPath, motor, mainViewModel.getSimulation().getAtmosphereFile());
+        ISimulationEngine sim = new ISimulationEngine();
+        sim.run(simulation);
       }
     } else {
       //get the user selected motor
     }
   }
 
-  private File createSimulationFile(File tempRocketFile, Motor motor, String atmosphereFile) {
+  private Simulation createSimulation(File tempRocketFile, Motor motor, String atmosphereFile) {
     Simulation simulation = new Simulation();
     simulation.setAtmosphereFile(atmosphereFile);
-    //simulation.setEngineFile(motor.getENG());
+    simulation.setEngineFile(motor.getENGFilePath());
     simulation.setLaunchRail(mainViewModel.getSimulation().getLaunchRail());
     simulation.setRocketFile(tempRocketFile.getAbsolutePath());
-    //simulation.createSimulationFile(); Need to create a 
-    //simulation.run(); Who runs the simulation? Controller or model?
-    return new File("");
+    //simulation.createSimulationFile(); Create a new serializer class for this?
+    return simulation;
   }
 
   private File createTemporaryRocketFile(TrapezoidFinSet finSet, Motor motor,
@@ -247,7 +251,7 @@ public class SimulationController extends BaseController {
 
   @FXML
   void btnMonteCarlo() {
-
+    btnSimulation();
   }
 
   private void configInitialDirectory(FileChooser fileChooser) {
@@ -338,5 +342,11 @@ public class SimulationController extends BaseController {
     addUnitListener(lengthUnits, length);
     addUnitListener(polarAngleUnits, polarAngle);
     addUnitListener(azimuthAngleUnits, azimuthAngle);
+    
+
+    motorChcBox.setItems(FXCollections.observableArrayList("First", "Second", "Third"));
+    finChcBox.setItems(FXCollections.observableArrayList("First", "Second", "Third"));
+    //motorChcBox. FXCollections.observableArrayList(
+    //"First", "Second", "Third"));
   }
 }

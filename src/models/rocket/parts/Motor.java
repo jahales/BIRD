@@ -6,13 +6,15 @@ import models.Unit;
 
 /**
  * A motor
- * 
+ *
  * @author Brian Woodruff
  *
  */
 public class Motor extends CircularCylinder {
+
   private String manufacturer = "";
   private String delays = "";
+  private String ENGFilePath;
   private Measurement fuelMass = new Measurement(0, 0, Unit.meters);
   private Measurement polarAngle = new Measurement(0, 0, Unit.meters);
   private Measurement azimuthAngle = new Measurement(0, 0, Unit.meters);
@@ -26,8 +28,7 @@ public class Motor extends CircularCylinder {
   }
 
   /**
-   * @param manufacturer
-   *          name of manufacturer
+   * @param manufacturer name of manufacturer
    */
   public void setManufacturer(String manufacturer) {
     this.manufacturer = manufacturer;
@@ -41,8 +42,7 @@ public class Motor extends CircularCylinder {
   }
 
   /**
-   * @param delays
-   *          a string of delays
+   * @param delays a string of delays
    */
   public void setDelays(String delays) {
     this.delays = delays;
@@ -56,8 +56,7 @@ public class Motor extends CircularCylinder {
   }
 
   /**
-   * @param fuelMass
-   *          a {@link Measurement} for fuel mass
+   * @param fuelMass a {@link Measurement} for fuel mass
    */
   public void setFuelMass(Measurement fuelMass) {
     this.fuelMass = fuelMass;
@@ -71,8 +70,7 @@ public class Motor extends CircularCylinder {
   }
 
   /**
-   * @param polarAngle
-   *          a {@link Measurement} for polar angle
+   * @param polarAngle a {@link Measurement} for polar angle
    */
   public void setPolarAngle(Measurement polarAngle) {
     this.polarAngle = polarAngle;
@@ -86,8 +84,7 @@ public class Motor extends CircularCylinder {
   }
 
   /**
-   * @param azimuthAngle
-   *          a {@link Measurement} for azimuth angle
+   * @param azimuthAngle a {@link Measurement} for azimuth angle
    */
   public void setAzimuthAngle(Measurement azimuthAngle) {
     this.azimuthAngle = azimuthAngle;
@@ -101,10 +98,18 @@ public class Motor extends CircularCylinder {
   }
 
   /**
-   * @param thrust
-   *          thrust {@link DataTable}
+   * @param thrust thrust {@link DataTable}
    */
   public void setThrust(DataTable thrust) {
     this.thrust = thrust;
   }
+
+  public String getENGFilePath() {
+    return ENGFilePath;
+  }
+
+  public void setENGFilePath(String ENGFilePath) {
+    this.ENGFilePath = ENGFilePath;
+  }
+  
 }

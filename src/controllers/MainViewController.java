@@ -221,8 +221,8 @@ public class MainViewController extends BaseController {
       if (controller.isDoSave()) {
         fileSave();
       }
-      
       return controller.isDoContinue();
+      
     } catch (Exception ex) {
       logger.log(Level.WARNING, "Failed to show save dialog.", ex);
       return false;
