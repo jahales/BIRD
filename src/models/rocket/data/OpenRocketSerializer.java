@@ -7,6 +7,7 @@ package models.rocket.data;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import models.ISerializer;
 import models.rocket.Rocket;
 
 /**
@@ -14,7 +15,7 @@ import models.rocket.Rocket;
  * OpenRocket file format. 
  * @author Jacob
  */
-public class OpenRocketSerializer implements IRocketSerializer {
+public class OpenRocketSerializer implements ISerializer<Rocket> {
   
   /**
    * Serializes a rocket to the specified output stream

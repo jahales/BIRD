@@ -5,7 +5,7 @@ package models.simulator;
  * @author Brian Woodruff
  *
  */
-public class ISimulationEngine {
+public interface ISimulationEngine {
 
   /**
    * Run the simulation
@@ -13,7 +13,5 @@ public class ISimulationEngine {
    * @param simulation
    * @return
    */
-  public String run(Simulation simulation) {
-    return null;
-  }
+  public String run(Simulation simulation);
 }
