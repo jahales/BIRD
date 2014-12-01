@@ -35,12 +35,13 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
     return resolveInstance(param);
   }
 
-  public IController load(String url) throws IOException {
-    return load(url, null);
-  }
-
-  public IController load(String url, Object[] sharedInstances) throws IOException {
-    addSharedInstances(sharedInstances);
+  /**
+   * Creates a new FXML controller using the specified URL.
+   * @param url Location of the view FXML file.
+   * @return Returns a reference to the controller casted as an IController instance.
+   * @throws IOException
+   */
+  public IController create(String url) throws IOException {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(ControllerFactory.class.getResource(url));
     loader.setControllerFactory(this);

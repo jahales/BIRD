@@ -52,7 +52,10 @@ public class Main extends Application {
   public static void startNewMainView(Stage stage, MainViewModel model) {
     try {
       ControllerFactory controllerFactory = new ControllerFactory();
-      IController controller = controllerFactory.load("/views/MainView.fxml", new Object[]{model, model.getRocket()});
+      controllerFactory.addSharedInstance(model);
+      controllerFactory.addSharedInstance(model.getRocket());
+      IController controller = controllerFactory.create("/views/MainView.fxml");
+      
       Scene scene = new Scene((Parent)controller.getView());
       stage.setScene(scene);
       stage.setTitle("BIRD");

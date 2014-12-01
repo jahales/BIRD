@@ -75,7 +75,7 @@ public class RocketCreationController extends BaseController {
     private Parent view;
 
     /**
-     * Set name and load view
+     * Set name and create view
      *
      * @param part a {@link RocketPart} to be stored in this {@link TreeComponent}
      */
@@ -317,7 +317,8 @@ public class RocketCreationController extends BaseController {
   private Parent loadComponentView(String url, RocketComponent component) {
     try {
       ControllerFactory controllerFactory = new ControllerFactory();
-      IController controller = controllerFactory.load(url, new Object[]{component});
+      controllerFactory.addSharedInstance(component);
+      IController controller = controllerFactory.create(url);
       return (Parent) controller.getView();
     } catch (IOException ex) {
       Logger.getLogger(RocketCreationController.class.getName()).log(Level.SEVERE, null, ex);

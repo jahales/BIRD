@@ -207,7 +207,7 @@ public class MainViewController extends BaseController {
       //Create the view and controller
       ControllerFactory controllerFactory = new ControllerFactory();
       SaveDialogController controller = (SaveDialogController)controllerFactory
-          .load("/views/SaveDialog.fxml");      
+          .create("/views/SaveDialog.fxml");      
       
       //Setup the stage
       Scene scene = new Scene((Parent) controller.getView());
