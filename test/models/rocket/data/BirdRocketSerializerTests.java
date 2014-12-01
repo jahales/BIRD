@@ -2,6 +2,7 @@ package models.rocket.data;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import models.ISerializer;
 import models.Measurement;
 import models.Unit;
 import models.rocket.Rocket;
@@ -21,7 +22,7 @@ import org.testng.annotations.Test;
 public class BirdRocketSerializerTests {
 
   private Rocket loadXmlString(String s) throws Exception {
-    BirdRocketSerializer serializer = new BirdRocketSerializer();
+    XmlRocketSerializer serializer = new XmlRocketSerializer();
     return serializer.deserialize(new ByteArrayInputStream(s.getBytes()));
   }
 
@@ -46,7 +47,7 @@ public class BirdRocketSerializerTests {
   }
 
   private Boolean saveAndValidate(Rocket r1) throws Exception {
-    IRocketSerializer serializer = new BirdRocketSerializer();
+    ISerializer<Rocket> serializer = new XmlRocketSerializer();
 
     // Serialize the rocket
     ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();

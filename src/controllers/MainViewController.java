@@ -18,10 +18,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.AppSettings;
+import models.ISerializer;
 import models.MainViewModel;
 import models.rocket.Rocket;
-import models.rocket.data.BirdRocketSerializer;
-import models.rocket.data.IRocketSerializer;
+import models.rocket.data.XmlRocketSerializer;
 
 /**
  * Main view of our program. 3 Tabs are included. This controller focuses on menu items.
@@ -168,7 +168,7 @@ public class MainViewController extends BaseController {
 
     try {
       InputStream inputStream = new FileInputStream(openFile);
-      IRocketSerializer serializer = new BirdRocketSerializer();
+      ISerializer<Rocket> serializer = new XmlRocketSerializer();
       return serializer.deserialize(inputStream);
     } catch (Exception ex) {
       logger.log(Level.WARNING, null, ex);
@@ -187,7 +187,7 @@ public class MainViewController extends BaseController {
 
     try {
       OutputStream outStream = new FileOutputStream(saveFile);
-      IRocketSerializer serializer = new BirdRocketSerializer();
+      ISerializer<Rocket> serializer = new XmlRocketSerializer();
       serializer.serialize(mainViewModel.getRocket(), outStream);
     } catch (Exception ex) {
       logger.log(Level.WARNING, null, ex);
