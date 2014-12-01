@@ -27,7 +27,7 @@ import views.ViewFactory;
 /**
  * Main view of our program. 3 Tabs are included. This controller focuses on menu items.
  *
- * @author Brian Woodruff
+ * @author Brian Woodruff, Joseph Hales
  *
  */
 public class MainViewController {
