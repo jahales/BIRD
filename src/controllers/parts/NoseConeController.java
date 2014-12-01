@@ -1,5 +1,6 @@
 package controllers.parts;
 
+import controllers.BaseController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -17,7 +18,7 @@ import models.rocket.parts.NoseCone.NoseShape;
  * @author Brian Woodruff
  *
  */
-public class NoseConeController {
+public class NoseConeController extends BaseController {
 
   private NoseCone noseCone;
 

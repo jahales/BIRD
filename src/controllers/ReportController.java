@@ -25,7 +25,7 @@ import javafx.scene.input.MouseEvent;
  * @author Brian Woodruff
  *
  */
-public class ReportController {
+public class ReportController extends BaseController {
   DataTable table;
 
   @FXML

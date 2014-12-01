@@ -1,5 +1,6 @@
 package controllers.parts;
 
+import controllers.BaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -14,7 +15,7 @@ import models.rocket.parts.Parachute;
  * @author Brian Woodruff
  *
  */
-public class ParachuteController {
+public class ParachuteController extends BaseController {
 
   private Parachute parachute;
 

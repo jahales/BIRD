@@ -34,7 +34,7 @@ import models.simulator.Simulation;
  * @author Brian Woodruff
  *
  */
-public class SimulationController {
+public class SimulationController extends BaseController {
 
   private Measurement length;
   private Measurement azimuthAngle;

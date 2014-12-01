@@ -22,7 +22,6 @@ import models.MainViewModel;
 import models.rocket.Rocket;
 import models.rocket.data.BirdRocketSerializer;
 import models.rocket.data.IRocketSerializer;
-import views.ViewFactory;
 
 /**
  * Main view of our program. 3 Tabs are included. This controller focuses on menu items.
@@ -30,7 +29,7 @@ import views.ViewFactory;
  * @author Brian Woodruff, Joseph Hales
  *
  */
-public class MainViewController {
+public class MainViewController extends BaseController {
 
   final static Logger logger = Logger.getLogger(MainViewController.class.getName());
   MainViewModel mainViewModel;
@@ -206,24 +205,24 @@ public class MainViewController {
   private boolean promptSaveQuit() {
     try {
       //Create the view and controller
-      Stage stage = new Stage();
-      FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(ViewFactory.class.getResource("/views/SaveDialog.fxml"));
-      Object view = loader.load();
-      SaveDialogController controller = loader.getController();
-      Scene scene = new Scene((Parent) view);
+      ControllerFactory controllerFactory = new ControllerFactory();
+      SaveDialogController controller = (SaveDialogController)controllerFactory
+          .create("/views/SaveDialog.fxml");      
+      
       //Setup the stage
+      Scene scene = new Scene((Parent) controller.getView());
+      Stage stage = new Stage();
       stage.setScene(scene);
       stage.initOwner((Stage) root.getScene().getWindow());
       stage.setTitle("Do you wish to save?");
-      //run
       stage.showAndWait();
+      
       //get results from the controller
       if (controller.isDoSave()) {
         fileSave();
       }
+      
       return controller.isDoContinue();
-
     } catch (Exception ex) {
       logger.log(Level.WARNING, "Failed to show save dialog.", ex);
       return false;

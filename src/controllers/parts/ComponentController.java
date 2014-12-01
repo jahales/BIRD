@@ -1,5 +1,6 @@
 package controllers.parts;
 
+import controllers.BaseController;
 import controllers.RocketCreationController.RocketPart;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -16,7 +17,7 @@ import models.rocket.parts.RocketComponent;
  * @author Brian Woodruff
  *
  */
-public class ComponentController {
+public class ComponentController extends BaseController {
 
   RocketComponent component;
 

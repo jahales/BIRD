@@ -27,14 +27,13 @@ import models.rocket.parts.NoseCone;
 import models.rocket.parts.Parachute;
 import models.rocket.parts.RocketComponent;
 import models.rocket.parts.TrapezoidFinSet;
-import views.ViewFactory;
 
 /**
  * Controller for the rocket creation view
  *
  * @author Jacob, Brian
  */
-public class RocketCreationController {
+public class RocketCreationController extends BaseController {
 
   /**
    * Tree Component
@@ -76,7 +75,7 @@ public class RocketCreationController {
     private Parent view;
 
     /**
-     * Set name and load view
+     * Set name and create view
      *
      * @param part a {@link RocketPart} to be stored in this {@link TreeComponent}
      */
@@ -317,9 +316,10 @@ public class RocketCreationController {
    */
   private Parent loadComponentView(String url, RocketComponent component) {
     try {
-      ViewFactory viewFactory = new ViewFactory();
-      Object view = viewFactory.create(url, new Object[]{component});
-      return (Parent) view;
+      ControllerFactory controllerFactory = new ControllerFactory();
+      controllerFactory.addSharedInstance(component);
+      IController controller = controllerFactory.create(url);
+      return (Parent) controller.getView();
     } catch (IOException ex) {
       Logger.getLogger(RocketCreationController.class.getName()).log(Level.SEVERE, null, ex);
       return null;
