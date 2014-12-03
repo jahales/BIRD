@@ -1,9 +1,11 @@
 package controllers;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-import models.report.CSVReader;
 import models.report.DataTable;
+import models.report.DataTable.RowFormatError;
 import models.report.ErrorBar;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +28,7 @@ import javafx.scene.input.MouseEvent;
  *
  */
 public class ReportController extends BaseController {
-  DataTable table;
+  DataTable table = new DataTable();
 
   @FXML
   private LineChart<Number, Number> graph;
@@ -50,29 +52,39 @@ public class ReportController extends BaseController {
   @FXML
   private ListView<String> yAxisChoices;
   ObservableList<String> yList;
+  
+  public ReportController(DataTable table) {
+    this.table = table;
+  }
 
   /**
    * initialize is called during FXMLoader call
+   * @throws RowFormatError 
    */
-  public void initialize() {
-    try {
-      table = CSVReader.loadCSV("A file");
-    } catch (IOException e) {
-      //System.out.println("File wasn't read right");
+  public void initialize() throws RowFormatError {
+    List<String> words = FXCollections.observableArrayList("List", "Book", "Deer", "Rain", "Lint", "Fear");
+    int rows = new Random().nextInt(1000);
+    
+    // Add column names
+    for (String word : words) {
+      table.addColumn(word);
     }
-
+    
+    // Add some rows
+    for (int row = 0; row < rows; row++) {
+      List<Number> rowList = new ArrayList<Number>();
+      for (int i = 0; i < words.size(); i++) {
+        rowList.add(Math.random());
+      }
+      table.addRow(rowList);
+    }
+    
     // X axis
-    // xAxisChoices.setItems((ObservableList<String>)
-    // table.getColumnNames());
-    xList = FXCollections.observableArrayList("1 fish", "2 fish", "Red fish", "Blue fish");
-    xAxisChoices.setItems(xList);
+    xAxisChoices.setItems(FXCollections.observableArrayList(table.getColumnNames()));
     xAxisChoices.setOnMouseClicked(doubleClick);
 
     // Y axis
-    // yAxisChoices.setItems((ObservableList<String>)
-    // table.getColumnNames());
-    yList = FXCollections.observableArrayList("I am Sam", "Sam I am");
-    yAxisChoices.setItems(yList);
+    yAxisChoices.setItems(FXCollections.observableArrayList(table.getColumnNames()));
     yAxisChoices.setOnMouseClicked(doubleClick);
 
     setEnterEvent(xMin, xList);
@@ -100,16 +112,22 @@ public class ReportController extends BaseController {
     @Override
     public void handle(MouseEvent event) {
       if (event.getClickCount() == 2) {
-        String value = xAxisChoices.selectionModelProperty().get().getSelectedItem();
+        String xAxisSelected = xAxisChoices.selectionModelProperty().get().getSelectedItem();
+        String yAxisSelected = yAxisChoices.selectionModelProperty().get().getSelectedItem();
+        if (xAxisSelected == yAxisSelected ) {
+          return;
+        }
+        
+        List<Number> xAxisList = table.getColumn(xAxisSelected);
+        List<Number> yAxisList = table.getColumn(yAxisSelected);
 
         XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
-        series.setName(value);
+        series.setName(xAxisSelected);
 
-        for (double i = 0; i < 2 * Math.PI; i += 0.05) {
+        for (int i = 0; i < xAxisList.size(); i++) {
           XYChart.Data<Number, Number> data;
-          data = new XYChart.Data<Number, Number>(i, Math.sin(i));
-          ErrorBar errorBar = new ErrorBar(3 * i);
-          data.setNode(errorBar);
+          data = new XYChart.Data<Number, Number>(xAxisList.get(i), yAxisList.get(i));
+          data.setNode(new ErrorBar(7));
           series.getData().add(data);
         }
 

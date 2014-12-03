@@ -1,13 +1,10 @@
 package controllers.parts;
 
 import controllers.BaseController;
-import models.Measurement;
-import models.Unit;
 import models.rocket.parts.TrapezoidFinSet;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import models.rocket.Rocket;
 
 /**
  * Controller for {@link TrapezoidFinSet} view

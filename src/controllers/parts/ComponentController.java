@@ -7,8 +7,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import models.Measurement;
-import models.Unit;
 import models.rocket.parts.RocketComponent;
 
 /**

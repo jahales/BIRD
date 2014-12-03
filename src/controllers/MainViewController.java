@@ -4,17 +4,14 @@ import static controllers.Main.startNewMainView;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.AppSettings;
@@ -69,7 +66,7 @@ public class MainViewController extends BaseController {
     fileChooser.setTitle("Open Resource File");
     //Set initial file path
     configInitialDirectory(fileChooser);
-    openFile = fileChooser.showOpenDialog((Stage) root.getScene().getWindow());
+    openFile = fileChooser.showOpenDialog(root.getScene().getWindow());
 
     try {
       spawnNewInstance(loadRocket(openFile));
@@ -91,7 +88,7 @@ public class MainViewController extends BaseController {
       FileChooser fileChooser = new FileChooser();
       fileChooser.setTitle("Open Resource File");
       configInitialDirectory(fileChooser);
-      saveFile = fileChooser.showSaveDialog((Stage) root.getScene().getWindow());
+      saveFile = fileChooser.showSaveDialog(root.getScene().getWindow());
 
       try {
         saveRocket(saveFile);
@@ -124,7 +121,7 @@ public class MainViewController extends BaseController {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");
     configInitialDirectory(fileChooser);
-    saveFile = fileChooser.showSaveDialog((Stage) root.getScene().getWindow());
+    saveFile = fileChooser.showSaveDialog(root.getScene().getWindow());
 
     try {
       saveRocket(saveFile);
@@ -213,7 +210,7 @@ public class MainViewController extends BaseController {
       Scene scene = new Scene((Parent) controller.getView());
       Stage stage = new Stage();
       stage.setScene(scene);
-      stage.initOwner((Stage) root.getScene().getWindow());
+      stage.initOwner(root.getScene().getWindow());
       stage.setTitle("Do you wish to save?");
       stage.showAndWait();
       

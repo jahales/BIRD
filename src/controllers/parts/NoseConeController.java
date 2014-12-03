@@ -8,7 +8,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import models.Measurement;
 import models.Unit;
-import models.rocket.Rocket;
 import models.rocket.parts.NoseCone;
 import models.rocket.parts.NoseCone.NoseShape;
 

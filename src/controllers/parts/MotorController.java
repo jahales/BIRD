@@ -7,10 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import models.Measurement;
-import models.Unit;
-import models.report.DataTable;
-import models.rocket.Rocket;
 import models.rocket.parts.Motor;
 
 /**

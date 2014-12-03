@@ -4,9 +4,6 @@ import controllers.BaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import models.Measurement;
-import models.Unit;
-import models.rocket.Rocket;
 import models.rocket.parts.ConicalFrustum;
 
 /**
