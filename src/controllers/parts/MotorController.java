@@ -57,11 +57,14 @@ public class MotorController extends BaseController {
 
   @FXML
   private void loadThrustFile() {
-
+    if (manufacturerValue == null) {
+      System.out.println("Motor is null");
+    }
   }
 
   /**
-   * @param rocket a rocket this view will modify
+   * @param rocket
+   *          a rocket this view will modify
    */
   public MotorController(Motor motor) {
     this.motor = motor;
@@ -71,6 +74,23 @@ public class MotorController extends BaseController {
    * Initialize values and set listeners
    */
   public void initialize() {
+    // Populate fields with whatever values we got
+    manufacturerValue.setText(motor.getManufacturer());
+    delaysValue.setText(motor.getDelays());
+
+    fuelMassValue.setText(Double.toString(motor.getFuelMass().getValue()));
+    fuelMassError.setText(Double.toString(motor.getFuelMass().getError()));
+    fuelMassUnits.setValue(motor.getFuelMass().getUnit().toString());
+
+    polarAngleValue.setText(Double.toString(motor.getPolarAngle().getValue()));
+    polarAngleError.setText(Double.toString(motor.getPolarAngle().getError()));
+    polarAngleUnits.setValue(motor.getPolarAngle().getUnit().toString());
+
+    asimuthAngleValue.setText(Double.toString(motor.getAzimuthAngle().getValue()));
+    asimuthAngleError.setText(Double.toString(motor.getAzimuthAngle().getError()));
+    asimuthAngleUnits.setValue(motor.getAzimuthAngle().getUnit().toString());
+
+    // Set listeners
     manufacturerValue.textProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {

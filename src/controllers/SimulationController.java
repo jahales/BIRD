@@ -95,10 +95,10 @@ public class SimulationController extends BaseController {
   private CheckBox finChkBox;
 
   @FXML
-  private ChoiceBox finChcBox;
+  private ChoiceBox<String> finChcBox;
 
   @FXML
-  private ChoiceBox motorChcBox;
+  private ChoiceBox<String> motorChcBox;
 
   @FXML
   void setDefaultRail() {

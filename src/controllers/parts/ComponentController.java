@@ -77,6 +77,28 @@ public class ComponentController extends BaseController {
   }
 
   public void initialize() {
+    // Populate fields with whatever values we got
+    name.setText(component.getName());
+    
+    massValue.setText(Double.toString(component.getMass().getValue()));
+    axialLengthValue.setText(Double.toString(component.getAxialLength().getValue()));
+    axialOffsetValue.setText(Double.toString(component.getAxialOffset().getValue()));
+    radialOffsetValue.setText(Double.toString(component.getRadialOffset().getValue()));
+    thicknessValue.setText(Double.toString(component.getThickness().getValue()));
+    
+    massError.setText(Double.toString(component.getMass().getError()));
+    axialLengthError.setText(Double.toString(component.getAxialLength().getError()));
+    axialOffsetError.setText(Double.toString(component.getAxialOffset().getError()));
+    radialOffsetError.setText(Double.toString(component.getRadialOffset().getError()));
+    thicknessError.setText(Double.toString(component.getThickness().getError()));
+    
+    massUnits.setValue(component.getMass().getUnit().toString());
+    axialLengthUnits.setValue(component.getAxialLength().getUnit().toString());
+    axialOffsetUnits.setValue(component.getAxialOffset().getUnit().toString());
+    radialOffsetUnits.setValue(component.getRadialOffset().getUnit().toString());
+    thicknessUnits.setValue(component.getThickness().getUnit().toString());
+    
+    // Set listeners
     name.textProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> reserved, String old, String current) {

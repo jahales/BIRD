@@ -45,6 +45,17 @@ public class ConicalFrustumController extends BaseController {
    * Initialize values and add listeners
    */
   public void initialize() {
+    // Populate fields with whatever values we got
+    upperDiameterValue.setText(Double.toString(conicalFrustum.getUpperDiameter().getValue()));
+    lowerDiameterValue.setText(Double.toString(conicalFrustum.getLowerDiameter().getValue()));
+    
+    upperDiameterError.setText(Double.toString(conicalFrustum.getUpperDiameter().getError()));
+    lowerDiameterError.setText(Double.toString(conicalFrustum.getLowerDiameter().getError()));
+    
+    upperDiameterUnits.setValue(conicalFrustum.getUpperDiameter().getUnit().toString());
+    lowerDiameterUnits.setValue(conicalFrustum.getLowerDiameter().getUnit().toString());
+    
+    // Set listeners
     ListenerHelpers.addValueListener(lowerDiameterValue, conicalFrustum.getLowerDiameter());
     ListenerHelpers.addValueListener(upperDiameterValue, conicalFrustum.getUpperDiameter());
 
