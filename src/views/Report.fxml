@@ -13,18 +13,6 @@
 			<children>
 				<Label text="X Axis" />
 				<ChoiceBox fx:id="xAxisChoices"/>
-				<HBox alignment="CENTER" spacing="10">
-					<children>
-						<Label text="min" />
-						<TextField text="0" fx:id="xMin" />
-					</children>
-				</HBox>
-				<HBox alignment="CENTER" spacing="10">
-					<children>
-						<Label text="max" />
-						<TextField text="1" fx:id="xMax" />
-					</children>
-				</HBox>
 				<Label text="Y Axis" />
 				<ListView fx:id="yAxisChoices" prefHeight="123" />
 			</children>

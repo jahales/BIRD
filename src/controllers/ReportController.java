@@ -13,8 +13,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -22,10 +20,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.util.Callback;
 
 /**
@@ -49,12 +44,6 @@ public class ReportController extends BaseController {
 
   @FXML
   private ChoiceBox<String> xAxisChoices;
-
-  @FXML
-  private TextField xMax;
-
-  @FXML
-  private TextField xMin;
 
   @FXML
   private ListView<String> yAxisChoices;
@@ -101,12 +90,13 @@ public class ReportController extends BaseController {
     xAxisChoices.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-        dependentVariableList = table.getColumn(newValue);;
+        dependentVariableList = table.getColumn(newValue);
+        independentVariableList.clear();
+        graph.getData().clear();
         yAxisChoices.getItems().add(oldValue);
         yAxisChoices.getItems().remove(newValue);
       }
     });
-    
 
     // Y axis
     yAxisChoices.setItems(FXCollections.observableArrayList(table.getColumnNames()));
@@ -149,22 +139,5 @@ public class ReportController extends BaseController {
         }
       }
     };
-  }
-
-  /**
-   * Generic event setter for a given axis min/max and list
-   *
-   * @param boundedAxis
-   * @param axisListView
-   */
-  private void setEnterEvent(TextField boundedAxis, ObservableList<String> axisListView) {
-    boundedAxis.setOnKeyPressed(new EventHandler<KeyEvent>() {
-      @Override
-      public void handle(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
-          // Update axis bounds
-        }
-      }
-    });
   }
 }
