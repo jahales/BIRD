@@ -7,6 +7,10 @@ import java.util.Random;
 import models.report.DataTable;
 import models.report.DataTable.RowFormatError;
 import models.report.ErrorBar;
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -16,9 +20,11 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
 
 /**
  * Controller for Report view. Gets axis choices from user and displays results
@@ -78,6 +84,22 @@ public class ReportController extends BaseController {
       }
       table.addRow(rowList);
     }
+    
+    yAxisChoices.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
+
+      @Override
+      public ObservableValue<Boolean> call(String param) {
+        ObservableValue<Boolean> thing = new SimpleBooleanProperty(false);
+        thing.addListener(new ChangeListener<Boolean>() {
+          @Override
+          public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
+              Boolean newValue) {
+            System.out.println("Girl, you've changed " + param);
+          }
+        });
+        return thing;
+      }
+    }));
     
     // X axis
     xAxisChoices.setItems(FXCollections.observableArrayList(table.getColumnNames()));
