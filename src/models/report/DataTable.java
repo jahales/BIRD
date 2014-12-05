@@ -96,6 +96,25 @@ public class DataTable {
   }
 
   /**
+   * Get a row by row number.
+   * 
+   * @param row
+   *          row number
+   * @return the row as a list
+   */
+  public List<Number> getRow(int row) {
+    return data.get(row);
+  }
+  
+  /**
+   * 
+   * @return number of rows
+   */
+  public int getRows() {
+    return data.size();
+  }
+
+  /**
    * @return the internal representation of the data
    */
   public List<List<Number>> getData() {
