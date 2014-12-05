@@ -44,13 +44,13 @@ public class MotorController extends BaseController {
   private ChoiceBox<String> polarAngleUnits;
 
   @FXML
-  private TextField asimuthAngleValue;
+  private TextField azimuthAngleValue;
 
   @FXML
-  private TextField asimuthAngleError;
+  private TextField azimuthAngleError;
 
   @FXML
-  private ChoiceBox<String> asimuthAngleUnits;
+  private ChoiceBox<String> azimuthAngleUnits;
 
   @FXML
   private Label thrustFile;
@@ -86,9 +86,9 @@ public class MotorController extends BaseController {
     polarAngleError.setText(Double.toString(motor.getPolarAngle().getError()));
     polarAngleUnits.setValue(motor.getPolarAngle().getUnit().toString());
 
-    asimuthAngleValue.setText(Double.toString(motor.getAzimuthAngle().getValue()));
-    asimuthAngleError.setText(Double.toString(motor.getAzimuthAngle().getError()));
-    asimuthAngleUnits.setValue(motor.getAzimuthAngle().getUnit().toString());
+    azimuthAngleValue.setText(Double.toString(motor.getAzimuthAngle().getValue()));
+    azimuthAngleError.setText(Double.toString(motor.getAzimuthAngle().getError()));
+    azimuthAngleUnits.setValue(motor.getAzimuthAngle().getUnit().toString());
 
     // Set listeners
     manufacturerValue.textProperty().addListener(new ChangeListener<String>() {
@@ -107,14 +107,14 @@ public class MotorController extends BaseController {
 
     ListenerHelpers.addValueListener(fuelMassValue, motor.getFuelMass());
     ListenerHelpers.addValueListener(polarAngleError, motor.getPolarAngle());
-    ListenerHelpers.addValueListener(asimuthAngleValue, motor.getAzimuthAngle());
+    ListenerHelpers.addValueListener(azimuthAngleValue, motor.getAzimuthAngle());
 
     ListenerHelpers.addErrorListener(fuelMassError, motor.getFuelMass());
     ListenerHelpers.addErrorListener(polarAngleError, motor.getPolarAngle());
-    ListenerHelpers.addErrorListener(asimuthAngleError, motor.getAzimuthAngle());
+    ListenerHelpers.addErrorListener(azimuthAngleError, motor.getAzimuthAngle());
 
     ListenerHelpers.addUnitListener(fuelMassUnits, motor.getFuelMass());
     ListenerHelpers.addUnitListener(polarAngleUnits, motor.getPolarAngle());
-    ListenerHelpers.addUnitListener(asimuthAngleUnits, motor.getAzimuthAngle());
+    ListenerHelpers.addUnitListener(azimuthAngleUnits, motor.getAzimuthAngle());
   }
 }
