@@ -1,13 +1,15 @@
 package models.report;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import models.report.DataTable.RowFormatError;
+import models.ISerializer;
 
 /**
  * A csv reader that can read or write contents to a file. Contents may be
@@ -17,41 +19,7 @@ import models.report.DataTable.RowFormatError;
  * @author Brian Woodruff
  *
  */
-public class CSVReader {
-  /**
-   * Loads a CSV file and returns a data table representation of the file.
-   * 
-   * @param file
-   *          file path to load file
-   * @return a {@link DataTable} representation of the file
-   * @throws IOException
-   *           if there is trouble reading the file
-   */
-  public static DataTable loadCSV(String file) throws IOException {
-    DataTable dataTable = new DataTable();
-    BufferedReader bf = new BufferedReader(new FileReader(file));
-    String delimiter = ",";
-    String line;
-
-    // Read column headers
-    if ((line = bf.readLine()) != null) {
-      for (String name : line.split(delimiter)) {
-        dataTable.addColumn(name);
-      }
-    }
-
-    // Read the rest, row by row
-    while ((line = bf.readLine()) != null) {
-      try {
-        dataTable.addRow(stringListToNumberList(Arrays.asList(line.split(delimiter))));
-      } catch (RowFormatError e) {
-        e.printStackTrace();
-      }
-    }
-
-    bf.close();
-    return dataTable;
-  }
+public class CSVReader implements ISerializer<DataTable> {
 
   /**
    * Convert a list of strings to a list of numbers
@@ -66,5 +34,45 @@ public class CSVReader {
       numberList.add(Double.parseDouble(item));
     }
     return numberList;
+  }
+
+  @Override
+  public void serialize(DataTable dataTable, OutputStream outputStream) throws Exception {
+    String columnNames = "";
+    List<String> columnNameList = dataTable.getColumnNames();
+    for (int i = 0; i < columnNameList.size(); i++) {
+      columnNames += columnNameList.get(i) + (i + 1 < columnNameList.size() ? "," : (dataTable.getRows() == 0 ? "" : "\n"));
+    }
+    outputStream.write(columnNames.getBytes(Charset.forName("UTF-8")));
+    for (List<Number> row : dataTable.getData()) {
+      String rowAsString = "";
+      for (int i = 0; i < row.size(); i++) {
+        rowAsString += row.get(i) + (i + 1 < row.size() ? "," : (dataTable.getRows() == i ? "" : "\n"));
+      }
+      outputStream.write(rowAsString.getBytes(Charset.forName("UTF-8")));
+    }
+  }
+
+  @Override
+  public DataTable deserialize(InputStream inputStream) throws Exception {
+    BufferedReader bf = new BufferedReader(new InputStreamReader(inputStream));
+    DataTable dataTable = new DataTable();
+    String delimiter = ",";
+    String line;
+
+    // Read column headers
+    if ((line = bf.readLine()) != null) {
+      for (String name : line.split(delimiter)) {
+        dataTable.addColumn(name);
+      }
+    }
+
+    // Read the rest, row by row
+    while ((line = bf.readLine()) != null) {
+      dataTable.addRow(stringListToNumberList(Arrays.asList(line.split(delimiter))));
+    }
+
+    bf.close();
+    return dataTable;
   }
 }

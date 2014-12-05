@@ -1,14 +1,10 @@
 package controllers.parts;
 
 import controllers.BaseController;
-import models.Measurement;
-import models.Unit;
 import models.rocket.parts.CircularCylinder;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import models.rocket.Rocket;
 
 /**
  * Controller for {@link CircularCylinder} view
@@ -17,7 +13,6 @@ import models.rocket.Rocket;
  *
  */
 public class CircularCylinderController extends BaseController {
-
   private CircularCylinder circularCylinder;
 
   @FXML
@@ -40,6 +35,12 @@ public class CircularCylinderController extends BaseController {
    * Initialize values and add listeners
    */
   public void initialize() {
+    // Populate fields with whatever values we got
+    diameterValue.setText(Double.toString(circularCylinder.getDiameter().getValue()));
+    diameterError.setText(Double.toString(circularCylinder.getDiameter().getError()));
+    diameterUnits.setValue(circularCylinder.getDiameter().getUnit().toString());
+    
+    // Set listeners
     ListenerHelpers.addValueListener(diameterValue, circularCylinder.getDiameter());
 
     ListenerHelpers.addErrorListener(diameterError, circularCylinder.getDiameter());

@@ -4,9 +4,6 @@ import controllers.BaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import models.Measurement;
-import models.Unit;
-import models.rocket.Rocket;
 import models.rocket.parts.Parachute;
 
 /**
@@ -54,6 +51,21 @@ public class ParachuteController extends BaseController {
    * Initialize values and add listeners
    */
   public void initialize() {
+    // Populate fields with whatever values we got
+    dragCoefficientValue.setText(Double.toString(parachute.getDragCoefficient().getValue()));
+    deployedDiameterValue.setText(Double.toString(parachute.getDeployedDiameter().getValue()));
+    deploymentAltitudeValue.setText(Double.toString(parachute.getDeploymentAltitude().getValue()));
+    
+    dragCoefficientError.setText(Double.toString(parachute.getDragCoefficient().getError()));
+    deployedDiameterError.setText(Double.toString(parachute.getDeployedDiameter().getError()));
+    deploymentAltitudeError.setText(Double.toString(parachute.getDeploymentAltitude().getError()));
+    
+    deployedDiameterUnits.setValue(parachute.getDeployedDiameter().getUnit().toString());
+    deployedAltitudeUnits.setValue(parachute.getDeploymentAltitude().getUnit().toString());
+    
+//    parachute.getDeployAtApogee(); // Missing implementation
+    
+    // Set listeners
     ListenerHelpers.addValueListener(deployedDiameterValue, parachute.getDeployedDiameter());
     ListenerHelpers.addValueListener(deploymentAltitudeValue, parachute.getDeploymentAltitude());
     ListenerHelpers.addValueListener(dragCoefficientValue, parachute.getDragCoefficient());

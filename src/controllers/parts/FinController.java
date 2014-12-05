@@ -1,13 +1,10 @@
 package controllers.parts;
 
 import controllers.BaseController;
-import models.Measurement;
-import models.Unit;
 import models.rocket.parts.TrapezoidFinSet;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import models.rocket.Rocket;
 
 /**
  * Controller for {@link TrapezoidFinSet} view
@@ -60,6 +57,22 @@ public class FinController extends BaseController {
    * Initialize values and add listeners.
    */
   public void initialize() {
+    // Populate fields with whatever values we got
+    finCountValue.setText(Integer.toString(trapezoidFinSet.getCount()));
+    
+    spanLengthValue.setText(Double.toString(trapezoidFinSet.getSpanLength().getValue()));
+    sweepLengthValue.setText(Double.toString(trapezoidFinSet.getSweepLength().getValue()));
+    rootChordValue.setText(Double.toString(trapezoidFinSet.getRootChord().getValue()));
+    
+    spanLengthError.setText(Double.toString(trapezoidFinSet.getSpanLength().getError()));
+    sweepLengthError.setText(Double.toString(trapezoidFinSet.getSweepLength().getError()));
+    rootChordError.setText(Double.toString(trapezoidFinSet.getRootChord().getError()));
+    
+    spanLengthUnits.setValue(trapezoidFinSet.getSpanLength().getUnit().toString());
+    sweepLengthUnits.setValue(trapezoidFinSet.getSweepLength().getUnit().toString());
+    rootChordUnits.setValue(trapezoidFinSet.getRootChord().getUnit().toString());
+    
+    // Set listeners
     ListenerHelpers.addValueListener(rootChordValue, trapezoidFinSet.getRootChord());
     ListenerHelpers.addValueListener(spanLengthValue, trapezoidFinSet.getSpanLength());
     ListenerHelpers.addValueListener(sweepLengthValue, trapezoidFinSet.getSweepLength());

@@ -6,8 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainViewController" fx:id="root">
+<VBox fx:id="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainViewController">
 	<children>
 		<MenuBar>
 			<menus>
@@ -44,7 +43,7 @@
 				</Menu>
 			</menus>
 		</MenuBar>
-		<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+		<TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
 			<tabs>
 				<Tab text="Rocket Creation">
 					<content>

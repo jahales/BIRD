@@ -6,9 +6,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import models.Measurement;
-import models.Unit;
-import models.rocket.Rocket;
 import models.rocket.parts.NoseCone;
 import models.rocket.parts.NoseCone.NoseShape;
 
@@ -48,9 +45,16 @@ public class NoseConeController extends BaseController {
    * Initialize values and add listeners
    */
   public void initialize() {
-    noseCone.setShapeParameter(0);
-    noseCone.setDiameter(new Measurement(0, 0, Unit.centimeters));
-
+    // Populate fields with whatever values we got
+    shapeParameter.setText(Double.toString(noseCone.getShapeParameter()));
+    
+    diameterValue.setText(Double.toString(noseCone.getDiameter().getValue()));
+    diameterError.setText(Double.toString(noseCone.getDiameter().getError()));
+    diameterUnits.setValue(noseCone.getDiameter().getUnit().toString());
+    
+//    shape.setValue(noseCone.getShapeParameterDescription()); // Not sure if this is correct!
+    
+    // Set listeners
     ListenerHelpers.addUnitListener(diameterUnits, noseCone.getDiameter());
     shape.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
       @Override

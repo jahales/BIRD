@@ -1,22 +1,27 @@
 package controllers;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
-import models.report.CSVReader;
 import models.report.DataTable;
+import models.report.DataTable.RowFormatError;
 import models.report.ErrorBar;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.util.Callback;
 
 /**
  * Controller for Report view. Gets axis choices from user and displays results
@@ -26,7 +31,7 @@ import javafx.scene.input.MouseEvent;
  *
  */
 public class ReportController extends BaseController {
-  DataTable table;
+  DataTable table = new DataTable();
 
   @FXML
   private LineChart<Number, Number> graph;
@@ -38,83 +43,101 @@ public class ReportController extends BaseController {
   private NumberAxis xAxis;
 
   @FXML
-  private ListView<String> xAxisChoices;
-  ObservableList<String> xList;
-
-  @FXML
-  private TextField xMax;
-
-  @FXML
-  private TextField xMin;
+  private ChoiceBox<String> xAxisChoices;
 
   @FXML
   private ListView<String> yAxisChoices;
-  ObservableList<String> yList;
+  
+  Map<String, XYChart.Series<Number, Number>> independentVariableList = new HashMap<String, XYChart.Series<Number, Number>>();
+  
+  List<Number> dependentVariableList = new ArrayList<Number>();
+
+  public ReportController(DataTable table) {
+    this.table = table;
+  }
+
+  private void debug() throws RowFormatError {
+    List<String> words = FXCollections.observableArrayList("List", "Book", "Deer", "Rain", "Lint",
+        "Fear");
+    int rows = new Random().nextInt(20);
+
+    // Add column names
+    for (String word : words) {
+      table.addColumn(word);
+    }
+
+    // Add some rows
+    for (int row = 0; row < rows; row++) {
+      List<Number> rowList = new ArrayList<Number>();
+      for (int i = 0; i < words.size(); i++) {
+        rowList.add(Math.random());
+      }
+      table.addRow(rowList);
+    }
+  }
 
   /**
    * initialize is called during FXMLoader call
+   * 
+   * @throws RowFormatError
    */
-  public void initialize() {
-    try {
-      table = CSVReader.loadCSV("A file");
-    } catch (IOException e) {
-      //System.out.println("File wasn't read right");
-    }
+  public void initialize() throws RowFormatError {
+    debug();
 
     // X axis
-    // xAxisChoices.setItems((ObservableList<String>)
-    // table.getColumnNames());
-    xList = FXCollections.observableArrayList("1 fish", "2 fish", "Red fish", "Blue fish");
-    xAxisChoices.setItems(xList);
-    xAxisChoices.setOnMouseClicked(doubleClick);
-
-    // Y axis
-    // yAxisChoices.setItems((ObservableList<String>)
-    // table.getColumnNames());
-    yList = FXCollections.observableArrayList("I am Sam", "Sam I am");
-    yAxisChoices.setItems(yList);
-    yAxisChoices.setOnMouseClicked(doubleClick);
-
-    setEnterEvent(xMin, xList);
-    setEnterEvent(xMax, yList);
-  }
-
-  /**
-   * Generic event setter for a given axis min/max and list
-   *
-   * @param boundedAxis
-   * @param axisListView
-   */
-  private void setEnterEvent(TextField boundedAxis, ObservableList<String> axisListView) {
-    boundedAxis.setOnKeyPressed(new EventHandler<KeyEvent>() {
+    xAxisChoices.setItems(FXCollections.observableArrayList(table.getColumnNames()));
+    xAxisChoices.setValue(table.getColumnNames().get(0));
+    xAxisChoices.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
       @Override
-      public void handle(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
-          // Update axis bounds
-        }
+      public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+        dependentVariableList = table.getColumn(newValue);
+        independentVariableList.clear();
+        graph.getData().clear();
+        yAxisChoices.getItems().add(oldValue);
+        yAxisChoices.getItems().remove(newValue);
       }
     });
+
+    // Y axis
+    yAxisChoices.setItems(FXCollections.observableArrayList(table.getColumnNames()));
+    yAxisChoices.setCellFactory(checkBoxFactory);
+    
+    dependentVariableList = table.getColumn(xAxisChoices.getValue()); // First time
+    yAxisChoices.getItems().remove(xAxisChoices.getValue());          // Again, first time
   }
 
-  private EventHandler<MouseEvent> doubleClick = new EventHandler<MouseEvent>() {
-    @Override
-    public void handle(MouseEvent event) {
-      if (event.getClickCount() == 2) {
-        String value = xAxisChoices.selectionModelProperty().get().getSelectedItem();
-
-        XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
-        series.setName(value);
-
-        for (double i = 0; i < 2 * Math.PI; i += 0.05) {
-          XYChart.Data<Number, Number> data;
-          data = new XYChart.Data<Number, Number>(i, Math.sin(i));
-          ErrorBar errorBar = new ErrorBar(3 * i);
-          data.setNode(errorBar);
-          series.getData().add(data);
+  Callback<ListView<String>, ListCell<String>> checkBoxFactory = CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
+        @Override
+        public ObservableValue<Boolean> call(String param) {
+          ObservableValue<Boolean> selectedValue = new SimpleBooleanProperty(false);
+          selectedValue.addListener(setCheckBoxListener(param));
+          return selectedValue;
         }
+      });
 
-        graph.getData().add(series);
+  ChangeListener<Boolean> setCheckBoxListener(String independentAxis) {
+    return new ChangeListener<Boolean>() {
+      @Override
+      public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+        if (newValue == true) {
+          List<Number> independantVariableColumn = table.getColumn(independentAxis);
+
+          XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
+          series.setName(xAxisChoices.getValue());
+
+          for (int i = 0; i < dependentVariableList.size(); i++) {
+            XYChart.Data<Number, Number> data;
+            data = new XYChart.Data<Number, Number>(dependentVariableList.get(i), independantVariableColumn.get(i));
+            data.setNode(new ErrorBar(7));
+            series.getData().add(data);
+          }
+          
+          independentVariableList.put(independentAxis, series);
+          graph.getData().add(series);
+        } else {
+          graph.getData().remove(independentVariableList.get(independentAxis));
+        }
       }
-    }
-  };
+    };
+  }
 }

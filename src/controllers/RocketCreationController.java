@@ -41,45 +41,49 @@ public class RocketCreationController extends BaseController {
    * @author Brian Woodruff
    *
    */
-  private abstract class TreeComponent extends TreeItem<String> {
+  private abstract class RocketComponentTreeItem extends TreeItem<String> {
 
     /**
      * Used to set string variable for TreeItem<String>
      *
-     * @param name a string that will be displayed in the tree
+     * @param name
+     *          a string that will be displayed in the tree
      */
-    public TreeComponent(String name) {
+    public RocketComponentTreeItem(String name) {
       super(name);
     }
 
     /**
-     * Usually left alone. But can be overloaded to say, set the view to a Parent of
-     * {@link RocketPart}.
+     * Usually left alone. But can be overloaded to say, set the view to a
+     * Parent of {@link RocketPart}.
      *
-     * @param pane an AchorPane to set the view
+     * @param pane
+     *          an AchorPane to set the view
      */
     public void setPaneNode(AnchorPane pane) {
     }
   }
 
   /**
-   * Individual Rocket Component that extends {@link TreeComponent}.
+   * Individual Rocket Component that extends {@link RocketComponentTreeItem}.
    * <p>
    * Overloads setPaneNode to set the view to Parent of {@link RocketPart}
    *
    * @author Brian Woodruff
    *
    */
-  private class IndividualRocketComponent extends TreeComponent {
+  private class IndividualRocketComponentTreeItem extends RocketComponentTreeItem {
 
     private Parent view;
 
     /**
      * Set name and create view
      *
-     * @param part a {@link RocketPart} to be stored in this {@link TreeComponent}
+     * @param part
+     *          a {@link RocketPart} to be stored in this
+     *          {@link RocketComponentTreeItem}
      */
-    public IndividualRocketComponent(String url, RocketComponent component) {
+    public IndividualRocketComponentTreeItem(String url, RocketComponent component) {
       super(component.getName());
       view = loadComponentView(url, component);
     }
@@ -97,7 +101,7 @@ public class RocketCreationController extends BaseController {
    * @author Brian Woodruff
    *
    */
-  private class InternalComponents extends TreeComponent {
+  private class InternalComponents extends RocketComponentTreeItem {
 
     /**
      * Sets label text to 'Internal Components'
@@ -113,7 +117,7 @@ public class RocketCreationController extends BaseController {
    * @author Brian Woodruff
    *
    */
-  private class ExternalComponents extends TreeComponent {
+  private class ExternalComponents extends RocketComponentTreeItem {
 
     /**
      * Sets label text to 'External Components'
@@ -188,7 +192,9 @@ public class RocketCreationController extends BaseController {
     /**
      * EXAMPLE_ONE to Example One
      *
-     * @param string a string to be formatted from enum style to more human readable format
+     * @param string
+     *          a string to be formatted from enum style to more human readable
+     *          format
      * @return camel case string
      */
     private String toCamelCase(String string) {
@@ -203,7 +209,8 @@ public class RocketCreationController extends BaseController {
     /**
      * ExAmPLE to Example
      *
-     * @param string a string to be formated
+     * @param string
+     *          a string to be formated
      * @return a string formated in proper case
      */
     private String toProperCase(String string) {
@@ -219,13 +226,11 @@ public class RocketCreationController extends BaseController {
 
   Rocket rocket;
 
-  private TreeComponent internalTreePartsRoot = new InternalComponents();
-  private TreeComponent externalTreePartsRoot = new ExternalComponents();
+  private RocketComponentTreeItem internalTreePartsRoot = new InternalComponents();
+  private RocketComponentTreeItem externalTreePartsRoot = new ExternalComponents();
 
-  private List<RocketPart> internalParts = FXCollections.observableArrayList(InternalRocketPart
-      .values());
-  private List<RocketPart> externalParts = FXCollections.observableArrayList(ExternalRocketPart
-      .values());
+  private List<RocketPart> internalParts = FXCollections.observableArrayList(InternalRocketPart.values());
+  private List<RocketPart> externalParts = FXCollections.observableArrayList(ExternalRocketPart.values());
 
   private Map<RocketPart, String> itemURL = new HashMap<>();
   private Map<RocketPart, Class<?>> itemType = new HashMap<>();
@@ -234,30 +239,45 @@ public class RocketCreationController extends BaseController {
     @Override
     public void changed(ObservableValue<? extends TreeItem<String>> reserved, TreeItem<String> old,
         TreeItem<String> current) {
-      if (current instanceof TreeComponent) {
-        ((TreeComponent) current).setPaneNode(partViewer);
+      if (current instanceof RocketComponentTreeItem) {
+        ((RocketComponentTreeItem) current).setPaneNode(partViewer);
       }
     }
   };
 
   /**
-   * @param rocket a rocket that will be modified in this view.
+   * @param rocket
+   *          a rocket that will be modified in this view.
    */
   public RocketCreationController(Rocket rocket) {
     this.rocket = rocket;
-    
-    for (RocketComponent component : rocket.getExteriorComponents())
-    {
+
+    for (RocketComponent component : rocket.getExteriorComponents()) {
+      if (component instanceof CircularCylinder) {
+        addPartToTreeViewOnly(component, ExternalRocketPart.CIRCULAR_CYLINDER, false);
+      } else if (component instanceof ConicalFrustum) {
+        addPartToTreeViewOnly(component, ExternalRocketPart.CONICAL_FRUSTUM, false);
+      } else if (component instanceof TrapezoidFinSet) {
+        addPartToTreeViewOnly(component, ExternalRocketPart.TRAPEZOID_FIN_SET, false);
+      } else if (component instanceof NoseCone) {
+        addPartToTreeViewOnly(component, ExternalRocketPart.NOSE_CONE, false);
+      }
     }
-    
-    for (RocketComponent component : rocket.getInteriorComponents())
-    {
+
+    for (RocketComponent component : rocket.getInteriorComponents()) {
+      if (component instanceof CircularCylinder) {
+        addPartToTreeViewOnly(component, InternalRocketPart.CIRCULAR_CYLINDER, false);
+      } else if (component instanceof Motor) {
+        addPartToTreeViewOnly(component, InternalRocketPart.MOTOR, false);
+      } else if (component instanceof Parachute) {
+        addPartToTreeViewOnly(component, InternalRocketPart.PARACHUTE, false);
+      }
     }
   }
 
   /**
-   * Opens a {@link PartChooser} dialog window. Passes a list of internal and external parts to
-   * choose from.
+   * Opens a {@link PartChooser} dialog window. Passes a list of internal and
+   * external parts to choose from.
    * <p>
    * If window returns a part, it is added to tree view.
    */
@@ -265,8 +285,7 @@ public class RocketCreationController extends BaseController {
   void addPart() throws Exception {
     // Allow the user to select a rocket part to add
     PartChooser partChooser = new PartChooser();
-    RocketPart part = partChooser.showPartDialog(internalParts, externalParts, partViewer
-        .getScene().getWindow());
+    RocketPart part = partChooser.showPartDialog(internalParts, externalParts, partViewer.getScene().getWindow());
 
     if (part == null) {
       return;
@@ -274,35 +293,42 @@ public class RocketCreationController extends BaseController {
 
     // Add the part to the rocket and component tree
     RocketComponent component = (RocketComponent) itemType.get(part).newInstance();
-    String url = itemURL.get(part);
     component.setName(part.toString());
+    
+    addPartToTreeViewOnly(component, part, true);
+  }
 
-    if (part instanceof InternalRocketPart) {
-      rocket.getInteriorComponents().add(component);
-
-      internalTreePartsRoot.getChildren().add(new IndividualRocketComponent(url, component));
-      internalTreePartsRoot.setExpanded(true);
-      if (part == InternalRocketPart.MOTOR) {
-        internalParts.remove(part);
+  private void addPartToTreeViewOnly(RocketComponent component, RocketPart type, boolean addComponentToRocket) {
+    String url = itemURL.get(type);
+    IndividualRocketComponentTreeItem newTreeItem;
+    newTreeItem = new IndividualRocketComponentTreeItem(url, component);
+    
+    if (type instanceof InternalRocketPart) {
+      if (addComponentToRocket) {
+        rocket.getInteriorComponents().add(component);
       }
-    } else if (part instanceof ExternalRocketPart) {
-      rocket.getExteriorComponents().add(component);
-
-      externalTreePartsRoot.getChildren().add(new IndividualRocketComponent(url, component));
+      internalTreePartsRoot.getChildren().add(newTreeItem);
+      internalTreePartsRoot.setExpanded(true);
+      
+      if (type == InternalRocketPart.MOTOR) {
+        internalParts.remove(type);
+      }
+    } else if (type instanceof ExternalRocketPart) {
+      if (addComponentToRocket) {
+        rocket.getExteriorComponents().add(component);
+      }
+      externalTreePartsRoot.getChildren().add(newTreeItem);
       externalTreePartsRoot.setExpanded(true);
-      if (part == ExternalRocketPart.NOSE_CONE || part == ExternalRocketPart.TRAPEZOID_FIN_SET) {
-        externalParts.remove(part);
+      
+      if (type == ExternalRocketPart.NOSE_CONE || type == ExternalRocketPart.TRAPEZOID_FIN_SET) {
+        externalParts.remove(type);
       }
     }
   }
-  
-  void addPart(RocketComponent component)
-  {
-  }
 
   /**
-   * Sets up the view for the Rocket Creation View. Tree View is populated with two roots: internal
-   * and external.
+   * Sets up the view for the Rocket Creation View. Tree View is populated with
+   * two roots: internal and external.
    */
   public void initialize() {
     setMaps();
@@ -323,7 +349,8 @@ public class RocketCreationController extends BaseController {
   }
 
   /**
-   * @param url location of component
+   * @param url
+   *          location of component
    * @return the Parent from the url
    */
   private Parent loadComponentView(String url, RocketComponent component) {

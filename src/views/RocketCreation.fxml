@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.*?>
 
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RocketCreationController">
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RocketCreationController">
 	<children>
-		<VBox prefWidth="175.0">
+		<VBox prefWidth="175">
 			<children>
-				<Button mnemonicParsing="false" onAction="#addPart" prefWidth="200.0" text="Add Part" />
+				<Button mnemonicParsing="false" onAction="#addPart" prefWidth="200" text="Add Part" />
 				<TreeView fx:id="partList" VBox.vgrow="ALWAYS" />
 			</children>
 		</VBox>

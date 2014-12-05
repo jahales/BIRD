@@ -14,7 +14,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -96,10 +95,10 @@ public class SimulationController extends BaseController {
   private CheckBox finChkBox;
 
   @FXML
-  private ChoiceBox finChcBox;
+  private ChoiceBox<String> finChcBox;
 
   @FXML
-  private ChoiceBox motorChcBox;
+  private ChoiceBox<String> motorChcBox;
 
   @FXML
   void setDefaultRail() {

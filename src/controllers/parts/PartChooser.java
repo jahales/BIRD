@@ -55,8 +55,9 @@ public class PartChooser {
    * <p>
    * <b>Note:</b> returns null if nothing was selected
    */
-  public RocketPart showPartDialog(List<RocketPart> internal, List<RocketPart> external,
-      Window window) {
+  public RocketPart showPartDialog(List<RocketPart> internal,
+                                   List<RocketPart> external,
+                                   Window window) {
     externalPartsList.setCellFactory(cellFactory);
     internalPartsList.setCellFactory(cellFactory);
 
