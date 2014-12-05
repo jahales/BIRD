@@ -94,6 +94,10 @@ public class BirdSimulationSerializer implements ISerializer<Simulation> {
 
   private void Serialize(Element element, String name, TrapezoidFinSet c) {
     element.setAttribute("Name", name);
+    
+   // double s = c.gets
+//double midChord = c.getSweepLength() / c.
+    
     AddItem(element, "Shape", "Trapezoid", "");
     AddItem(element, "Mass", c.getMass().getValue(), c.getMass().getError());
     AddItem(element, "Offset", c.getAxialOffset().getValue(), c.getAxialOffset().getError());
