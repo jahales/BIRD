@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 import models.MainViewModel;
@@ -18,6 +19,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.stage.FileChooser;
 import models.AppSettings;
 import models.ISerializer;
@@ -115,14 +117,19 @@ public class SimulationController extends BaseController {
   }
 
   @FXML
-  void btnChooseMotor() {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Open Engine File");
-    File file = fileChooser.showOpenDialog(engineFilePath.getScene().getWindow());
-    if (file != null) {
-      engineFilePath.setText(file.getName());
-      mainViewModel.getSimulation().setEngineFile(file.getAbsolutePath());
+  void clkMotorChcBox() {
+    ArrayList<String> options = new ArrayList<>();
+    for (RocketComponent component : mainViewModel.getRocket().getInteriorComponents()) {
+      if (component.getClass().isInstance(new Motor())) {
+        options.add(((Motor) component).getName());
+      }
     }
+    if (options.size() == 0) {
+      options.add("No motors are defined");
+    }
+    motorChcBox.setItems(FXCollections.observableArrayList(options));
+    motorChcBox.hide();
+    motorChcBox.show();
   }
 
   @FXML
@@ -135,14 +142,19 @@ public class SimulationController extends BaseController {
   }
 
   @FXML
-  void btnChooseFin() {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Open Rocket File");
-    File file = fileChooser.showOpenDialog(rocketFilePath.getScene().getWindow());
-    if (file != null) {
-      rocketFilePath.setText(file.getName());
-      mainViewModel.getSimulation().setRocketFile(file.getAbsolutePath());
+  void clkFinChcBox() {
+    ArrayList<String> options = new ArrayList<>();
+    for (RocketComponent component : mainViewModel.getRocket().getExteriorComponents()) {
+      if (component.getClass().isInstance(new TrapezoidFinSet())) {
+        options.add(((TrapezoidFinSet) component).getName());
+      }
     }
+    if (options.size() == 0) {
+      options.add("No fin sets are defined");
+    }
+    finChcBox.setItems(FXCollections.observableArrayList(options));
+    finChcBox.hide();
+    finChcBox.show();
   }
 
   @FXML
@@ -159,6 +171,7 @@ public class SimulationController extends BaseController {
 
   @FXML
   void btnSimulation() {
+    MessageBoxController.showMessage("Your rocket does not have any motors!");
     ArrayList<TrapezoidFinSet> finSets = new ArrayList<>();
     ArrayList<Motor> motors = new ArrayList<>();
     ArrayList<RocketComponent> notFins = new ArrayList<>();
@@ -179,7 +192,7 @@ public class SimulationController extends BaseController {
       }
     }
     if (motors.size() == 0) {
-      //report an error to the user
+      MessageBoxController.showMessage("Your rocket does not have any motors!");
       return;
     }
     if (finSets.size() == 0) {
@@ -192,12 +205,47 @@ public class SimulationController extends BaseController {
     }
     //TODO: Check for nose cone and at least 1 exterior cylinder
 
-    if (finChkBox.isSelected()) {
+    if (finChkBox.isSelected() && motorChkBox.isSelected()) {
       for (TrapezoidFinSet finSet : finSets) {
-        motorsLoop(finSet, motors, notFins, notMotors);
+        for (Motor motor : motors) {
+          runSimulation(finSet, motor, notMotors, notFins);
+        }
       }
-    } else {
-      //get the user selected fin
+
+    } else if (finChkBox.isSelected() && !motorChkBox.isSelected()) {
+      Motor motor = (Motor) mainViewModel.getRocket().getPartByName(motorChcBox.getValue());
+      if (motor == null) {
+        //TODO: inform user of error
+        return;
+      }
+      for (TrapezoidFinSet finSet : finSets) {
+        runSimulation(finSet, motor, notMotors, notFins);
+      }
+
+    } else if (!finChkBox.isSelected() && motorChkBox.isSelected()) {
+
+      TrapezoidFinSet finSet = (TrapezoidFinSet) mainViewModel.getRocket().getPartByName(finChcBox.getValue());
+      if (finSet == null) {
+        //TODO: inform user of error
+        return;
+      }
+      for (Motor motor : motors) {
+        runSimulation(finSet, motor, notMotors, notFins);
+      }
+
+    } else if (!finChkBox.isSelected() && !motorChkBox.isSelected()) {
+      TrapezoidFinSet finSet = (TrapezoidFinSet) mainViewModel.getRocket().getPartByName(finChcBox.getValue());
+      if (finSet == null) {
+        //TODO: inform user of error
+        return;
+      }
+
+      Motor motor = (Motor) mainViewModel.getRocket().getPartByName(motorChcBox.getValue());
+      if (motor == null) {
+        //TODO: inform user of error
+        return;
+      }
+      runSimulation(finSet, motor, notMotors, notFins);
     }
   }
 
@@ -216,13 +264,21 @@ public class SimulationController extends BaseController {
     }
   }
 
+  private void runSimulation(TrapezoidFinSet finSet, Motor motor,
+    ArrayList<RocketComponent> notMotors, ArrayList<RocketComponent> notFins) {
+
+    File tempRocketPath = createTemporaryRocketFile(finSet, motor, notFins, notMotors);
+    Simulation simulation = createSimulation(tempRocketPath, motor, mainViewModel.getSimulation().getAtmosphereFile());
+    ISimulationEngine sim = new BirdSimulatorEngine();
+    sim.run(simulation);
+  }
+
   private Simulation createSimulation(File tempRocketFile, Motor motor, String atmosphereFile) {
     Simulation simulation = new Simulation();
     simulation.setAtmosphereFile(atmosphereFile);
     simulation.setEngineFile(motor.getENGFilePath());
     simulation.setLaunchRail(mainViewModel.getSimulation().getLaunchRail());
     simulation.setRocketFile(tempRocketFile.getAbsolutePath());
-    //simulation.createSimulationFile(); Create a new serializer class for this?
     return simulation;
   }
 
@@ -341,11 +397,8 @@ public class SimulationController extends BaseController {
     addUnitListener(lengthUnits, length);
     addUnitListener(polarAngleUnits, polarAngle);
     addUnitListener(azimuthAngleUnits, azimuthAngle);
-    
 
-    motorChcBox.setItems(FXCollections.observableArrayList("First", "Second", "Third"));
-    finChcBox.setItems(FXCollections.observableArrayList("First", "Second", "Third"));
-    //motorChcBox. FXCollections.observableArrayList(
-    //"First", "Second", "Third"));
+    motorChcBox.setTooltip(new Tooltip("Choose a motor"));
+    finChcBox.setTooltip(new Tooltip("Choose a fin set"));
   }
 }

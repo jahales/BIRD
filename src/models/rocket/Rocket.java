@@ -16,6 +16,7 @@ import models.rocket.parts.RocketComponent;
  *
  */
 public class Rocket {
+
   private String name = "";
   private Measurement mass = new Measurement(0, 0, Unit.grams);
   private Measurement radialCenterOfMass = new Measurement(0, 0, Unit.other);
@@ -24,6 +25,24 @@ public class Rocket {
   private List<RocketComponent> interiorComponents = new ArrayList<RocketComponent>();
   private List<RocketComponent> exteriorComponents = new ArrayList<RocketComponent>();
   private Map<String, Measurement> overrides = new HashMap<String, Measurement>();
+
+  /**
+   *
+   * @return
+   */
+  public RocketComponent getPartByName(String name) {
+    for (RocketComponent component : this.exteriorComponents) {
+      if (component.getName() == name) {
+        return component;
+      }
+    }
+    for (RocketComponent component : this.interiorComponents) {
+      if (component.getName() == name) {
+        return component;
+      }
+    }
+    return null;
+  }
 
   /**
    *
@@ -40,7 +59,7 @@ public class Rocket {
   public void setName(String name) {
     this.name = name;
   }
-  
+
   /**
    *
    * @return
