@@ -22,8 +22,8 @@ public class AppSettings {
   Logger logger = Logger.getLogger(AppSettings.class.getName());
   private static AppSettings appSettings;
   //TODO: add properties for most recently used files.
-  private String defaultRocketPath;
-  private LaunchRail launchRail;
+  private String defaultRocketPath = new String();
+  private LaunchRail launchRail = new LaunchRail();
 
   /**
    * Private constructor
@@ -56,19 +56,19 @@ public class AppSettings {
       Measurement length = new Measurement();
       length.setValue(Double.parseDouble(prop.getProperty("length")));
       length.setError(Double.parseDouble(prop.getProperty("lengthError")));
-      length.setUnit(Unit.valueOf(prop.getProperty("lengthUnit")));
+      length.setUnit(Unit.valueOf(prop.getProperty("lengthUnits")));
       launchRail.setLength(length);
 
       Measurement polarAngle = new Measurement();
       polarAngle.setValue(Double.parseDouble(prop.getProperty("polarAngle")));
       polarAngle.setError(Double.parseDouble(prop.getProperty("polarAngleError")));
-      polarAngle.setUnit(Unit.valueOf(prop.getProperty("polarAngleUnit")));
+      polarAngle.setUnit(Unit.valueOf(prop.getProperty("polarAngleUnits")));
       launchRail.setPolarAngle(polarAngle);
 
       Measurement azimuthAngle = new Measurement();
       azimuthAngle.setValue(Double.parseDouble(prop.getProperty("azimuthAngle")));
       azimuthAngle.setError(Double.parseDouble(prop.getProperty("azimuthAngleError")));
-      azimuthAngle.setUnit(Unit.valueOf(prop.getProperty("azimuthAngleUnit")));
+      azimuthAngle.setUnit(Unit.valueOf(prop.getProperty("azimuthAngleUnits")));
       launchRail.setAzimuthAngle(azimuthAngle);
 
     } catch (Exception ex) {
