@@ -14,8 +14,8 @@ import models.report.DataTable;
  */
 public class BirdSimulatorEngine implements ISimulationEngine {
     private Simulation simulation;
-    private final String exePath = "\"C:\\Users\\Jacob\\Documents\\Source Control\\byui-rocket-simulator\\Debug\\byuirocket.exe\"";
-    private String settingsPath = "\"C:\\Users\\Jacob\\Documents\\Source Control\\byui-rocket-simulator\\Simulation\\Simple Rocket (1).xml\"";
+    private final String exePath = "\"C:\\Temp\\byuirocket.exe\"";
+    private String settingsPath = "\"C:\\Temp\\Simple Rocket (1).xml\"";
     
     /**
      * @return simulation

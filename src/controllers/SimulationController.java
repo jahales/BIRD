@@ -1,12 +1,12 @@
 package controllers;
 
-import static controllers.MainViewController.logger;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import models.MainViewModel;
 import models.Measurement;
@@ -47,6 +47,7 @@ import models.simulator.Simulation;
  */
 public class SimulationController extends BaseController {
 
+  final static Logger logger = Logger.getLogger(SimulationController.class.getName());
   private LaunchRail launchRail;
   private Measurement length;
   private Measurement azimuthAngle;
@@ -187,10 +188,9 @@ public class SimulationController extends BaseController {
       Scene scene = new Scene((Parent) controller.getView());
       stage.setScene(scene);
       stage.setTitle("BIRD");
-      stage.show();
       stage.showAndWait();
     } catch (Exception ex) {
-      logger.log(Level.WARNING, "Failed to create new MainView.", ex);
+      ex.printStackTrace();
     }
   }
 
@@ -278,6 +278,23 @@ public class SimulationController extends BaseController {
       runSimulation(finSet, motor, notMotors, notFins, monteCarlo);
     }
   }
+  
+  private void displayResult(DataTable dataTable)
+  {
+    try {
+      ControllerFactory controllerFactory = new ControllerFactory();
+      controllerFactory.addSharedInstance(dataTable);
+      IController controller = controllerFactory.create("/views/Report.fxml");
+      
+      Scene scene = new Scene((Parent)controller.getView());
+      Stage stage = new Stage();
+      stage.setScene(scene);
+      stage.setTitle("BIRD Results");
+      stage.show();
+    } catch (Exception ex) {
+      logger.log(Level.WARNING, "Failed to create Report.fxml", ex);
+    }
+  }
 
   private void runSimulation(TrapezoidFinSet finSet, Motor motor,
       ArrayList<RocketComponent> notMotors, ArrayList<RocketComponent> notFins, boolean monteCarlo) {
@@ -294,7 +311,8 @@ public class SimulationController extends BaseController {
     }
 
     ISimulationEngine sim = new BirdSimulatorEngine();
-    sim.run(simulation);
+    DataTable result = sim.run(simulation);
+    displayResult(result);
   }
 
   private Simulation createSimulation(File tempRocketFile, Motor motor, String atmosphereFile) {
