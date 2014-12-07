@@ -1,6 +1,5 @@
 package controllers;
 
-import static controllers.Main.startNewMainView;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -197,7 +196,7 @@ public class MainViewController extends BaseController {
     MainViewModel newModel = new MainViewModel();
     newModel.setPresentWorkingDirectory(mainViewModel.getPresentWorkingDirectory());
     newModel.setRocket(rocket);
-    startNewMainView(newModel);
+    Main.startNewMainView(newModel);
   }
 
   private boolean promptSaveQuit() {

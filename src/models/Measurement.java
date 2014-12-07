@@ -14,7 +14,7 @@ import models.Unit;
 public class Measurement {
   private double value;
   private double error;
-  private Unit unit;
+  private Unit unit = Unit.other;
 
   /**
    * <h1>Preferred Constructor</h1>
