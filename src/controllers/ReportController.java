@@ -31,7 +31,7 @@ import javafx.util.Callback;
  *
  */
 public class ReportController extends BaseController {
-  DataTable table = new DataTable();
+  DataTable table = null;
 
   @FXML
   private LineChart<Number, Number> graph;
@@ -82,7 +82,10 @@ public class ReportController extends BaseController {
    * @throws RowFormatError
    */
   public void initialize() throws RowFormatError {
-    debug();
+    if (this.table == null || this.table.getColumnNames().size() < 1)
+    {
+      return;
+    }
 
     // X axis
     xAxisChoices.setItems(FXCollections.observableArrayList(table.getColumnNames()));

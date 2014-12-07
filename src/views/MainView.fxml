@@ -55,11 +55,6 @@
 						<fx:include source="Simulation.fxml" />
 					</content>
 				</Tab>
-				<Tab text="Report">
-					<content>
-						<fx:include source="Report.fxml" />
-					</content>
-				</Tab>
 			</tabs>
 		</TabPane>
 	</children>

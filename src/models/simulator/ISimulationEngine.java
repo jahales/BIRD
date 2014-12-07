@@ -1,5 +1,7 @@
 package models.simulator;
 
+import models.report.DataTable;
+
 /**
  *
  * @author Brian Woodruff
@@ -13,5 +15,5 @@ public interface ISimulationEngine {
    * @param simulation
    * @return
    */
-  public String run(Simulation simulation);
+  public DataTable run(Simulation simulation);
 }

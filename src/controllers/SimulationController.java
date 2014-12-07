@@ -15,14 +15,18 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import models.AppSettings;
 import models.ISerializer;
+import models.report.DataTable;
 import models.rocket.Rocket;
 import models.rocket.data.XmlRocketSerializer;
 import models.rocket.parts.Motor;
@@ -168,9 +172,34 @@ public class SimulationController extends BaseController {
       mainViewModel.getSimulation().setAtmosphereFile(file.getAbsolutePath());
     }
   }
+  
+  public static void startNewReportView(DataTable dataTable) {
+    try {
+      Stage stage = new Stage();
+      ControllerFactory controllerFactory = new ControllerFactory();
+      controllerFactory.addSharedInstance(dataTable);
+      IController controller = controllerFactory.create("/views/Report.fxml");
+      
+      Scene scene = new Scene((Parent)controller.getView());
+      stage.setScene(scene);
+      stage.setTitle("BIRD");
+      stage.show();
+      stage.showAndWait();
+    } catch (Exception ex) {
+      logger.log(Level.WARNING, "Failed to create new MainView.", ex);
+    }
+  }
 
   @FXML
   void btnSimulation() {
+    
+    // TEMPORARY CODE SO JACOB CAN TEST
+    ISimulationEngine sim = new BirdSimulatorEngine();
+    DataTable dataTable = sim.run(this.mainViewModel.getSimulation());
+    startNewReportView(dataTable);
+    // END TEMPORARY CODE SO JACOB CAN TEST
+    
+    
     MessageBoxController.showMessage("Your rocket does not have any motors!");
     ArrayList<TrapezoidFinSet> finSets = new ArrayList<>();
     ArrayList<Motor> motors = new ArrayList<>();
