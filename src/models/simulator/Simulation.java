@@ -11,6 +11,8 @@ public class Simulation {
     private String engineFile;
     private String atmosphereFile;
     private String launchRailFile;
+    private boolean monteCarlo;
+    private int monteNumber;
     private LaunchRail launchRail = new LaunchRail();
     
     /**
@@ -82,4 +84,22 @@ public class Simulation {
     public void setLaunchRail(LaunchRail launchRail) {
       this.launchRail = launchRail;
     }
+
+    public boolean isMonteCarlo() {
+        return monteCarlo;
+    }
+
+    public void setIsMonteCarlo(boolean isMonteCarlo) {
+        this.monteCarlo = isMonteCarlo;
+    }
+
+    public int getMonteNumber() {
+        return monteNumber;
+    }
+
+    public void setMonteNumber(int monteNumber) {
+        this.monteNumber = monteNumber;
+    }
+    
+    
 }

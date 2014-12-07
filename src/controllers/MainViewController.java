@@ -139,6 +139,7 @@ public class MainViewController extends BaseController {
   @FXML
   void fileQuit() {
     if (promptSaveQuit()) {
+      AppSettings.getInstance().saveProperties();
       Stage stage = (Stage) root.getScene().getWindow();
       stage.close();
     }

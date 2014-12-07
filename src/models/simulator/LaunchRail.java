@@ -3,15 +3,15 @@ package models.simulator;
 import models.Measurement;
 
 /**
- * A laumch rail
+ * A launch rail
  * 
  * @author Brian Woodruff
  *
  */
 public class LaunchRail {
-    private Measurement length;
-    private Measurement polarAngle;
-    private Measurement azimuthAngle;
+    private Measurement length = new Measurement();
+    private Measurement polarAngle = new Measurement();
+    private Measurement azimuthAngle = new Measurement();
     
     /**
      * @return length
