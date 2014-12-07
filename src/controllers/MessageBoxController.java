@@ -23,6 +23,11 @@ import javafx.stage.Stage;
 public class MessageBoxController extends BaseController {
   @FXML
   private Label lblMessage;
+  
+  @FXML
+  void btnOK() {
+      ((Stage)lblMessage.getScene().getWindow()).close();
+  }
 
   static public void showMessage(String message) {
     try {
@@ -35,10 +40,10 @@ public class MessageBoxController extends BaseController {
     Scene scene = new Scene((Parent) controller.getView());
     Stage stage = new Stage();
     stage.setScene(scene);
-    stage.setTitle("message");
+    stage.setTitle(message);
     stage.showAndWait();
     } catch (Exception ex){
-      //TODO: Report an error
+      ex.printStackTrace();
     }
   }
 }

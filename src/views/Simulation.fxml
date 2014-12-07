@@ -51,14 +51,15 @@
 		<CheckBox fx:id="finChkBox" mnemonicParsing="false" onAction="#finChkBoxChange" text="Use all fin variants" GridPane.columnIndex="4" GridPane.rowIndex="2" />
 	  	<ChoiceBox fx:id="finChcBox" onMouseClicked="#clkFinChcBox" GridPane.columnIndex="4" GridPane.rowIndex="3" />
 		
-		<Button mnemonicParsing="false" text="Set as Default Rail" onAction="#setDefaultRail" GridPane.rowIndex="4" />
+		<Button mnemonicParsing="false" onAction="#setDefaultRail" text="Set as Default Rail" GridPane.rowIndex="4" />
 		
-		<Label fx:id="engineFilePath" text="engine file" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 		<Label fx:id="atmosphereFilePath" text="atmoshpere file" GridPane.columnIndex="3" GridPane.rowIndex="4" />
 		<Button mnemonicParsing="false" onAction="#openAtmosphereFile" text="Open Atmosphere File" GridPane.columnIndex="4" GridPane.rowIndex="4" />
 		
 		<Button mnemonicParsing="false" onAction="#btnSimulation" text="Run Simulation" GridPane.columnIndex="3" GridPane.rowIndex="5" />
 		<Button mnemonicParsing="false" onAction="#btnMonteCarlo" text="Run Monte Carlo Simulation" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+      <TextField fx:id="numberMonteCarlo" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <Label text="Sim Iterations" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 	</children>
 	<padding>
 		<Insets bottom="3" left="3" right="3" top="3" />

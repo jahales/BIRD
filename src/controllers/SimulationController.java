@@ -25,7 +25,9 @@ import models.AppSettings;
 import models.ISerializer;
 import models.rocket.Rocket;
 import models.rocket.data.XmlRocketSerializer;
+import models.rocket.parts.CircularCylinder;
 import models.rocket.parts.Motor;
+import models.rocket.parts.NoseCone;
 import models.rocket.parts.RocketComponent;
 import models.rocket.parts.TrapezoidFinSet;
 import models.simulator.BirdSimulatorEngine;
@@ -63,7 +65,7 @@ public class SimulationController extends BaseController {
     private Label atmosphereFilePath;
 
     @FXML
-    private Label engineFilePath;
+    private TextField numberMonteCarlo;
 
     @FXML
     private TextField lengthValue;
@@ -173,7 +175,17 @@ public class SimulationController extends BaseController {
 
     @FXML
     void btnSimulation() {
-        MessageBoxController.showMessage("Your rocket does not have any motors!");
+        prepareAndRunSimulation(false);
+
+    }
+
+    @FXML
+    void btnMonteCarlo() {
+        prepareAndRunSimulation(true);
+    }
+
+    private void prepareAndRunSimulation(boolean monteCarlo) {
+
         ArrayList<TrapezoidFinSet> finSets = new ArrayList<>();
         ArrayList<Motor> motors = new ArrayList<>();
         ArrayList<RocketComponent> notFins = new ArrayList<>();
@@ -193,69 +205,69 @@ public class SimulationController extends BaseController {
                 notMotors.add(component);
             }
         }
-        if (motors.size() == 0) {
-            MessageBoxController.showMessage("Your rocket does not have any motors!");
+
+        if (!simpleRocketValidator(motors, finSets)) {
             return;
         }
-        if (finSets.size() == 0) {
-            //report an error to the user
-            return;
-        }
-        if (mainViewModel.getSimulation().getAtmosphereFile() == null) {
-            //report an error to the user
-            return;
-        }
-        //TODO: Check for nose cone and at least 1 exterior cylinder
 
         if (finChkBox.isSelected() && motorChkBox.isSelected()) {
             for (TrapezoidFinSet finSet : finSets) {
                 for (Motor motor : motors) {
-                    runSimulation(finSet, motor, notMotors, notFins);
+                    runSimulation(finSet, motor, notMotors, notFins, monteCarlo);
                 }
             }
 
         } else if (finChkBox.isSelected() && !motorChkBox.isSelected()) {
             Motor motor = (Motor) mainViewModel.getRocket().getPartByName(motorChcBox.getValue());
             if (motor == null) {
-                //TODO: inform user of error
+                MessageBoxController.showMessage("You have not selected any motors!");
                 return;
             }
             for (TrapezoidFinSet finSet : finSets) {
-                runSimulation(finSet, motor, notMotors, notFins);
+                runSimulation(finSet, motor, notMotors, notFins, monteCarlo);
             }
 
         } else if (!finChkBox.isSelected() && motorChkBox.isSelected()) {
 
             TrapezoidFinSet finSet = (TrapezoidFinSet) mainViewModel.getRocket().getPartByName(finChcBox.getValue());
             if (finSet == null) {
-                //TODO: inform user of error
+                MessageBoxController.showMessage("You have not selected any fin sets!");
                 return;
             }
             for (Motor motor : motors) {
-                runSimulation(finSet, motor, notMotors, notFins);
+                runSimulation(finSet, motor, notMotors, notFins, monteCarlo);
             }
 
         } else if (!finChkBox.isSelected() && !motorChkBox.isSelected()) {
             TrapezoidFinSet finSet = (TrapezoidFinSet) mainViewModel.getRocket().getPartByName(finChcBox.getValue());
             if (finSet == null) {
-                //TODO: inform user of error
+                MessageBoxController.showMessage("You have not selected any fin sets!");
                 return;
             }
 
             Motor motor = (Motor) mainViewModel.getRocket().getPartByName(motorChcBox.getValue());
             if (motor == null) {
-                //TODO: inform user of error
+                MessageBoxController.showMessage("You have not selected any motors!");
                 return;
             }
-            runSimulation(finSet, motor, notMotors, notFins);
+            runSimulation(finSet, motor, notMotors, notFins, monteCarlo);
         }
     }
 
     private void runSimulation(TrapezoidFinSet finSet, Motor motor,
-            ArrayList<RocketComponent> notMotors, ArrayList<RocketComponent> notFins) {
+            ArrayList<RocketComponent> notMotors, ArrayList<RocketComponent> notFins, boolean monteCarlo) {
 
         File tempRocketPath = createTemporaryRocketFile(finSet, motor, notFins, notMotors);
         Simulation simulation = createSimulation(tempRocketPath, motor, mainViewModel.getSimulation().getAtmosphereFile());
+        simulation.setIsMonteCarlo(monteCarlo);
+        try {
+            simulation.setMonteNumber(Integer.parseInt(numberMonteCarlo.getText()));
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+            simulation.setIsMonteCarlo(false);
+            simulation.setMonteNumber(1);
+        }
+        
         ISimulationEngine sim = new BirdSimulatorEngine();
         sim.run(simulation);
     }
@@ -272,12 +284,12 @@ public class SimulationController extends BaseController {
     private File createTemporaryRocketFile(TrapezoidFinSet finSet, Motor motor,
             ArrayList<RocketComponent> exteriors, ArrayList<RocketComponent> interiors) {
 
-        Rocket rocket = new Rocket();
         exteriors.add(finSet);
         interiors.add(motor);
+
+        Rocket rocket = mainViewModel.getRocket();
         rocket.setExteriorComponents(exteriors);
         rocket.setInteriorComponents(interiors);
-        // TODO: set other aspects of the rocket
 
         File rocketFile = new File(mainViewModel.getPresentWorkingDirectory(), "tempRocket.xml");
         try {
@@ -291,9 +303,41 @@ public class SimulationController extends BaseController {
         return rocketFile;
     }
 
-    @FXML
-    void btnMonteCarlo() {
-        btnSimulation();
+    private boolean simpleRocketValidator(ArrayList<Motor> motors, ArrayList<TrapezoidFinSet> finSets) {
+        if (motors.isEmpty()) {
+            MessageBoxController.showMessage("Your rocket does not have any motors!");
+            return false;
+        }
+        if (finSets.isEmpty()) {
+            MessageBoxController.showMessage("Your rocket does not have any fin sets!");
+            return false;
+        }
+        NoseCone noseCone = null;
+        for (RocketComponent component : mainViewModel.getRocket().getExteriorComponents()) {
+            if (component.getClass().isInstance(new NoseCone())) {
+                noseCone = (NoseCone) component;
+            }
+        }
+        if (noseCone == null) {
+            MessageBoxController.showMessage("Your rocket does not have a nose cone");
+            return false;
+        }
+
+        CircularCylinder body = null;
+        for (RocketComponent component : mainViewModel.getRocket().getExteriorComponents()) {
+            if (component.getClass().isInstance(new CircularCylinder())) {
+                body = (CircularCylinder) component;
+            }
+        }
+        if (body == null) {
+            MessageBoxController.showMessage("Your rocket does not have a body!");
+            return false;
+        }
+        if (mainViewModel.getSimulation().getAtmosphereFile() == null) {
+            MessageBoxController.showMessage("You have not specified an atmosphere file!");
+            return false;
+        }
+        return true;
     }
 
     private void configInitialDirectory(FileChooser fileChooser) {
