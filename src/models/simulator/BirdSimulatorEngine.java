@@ -1,11 +1,14 @@
 package models.simulator;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.ISerializer;
 import models.report.CSVReader;
 import models.report.DataTable;
+import models.simulator.data.BirdSimulationSerializer;
 
 /**
  * 
@@ -33,6 +36,13 @@ public class BirdSimulatorEngine implements ISimulationEngine {
 
   @Override
   public DataTable run(Simulation simulation) {
+    ISerializer<Simulation> serializer = new BirdSimulationSerializer();
+      try {
+        serializer.serialize(simulation, new FileOutputStream("C:\\Temp\\Settings.xml"));
+      } catch (Exception ex) {
+        Logger.getLogger(BirdSimulatorEngine.class.getName()).log(Level.SEVERE, null, ex);
+      }
+    
       try {
         String cmd = exePath + " run " + settingsPath;
         Process p = Runtime.getRuntime().exec(cmd);

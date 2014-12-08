@@ -18,7 +18,7 @@ public class Motor extends CircularCylinder {
   private Measurement fuelMass = new Measurement(0, 0, Unit.meters);
   private Measurement polarAngle = new Measurement(0, 0, Unit.meters);
   private Measurement azimuthAngle = new Measurement(0, 0, Unit.meters);
-  private DataTable thrust;
+  private String thrustFile;
 
   /**
    * @return manufacturer
@@ -93,15 +93,15 @@ public class Motor extends CircularCylinder {
   /**
    * @return thrust {@link DataTable}
    */
-  public DataTable getThrust() {
-    return thrust;
+  public String getThrustFile() {
+    return thrustFile;
   }
 
   /**
-   * @param thrust thrust {@link DataTable}
+   * @param thrustFile thrust {@link DataTable}
    */
-  public void setThrust(DataTable thrust) {
-    this.thrust = thrust;
+  public void setThrustFile(String thrustFile) {
+    this.thrustFile = thrustFile;
   }
 
   public String getENGFilePath() {

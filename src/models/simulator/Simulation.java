@@ -11,9 +11,14 @@ public class Simulation {
     private String engineFile;
     private String atmosphereFile;
     private String launchRailFile;
+    private String outputFile;
     private boolean monteCarlo;
     private int monteNumber;
     private LaunchRail launchRail = new LaunchRail();
+    
+    public String getOutputFile() {
+      return this.outputFile;
+    }
     
     /**
      * @return rocketFile
