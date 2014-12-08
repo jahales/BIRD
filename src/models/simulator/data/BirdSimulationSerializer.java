@@ -47,7 +47,7 @@ public class BirdSimulationSerializer implements ISerializer<Simulation> {
     Serialize(rootElement, o.getAtmosphereFile());
     
     Element settingsElement = document.createElement("Menu");
-    document.appendChild(settingsElement);
+    rootElement.appendChild(settingsElement);
     settingsElement.setAttribute("Name", "Settings");
     settingsElement.setAttribute("Type", "Settings");
     AddItem(settingsElement, "OutputFileName", o.getOutputFile());
@@ -131,8 +131,8 @@ public class BirdSimulationSerializer implements ISerializer<Simulation> {
     rootElement.appendChild(fuelElement);
     
     Element thrustElement = document.createElement("Menu");
-    fuelElement.setAttribute("Name", "Thrust");
-    fuelElement.setAttribute("Type", "Setting");
+    thrustElement.setAttribute("Name", "Thrust");
+    thrustElement.setAttribute("Type", "Setting");
     rootElement.appendChild(thrustElement);
     AddItem(thrustElement, "ThrustFile", c.getThrustFile());
     

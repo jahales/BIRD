@@ -288,7 +288,7 @@ public class SimulationController extends BaseController {
       
       Scene scene = new Scene((Parent)controller.getView());
       Stage stage = new Stage();
-      stage.initOwner(getView().getScene().getWindow());
+      stage.initOwner(this.atmosphereFilePath.getScene().getWindow());
       stage.setScene(scene);
       stage.setTitle("BIRD Results");
       stage.show();
