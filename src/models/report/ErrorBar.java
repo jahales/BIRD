@@ -22,9 +22,9 @@ public class ErrorBar extends Group {
    */
   public ErrorBar(double error) {
     barHeight = error;
-    topBar = new Line(-barWidth, barHeight, barWidth, barHeight);
-
-    bottomBar = new Line(-barWidth, barHeight, barWidth, barHeight);
+    topBar =    new Line(-barWidth, barHeight, barWidth, barHeight);
+//              new Line(startX, startY, endX, endY);
+    bottomBar = new Line(-barWidth, -barHeight, barWidth, -barHeight);
 
     verticalBar = new Line(0, barHeight, 0, -barHeight);
     getChildren().addAll(topBar, bottomBar, verticalBar);

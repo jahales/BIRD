@@ -50,20 +50,21 @@ public class BirdSimulatorEngine implements ISimulationEngine {
   
   private DataTable reduceDataTable(DataTable dataTable) throws DataTable.RowFormatError
   {
-    DataTable result = new DataTable();
-    
-    for (String columnName : dataTable.getColumnNames())
-    {
-      result.addColumn(columnName);
-    }
-    
-    int inc = dataTable.getRows() / 50;
-    
-    for (int i = 0; i < dataTable.getRows(); i += inc)
-    {
-      result.addRow(dataTable.getRow(i));
-    }
-    
-    return result;
+//    DataTable result = new DataTable();
+//    
+//    for (String columnName : dataTable.getColumnNames())
+//    {
+//      result.addColumn(columnName);
+//    }
+//    
+//    int inc = dataTable.getRows() / 50;
+//    
+//    for (int i = 0; i < dataTable.getRows(); i += inc)
+//    {
+//      result.addRow(dataTable.getRow(i));
+//    }
+//    
+//    return result;
+    return dataTable;
   }
 }
