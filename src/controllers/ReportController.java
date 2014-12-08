@@ -59,7 +59,7 @@ public class ReportController extends BaseController {
   private void debug() throws RowFormatError {
     List<String> words = FXCollections.observableArrayList("List", "Book", "Deer", "Rain", "Lint",
         "Fear");
-    int rows = new Random().nextInt(20);
+    int rows = new Random().nextInt(2000);
 
     // Add column names
     for (String word : words) {
