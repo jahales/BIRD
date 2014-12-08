@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.AppSettings;
+import models.FileHelper;
 import models.ISerializer;
 import models.MainViewModel;
 import models.rocket.Rocket;
@@ -47,7 +48,7 @@ public class MainViewController extends BaseController {
   @FXML
   void fileNew() {
     //Spawn new instance with mostly empty data
-    spawnNewInstance(new Rocket());
+    FileHelper.spawnNewInstance(new Rocket(), mainViewModel);
   }
 
   /**
@@ -57,22 +58,7 @@ public class MainViewController extends BaseController {
    */
   @FXML
   void fileOpen() {
-    if (mainViewModel.isUnsaved()) {
-      //prompt user if he wants to save or not
-    }
-    File openFile;
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Open Resource File");
-    //Set initial file path
-    configInitialDirectory(fileChooser);
-    openFile = fileChooser.showOpenDialog(root.getScene().getWindow());
-
-    try {
-      spawnNewInstance(loadRocket(openFile));
-    } catch (Exception ex) {
-      //Needs a prompt to let the user know that loading the file errored
-      logger.log(Level.SEVERE, null, ex);
-    }
+    FileHelper.open(mainViewModel, root);
   }
 
   /**
@@ -82,31 +68,7 @@ public class MainViewController extends BaseController {
    */
   @FXML
   void fileSave() {
-    File saveFile;
-    if (mainViewModel.hasNeverBeenSaved()) {
-      FileChooser fileChooser = new FileChooser();
-      fileChooser.setTitle("Open Resource File");
-      configInitialDirectory(fileChooser);
-      saveFile = fileChooser.showSaveDialog(root.getScene().getWindow());
-
-      try {
-        saveRocket(saveFile);
-        mainViewModel.setNeverBeenSaved(false);
-      } catch (Exception ex) {
-        //Inform user that the saving did not work.
-      }
-    } else {
-      if (mainViewModel.isUnsaved()) {
-        //Only attempt to save if there's actually been a change
-        saveFile = mainViewModel.getPresentWorkingFile();
-        try {
-          saveRocket(saveFile);
-          mainViewModel.setNeverBeenSaved(false);
-        } catch (Exception ex) {
-          //Inform user that the saving did not work.
-        }
-      }
-    }
+    FileHelper.save(mainViewModel, root);
   }
 
   /**
@@ -116,18 +78,7 @@ public class MainViewController extends BaseController {
    */
   @FXML
   void fileSaveAs() {
-    File saveFile;
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Open Resource File");
-    configInitialDirectory(fileChooser);
-    saveFile = fileChooser.showSaveDialog(root.getScene().getWindow());
-
-    try {
-      saveRocket(saveFile);
-      mainViewModel.setNeverBeenSaved(false);
-    } catch (Exception ex) {
-      //Inform user that the saving did not work.
-    }
+    FileHelper.fileSaveAs(mainViewModel, root);
   }
 
   /**
@@ -154,51 +105,6 @@ public class MainViewController extends BaseController {
 
   }
 
-  private Rocket loadRocket(File openFile) throws Exception {
-    try {
-      //Set the new present working directory to the save file's directory
-      mainViewModel.setPresentWorkingDirectory(openFile.getParentFile());
-    } catch (NullPointerException npex) {
-      logger.log(Level.WARNING, "File Chooser did not choose a file");
-      throw new Exception();
-    }
-
-    try {
-      InputStream inputStream = new FileInputStream(openFile);
-      ISerializer<Rocket> serializer = new XmlRocketSerializer();
-      return serializer.deserialize(inputStream);
-    } catch (Exception ex) {
-      logger.log(Level.WARNING, null, ex);
-      throw new Exception();
-    }
-  }
-
-  private void saveRocket(File saveFile) throws Exception {
-    try {
-      //Set the new present working directory to the save file's directory
-      mainViewModel.setPresentWorkingDirectory(saveFile.getParentFile());
-    } catch (NullPointerException npex) {
-      logger.log(Level.WARNING, "File Chooser did not choose a file", npex);
-      throw new Exception();
-    }
-
-    try {
-      OutputStream outStream = new FileOutputStream(saveFile);
-      ISerializer<Rocket> serializer = new XmlRocketSerializer();
-      serializer.serialize(mainViewModel.getRocket(), outStream);
-    } catch (Exception ex) {
-      logger.log(Level.WARNING, null, ex);
-      throw new Exception();
-    }
-  }
-
-  private void spawnNewInstance(Rocket rocket) {
-    MainViewModel newModel = new MainViewModel();
-    newModel.setPresentWorkingDirectory(mainViewModel.getPresentWorkingDirectory());
-    newModel.setRocket(rocket);
-    Main.startNewMainView(newModel);
-  }
-
   private boolean promptSaveQuit() {
     try {
       //Create the view and controller
@@ -223,22 +129,6 @@ public class MainViewController extends BaseController {
     } catch (Exception ex) {
       logger.log(Level.WARNING, "Failed to show save dialog.", ex);
       return false;
-    }
-  }
-
-  private void configInitialDirectory(FileChooser fileChooser) {
-    if (mainViewModel.getPresentWorkingDirectory() == null) {
-      //If no present working directory, use default
-      fileChooser.setInitialDirectory(
-        new File(AppSettings.getInstance().getDefaultRocketPath()));
-    } else {
-      //If there's a present working directory, open up to that directory
-      fileChooser.setInitialDirectory(mainViewModel.getPresentWorkingDirectory());
-    }
-    //Make sure the initial directory is a directory    
-    if (!fileChooser.getInitialDirectory().isDirectory()) {
-      logger.warning("Invalid initial directory path");
-      fileChooser.setInitialDirectory(null);
     }
   }
 }
