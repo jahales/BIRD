@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import models.report.DataTable;
 import models.report.DataTable.RowFormatError;
@@ -32,6 +31,7 @@ import javafx.util.Callback;
  */
 public class ReportController extends BaseController {
   DataTable table = null;
+  private static final int MAX_NODES_IN_GRAGH = 50;
 
   @FXML
   private LineChart<Number, Number> graph;
@@ -56,34 +56,13 @@ public class ReportController extends BaseController {
     this.table = table;
   }
 
-  private void debug() throws RowFormatError {
-    List<String> words = FXCollections.observableArrayList("List", "Book", "Deer", "Rain", "Lint",
-        "Fear");
-    int rows = new Random().nextInt(2000);
-
-    // Add column names
-    for (String word : words) {
-      table.addColumn(word);
-    }
-
-    // Add some rows
-    for (int row = 0; row < rows; row++) {
-      List<Number> rowList = new ArrayList<Number>();
-      for (int i = 0; i < words.size(); i++) {
-        rowList.add(Math.random());
-      }
-      table.addRow(rowList);
-    }
-  }
-
   /**
    * initialize is called during FXMLoader call
    * 
    * @throws RowFormatError
    */
   public void initialize() throws RowFormatError {
-    if (this.table == null || this.table.getColumnNames().size() < 1)
-    {
+    if (this.table == null || this.table.getColumnNames().size() < 1) {
       return;
     }
 
@@ -127,10 +106,11 @@ public class ReportController extends BaseController {
 
           XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
           series.setName(xAxisChoices.getValue());
-
-          for (int i = 0; i < dependentVariableList.size(); i++) {
+          
+          double skips = (double) dependentVariableList.size() / (double) MAX_NODES_IN_GRAGH;
+          for (double i = 0; i < dependentVariableList.size(); i += skips) {
             XYChart.Data<Number, Number> data;
-            data = new XYChart.Data<Number, Number>(dependentVariableList.get(i), independantVariableColumn.get(i));
+            data = new XYChart.Data<Number, Number>(dependentVariableList.get((int) i), independantVariableColumn.get((int) i));
             data.setNode(new ErrorBar(7));
             series.getData().add(data);
           }
