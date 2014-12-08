@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
@@ -29,7 +30,7 @@ public class MessageBoxController extends BaseController {
       ((Stage)lblMessage.getScene().getWindow()).close();
   }
 
-  static public void showMessage(String message) {
+  static public void showMessage(String message, Node owner) {
     try {
     ControllerFactory controllerFactory = new ControllerFactory();
     MessageBoxController controller = (MessageBoxController) controllerFactory
@@ -41,6 +42,7 @@ public class MessageBoxController extends BaseController {
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.setTitle(message);
+    stage.initOwner(owner.getScene().getWindow());
     stage.showAndWait();
     } catch (Exception ex){
       ex.printStackTrace();
