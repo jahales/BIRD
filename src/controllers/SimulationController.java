@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +23,11 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.AppSettings;
+import models.FileHelper;
 import models.ISerializer;
 import models.report.DataTable;
 import models.rocket.Rocket;
@@ -62,6 +65,9 @@ public class SimulationController extends BaseController {
   public SimulationController(MainViewModel mainViewModel) {
     this.mainViewModel = mainViewModel;
   }
+
+  @FXML
+  private GridPane root;
 
   @FXML
   private Label atmosphereFilePath;
@@ -165,14 +171,7 @@ public class SimulationController extends BaseController {
 
   @FXML
   void openAtmosphereFile() {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Open Atmosphere File");
-    configInitialDirectory(fileChooser);
-    File file = fileChooser.showOpenDialog(atmosphereFilePath.getScene().getWindow());
-    if (file != null) {
-      atmosphereFilePath.setText(file.getName());
-      mainViewModel.getSimulation().setAtmosphereFile(file.getAbsolutePath());
-    }
+    atmosphereFilePath.setText(FileHelper.openAtmosphereFile(mainViewModel, finChkBox));
   }
 
   public static void startNewReportView(DataTable dataTable) {
@@ -228,62 +227,76 @@ public class SimulationController extends BaseController {
       return;
     }
 
-    if (finChkBox.isSelected()
-        && motorChkBox.isSelected()) {
+    //Create a directory with the same name as the saved rocket
+    File rocketDir = null;
+    try {
+      rocketDir = FileHelper.createRocketDir(mainViewModel, finChkBox);
+    } catch (IOException ex) {
+      logger.log(Level.SEVERE, "Simulations failed to run! Check file permissions.");
+    }
+
+    if (finChkBox.isSelected() && motorChkBox.isSelected()) {
+      int finNum = 0;
+      int motorNum = 0;
       for (TrapezoidFinSet finSet : finSets) {
         for (Motor motor : motors) {
-          runSimulation(finSet, motor, notMotors, notFins, monteCarlo);
+          runSimulation(finSet, motor, notMotors, notFins, monteCarlo, rocketDir, finNum, motorNum);
+          motorNum++;
         }
+        finNum++;
       }
 
-    } else if (finChkBox.isSelected()
-        && !motorChkBox.isSelected()) {
+    } else if (finChkBox.isSelected() && !motorChkBox.isSelected()) {
+      int finNum = 1;
+      int motorNum = 1;
       Motor motor = (Motor) mainViewModel.getRocket().getPartByName(motorChcBox.getValue());
       if (motor == null) {
-        MessageBoxController.showMessage("You have not selected any motors!", this.getView());
+        MessageBoxController.showMessage("You have not selected any motors!", root);
         return;
       }
       for (TrapezoidFinSet finSet : finSets) {
-        runSimulation(finSet, motor, notMotors, notFins, monteCarlo);
+        runSimulation(finSet, motor, notMotors, notFins, monteCarlo, rocketDir, finNum, motorNum);
+        finNum++;
       }
 
-    } else if (!finChkBox.isSelected()
-        && motorChkBox.isSelected()) {
-
+    } else if (!finChkBox.isSelected() && motorChkBox.isSelected()) {
+      int finNum = 1;
+      int motorNum = 1;
       TrapezoidFinSet finSet = (TrapezoidFinSet) mainViewModel.getRocket().getPartByName(finChcBox.getValue());
       if (finSet == null) {
-        MessageBoxController.showMessage("You have not selected any fin sets!", this.getView());
+        MessageBoxController.showMessage("You have not selected any fin sets!", root);
         return;
       }
       for (Motor motor : motors) {
-        runSimulation(finSet, motor, notMotors, notFins, monteCarlo);
+        runSimulation(finSet, motor, notMotors, notFins, monteCarlo, rocketDir, finNum, motorNum);
+        motorNum++;
       }
 
-    } else if (!finChkBox.isSelected()
-        && !motorChkBox.isSelected()) {
+    } else if (!finChkBox.isSelected() && !motorChkBox.isSelected()) {
+      int finNum = 1;
+      int motorNum = 1;
       TrapezoidFinSet finSet = (TrapezoidFinSet) mainViewModel.getRocket().getPartByName(finChcBox.getValue());
       if (finSet == null) {
-        MessageBoxController.showMessage("You have not selected any fin sets!", this.getView());
+        MessageBoxController.showMessage("You have not selected any fin sets!", root);
         return;
       }
 
       Motor motor = (Motor) mainViewModel.getRocket().getPartByName(motorChcBox.getValue());
       if (motor == null) {
-        MessageBoxController.showMessage("You have not selected any motors!", this.getView());
+        MessageBoxController.showMessage("You have not selected any motors!", root);
         return;
       }
-      runSimulation(finSet, motor, notMotors, notFins, monteCarlo);
+      runSimulation(finSet, motor, notMotors, notFins, monteCarlo, rocketDir, finNum, motorNum);
     }
   }
-  
-  private void displayResult(DataTable dataTable)
-  {
+
+  private void displayResult(DataTable dataTable) {
     try {
       ControllerFactory controllerFactory = new ControllerFactory();
       controllerFactory.addSharedInstance(dataTable);
       IController controller = controllerFactory.create("/views/Report.fxml");
-      
-      Scene scene = new Scene((Parent)controller.getView());
+
+      Scene scene = new Scene((Parent) controller.getView());
       Stage stage = new Stage();
       stage.initOwner(this.atmosphereFilePath.getScene().getWindow());
       stage.setScene(scene);
@@ -295,10 +308,30 @@ public class SimulationController extends BaseController {
   }
 
   private void runSimulation(TrapezoidFinSet finSet, Motor motor,
-      ArrayList<RocketComponent> notMotors, ArrayList<RocketComponent> notFins, boolean monteCarlo) {
+    ArrayList<RocketComponent> notMotors, ArrayList<RocketComponent> notFins, boolean monteCarlo,
+    File rocketDir, int finNum, int motorNum) {
 
-    File tempRocketPath = createTemporaryRocketFile(finSet, motor, notFins, notMotors);
-    Simulation simulation = createSimulation(tempRocketPath, motor, mainViewModel.getSimulation().getAtmosphereFile());
+    File resultDir;
+    try {
+      resultDir = FileHelper.createResultsFolder(rocketDir, finNum, motorNum);
+    } catch (IOException ex) {
+      logger.log(Level.SEVERE, "A simulation failed to run, check file pathing.");
+      return;
+    }
+    File resultsFile;
+    try {
+      resultsFile = FileHelper.spawnResultsFilePath(resultDir, finNum, motorNum);
+    } catch (IOException ex) {
+      logger.log(Level.SEVERE, "A simulation failed to run, check file pathing.");
+      return;
+    }
+    
+    Rocket innerRocket = createTempRocket(finSet, motor, notFins, notMotors);
+    File innerRocketFile = createInnerRocketFile(innerRocket, resultDir, finNum, motorNum);
+
+    Simulation simulation = createSimulation(innerRocketFile, resultsFile, motor, 
+      mainViewModel.getSimulation().getAtmosphereFile());
+
     simulation.setIsMonteCarlo(monteCarlo);
     try {
       simulation.setMonteNumber(Integer.parseInt(numberMonteCarlo.getText()));
@@ -312,9 +345,9 @@ public class SimulationController extends BaseController {
     displayResult(result);
   }
 
-  private Simulation createSimulation(File tempRocketFile, Motor motor, String atmosphereFile) {
+  private Simulation createSimulation(File tempRocketFile, File resultsOutput, Motor motor, String atmosphereFile) {
     Simulation simulation = new Simulation();
-    simulation.setOutputFile(atmosphereFile);
+    simulation.setOutputFile(resultsOutput.toString());
     simulation.setAtmosphereFile(atmosphereFile);
     simulation.setEngineFile(motor.getENGFilePath());
     simulation.setLaunchRail(mainViewModel.getSimulation().getLaunchRail());
@@ -322,17 +355,19 @@ public class SimulationController extends BaseController {
     return simulation;
   }
 
-  private File createTemporaryRocketFile(TrapezoidFinSet finSet, Motor motor,
-      ArrayList<RocketComponent> exteriors, ArrayList<RocketComponent> interiors) {
-
+  private Rocket createTempRocket(TrapezoidFinSet finSet, Motor motor,
+    ArrayList<RocketComponent> exteriors, ArrayList<RocketComponent> interiors) {
     exteriors.add(finSet);
     interiors.add(motor);
 
     Rocket rocket = mainViewModel.getRocket();
     rocket.setExteriorComponents(exteriors);
     rocket.setInteriorComponents(interiors);
+    return rocket;
+  }
 
-    File rocketFile = new File(mainViewModel.getPresentWorkingDirectory(), "tempRocket.xml");
+  private File createInnerRocketFile(Rocket rocket, File rocketSimDir, int finNum, int motorNum) {
+    File rocketFile = new File(rocketSimDir, rocketSimDir.getName() + ".xml");
     try {
       OutputStream outStream = new FileOutputStream(rocketFile);
       ISerializer<Rocket> serializer = new XmlRocketSerializer();
@@ -346,11 +381,11 @@ public class SimulationController extends BaseController {
 
   private boolean simpleRocketValidator(ArrayList<Motor> motors, ArrayList<TrapezoidFinSet> finSets) {
     if (motors.isEmpty()) {
-      MessageBoxController.showMessage("Your rocket does not have any motors!", this.getView());
+      MessageBoxController.showMessage("Your rocket does not have any motors!", root);
       return false;
     }
     if (finSets.isEmpty()) {
-      MessageBoxController.showMessage("Your rocket does not have any fin sets!", this.getView());
+      MessageBoxController.showMessage("Your rocket does not have any fin sets!", root);
       return false;
     }
     NoseCone noseCone = null;
@@ -360,7 +395,7 @@ public class SimulationController extends BaseController {
       }
     }
     if (noseCone == null) {
-      MessageBoxController.showMessage("Your rocket does not have a nose cone", this.getView());
+      MessageBoxController.showMessage("Your rocket does not have a nose cone", root);
       return false;
     }
 
@@ -371,30 +406,14 @@ public class SimulationController extends BaseController {
       }
     }
     if (body == null) {
-      MessageBoxController.showMessage("Your rocket does not have a body!", this.getView());
+      MessageBoxController.showMessage("Your rocket does not have a body!", root);
       return false;
     }
     if (mainViewModel.getSimulation().getAtmosphereFile() == null) {
-      MessageBoxController.showMessage("You have not specified an atmosphere file!", this.getView());
+      MessageBoxController.showMessage("You have not specified an atmosphere file!", root);
       return false;
     }
     return true;
-  }
-
-  private void configInitialDirectory(FileChooser fileChooser) {
-    if (mainViewModel.getPresentWorkingDirectory() == null) {
-      //If no present working directory, use default
-      fileChooser.setInitialDirectory(
-          new File(AppSettings.getInstance().getDefaultRocketPath()));
-    } else {
-      //If there's a present working directory, open up to that directory
-      fileChooser.setInitialDirectory(mainViewModel.getPresentWorkingDirectory());
-    }
-    //Make sure the initial directory is a directory    
-    if (!fileChooser.getInitialDirectory().isDirectory()) {
-      logger.warning("Invalid initial directory path");
-      fileChooser.setInitialDirectory(null);
-    }
   }
 
   /**
