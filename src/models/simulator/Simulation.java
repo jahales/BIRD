@@ -11,7 +11,7 @@ public class Simulation {
     private String engineFile;
     private String atmosphereFile;
     private String launchRailFile;
-    private String outputFile;
+    private String outputFile = "C:\\Temp\\Result.xml";
     private boolean monteCarlo;
     private int monteNumber;
     private LaunchRail launchRail = new LaunchRail();
