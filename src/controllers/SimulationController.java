@@ -243,7 +243,7 @@ public class SimulationController extends BaseController {
         && !motorChkBox.isSelected()) {
       Motor motor = (Motor) mainViewModel.getRocket().getPartByName(motorChcBox.getValue());
       if (motor == null) {
-        MessageBoxController.showMessage("You have not selected any motors!");
+        MessageBoxController.showMessage("You have not selected any motors!", this.getView());
         return;
       }
       for (TrapezoidFinSet finSet : finSets) {
@@ -255,7 +255,7 @@ public class SimulationController extends BaseController {
 
       TrapezoidFinSet finSet = (TrapezoidFinSet) mainViewModel.getRocket().getPartByName(finChcBox.getValue());
       if (finSet == null) {
-        MessageBoxController.showMessage("You have not selected any fin sets!");
+        MessageBoxController.showMessage("You have not selected any fin sets!", this.getView());
         return;
       }
       for (Motor motor : motors) {
@@ -266,13 +266,13 @@ public class SimulationController extends BaseController {
         && !motorChkBox.isSelected()) {
       TrapezoidFinSet finSet = (TrapezoidFinSet) mainViewModel.getRocket().getPartByName(finChcBox.getValue());
       if (finSet == null) {
-        MessageBoxController.showMessage("You have not selected any fin sets!");
+        MessageBoxController.showMessage("You have not selected any fin sets!", this.getView());
         return;
       }
 
       Motor motor = (Motor) mainViewModel.getRocket().getPartByName(motorChcBox.getValue());
       if (motor == null) {
-        MessageBoxController.showMessage("You have not selected any motors!");
+        MessageBoxController.showMessage("You have not selected any motors!", this.getView());
         return;
       }
       runSimulation(finSet, motor, notMotors, notFins, monteCarlo);
@@ -306,7 +306,6 @@ public class SimulationController extends BaseController {
     try {
       simulation.setMonteNumber(Integer.parseInt(numberMonteCarlo.getText()));
     } catch (NumberFormatException nfe) {
-      nfe.printStackTrace();
       simulation.setIsMonteCarlo(false);
       simulation.setMonteNumber(1);
     }
@@ -349,11 +348,11 @@ public class SimulationController extends BaseController {
 
   private boolean simpleRocketValidator(ArrayList<Motor> motors, ArrayList<TrapezoidFinSet> finSets) {
     if (motors.isEmpty()) {
-      MessageBoxController.showMessage("Your rocket does not have any motors!");
+      MessageBoxController.showMessage("Your rocket does not have any motors!", this.getView());
       return false;
     }
     if (finSets.isEmpty()) {
-      MessageBoxController.showMessage("Your rocket does not have any fin sets!");
+      MessageBoxController.showMessage("Your rocket does not have any fin sets!", this.getView());
       return false;
     }
     NoseCone noseCone = null;
@@ -363,7 +362,7 @@ public class SimulationController extends BaseController {
       }
     }
     if (noseCone == null) {
-      MessageBoxController.showMessage("Your rocket does not have a nose cone");
+      MessageBoxController.showMessage("Your rocket does not have a nose cone", this.getView());
       return false;
     }
 
@@ -374,11 +373,11 @@ public class SimulationController extends BaseController {
       }
     }
     if (body == null) {
-      MessageBoxController.showMessage("Your rocket does not have a body!");
+      MessageBoxController.showMessage("Your rocket does not have a body!", this.getView());
       return false;
     }
     if (mainViewModel.getSimulation().getAtmosphereFile() == null) {
-      MessageBoxController.showMessage("You have not specified an atmosphere file!");
+      MessageBoxController.showMessage("You have not specified an atmosphere file!", this.getView());
       return false;
     }
     return true;
