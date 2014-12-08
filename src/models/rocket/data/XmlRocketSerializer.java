@@ -91,16 +91,16 @@ public class XmlRocketSerializer implements ISerializer<Rocket> {
     Element element = null;
 
     // Add the part-specific measurements and quantities
-    if (component instanceof CircularCylinder) {
+    if (component instanceof Motor) {
+      element = createMotorElement(document, (Motor) component);
+    } else if (component instanceof Parachute) {
+      element = createParachuteElement(document, (Parachute) component);
+    } else if (component instanceof CircularCylinder) {
       element = createCircularCylinderElement(document, (CircularCylinder) component);
     } else if (component instanceof ConicalFrustum) {
       element = createConicalFrustumElement(document, (ConicalFrustum) component);
-    } else if (component instanceof Motor) {
-      element = createMotorElement(document, (Motor) component);
     } else if (component instanceof NoseCone) {
       element = createNoseConeElement(document, (NoseCone) component);
-    } else if (component instanceof Parachute) {
-      element = createParachuteElement(document, (Parachute) component);
     } else if (component instanceof TrapezoidFinSet) {
       element = createTrapezoidFinSetElement(document, (TrapezoidFinSet) component);
     } else {
