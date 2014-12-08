@@ -6,21 +6,20 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-
 <HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ReportController">
 	<children>
 		<VBox alignment="TOP_LEFT" prefHeight="400" prefWidth="200" spacing="5">
 			<children>
 				<Label text="X Axis" />
-				<ChoiceBox fx:id="xAxisChoices"/>
+				<ChoiceBox fx:id="xAxisChoices" />
 				<Label text="Y Axis" />
-				<ListView fx:id="yAxisChoices" prefHeight="123" />
+				<ListView fx:id="yAxisChoices" prefHeight="123" VBox.vgrow="ALWAYS" />
 			</children>
 			<padding>
 				<Insets bottom="5" left="5" right="5" top="5" />
 			</padding>
 		</VBox>
-		<LineChart fx:id="graph" title="Results">
+		<LineChart fx:id="graph" title="Results" HBox.hgrow="ALWAYS">
 			<xAxis>
 				<NumberAxis label="Time" side="BOTTOM" fx:id="xAxis" />
 			</xAxis>
