@@ -64,9 +64,6 @@ public class SimulationController extends BaseController {
   }
 
   @FXML
-  private Label rocketFilePath;
-
-  @FXML
   private Label atmosphereFilePath;
 
   @FXML
@@ -317,6 +314,7 @@ public class SimulationController extends BaseController {
 
   private Simulation createSimulation(File tempRocketFile, Motor motor, String atmosphereFile) {
     Simulation simulation = new Simulation();
+    simulation.setOutputFile(atmosphereFile);
     simulation.setAtmosphereFile(atmosphereFile);
     simulation.setEngineFile(motor.getENGFilePath());
     simulation.setLaunchRail(mainViewModel.getSimulation().getLaunchRail());
