@@ -174,6 +174,17 @@ public class SimulationController extends BaseController {
     atmosphereFilePath.setText(FileHelper.openAtmosphereFile(mainViewModel, finChkBox));
   }
 
+  @FXML
+  void btnSimulation() {
+    prepareAndRunSimulation(false);
+
+  }
+
+  @FXML
+  void btnMonteCarlo() {
+    prepareAndRunSimulation(true);
+  }
+
   public static void startNewReportView(DataTable dataTable) {
     try {
       Stage stage = new Stage();
@@ -188,17 +199,6 @@ public class SimulationController extends BaseController {
     } catch (Exception ex) {
       ex.printStackTrace();
     }
-  }
-
-  @FXML
-  void btnSimulation() {
-    prepareAndRunSimulation(false);
-
-  }
-
-  @FXML
-  void btnMonteCarlo() {
-    prepareAndRunSimulation(true);
   }
 
   private void prepareAndRunSimulation(boolean monteCarlo) {
@@ -235,9 +235,9 @@ public class SimulationController extends BaseController {
       logger.log(Level.SEVERE, "Simulations failed to run! Check file permissions.");
     }
 
+    int finNum = 1;
+    int motorNum = 1;
     if (finChkBox.isSelected() && motorChkBox.isSelected()) {
-      int finNum = 0;
-      int motorNum = 0;
       for (TrapezoidFinSet finSet : finSets) {
         for (Motor motor : motors) {
           runSimulation(finSet, motor, notMotors, notFins, monteCarlo, rocketDir, finNum, motorNum);
@@ -247,8 +247,6 @@ public class SimulationController extends BaseController {
       }
 
     } else if (finChkBox.isSelected() && !motorChkBox.isSelected()) {
-      int finNum = 1;
-      int motorNum = 1;
       Motor motor = (Motor) mainViewModel.getRocket().getPartByName(motorChcBox.getValue());
       if (motor == null) {
         MessageBoxController.showMessage("You have not selected any motors!", root);
@@ -260,8 +258,6 @@ public class SimulationController extends BaseController {
       }
 
     } else if (!finChkBox.isSelected() && motorChkBox.isSelected()) {
-      int finNum = 1;
-      int motorNum = 1;
       TrapezoidFinSet finSet = (TrapezoidFinSet) mainViewModel.getRocket().getPartByName(finChcBox.getValue());
       if (finSet == null) {
         MessageBoxController.showMessage("You have not selected any fin sets!", root);
@@ -273,8 +269,6 @@ public class SimulationController extends BaseController {
       }
 
     } else if (!finChkBox.isSelected() && !motorChkBox.isSelected()) {
-      int finNum = 1;
-      int motorNum = 1;
       TrapezoidFinSet finSet = (TrapezoidFinSet) mainViewModel.getRocket().getPartByName(finChcBox.getValue());
       if (finSet == null) {
         MessageBoxController.showMessage("You have not selected any fin sets!", root);
@@ -325,11 +319,11 @@ public class SimulationController extends BaseController {
       logger.log(Level.SEVERE, "A simulation failed to run, check file pathing.");
       return;
     }
-    
+
     Rocket innerRocket = createTempRocket(finSet, motor, notFins, notMotors);
     File innerRocketFile = createInnerRocketFile(innerRocket, resultDir, finNum, motorNum);
 
-    Simulation simulation = createSimulation(innerRocketFile, resultsFile, motor, 
+    Simulation simulation = createSimulation(innerRocketFile, resultsFile, motor,
       mainViewModel.getSimulation().getAtmosphereFile());
 
     simulation.setIsMonteCarlo(monteCarlo);
