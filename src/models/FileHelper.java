@@ -88,6 +88,7 @@ public class FileHelper {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");
     //Set initial file path
+    //TODO: Move file directories to appsettings, and away from mainViewModel.
     //configInitialDirectory(fileChooser, mainViewModel);
     fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
     openFile = fileChooser.showOpenDialog(root.getScene().getWindow());
