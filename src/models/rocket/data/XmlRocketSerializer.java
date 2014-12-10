@@ -86,6 +86,13 @@ public class XmlRocketSerializer implements ISerializer<Rocket> {
     measurementElement.setTextContent(Double.toString(measurement.getValue()));
     return measurementElement;
   }
+  
+  private Element createElement(Document document, String name, String value)
+  {
+    Element element = document.createElement(name);
+    element.setTextContent(value);
+    return element;
+  }
 
   private Element createRocketComponentElement(Document document, RocketComponent component) throws Exception {
     Element element = null;
@@ -135,6 +142,12 @@ public class XmlRocketSerializer implements ISerializer<Rocket> {
   private Element createMotorElement(Document document, Motor component) {
     Element element = document.createElement("Motor");
     element.appendChild(createMeasurementElement(document, "Diameter", component.getDiameter()));
+    element.appendChild(createMeasurementElement(document, "FuelMass", component.getFuelMass()));
+    element.appendChild(createMeasurementElement(document, "PolarAngle", component.getPolarAngle()));
+    element.appendChild(createMeasurementElement(document, "AzimuthAngle", component.getAzimuthAngle()));
+    element.appendChild(createElement(document, "Manufacturer", component.getManufacturer()));
+    element.appendChild(createElement(document, "Delays", component.getDelays()));
+    element.appendChild(createElement(document, "ThrustFile", component.getThrustFile()));    
     return element;
   }
 
@@ -385,6 +398,13 @@ public class XmlRocketSerializer implements ISerializer<Rocket> {
 
   private RocketComponent loadMotor(Element element) {
     Motor motor = new Motor();
+    motor.setDiameter(loadMeasurementElement(element, "Diameter"));
+    motor.setFuelMass(loadMeasurementElement(element, "FuelMass"));
+    motor.setPolarAngle(loadMeasurementElement(element, "PolarAngle"));
+    motor.setAzimuthAngle(loadMeasurementElement(element, "AzimuthAngle"));
+    motor.setManufacturer(getElementValue(element, "Manufacturer"));
+    motor.setDelays(getElementValue(element, "Delays"));
+    motor.setThrustFile(getElementValue(element, "ThrustFile"));    
     return motor;
   }
 }

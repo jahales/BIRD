@@ -49,7 +49,7 @@ public class BirdSimulationSerializer implements ISerializer<Simulation> {
     Element settingsElement = document.createElement("Menu");
     rootElement.appendChild(settingsElement);
     settingsElement.setAttribute("Name", "Settings");
-    settingsElement.setAttribute("Type", "Settings");
+    settingsElement.setAttribute("Type", "Setting");
     AddItem(settingsElement, "OutputFileName", o.getOutputFile());
 
     for (RocketComponent component : rocket.getInteriorComponents()) {
@@ -115,7 +115,8 @@ public class BirdSimulationSerializer implements ISerializer<Simulation> {
     AddItem(element, "Shape", shape);
     AddMeasurement(element, "Mass", c.getMass());
     AddMeasurement(element, "Offset", c.getAxialOffset());
-    AddMeasurement(element, "Length", c.getAxialLength());
+    AddMeasurement(element, "Length", c.getAxialLength());    
+    AddMeasurement(element, "Thickness", c.getThickness());
   }
 
   private void Serialize(Element element, String name, NoseCone c) {
@@ -134,7 +135,7 @@ public class BirdSimulationSerializer implements ISerializer<Simulation> {
     thrustElement.setAttribute("Name", "Thrust");
     thrustElement.setAttribute("Type", "Setting");
     rootElement.appendChild(thrustElement);
-    AddItem(thrustElement, "ThrustFile", c.getThrustFile());
+    AddItem(thrustElement, "ThrustFile", "C:\\Temp\\5198-M1101-WH-0.csv"); // TODO: fix this
     
     Measurement motorMass = c.getMass();
     Measurement fuelMass = c.getFuelMass();
@@ -166,7 +167,6 @@ public class BirdSimulationSerializer implements ISerializer<Simulation> {
   private void Serialize(Element element, String name, TrapezoidFinSet c) {
     SerializeComponent(element, name, "Trapezoid", c);
     AddItem(element, "Count", Integer.toString(c.getCount()));
-    AddMeasurement(element, "Thickness", c.getThickness());
     AddMeasurement(element, "TipChord", c.getTipChord());
     AddMeasurement(element, "MidChord", c.getAxialLength()); // TODO: fix me
     AddMeasurement(element, "Span", c.getAxialLength());

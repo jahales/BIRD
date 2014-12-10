@@ -59,7 +59,7 @@ public class NoseConeController extends BaseController {
     shape.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        noseCone.setNoseShape(NoseShape.valueOf(arg2));
+        noseCone.setNoseShape(NoseShape.valueOf(arg2.toUpperCase()));
       }
     });
 
