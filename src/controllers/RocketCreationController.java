@@ -306,20 +306,12 @@ public class RocketCreationController extends BaseController {
       }
       internalTreePartsRoot.getChildren().add(newTreeItem);
       internalTreePartsRoot.setExpanded(true);
-
-      if (type == InternalRocketPart.MOTOR) {
-        internalParts.remove(type);
-      }
     } else if (type instanceof ExternalRocketPart) {
       if (addComponentToRocket) {
         rocket.getExteriorComponents().add(component);
       }
       externalTreePartsRoot.getChildren().add(newTreeItem);
       externalTreePartsRoot.setExpanded(true);
-
-      if (type == ExternalRocketPart.NOSE_CONE || type == ExternalRocketPart.TRAPEZOID_FIN_SET) {
-        externalParts.remove(type);
-      }
     }
   }
 
