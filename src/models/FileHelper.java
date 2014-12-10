@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.Node;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import models.rocket.Rocket;
 import models.rocket.data.XmlRocketSerializer;
 
@@ -37,6 +38,7 @@ public class FileHelper {
     fileChooser.setTitle("Open Resource File");
     //Set initial file path
     configInitialDirectory(fileChooser, mainViewModel);
+    fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
     openFile = fileChooser.showOpenDialog(root.getScene().getWindow());
     
     if (openFile != null) {
@@ -58,6 +60,7 @@ public class FileHelper {
       FileChooser fileChooser = new FileChooser();
       fileChooser.setTitle("Open Resource File");
       configInitialDirectory(fileChooser, mainViewModel);
+      fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
       saveFile = fileChooser.showSaveDialog(root.getScene().getWindow());
 
       try {
@@ -85,6 +88,7 @@ public class FileHelper {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");
     configInitialDirectory(fileChooser, mainViewModel);
+    fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
     saveFile = fileChooser.showSaveDialog(root.getScene().getWindow());
 
     try {
@@ -134,6 +138,7 @@ public class FileHelper {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Atmosphere File");
     FileHelper.configInitialDirectory(fileChooser, mainViewModel);
+    fileChooser.getExtensionFilters().add(new ExtensionFilter("CSV file", "*.csv"));
     File file = fileChooser.showOpenDialog(root.getScene().getWindow());
     if (file != null) {
       mainViewModel.getSimulation().setAtmosphereFile(file.getAbsolutePath());
