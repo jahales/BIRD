@@ -1,5 +1,7 @@
 package controllers.parts;
 
+import java.io.File;
+
 import controllers.BaseController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -57,9 +59,11 @@ public class MotorController extends BaseController {
 
   @FXML
   private void loadThrustFile() {
-    if (manufacturerValue == null) {
-      System.out.println("Motor is null");
-    }
+    // TODO: Joe implement me
+    // update <thrustFile>
+    String fileName = "Joseph found me";
+    thrustFile.setText(fileName);
+    motor.setThrustFile(fileName);
   }
 
   /**
