@@ -31,8 +31,9 @@ public class MainViewController extends BaseController {
   final static Logger logger = Logger.getLogger(MainViewController.class.getName());
   MainViewModel mainViewModel;
 
-  @FXML private javafx.scene.layout.Pane root;
-  
+  @FXML
+  private javafx.scene.layout.Pane root;
+
   /**
    * @param modelState
    */
@@ -47,6 +48,12 @@ public class MainViewController extends BaseController {
    */
   @FXML
   void fileNew() {
+    //Spawn new instance with mostly empty data
+    FileHelper.spawnNewInstance(new Rocket(), mainViewModel);
+  }
+
+  @FXML
+  void menuIOpenReport() {
     //Spawn new instance with mostly empty data
     FileHelper.spawnNewInstance(new Rocket(), mainViewModel);
   }
@@ -109,9 +116,9 @@ public class MainViewController extends BaseController {
     try {
       //Create the view and controller
       ControllerFactory controllerFactory = new ControllerFactory();
-      SaveDialogController controller = (SaveDialogController)controllerFactory
-          .create("/views/SaveDialog.fxml");      
-      
+      SaveDialogController controller = (SaveDialogController) controllerFactory
+        .create("/views/SaveDialog.fxml");
+
       //Setup the stage
       Scene scene = new Scene((Parent) controller.getView());
       Stage stage = new Stage();
@@ -119,13 +126,13 @@ public class MainViewController extends BaseController {
       stage.initOwner(root.getScene().getWindow());
       stage.setTitle("Do you wish to save?");
       stage.showAndWait();
-      
+
       //get results from the controller
       if (controller.isDoSave()) {
         fileSave();
       }
       return controller.isDoContinue();
-      
+
     } catch (Exception ex) {
       logger.log(Level.WARNING, "Failed to show save dialog.", ex);
       return false;

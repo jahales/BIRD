@@ -40,7 +40,7 @@ public class FileHelper {
     configInitialDirectory(fileChooser, mainViewModel);
     fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
     openFile = fileChooser.showOpenDialog(root.getScene().getWindow());
-    
+
     if (openFile != null) {
       mainViewModel.setPresentWorkingFile(openFile);
       mainViewModel.setPresentWorkingDirectory(openFile.getParentFile());
@@ -80,6 +80,21 @@ public class FileHelper {
           //Inform user that the saving did not work.
         }
       }
+    }
+  }
+
+  static public String openMotorFile(Node root) {
+    File openFile;
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Resource File");
+    //Set initial file path
+    //configInitialDirectory(fileChooser, mainViewModel);
+    fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
+    openFile = fileChooser.showOpenDialog(root.getScene().getWindow());
+    if (openFile != null) {
+      return openFile.getAbsolutePath();
+    } else {
+      return "";
     }
   }
 
@@ -188,7 +203,7 @@ public class FileHelper {
     file.mkdir();
     return file;
   }
-  
+
   public static File spawnResultsFilePath(File resultsFolder, int finNum, int motorNum) throws IOException {
     File file = new File(resultsFolder, "Variant-Motor" + motorNum + "-FinSet" + finNum + ".csv");
     file.createNewFile();

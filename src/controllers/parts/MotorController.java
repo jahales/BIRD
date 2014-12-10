@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import models.FileHelper;
 import models.rocket.parts.Motor;
 
 /**
@@ -61,7 +62,7 @@ public class MotorController extends BaseController {
   private void loadThrustFile() {
     // TODO: Joe implement me
     // update <thrustFile>
-    String fileName = "Joseph found me";
+    String fileName = FileHelper.openMotorFile(thrustFile);
     thrustFile.setText(fileName);
     motor.setThrustFile(fileName);
   }
