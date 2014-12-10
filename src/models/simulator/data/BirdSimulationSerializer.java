@@ -135,7 +135,7 @@ public class BirdSimulationSerializer implements ISerializer<Simulation> {
     thrustElement.setAttribute("Name", "Thrust");
     thrustElement.setAttribute("Type", "Setting");
     rootElement.appendChild(thrustElement);
-    AddItem(thrustElement, "ThrustFile", "C:\\Temp\\5198-M1101-WH-0.csv"); // TODO: fix this
+    AddItem(thrustElement, "ThrustFile", c.getThrustFile()); 
     
     Measurement motorMass = c.getMass();
     Measurement fuelMass = c.getFuelMass();
