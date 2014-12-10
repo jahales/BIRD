@@ -7,7 +7,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.parts.ParachuteController">
 	<children>
-		<fx:include source="RocketComponent.fxml" />
+                <fx:include source="CircularCylinder.fxml" />
 		<GridPane>
 			<columnConstraints>
 				<ColumnConstraints hgrow="SOMETIMES" minWidth="10"  prefWidth="125" />

@@ -259,12 +259,12 @@ public class RocketCreationController extends BaseController {
       }
 
       for (RocketComponent component : rocket.getInteriorComponents()) {
-        if (component instanceof CircularCylinder) {
-          addPartToTreeViewOnly(component, InternalRocketPart.CIRCULAR_CYLINDER, false);
-        } else if (component instanceof Motor) {
+        if (component instanceof Motor) {
           addPartToTreeViewOnly(component, InternalRocketPart.MOTOR, false);
         } else if (component instanceof Parachute) {
           addPartToTreeViewOnly(component, InternalRocketPart.PARACHUTE, false);
+        } else if (component instanceof CircularCylinder) {
+          addPartToTreeViewOnly(component, InternalRocketPart.CIRCULAR_CYLINDER, false);
         }
       }
     } catch (Exception ex) {
@@ -306,20 +306,12 @@ public class RocketCreationController extends BaseController {
       }
       internalTreePartsRoot.getChildren().add(newTreeItem);
       internalTreePartsRoot.setExpanded(true);
-
-      if (type == InternalRocketPart.MOTOR) {
-        internalParts.remove(type);
-      }
     } else if (type instanceof ExternalRocketPart) {
       if (addComponentToRocket) {
         rocket.getExteriorComponents().add(component);
       }
       externalTreePartsRoot.getChildren().add(newTreeItem);
       externalTreePartsRoot.setExpanded(true);
-
-      if (type == ExternalRocketPart.NOSE_CONE || type == ExternalRocketPart.TRAPEZOID_FIN_SET) {
-        externalParts.remove(type);
-      }
     }
   }
 
@@ -365,11 +357,10 @@ public class RocketCreationController extends BaseController {
    * Setup a map from RocketParts to the editor for each part.
    */
   private void setMaps() {
-    if (itemURL.size() > 0)
-    {
+    if (itemURL.size() > 0) {
       return;
     }
-    
+
     itemURL.put(InternalRocketPart.CIRCULAR_CYLINDER, "/views/parts/CircularCylinder.fxml");
     itemURL.put(InternalRocketPart.MOTOR, "/views/parts/Motor.fxml");
     itemURL.put(InternalRocketPart.PARACHUTE, "/views/parts/Parachute.fxml");
