@@ -7,7 +7,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.parts.MotorController">
 	<children>
-		<fx:include source="RocketComponent.fxml" />
+                <fx:include source="CircularCylinder.fxml" />
 		<Separator prefWidth="200.0" />
 		<GridPane>
 			<columnConstraints>

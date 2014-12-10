@@ -259,12 +259,12 @@ public class RocketCreationController extends BaseController {
       }
 
       for (RocketComponent component : rocket.getInteriorComponents()) {
-        if (component instanceof CircularCylinder) {
-          addPartToTreeViewOnly(component, InternalRocketPart.CIRCULAR_CYLINDER, false);
-        } else if (component instanceof Motor) {
+        if (component instanceof Motor) {
           addPartToTreeViewOnly(component, InternalRocketPart.MOTOR, false);
         } else if (component instanceof Parachute) {
           addPartToTreeViewOnly(component, InternalRocketPart.PARACHUTE, false);
+        } else if (component instanceof CircularCylinder) {
+          addPartToTreeViewOnly(component, InternalRocketPart.CIRCULAR_CYLINDER, false);
         }
       }
     } catch (Exception ex) {
@@ -365,11 +365,10 @@ public class RocketCreationController extends BaseController {
    * Setup a map from RocketParts to the editor for each part.
    */
   private void setMaps() {
-    if (itemURL.size() > 0)
-    {
+    if (itemURL.size() > 0) {
       return;
     }
-    
+
     itemURL.put(InternalRocketPart.CIRCULAR_CYLINDER, "/views/parts/CircularCylinder.fxml");
     itemURL.put(InternalRocketPart.MOTOR, "/views/parts/Motor.fxml");
     itemURL.put(InternalRocketPart.PARACHUTE, "/views/parts/Parachute.fxml");
