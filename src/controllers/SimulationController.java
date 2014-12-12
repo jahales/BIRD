@@ -49,10 +49,7 @@ public class SimulationController extends BaseController {
 
   final static Logger logger = Logger.getLogger(SimulationController.class.getName());
   private LaunchRail launchRail;
-  private Measurement length;
-  private Measurement azimuthAngle;
-  private Measurement polarAngle;
-
+  
   MainViewModel mainViewModel;
 
   /**
