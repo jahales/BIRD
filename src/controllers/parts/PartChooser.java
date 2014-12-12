@@ -60,38 +60,38 @@ public class PartChooser {
    */
   public RocketPart showPartDialog(List<RocketPart> internal, List<RocketPart> external,
       Window window) {
-    this.externalPartsList.setCellFactory(this.cellFactory);
-    this.internalPartsList.setCellFactory(this.cellFactory);
+    externalPartsList.setCellFactory(cellFactory);
+    internalPartsList.setCellFactory(cellFactory);
 
-    this.externalPartsList.setItems(FXCollections.observableArrayList(external));
-    this.internalPartsList.setItems(FXCollections.observableArrayList(internal));
+    externalPartsList.setItems(FXCollections.observableArrayList(external));
+    internalPartsList.setItems(FXCollections.observableArrayList(internal));
 
-    keyEvent(this.internalPartsList);
-    keyEvent(this.externalPartsList);
+    keyEvent(internalPartsList);
+    keyEvent(externalPartsList);
 
-    selectedItem(this.internalPartsList, this.internalPartsTab);
-    selectedItem(this.externalPartsList, this.externalPartsTab);
+    selectedItem(internalPartsList, internalPartsTab);
+    selectedItem(externalPartsList, externalPartsTab);
 
     setOnAction();
 
-    this.internalPartsTab.setContent(this.internalPartsList);
-    this.externalPartsTab.setContent(this.externalPartsList);
+    internalPartsTab.setContent(internalPartsList);
+    externalPartsTab.setContent(externalPartsList);
 
-    this.tabs.getTabs().addAll(this.internalPartsTab, this.externalPartsTab);
+    tabs.getTabs().addAll(internalPartsTab, externalPartsTab);
 
     VBox vbox = new VBox();
     HBox hbox = new HBox();
 
-    hbox.getChildren().addAll(this.addPart, this.cancel);
-    vbox.getChildren().addAll(this.tabs, hbox);
+    hbox.getChildren().addAll(addPart, cancel);
+    vbox.getChildren().addAll(tabs, hbox);
 
-    this.stage.setTitle("Add part");
-    this.stage.initOwner(window);
-    this.stage.initModality(Modality.WINDOW_MODAL);
-    this.stage.setScene(new Scene(vbox));
-    this.stage.showAndWait();
+    stage.setTitle("Add part");
+    stage.initOwner(window);
+    stage.initModality(Modality.WINDOW_MODAL);
+    stage.setScene(new Scene(vbox));
+    stage.showAndWait();
 
-    return this.selectedRocketPart;
+    return selectedRocketPart;
   }
 
   /**
@@ -149,11 +149,11 @@ public class PartChooser {
    */
   private void selectedItem(ListView<RocketPart> list, Tab tab) {
     list.getSelectionModel().selectedItemProperty()
-        .addListener((ChangeListener<RocketPart>) (reserved, old, current) -> {
-          if (tab.isSelected()) {
-            PartChooser.this.selectedRocketPart = current;
-          }
-        });
+    .addListener((ChangeListener<RocketPart>) (reserved, old, current) -> {
+      if (tab.isSelected()) {
+        PartChooser.this.selectedRocketPart = current;
+      }
+    });
   }
 
   /**
@@ -165,13 +165,13 @@ public class PartChooser {
   private void keyEvent(ListView<RocketPart> list) {
     list.setOnKeyPressed((event) -> {
       if (event.getCode() == KeyCode.ENTER) {
-        this.stage.close();
+        stage.close();
       }
     });
 
     list.setOnMouseClicked((event) -> {
       if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-        this.stage.close();
+        stage.close();
       }
     });
   }
@@ -180,16 +180,16 @@ public class PartChooser {
    * Set events for pushing buttons and stuff
    */
   private void setOnAction() {
-    this.addPart.setOnAction((event) -> {
-      this.stage.close();
+    addPart.setOnAction((event) -> {
+      stage.close();
     });
-    this.cancel.setOnAction((event) -> {
-      this.selectedRocketPart = null;
-      this.stage.close();
+    cancel.setOnAction((event) -> {
+      selectedRocketPart = null;
+      stage.close();
     });
-    this.stage.setOnCloseRequest((event) -> {
-      this.selectedRocketPart = null;
-      this.stage.close();
+    stage.setOnCloseRequest((event) -> {
+      selectedRocketPart = null;
+      stage.close();
     });
   }
 }

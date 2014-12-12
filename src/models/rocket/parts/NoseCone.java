@@ -46,7 +46,7 @@ public class NoseCone extends RocketComponent {
    * @return A NoseShape specifying the shape.
    */
   public NoseShape getNoseShape() {
-    return this.noseShape;
+    return noseShape;
   }
 
   /**
@@ -61,7 +61,7 @@ public class NoseCone extends RocketComponent {
    * @return Diameter at the base of the nose.
    */
   public Measurement getDiameter() {
-    return this.diameter;
+    return diameter;
   }
 
   /**
@@ -76,7 +76,7 @@ public class NoseCone extends RocketComponent {
    * @return Shape parameter of the nose cone.
    */
   public double getShapeParameter() {
-    return this.shapeParameter;
+    return shapeParameter;
   }
 
   /**
@@ -91,14 +91,14 @@ public class NoseCone extends RocketComponent {
    * @return True if the nose shape has a shape parameter
    */
   public Boolean getHasShapeParameter() {
-    return this.noseShape == NoseShape.POWERSERIES;
+    return noseShape == NoseShape.POWERSERIES;
   }
 
   /**
    * @return A description of the nose cone shape parameter.
    */
   public String getShapeParameterDescription() {
-    switch (this.noseShape) {
+    switch (noseShape) {
     case POWERSERIES:
       return "Exponent of the power series function.";
     default:

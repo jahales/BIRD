@@ -32,6 +32,7 @@ public class DataTable {
   private Map<String, List<Number>> columnMap = new HashMap<String, List<Number>>();
   private List<String> columnNames = new ArrayList<String>();
   private List<List<Number>> data = new ArrayList<List<Number>>(); // List of
+
   // rows
 
   /**
@@ -41,13 +42,13 @@ public class DataTable {
    *          name of new column
    */
   public void addColumn(String columnName) {
-    this.columnNames.add(columnName);
+    columnNames.add(columnName);
     List<Number> column = new ArrayList<Number>();
-    for (List<Number> row : this.data) {
+    for (List<Number> row : data) {
       row.add(0);
       column.add(row.get(row.size() - 1));
     }
-    this.columnMap.put(columnName, column);
+    columnMap.put(columnName, column);
   }
 
   /**
@@ -60,10 +61,10 @@ public class DataTable {
    *           row length doesn't match
    */
   public void addRow(List<Number> row) throws RowFormatError {
-    if (row.size() == this.columnNames.size()) {
-      this.data.add(row);
-      for (int i = 0; i < this.columnNames.size(); i++) {
-        this.columnMap.get(this.columnNames.get(i)).add(row.get(i));
+    if (row.size() == columnNames.size()) {
+      data.add(row);
+      for (int i = 0; i < columnNames.size(); i++) {
+        columnMap.get(columnNames.get(i)).add(row.get(i));
       }
     } else {
       throw new RowFormatError("Size of row does match number of columns defined.");
@@ -74,14 +75,14 @@ public class DataTable {
    * @return a map of column name to column list
    */
   public Map<String, List<Number>> getColumnMap() {
-    return this.columnMap;
+    return columnMap;
   }
 
   /**
    * @return list of names for the columns
    */
   public List<String> getColumnNames() {
-    return this.columnNames;
+    return columnNames;
   }
 
   /**
@@ -92,7 +93,7 @@ public class DataTable {
    * @return the column as a list
    */
   public List<Number> getColumn(String columnName) {
-    return this.columnMap.get(columnName);
+    return columnMap.get(columnName);
   }
 
   /**
@@ -103,7 +104,7 @@ public class DataTable {
    * @return the row as a list
    */
   public List<Number> getRow(int row) {
-    return this.data.get(row);
+    return data.get(row);
   }
 
   /**
@@ -111,13 +112,13 @@ public class DataTable {
    * @return number of rows
    */
   public int getRows() {
-    return this.data.size();
+    return data.size();
   }
 
   /**
    * @return the internal representation of the data
    */
   public List<List<Number>> getData() {
-    return this.data;
+    return data;
   }
 }

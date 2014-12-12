@@ -91,18 +91,18 @@ public class RocketCreationController extends BaseController {
     public IndividualRocketComponentTreeItem(String url, RocketComponent component) {
       super(component.getName());
       this.component = component;
-      this.view = loadComponentView(url, component);
+      view = loadComponentView(url, component);
     }
 
     @Override
     public void setPaneNode(AnchorPane pane) {
       pane.getChildren().clear();
-      pane.getChildren().add(this.view);
+      pane.getChildren().add(view);
     }
 
     @Override
     public void updateSelectedComponent() {
-      RocketCreationController.this.currentRocketComponent = this.component;
+      currentRocketComponent = component;
     }
   }
 
@@ -259,15 +259,15 @@ public class RocketCreationController extends BaseController {
   void addPart() throws Exception {
     // Allow the user to select a rocket part to add
     PartChooser partChooser = new PartChooser();
-    RocketPart part = partChooser.showPartDialog(this.internalParts, this.externalParts,
-        this.partViewer.getScene().getWindow());
+    RocketPart part = partChooser.showPartDialog(internalParts, externalParts, partViewer
+        .getScene().getWindow());
 
     if (part == null) {
       return;
     }
 
     // Add the part to the rocket and component tree
-    RocketComponent component = (RocketComponent) this.itemType.get(part).newInstance();
+    RocketComponent component = (RocketComponent) itemType.get(part).newInstance();
     component.setName(part.toString());
 
     addPartToTreeView(component, part, true);
@@ -276,23 +276,23 @@ public class RocketCreationController extends BaseController {
   private void addPartToTreeView(RocketComponent component, RocketPart type,
       boolean addComponentToRocket) {
 
-    String url = this.itemURL.get(type);
+    String url = itemURL.get(type);
     IndividualRocketComponentTreeItem newTreeItem;
     newTreeItem = new IndividualRocketComponentTreeItem(url, component);
 
     if (type instanceof InternalRocketPart) {
       if (addComponentToRocket) {
-        this.rocket.getInteriorComponents().add(component);
+        rocket.getInteriorComponents().add(component);
       }
 
-      this.internalTreePartsRoot.getChildren().add(newTreeItem);
-      this.internalTreePartsRoot.setExpanded(true);
+      internalTreePartsRoot.getChildren().add(newTreeItem);
+      internalTreePartsRoot.setExpanded(true);
     } else if (type instanceof ExternalRocketPart) {
       if (addComponentToRocket) {
-        this.rocket.getExteriorComponents().add(component);
+        rocket.getExteriorComponents().add(component);
       }
-      this.externalTreePartsRoot.getChildren().add(newTreeItem);
-      this.externalTreePartsRoot.setExpanded(true);
+      externalTreePartsRoot.getChildren().add(newTreeItem);
+      externalTreePartsRoot.setExpanded(true);
     }
   }
 
@@ -306,13 +306,13 @@ public class RocketCreationController extends BaseController {
     ContextMenu contextMenu = new ContextMenu();
     MenuItem menuItem = new MenuItem("Delete");
     contextMenu.getItems().add(menuItem);
-    this.partList.setContextMenu(contextMenu);
+    partList.setContextMenu(contextMenu);
 
     TreeItem<String> treeViewRoot = new TreeItem<String>();
 
     treeViewRoot.setExpanded(true);
-    treeViewRoot.getChildren().add(this.internalTreePartsRoot);
-    treeViewRoot.getChildren().add(this.externalTreePartsRoot);
+    treeViewRoot.getChildren().add(internalTreePartsRoot);
+    treeViewRoot.getChildren().add(externalTreePartsRoot);
 
     menuItem.setOnAction(event -> {
       if (RocketCreationController.this.internalTreePartsRoot.getChildren().contains(
@@ -335,9 +335,9 @@ public class RocketCreationController extends BaseController {
       }
     });
 
-    this.partList.getSelectionModel().selectedItemProperty().addListener(this.selectionEvent);
-    this.partList.setRoot(treeViewRoot);
-    this.partList.setShowRoot(false);
+    partList.getSelectionModel().selectedItemProperty().addListener(selectionEvent);
+    partList.setRoot(treeViewRoot);
+    partList.setShowRoot(false);
   }
 
   /**
@@ -361,26 +361,26 @@ public class RocketCreationController extends BaseController {
    * Setup a map from RocketParts to the editor for each part.
    */
   private void setMaps() {
-    if (this.itemURL.size() > 0) {
+    if (itemURL.size() > 0) {
       return;
     }
 
-    this.itemURL.put(InternalRocketPart.CIRCULAR_CYLINDER, "/views/parts/CircularCylinder.fxml");
-    this.itemURL.put(InternalRocketPart.MOTOR, "/views/parts/Motor.fxml");
-    this.itemURL.put(InternalRocketPart.PARACHUTE, "/views/parts/Parachute.fxml");
+    itemURL.put(InternalRocketPart.CIRCULAR_CYLINDER, "/views/parts/CircularCylinder.fxml");
+    itemURL.put(InternalRocketPart.MOTOR, "/views/parts/Motor.fxml");
+    itemURL.put(InternalRocketPart.PARACHUTE, "/views/parts/Parachute.fxml");
 
-    this.itemType.put(InternalRocketPart.CIRCULAR_CYLINDER, CircularCylinder.class);
-    this.itemType.put(InternalRocketPart.MOTOR, Motor.class);
-    this.itemType.put(InternalRocketPart.PARACHUTE, Parachute.class);
+    itemType.put(InternalRocketPart.CIRCULAR_CYLINDER, CircularCylinder.class);
+    itemType.put(InternalRocketPart.MOTOR, Motor.class);
+    itemType.put(InternalRocketPart.PARACHUTE, Parachute.class);
 
-    this.itemURL.put(ExternalRocketPart.CIRCULAR_CYLINDER, "/views/parts/CircularCylinder.fxml");
-    this.itemURL.put(ExternalRocketPart.CONICAL_FRUSTUM, "/views/parts/ConicalFrustum.fxml");
-    this.itemURL.put(ExternalRocketPart.NOSE_CONE, "/views/parts/NoseCone.fxml");
-    this.itemURL.put(ExternalRocketPart.TRAPEZOID_FIN_SET, "/views/parts/TrapezoidFinSet.fxml");
+    itemURL.put(ExternalRocketPart.CIRCULAR_CYLINDER, "/views/parts/CircularCylinder.fxml");
+    itemURL.put(ExternalRocketPart.CONICAL_FRUSTUM, "/views/parts/ConicalFrustum.fxml");
+    itemURL.put(ExternalRocketPart.NOSE_CONE, "/views/parts/NoseCone.fxml");
+    itemURL.put(ExternalRocketPart.TRAPEZOID_FIN_SET, "/views/parts/TrapezoidFinSet.fxml");
 
-    this.itemType.put(ExternalRocketPart.CIRCULAR_CYLINDER, CircularCylinder.class);
-    this.itemType.put(ExternalRocketPart.CONICAL_FRUSTUM, ConicalFrustum.class);
-    this.itemType.put(ExternalRocketPart.NOSE_CONE, NoseCone.class);
-    this.itemType.put(ExternalRocketPart.TRAPEZOID_FIN_SET, TrapezoidFinSet.class);
+    itemType.put(ExternalRocketPart.CIRCULAR_CYLINDER, CircularCylinder.class);
+    itemType.put(ExternalRocketPart.CONICAL_FRUSTUM, ConicalFrustum.class);
+    itemType.put(ExternalRocketPart.NOSE_CONE, NoseCone.class);
+    itemType.put(ExternalRocketPart.TRAPEZOID_FIN_SET, TrapezoidFinSet.class);
   }
 }

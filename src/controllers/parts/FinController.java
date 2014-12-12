@@ -59,33 +59,31 @@ public class FinController extends BaseController {
    */
   public void initialize() {
     // Populate fields with whatever values we got
-    this.finCountValue.setText(Integer.toString(this.trapezoidFinSet.getCount()));
+    finCountValue.setText(Integer.toString(trapezoidFinSet.getCount()));
 
-    this.spanLengthValue.setText(Double.toString(this.trapezoidFinSet.getSpanLength().getValue()));
-    this.sweepLengthValue
-        .setText(Double.toString(this.trapezoidFinSet.getSweepLength().getValue()));
-    this.rootChordValue.setText(Double.toString(this.trapezoidFinSet.getRootChord().getValue()));
+    spanLengthValue.setText(Double.toString(trapezoidFinSet.getSpanLength().getValue()));
+    sweepLengthValue.setText(Double.toString(trapezoidFinSet.getSweepLength().getValue()));
+    rootChordValue.setText(Double.toString(trapezoidFinSet.getRootChord().getValue()));
 
-    this.spanLengthError.setText(Double.toString(this.trapezoidFinSet.getSpanLength().getError()));
-    this.sweepLengthError
-        .setText(Double.toString(this.trapezoidFinSet.getSweepLength().getError()));
-    this.rootChordError.setText(Double.toString(this.trapezoidFinSet.getRootChord().getError()));
+    spanLengthError.setText(Double.toString(trapezoidFinSet.getSpanLength().getError()));
+    sweepLengthError.setText(Double.toString(trapezoidFinSet.getSweepLength().getError()));
+    rootChordError.setText(Double.toString(trapezoidFinSet.getRootChord().getError()));
 
-    this.spanLengthUnits.setValue(this.trapezoidFinSet.getSpanLength().getUnit().toString());
-    this.sweepLengthUnits.setValue(this.trapezoidFinSet.getSweepLength().getUnit().toString());
-    this.rootChordUnits.setValue(this.trapezoidFinSet.getRootChord().getUnit().toString());
+    spanLengthUnits.setValue(trapezoidFinSet.getSpanLength().getUnit().toString());
+    sweepLengthUnits.setValue(trapezoidFinSet.getSweepLength().getUnit().toString());
+    rootChordUnits.setValue(trapezoidFinSet.getRootChord().getUnit().toString());
 
     // Set listeners
-    ListenerHelpers.addValueListener(this.rootChordValue, this.trapezoidFinSet.getRootChord());
-    ListenerHelpers.addValueListener(this.spanLengthValue, this.trapezoidFinSet.getSpanLength());
-    ListenerHelpers.addValueListener(this.sweepLengthValue, this.trapezoidFinSet.getSweepLength());
+    ListenerHelpers.addValueListener(rootChordValue, trapezoidFinSet.getRootChord());
+    ListenerHelpers.addValueListener(spanLengthValue, trapezoidFinSet.getSpanLength());
+    ListenerHelpers.addValueListener(sweepLengthValue, trapezoidFinSet.getSweepLength());
 
-    ListenerHelpers.addErrorListener(this.rootChordError, this.trapezoidFinSet.getRootChord());
-    ListenerHelpers.addErrorListener(this.spanLengthError, this.trapezoidFinSet.getSpanLength());
-    ListenerHelpers.addErrorListener(this.sweepLengthError, this.trapezoidFinSet.getSweepLength());
+    ListenerHelpers.addErrorListener(rootChordError, trapezoidFinSet.getRootChord());
+    ListenerHelpers.addErrorListener(spanLengthError, trapezoidFinSet.getSpanLength());
+    ListenerHelpers.addErrorListener(sweepLengthError, trapezoidFinSet.getSweepLength());
 
-    ListenerHelpers.addUnitListener(this.rootChordUnits, this.trapezoidFinSet.getRootChord());
-    ListenerHelpers.addUnitListener(this.spanLengthUnits, this.trapezoidFinSet.getSpanLength());
-    ListenerHelpers.addUnitListener(this.sweepLengthUnits, this.trapezoidFinSet.getSweepLength());
+    ListenerHelpers.addUnitListener(rootChordUnits, trapezoidFinSet.getRootChord());
+    ListenerHelpers.addUnitListener(spanLengthUnits, trapezoidFinSet.getSpanLength());
+    ListenerHelpers.addUnitListener(sweepLengthUnits, trapezoidFinSet.getSweepLength());
   }
 }

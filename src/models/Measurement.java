@@ -45,7 +45,7 @@ public class Measurement {
    * @return the value of the {@link Measurement}
    */
   public double getValue() {
-    return this.value;
+    return value;
   }
 
   /**
@@ -60,7 +60,7 @@ public class Measurement {
    * @return the error of the {@link Measurement}
    */
   public double getError() {
-    return this.error;
+    return error;
   }
 
   /**
@@ -76,7 +76,7 @@ public class Measurement {
    * @return the {@link Unit} of measurement
    */
   public Unit getUnit() {
-    return this.unit;
+    return unit;
   }
 
   /**

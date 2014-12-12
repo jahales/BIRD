@@ -24,7 +24,7 @@ public class Motor extends CircularCylinder {
    * @return manufacturer
    */
   public String getManufacturer() {
-    return this.manufacturer;
+    return manufacturer;
   }
 
   /**
@@ -39,7 +39,7 @@ public class Motor extends CircularCylinder {
    * @return a string of delays
    */
   public String getDelays() {
-    return this.delays;
+    return delays;
   }
 
   /**
@@ -54,7 +54,7 @@ public class Motor extends CircularCylinder {
    * @return a {@link Measurement} for fuel mass
    */
   public Measurement getFuelMass() {
-    return this.fuelMass;
+    return fuelMass;
   }
 
   /**
@@ -69,7 +69,7 @@ public class Motor extends CircularCylinder {
    * @return a {@link Measurement} for polar angle
    */
   public Measurement getPolarAngle() {
-    return this.polarAngle;
+    return polarAngle;
   }
 
   /**
@@ -84,7 +84,7 @@ public class Motor extends CircularCylinder {
    * @return a {@link Measurement} for azimuth angle
    */
   public Measurement getAzimuthAngle() {
-    return this.azimuthAngle;
+    return azimuthAngle;
   }
 
   /**
@@ -99,7 +99,7 @@ public class Motor extends CircularCylinder {
    * @return thrust {@link DataTable}
    */
   public String getThrustFile() {
-    return this.thrustFile;
+    return thrustFile;
   }
 
   /**
@@ -111,7 +111,7 @@ public class Motor extends CircularCylinder {
   }
 
   public String getENGFilePath() {
-    return this.ENGFilePath;
+    return ENGFilePath;
   }
 
   public void setENGFilePath(String ENGFilePath) {

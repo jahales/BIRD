@@ -27,11 +27,11 @@ public class ListenerHelpers {
    */
   public static void addUnitListener(ChoiceBox<String> field, Measurement measurement) {
     field
-        .getSelectionModel()
-        .selectedItemProperty()
-        .addListener(
-            (ChangeListener<String>) (reserved, old, current) -> measurement.setUnit(Unit
-                .valueOf(current)));
+    .getSelectionModel()
+    .selectedItemProperty()
+    .addListener(
+        (ChangeListener<String>) (reserved, old, current) -> measurement.setUnit(Unit
+            .valueOf(current)));
   }
 
   /**

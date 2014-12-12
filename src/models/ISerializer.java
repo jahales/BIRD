@@ -5,7 +5,7 @@ import java.io.OutputStream;
 
 /**
  * Generic interface for serializing data
- * 
+ *
  * @author Jacob
  * @param <T>
  *          The type of object to serialize.
@@ -14,7 +14,7 @@ public interface ISerializer<T> {
 
   /**
    * Serializes the specified object instance.
-   * 
+   *
    * @param o
    *          The instance to serialize.
    * @param outputStream
@@ -25,7 +25,7 @@ public interface ISerializer<T> {
 
   /**
    * Deserializes the specified stream into an object instance.
-   * 
+   *
    * @param inputStream
    *          The stream to deserialize from.
    * @return Returns an object instance as deserialized.

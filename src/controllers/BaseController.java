@@ -12,7 +12,7 @@ public class BaseController implements IController {
 
   @Override
   public Node getView() {
-    return this.view;
+    return view;
   }
 
   @Override

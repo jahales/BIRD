@@ -31,12 +31,12 @@ public class Rocket {
    * @return
    */
   public RocketComponent getPartByName(String name) {
-    for (RocketComponent component : this.exteriorComponents) {
+    for (RocketComponent component : exteriorComponents) {
       if (component.getName() == name) {
         return component;
       }
     }
-    for (RocketComponent component : this.interiorComponents) {
+    for (RocketComponent component : interiorComponents) {
       if (component.getName() == name) {
         return component;
       }
@@ -49,7 +49,7 @@ public class Rocket {
    * @return
    */
   public String getName() {
-    return this.name;
+    return name;
   }
 
   /**
@@ -65,7 +65,7 @@ public class Rocket {
    * @return
    */
   public Measurement getMass() {
-    return this.mass;
+    return mass;
   }
 
   /**
@@ -81,7 +81,7 @@ public class Rocket {
    * @return
    */
   public Map<String, Measurement> getOverrides() {
-    return this.overrides;
+    return overrides;
   }
 
   /**
@@ -96,7 +96,7 @@ public class Rocket {
    * @return interiorComponents
    */
   public List<RocketComponent> getInteriorComponents() {
-    return this.interiorComponents;
+    return interiorComponents;
   }
 
   /**
@@ -110,7 +110,7 @@ public class Rocket {
    * @return exteriorComponents
    */
   public List<RocketComponent> getExteriorComponents() {
-    return this.exteriorComponents;
+    return exteriorComponents;
   }
 
   /**
@@ -124,7 +124,7 @@ public class Rocket {
    * @return radialCenterOfMass
    */
   public Measurement getRadialCenterOfMass() {
-    return this.radialCenterOfMass;
+    return radialCenterOfMass;
   }
 
   /**
@@ -138,7 +138,7 @@ public class Rocket {
    * @return radialMomentOfInertia
    */
   public Measurement getRadialMomentOfInertia() {
-    return this.radialMomentOfInertia;
+    return radialMomentOfInertia;
   }
 
   /**
@@ -152,7 +152,7 @@ public class Rocket {
    * @return longitudinalMomentOfInertia
    */
   public Measurement getLongitudinalMomentOfInertia() {
-    return this.longitudinalMomentOfInertia;
+    return longitudinalMomentOfInertia;
   }
 
   /**

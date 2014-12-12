@@ -47,12 +47,12 @@ public class CSVReaderTest {
 
       @Override
       public void write(int b) throws IOException {
-        this.string.append((char) b);
+        string.append((char) b);
       }
 
       @Override
       public String toString() {
-        return this.string.toString();
+        return string.toString();
       }
     };
 

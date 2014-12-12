@@ -17,7 +17,7 @@ public class LaunchRail {
    * @return length
    */
   public Measurement getLength() {
-    return this.length;
+    return length;
   }
 
   /**
@@ -31,7 +31,7 @@ public class LaunchRail {
    * @return polarAngle
    */
   public Measurement getPolarAngle() {
-    return this.polarAngle;
+    return polarAngle;
   }
 
   /**
@@ -45,7 +45,7 @@ public class LaunchRail {
    * @return azimuthAngle
    */
   public Measurement getAzimuthAngle() {
-    return this.azimuthAngle;
+    return azimuthAngle;
   }
 
   /**

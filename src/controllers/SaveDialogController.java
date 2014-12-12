@@ -26,34 +26,34 @@ public class SaveDialogController extends BaseController implements Initializabl
   private javafx.scene.layout.Pane saveDialogRoot;
 
   public boolean isDoSave() {
-    return this.doSave;
+    return doSave;
   }
 
   public boolean isDoContinue() {
-    return this.doContinue;
+    return doContinue;
   }
 
   @FXML
   void save() {
-    this.doSave = true;
-    this.doContinue = true;
-    Stage stage = (Stage) this.saveDialogRoot.getScene().getWindow();
+    doSave = true;
+    doContinue = true;
+    Stage stage = (Stage) saveDialogRoot.getScene().getWindow();
     stage.close();
   }
 
   @FXML
   void dontSave() {
-    this.doSave = false;
-    this.doContinue = true;
-    Stage stage = (Stage) this.saveDialogRoot.getScene().getWindow();
+    doSave = false;
+    doContinue = true;
+    Stage stage = (Stage) saveDialogRoot.getScene().getWindow();
     stage.close();
   }
 
   @FXML
   void cancel() {
-    this.doSave = false;
-    this.doContinue = false;
-    Stage stage = (Stage) this.saveDialogRoot.getScene().getWindow();
+    doSave = false;
+    doContinue = false;
+    Stage stage = (Stage) saveDialogRoot.getScene().getWindow();
     stage.close();
   }
 

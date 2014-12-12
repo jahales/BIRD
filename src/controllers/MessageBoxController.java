@@ -23,7 +23,7 @@ public class MessageBoxController extends BaseController {
 
   @FXML
   void btnOK() {
-    ((Stage) this.lblMessage.getScene().getWindow()).close();
+    ((Stage) lblMessage.getScene().getWindow()).close();
   }
 
   static public void showMessage(String message, Node owner) {

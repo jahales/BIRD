@@ -46,26 +46,26 @@ public class NoseConeController extends BaseController {
    */
   public void initialize() {
     // Populate fields with whatever values we got
-    this.shapeParameter.setText(Double.toString(this.noseCone.getShapeParameter()));
+    shapeParameter.setText(Double.toString(noseCone.getShapeParameter()));
 
-    this.diameterValue.setText(Double.toString(this.noseCone.getDiameter().getValue()));
-    this.diameterError.setText(Double.toString(this.noseCone.getDiameter().getError()));
-    this.diameterUnits.setValue(this.noseCone.getDiameter().getUnit().toString());
+    diameterValue.setText(Double.toString(noseCone.getDiameter().getValue()));
+    diameterError.setText(Double.toString(noseCone.getDiameter().getError()));
+    diameterUnits.setValue(noseCone.getDiameter().getUnit().toString());
 
     // shape.setValue(noseCone.getShapeParameterDescription()); // Not sure if
     // this is correct!
 
     // Set listeners
-    ListenerHelpers.addUnitListener(this.diameterUnits, this.noseCone.getDiameter());
-    this.shape
-        .getSelectionModel()
-        .selectedItemProperty()
-        .addListener(
-            (ChangeListener<String>) (arg0, arg1, arg2) -> NoseConeController.this.noseCone
-                .setNoseShape(NoseShape.valueOf(arg2.toUpperCase())));
+    ListenerHelpers.addUnitListener(diameterUnits, noseCone.getDiameter());
+    shape
+    .getSelectionModel()
+    .selectedItemProperty()
+    .addListener(
+        (ChangeListener<String>) (arg0, arg1, arg2) -> NoseConeController.this.noseCone
+        .setNoseShape(NoseShape.valueOf(arg2.toUpperCase())));
 
-    ListenerHelpers.addValueListener(this.diameterValue, this.noseCone.getDiameter());
-    this.shapeParameter.textProperty().addListener((ChangeListener<String>) (arg0, arg1, arg2) -> {
+    ListenerHelpers.addValueListener(diameterValue, noseCone.getDiameter());
+    shapeParameter.textProperty().addListener((ChangeListener<String>) (arg0, arg1, arg2) -> {
       try {
         NoseConeController.this.noseCone.setShapeParameter(Double.parseDouble(arg2));
       } catch (NumberFormatException e) {
@@ -73,6 +73,6 @@ public class NoseConeController extends BaseController {
       }
     });
 
-    ListenerHelpers.addErrorListener(this.diameterError, this.noseCone.getDiameter());
+    ListenerHelpers.addErrorListener(diameterError, noseCone.getDiameter());
   }
 }

@@ -24,7 +24,7 @@ public class MainViewModel {
    * @return rocket
    */
   public Rocket getRocket() {
-    return this.rocket;
+    return rocket;
   }
 
   /**
@@ -39,7 +39,7 @@ public class MainViewModel {
    * @return simulation
    */
   public Simulation getSimulation() {
-    return this.simulation;
+    return simulation;
   }
 
   /**
@@ -54,21 +54,21 @@ public class MainViewModel {
    * @return neverBeenSaved
    */
   public boolean hasNeverBeenSaved() {
-    return this.neverBeenSaved;
+    return neverBeenSaved;
   }
 
   /**
    * @param unsaved
    */
   public void setNeverBeenSaved(boolean unsaved) {
-    this.neverBeenSaved = unsaved;
+    neverBeenSaved = unsaved;
   }
 
   /**
    * @return presentWorkingFile
    */
   public File getPresentWorkingFile() {
-    return this.presentWorkingFile;
+    return presentWorkingFile;
   }
 
   /**
@@ -82,7 +82,7 @@ public class MainViewModel {
    * @return presentWorkingDirectory
    */
   public File getPresentWorkingDirectory() {
-    return this.presentWorkingDirectory;
+    return presentWorkingDirectory;
   }
 
   /**
@@ -96,7 +96,7 @@ public class MainViewModel {
    * @return unsaved
    */
   public boolean isUnsaved() {
-    return this.unsaved;
+    return unsaved;
   }
 
   /**
