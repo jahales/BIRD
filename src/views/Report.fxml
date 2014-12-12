@@ -21,10 +21,10 @@
 		</VBox>
 		<LineChart fx:id="graph" title="Results" HBox.hgrow="ALWAYS">
 			<xAxis>
-				<NumberAxis label="Time" side="BOTTOM" fx:id="xAxis" />
+				<NumberAxis fx:id="xAxis" side="BOTTOM" />
 			</xAxis>
 			<yAxis>
-				<NumberAxis fx:id="yAxis" label="Speed" side="LEFT" />
+				<NumberAxis fx:id="yAxis" side="LEFT" />
 			</yAxis>
 		</LineChart>
 	</children>
