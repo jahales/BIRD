@@ -98,15 +98,16 @@ public class MotorController extends BaseController {
     // Set listeners
     manufacturerValue.textProperty().addListener(new ChangeListener<String>() {
       @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        motor.setManufacturer(arg2);
+      public void changed(ObservableValue<? extends String> observable, String oldValue,
+          String newValue) {
+        motor.setManufacturer(newValue);
       }
     });
-
     delaysValue.textProperty().addListener(new ChangeListener<String>() {
       @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        motor.setDelays(arg2);
+      public void changed(ObservableValue<? extends String> observable, String oldValue,
+          String newValue) {
+        motor.setDelays(newValue);
       }
     });
 
