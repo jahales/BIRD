@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <GridPane fx:id="root" alignment="CENTER" hgap="3" vgap="3" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SimulationController">
 	<columnConstraints>
 		<ColumnConstraints hgrow="SOMETIMES" maxWidth="171" minWidth="0" prefWidth="98" />
@@ -24,42 +22,33 @@
 		<RowConstraints minHeight="10" vgrow="SOMETIMES" />
 	</rowConstraints>
 	<children>
-		
 		<Label text="Launch Rail" />
 		<Label text="Value" GridPane.columnIndex="1" />
 		<Label text="Error" GridPane.columnIndex="2" />
 		<Label text="Units" GridPane.columnIndex="3" />
-		
 		<Label text="Length" GridPane.rowIndex="1" />
 		<TextField fx:id="lengthValue" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 		<TextField fx:id="lengthError" GridPane.columnIndex="2" GridPane.rowIndex="1" />
 		<fx:include fx:id="lengthUnits" source="parts/fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-		
 		<Label text="Polar Angle" GridPane.rowIndex="2" />
 		<TextField fx:id="polarAngleValue" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 		<TextField fx:id="polarAngleError" GridPane.columnIndex="2" GridPane.rowIndex="2" />
 		<fx:include fx:id="polarAngleUnits" source="parts/fxmlpieces/Angle.fxml" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-		
 		<Label text="Azimuth Angle" GridPane.rowIndex="3" />
 		<TextField fx:id="azimuthAngleValue" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 		<TextField fx:id="azimuthAngleError" GridPane.columnIndex="2" GridPane.rowIndex="3" />
 		<fx:include fx:id="azimuthAngleUnits" source="parts/fxmlpieces/Angle.fxml" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-		
 		<CheckBox fx:id="motorChkBox" mnemonicParsing="false" onAction="#motorChkBoxChange" text="Use all motor variants" GridPane.columnIndex="4" />
-	  	<ChoiceBox fx:id="motorChcBox" onMouseClicked="#clkMotorChcBox" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-		
+		<ChoiceBox fx:id="motorChcBox" onMouseClicked="#clkMotorChcBox" GridPane.columnIndex="4" GridPane.rowIndex="1" />
 		<CheckBox fx:id="finChkBox" mnemonicParsing="false" onAction="#finChkBoxChange" text="Use all fin variants" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-	  	<ChoiceBox fx:id="finChcBox" onMouseClicked="#clkFinChcBox" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-		
+		<ChoiceBox fx:id="finChcBox" onMouseClicked="#clkFinChcBox" GridPane.columnIndex="4" GridPane.rowIndex="3" />
 		<Button mnemonicParsing="false" onAction="#setDefaultRail" text="Set as Default Rail" GridPane.rowIndex="4" />
-		
 		<Label fx:id="atmosphereFilePath" text="atmoshpere file" GridPane.columnIndex="3" GridPane.rowIndex="4" />
 		<Button mnemonicParsing="false" onAction="#openAtmosphereFile" text="Open Atmosphere File" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-		
 		<Button mnemonicParsing="false" onAction="#btnSimulation" text="Run Simulation" GridPane.columnIndex="3" GridPane.rowIndex="5" />
 		<Button mnemonicParsing="false" onAction="#btnMonteCarlo" text="Run Monte Carlo Simulation" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-      <TextField fx:id="numberMonteCarlo" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-      <Label text="Sim Iterations" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+		<TextField fx:id="numberMonteCarlo" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+		<Label text="Sim Iterations" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 	</children>
 	<padding>
 		<Insets bottom="3" left="3" right="3" top="3" />

@@ -1,7 +1,5 @@
 package controllers;
 
-import static controllers.SimulationController.logger;
-import java.io.FileInputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,8 +10,6 @@ import javafx.stage.Stage;
 import models.AppSettings;
 import models.FileHelper;
 import models.MainViewModel;
-import models.report.CSVReader;
-import models.report.DataTable;
 import models.rocket.Rocket;
 
 /**

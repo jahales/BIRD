@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <AnchorPane id="AnchorPane" prefHeight="93.0" prefWidth="246.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SaveDialogController" fx:id="saveDialogRoot">
 	<children>
 		<Button fx:id="btnSave" onAction="#save" layoutX="14.0" layoutY="60.0" mnemonicParsing="false" text="Save" />

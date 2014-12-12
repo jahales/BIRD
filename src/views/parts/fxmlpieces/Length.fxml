@@ -5,7 +5,7 @@
 <?import javafx.collections.*?>
 
 
-<ChoiceBox fx:id="thing" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" value="centimeters">
+<ChoiceBox prefWidth="100.0" fx:id="thing" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" value="centimeters">
 	<items>
 		<FXCollections fx:factory="observableArrayList">
 			<String fx:value="millimeters" />

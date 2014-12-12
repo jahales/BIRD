@@ -294,6 +294,7 @@ public class RocketCreationController extends BaseController {
       externalTreePartsRoot.getChildren().add(newTreeItem);
       externalTreePartsRoot.setExpanded(true);
     }
+    partList.getSelectionModel().select(newTreeItem);
   }
 
   /**

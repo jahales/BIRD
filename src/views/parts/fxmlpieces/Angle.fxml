@@ -4,8 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.collections.*?>
 
-
-<ChoiceBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" value="degrees">
+<ChoiceBox prefWidth="100.0" value="degrees" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 	<items>
 		<FXCollections fx:factory="observableArrayList">
 			<String fx:value="degrees" />
