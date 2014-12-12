@@ -291,12 +291,12 @@ public class RocketCreationController extends BaseController {
       }
 
       for (RocketComponent component : rocket.getInteriorComponents()) {
-        if (component instanceof CircularCylinder) {
-          addPartToTreeView(component, InternalRocketPart.CIRCULAR_CYLINDER, false);
-        } else if (component instanceof Motor) {
+        if (component instanceof Motor) {
           addPartToTreeView(component, InternalRocketPart.MOTOR, false);
         } else if (component instanceof Parachute) {
           addPartToTreeView(component, InternalRocketPart.PARACHUTE, false);
+        } else if (component instanceof CircularCylinder) {
+          addPartToTreeView(component, InternalRocketPart.CIRCULAR_CYLINDER, false);
         }
       }
     } catch (Exception ex) {
@@ -348,10 +348,6 @@ public class RocketCreationController extends BaseController {
       }
       externalTreePartsRoot.getChildren().add(newTreeItem);
       externalTreePartsRoot.setExpanded(true);
-
-      if (type == ExternalRocketPart.NOSE_CONE || type == ExternalRocketPart.TRAPEZOID_FIN_SET) {
-        externalParts.remove(type);
-      }
     }
   }
 

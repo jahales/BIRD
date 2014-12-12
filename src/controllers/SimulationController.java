@@ -35,6 +35,7 @@ import models.rocket.data.XmlRocketSerializer;
 import models.rocket.parts.CircularCylinder;
 import models.rocket.parts.Motor;
 import models.rocket.parts.NoseCone;
+import models.rocket.parts.Parachute;
 import models.rocket.parts.RocketComponent;
 import models.rocket.parts.TrapezoidFinSet;
 import models.simulator.BirdSimulatorEngine;
@@ -132,7 +133,7 @@ public class SimulationController extends BaseController {
   void clkMotorChcBox() {
     ArrayList<String> options = new ArrayList<>();
     for (RocketComponent component : mainViewModel.getRocket().getInteriorComponents()) {
-      if (component.getClass().isInstance(new Motor())) {
+      if (component instanceof Motor) {
         options.add(((Motor) component).getName());
       }
     }
@@ -157,7 +158,7 @@ public class SimulationController extends BaseController {
   void clkFinChcBox() {
     ArrayList<String> options = new ArrayList<>();
     for (RocketComponent component : mainViewModel.getRocket().getExteriorComponents()) {
-      if (component.getClass().isInstance(new TrapezoidFinSet())) {
+      if (component instanceof TrapezoidFinSet) {
         options.add(((TrapezoidFinSet) component).getName());
       }
     }
@@ -209,7 +210,7 @@ public class SimulationController extends BaseController {
     ArrayList<RocketComponent> notMotors = new ArrayList<>();
 
     for (RocketComponent component : mainViewModel.getRocket().getExteriorComponents()) {
-      if (component.getClass().isInstance(new TrapezoidFinSet())) {
+      if (component instanceof TrapezoidFinSet) {
         finSets.add((TrapezoidFinSet) component);
       } else {
         notFins.add(component);
@@ -384,7 +385,7 @@ public class SimulationController extends BaseController {
     }
     NoseCone noseCone = null;
     for (RocketComponent component : mainViewModel.getRocket().getExteriorComponents()) {
-      if (component.getClass().isInstance(new NoseCone())) {
+      if (component instanceof NoseCone) {
         noseCone = (NoseCone) component;
       }
     }
@@ -395,7 +396,7 @@ public class SimulationController extends BaseController {
 
     CircularCylinder body = null;
     for (RocketComponent component : mainViewModel.getRocket().getExteriorComponents()) {
-      if (component.getClass().isInstance(new CircularCylinder())) {
+      if (component instanceof CircularCylinder) {
         body = (CircularCylinder) component;
       }
     }
@@ -403,6 +404,7 @@ public class SimulationController extends BaseController {
       MessageBoxController.showMessage("Your rocket does not have a body!", root);
       return false;
     }
+
     if (mainViewModel.getSimulation().getAtmosphereFile() == null) {
       MessageBoxController.showMessage("You have not specified an atmosphere file!", root);
       return false;

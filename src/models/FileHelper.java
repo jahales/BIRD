@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.Node;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import models.rocket.Rocket;
 import models.rocket.data.XmlRocketSerializer;
 
@@ -37,8 +38,9 @@ public class FileHelper {
     fileChooser.setTitle("Open Resource File");
     //Set initial file path
     configInitialDirectory(fileChooser, mainViewModel);
+    fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
     openFile = fileChooser.showOpenDialog(root.getScene().getWindow());
-    
+
     if (openFile != null) {
       mainViewModel.setPresentWorkingFile(openFile);
       mainViewModel.setPresentWorkingDirectory(openFile.getParentFile());
@@ -58,6 +60,7 @@ public class FileHelper {
       FileChooser fileChooser = new FileChooser();
       fileChooser.setTitle("Open Resource File");
       configInitialDirectory(fileChooser, mainViewModel);
+      fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
       saveFile = fileChooser.showSaveDialog(root.getScene().getWindow());
 
       try {
@@ -80,11 +83,28 @@ public class FileHelper {
     }
   }
 
+  static public String openMotorFile(Node root) {
+    File openFile;
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Resource File");
+    //Set initial file path
+    //TODO: Move file directories to appsettings, and away from mainViewModel.
+    //configInitialDirectory(fileChooser, mainViewModel);
+    fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
+    openFile = fileChooser.showOpenDialog(root.getScene().getWindow());
+    if (openFile != null) {
+      return openFile.getAbsolutePath();
+    } else {
+      return "";
+    }
+  }
+
   static public void fileSaveAs(MainViewModel mainViewModel, Node root) {
     File saveFile;
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");
     configInitialDirectory(fileChooser, mainViewModel);
+    fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
     saveFile = fileChooser.showSaveDialog(root.getScene().getWindow());
 
     try {
@@ -134,6 +154,7 @@ public class FileHelper {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Atmosphere File");
     FileHelper.configInitialDirectory(fileChooser, mainViewModel);
+    fileChooser.getExtensionFilters().add(new ExtensionFilter("CSV file", "*.csv"));
     File file = fileChooser.showOpenDialog(root.getScene().getWindow());
     if (file != null) {
       mainViewModel.getSimulation().setAtmosphereFile(file.getAbsolutePath());
@@ -183,7 +204,7 @@ public class FileHelper {
     file.mkdir();
     return file;
   }
-  
+
   public static File spawnResultsFilePath(File resultsFolder, int finNum, int motorNum) throws IOException {
     File file = new File(resultsFolder, "Variant-Motor" + motorNum + "-FinSet" + finNum + ".csv");
     file.createNewFile();
