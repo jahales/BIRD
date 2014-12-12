@@ -31,7 +31,7 @@ public class FileHelper {
 
   public static void open(MainViewModel mainViewModel, Node root) {
     if (mainViewModel.isUnsaved()) {
-      // prompt user if he wants to save or not
+      //TODO: prompt user if he wants to save or not
     }
     File openFile;
     FileChooser fileChooser = new FileChooser();
@@ -42,11 +42,14 @@ public class FileHelper {
     openFile = fileChooser.showOpenDialog(root.getScene().getWindow());
 
     if (openFile != null) {
-      mainViewModel.setPresentWorkingFile(openFile);
       mainViewModel.setPresentWorkingDirectory(openFile.getParentFile());
 
       try {
-        spawnNewInstance(loadRocket(openFile), mainViewModel);
+        MainViewModel newModel = new MainViewModel();
+        newModel.setPresentWorkingDirectory(mainViewModel.getPresentWorkingDirectory());
+        newModel.setPresentWorkingFile(openFile);
+        newModel.setRocket(loadRocket(openFile));
+        Main.startNewMainView(newModel);
       } catch (Exception ex) {
         // Needs a prompt to let the user know that loading the file errored
         logger.log(Level.SEVERE, "Load rocket failed");
@@ -66,6 +69,8 @@ public class FileHelper {
       try {
         saveRocket(saveFile, mainViewModel);
         mainViewModel.setNeverBeenSaved(false);
+        mainViewModel.setPresentWorkingFile(saveFile);
+        mainViewModel.setPresentWorkingDirectory(saveFile.getParentFile());
       } catch (Exception ex) {
         // Inform user that the saving did not work.
       }
@@ -76,6 +81,8 @@ public class FileHelper {
         try {
           saveRocket(saveFile, mainViewModel);
           mainViewModel.setNeverBeenSaved(false);
+          mainViewModel.setPresentWorkingFile(saveFile);
+          mainViewModel.setPresentWorkingDirectory(saveFile.getParentFile());
         } catch (Exception ex) {
           // Inform user that the saving did not work.
         }
@@ -110,6 +117,8 @@ public class FileHelper {
     try {
       saveRocket(saveFile, mainViewModel);
       mainViewModel.setNeverBeenSaved(false);
+      mainViewModel.setPresentWorkingFile(saveFile);
+      mainViewModel.setPresentWorkingDirectory(saveFile.getParentFile());
     } catch (Exception ex) {
       // Inform user that the saving did not work.
     }
@@ -188,25 +197,25 @@ public class FileHelper {
 
   public static File createRocketDir(MainViewModel mainViewModel, Node root) throws IOException {
     File rocketFolder;
-    if (!mainViewModel.getPresentWorkingFile().isFile()) {
+    if (mainViewModel.getPresentWorkingFile() == null) {
       save(mainViewModel, root);
     }
     int dotIndex = mainViewModel.getPresentWorkingFile().getName().indexOf(".");
     rocketFolder = new File(mainViewModel.getPresentWorkingFile().getParentFile().getPath(),
-        mainViewModel.getPresentWorkingFile().getName().substring(0, dotIndex));
+      mainViewModel.getPresentWorkingFile().getName().substring(0, dotIndex));
     rocketFolder.mkdir();
     return rocketFolder;
   }
 
   public static File createResultsFolder(File rocketFolder, int finNum, int motorNum)
-      throws IOException {
+    throws IOException {
     File file = new File(rocketFolder, "Variant-Motor" + motorNum + "-FinSet" + finNum);
     file.mkdir();
     return file;
   }
 
   public static File spawnResultsFilePath(File resultsFolder, int finNum, int motorNum)
-      throws IOException {
+    throws IOException {
     File file = new File(resultsFolder, "Variant-Motor" + motorNum + "-FinSet" + finNum + ".csv");
     file.createNewFile();
     return file;

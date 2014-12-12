@@ -49,6 +49,7 @@ public class SimulationController extends BaseController {
 
   final static Logger logger = Logger.getLogger(SimulationController.class.getName());
   private LaunchRail launchRail;
+
   MainViewModel mainViewModel;
 
   /**
