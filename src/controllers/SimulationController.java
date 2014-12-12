@@ -405,10 +405,11 @@ public class SimulationController extends BaseController {
       return false;
     }
 
-    if (mainViewModel.getSimulation().getAtmosphereFile() == null) {
+    //Will be added in when the simulator can handle atmosphere files (soon, so says the owner)
+    /*if (mainViewModel.getSimulation().getAtmosphereFile() == null) {
       MessageBoxController.showMessage("You have not specified an atmosphere file!", root);
       return false;
-    }
+    }*/
     return true;
   }
 
