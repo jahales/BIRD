@@ -1,27 +1,20 @@
 package controllers;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.AppSettings;
 import models.FileHelper;
-import models.ISerializer;
 import models.MainViewModel;
 import models.rocket.Rocket;
-import models.rocket.data.XmlRocketSerializer;
 
 /**
- * Main view of our program. 3 Tabs are included. This controller focuses on menu items.
+ * Main view of our program. 3 Tabs are included. This controller focuses on
+ * menu items.
  *
  * @author Brian Woodruff, Joseph Hales
  *
@@ -48,14 +41,14 @@ public class MainViewController extends BaseController {
    */
   @FXML
   void fileNew() {
-    //Spawn new instance with mostly empty data
-    FileHelper.spawnNewInstance(new Rocket(), mainViewModel);
+    // Spawn new instance with mostly empty data
+    FileHelper.spawnNewInstance(new Rocket(), this.mainViewModel);
   }
 
   @FXML
   void menuIOpenReport() {
-    //Spawn new instance with mostly empty data
-    FileHelper.spawnNewInstance(new Rocket(), mainViewModel);
+    // Spawn new instance with mostly empty data
+    FileHelper.spawnNewInstance(new Rocket(), this.mainViewModel);
   }
 
   /**
@@ -65,7 +58,7 @@ public class MainViewController extends BaseController {
    */
   @FXML
   void fileOpen() {
-    FileHelper.open(mainViewModel, root);
+    FileHelper.open(this.mainViewModel, this.root);
   }
 
   /**
@@ -75,7 +68,7 @@ public class MainViewController extends BaseController {
    */
   @FXML
   void fileSave() {
-    FileHelper.save(mainViewModel, root);
+    FileHelper.save(this.mainViewModel, this.root);
   }
 
   /**
@@ -85,7 +78,7 @@ public class MainViewController extends BaseController {
    */
   @FXML
   void fileSaveAs() {
-    FileHelper.fileSaveAs(mainViewModel, root);
+    FileHelper.fileSaveAs(this.mainViewModel, this.root);
   }
 
   /**
@@ -97,7 +90,7 @@ public class MainViewController extends BaseController {
   void fileQuit() {
     if (promptSaveQuit()) {
       AppSettings.getInstance().saveProperties();
-      Stage stage = (Stage) root.getScene().getWindow();
+      Stage stage = (Stage) this.root.getScene().getWindow();
       stage.close();
     }
   }
@@ -114,20 +107,20 @@ public class MainViewController extends BaseController {
 
   private boolean promptSaveQuit() {
     try {
-      //Create the view and controller
+      // Create the view and controller
       ControllerFactory controllerFactory = new ControllerFactory();
       SaveDialogController controller = (SaveDialogController) controllerFactory
-        .create("/views/SaveDialog.fxml");
+          .create("/views/SaveDialog.fxml");
 
-      //Setup the stage
+      // Setup the stage
       Scene scene = new Scene((Parent) controller.getView());
       Stage stage = new Stage();
       stage.setScene(scene);
-      stage.initOwner(root.getScene().getWindow());
+      stage.initOwner(this.root.getScene().getWindow());
       stage.setTitle("Do you wish to save?");
       stage.showAndWait();
 
-      //get results from the controller
+      // get results from the controller
       if (controller.isDoSave()) {
         fileSave();
       }

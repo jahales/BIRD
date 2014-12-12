@@ -5,7 +5,7 @@ import models.Unit;
 
 /**
  * A parachute
- * 
+ *
  * @author Brian Woodruff
  *
  */
@@ -19,7 +19,7 @@ public class Parachute extends CircularCylinder {
    * @return a {@link Measurement} for drag coefficient
    */
   public Measurement getDragCoefficient() {
-    return dragCoefficient;
+    return this.dragCoefficient;
   }
 
   /**
@@ -34,7 +34,7 @@ public class Parachute extends CircularCylinder {
    * @return a {@link Measurement} for deployed diameter
    */
   public Measurement getDeployedDiameter() {
-    return deployedDiameter;
+    return this.deployedDiameter;
   }
 
   /**
@@ -49,7 +49,7 @@ public class Parachute extends CircularCylinder {
    * @return a {@link Measurement} for deployment altitude
    */
   public Measurement getDeploymentAltitude() {
-    return deploymentAltitude;
+    return this.deploymentAltitude;
   }
 
   /**
@@ -64,7 +64,7 @@ public class Parachute extends CircularCylinder {
    * @return whether parachute is deployed at apogee
    */
   public Boolean getDeployAtApogee() {
-    return deployAtApogee;
+    return this.deployAtApogee;
   }
 
   /**

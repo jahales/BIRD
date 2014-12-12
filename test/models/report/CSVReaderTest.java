@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.util.List;
 
 import javafx.collections.FXCollections;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -14,10 +15,8 @@ public class CSVReaderTest {
 
   @Test
   public void read_CSV_File() throws Exception {
-    String file = "Column 1,Column 2,Column 3\n" +
-                  "1.0,2.0,3.0\n" +
-                  "4.0,5.0,6.0\n" +
-                  "7.0,8.0,9.0\n";
+    String file = "Column 1,Column 2,Column 3\n" + "1.0,2.0,3.0\n" + "4.0,5.0,6.0\n"
+        + "7.0,8.0,9.0\n";
     List<String> columNames = FXCollections.observableArrayList("Column 1", "Column 2", "Column 3");
     List<Number> row0 = FXCollections.observableArrayList(1.0, 2.0, 3.0);
     List<Number> row1 = FXCollections.observableArrayList(4.0, 5.0, 6.0);
@@ -25,7 +24,7 @@ public class CSVReaderTest {
     InputStream isr = new ByteArrayInputStream(file.getBytes());
     CSVReader csvReader = new CSVReader();
     DataTable table = csvReader.deserialize(isr);
-    
+
     Assert.assertEquals(table.getColumnNames().equals(columNames), true);
     Assert.assertEquals(table.getRow(0).equals(row0), true);
     Assert.assertEquals(table.getRow(1).equals(row1), true);
@@ -42,25 +41,24 @@ public class CSVReaderTest {
     table.addRow(FXCollections.observableArrayList(4.0, 5.0, 6.0));
     table.addRow(FXCollections.observableArrayList(7, 8, 9));
 
-    String file = "Column 1,Column 2,Column 3\n" +
-                  "1,2,3\n" +
-                  "4.0,5.0,6.0\n" +
-                  "7,8,9\n";
+    String file = "Column 1,Column 2,Column 3\n" + "1,2,3\n" + "4.0,5.0,6.0\n" + "7,8,9\n";
     OutputStream os = new OutputStream() {
       private StringBuilder string = new StringBuilder();
+
       @Override
       public void write(int b) throws IOException {
         this.string.append((char) b);
       }
-      
+
+      @Override
       public String toString() {
         return this.string.toString();
       }
     };
-    
+
     CSVReader csvReader = new CSVReader();
     csvReader.serialize(table, os);
-    
+
     Assert.assertEquals(os.toString().equals(file), true);
   }
 }

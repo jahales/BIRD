@@ -1,6 +1,7 @@
 package models.report;
 
 import java.util.List;
+
 import javafx.collections.FXCollections;
 import models.report.DataTable.RowFormatError;
 
@@ -15,36 +16,36 @@ public class DataTableTest {
     dataTable.addColumn("Column 1");
   }
 
-  @Test(expectedExceptions = { RowFormatError.class})
+  @Test(expectedExceptions = { RowFormatError.class })
   public void addRowTooManyColumns() throws RowFormatError {
     DataTable dataTable = new DataTable();
     List<Number> list = FXCollections.observableArrayList(1);
-    
+
     dataTable.addColumn("Column 1");
     dataTable.addColumn("Column 2");
-    
+
     dataTable.addRow(list);
   }
-  
-  @Test(expectedExceptions = { RowFormatError.class})
+
+  @Test(expectedExceptions = { RowFormatError.class })
   public void addRowTooFewColumns() throws RowFormatError {
     DataTable dataTable = new DataTable();
     List<Number> list = FXCollections.observableArrayList(1, 2, 3);
-    
+
     dataTable.addColumn("Column 1");
     dataTable.addColumn("Column 2");
-    
+
     dataTable.addRow(list);
   }
-  
+
   @Test
   public void addRowJustRight() throws RowFormatError {
     DataTable dataTable = new DataTable();
     List<Number> list = FXCollections.observableArrayList(1, 2);
-    
+
     dataTable.addColumn("Column 1");
     dataTable.addColumn("Column 2");
-    
+
     dataTable.addRow(list); // Shouldn't throw error in order to pass
   }
 
@@ -57,12 +58,12 @@ public class DataTableTest {
     dataTable.addColumn("Column 1");
     dataTable.addColumn("Column 2");
     dataTable.addColumn("Column 3");
-    
+
     dataTable.addRow(list1);
     dataTable.addRow(list2);
-    
+
     List<Number> column = dataTable.getColumn("Column 1");
-    
+
     Assert.assertEquals(column.get(0), 1);
     Assert.assertEquals(column.get(1), 4);
   }
@@ -79,9 +80,9 @@ public class DataTableTest {
     dataTable.addColumn("Column 1");
     dataTable.addColumn("Column 2");
     dataTable.addColumn("Column 3");
-    
+
     List<String> listNames = dataTable.getColumnNames();
-    
+
     Assert.assertEquals(listNames.get(0), "Column 1");
     Assert.assertEquals(listNames.get(1), "Column 2");
     Assert.assertEquals(listNames.get(2), "Column 3");

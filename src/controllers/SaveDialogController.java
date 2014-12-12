@@ -7,6 +7,7 @@ package controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
@@ -16,7 +17,7 @@ import javafx.stage.Stage;
  *
  * @author Joseph
  */
-public class SaveDialogController  extends BaseController implements Initializable {
+public class SaveDialogController extends BaseController implements Initializable {
 
   private boolean doSave = false;
   private boolean doContinue = false;
@@ -25,34 +26,34 @@ public class SaveDialogController  extends BaseController implements Initializab
   private javafx.scene.layout.Pane saveDialogRoot;
 
   public boolean isDoSave() {
-    return doSave;
+    return this.doSave;
   }
 
   public boolean isDoContinue() {
-    return doContinue;
+    return this.doContinue;
   }
 
   @FXML
   void save() {
-    doSave = true;
-    doContinue = true;
-    Stage stage = (Stage) saveDialogRoot.getScene().getWindow();
+    this.doSave = true;
+    this.doContinue = true;
+    Stage stage = (Stage) this.saveDialogRoot.getScene().getWindow();
     stage.close();
   }
 
   @FXML
   void dontSave() {
-    doSave = false;
-    doContinue = true;
-    Stage stage = (Stage) saveDialogRoot.getScene().getWindow();
+    this.doSave = false;
+    this.doContinue = true;
+    Stage stage = (Stage) this.saveDialogRoot.getScene().getWindow();
     stage.close();
   }
 
   @FXML
   void cancel() {
-    doSave = false;
-    doContinue = false;
-    Stage stage = (Stage) saveDialogRoot.getScene().getWindow();
+    this.doSave = false;
+    this.doContinue = false;
+    Stage stage = (Stage) this.saveDialogRoot.getScene().getWindow();
     stage.close();
   }
 

@@ -5,7 +5,7 @@ import models.Unit;
 
 /**
  * A rocket component
- * 
+ *
  * @author Brian Woodruff
  *
  */
@@ -21,7 +21,7 @@ public class RocketComponent {
    * @return name of component
    */
   public String getName() {
-    return name;
+    return this.name;
   }
 
   /**
@@ -36,7 +36,7 @@ public class RocketComponent {
    * @return a {@link Measurement} for mass
    */
   public Measurement getMass() {
-    return mass;
+    return this.mass;
   }
 
   /**
@@ -51,7 +51,7 @@ public class RocketComponent {
    * @return a {@link Measurement} for axial length
    */
   public Measurement getAxialLength() {
-    return axialLength;
+    return this.axialLength;
   }
 
   /**
@@ -66,7 +66,7 @@ public class RocketComponent {
    * @return a {@link Measurement} for axial offset
    */
   public Measurement getAxialOffset() {
-    return axialOffset;
+    return this.axialOffset;
   }
 
   /**
@@ -81,7 +81,7 @@ public class RocketComponent {
    * @return a {@link Measurement} for radial offset
    */
   public Measurement getRadialOffset() {
-    return radialOffset;
+    return this.radialOffset;
   }
 
   /**
@@ -96,7 +96,7 @@ public class RocketComponent {
    * @return a {@link Measurement} for thickness
    */
   public Measurement getThickness() {
-    return thickness;
+    return this.thickness;
   }
 
   /**

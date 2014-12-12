@@ -1,16 +1,13 @@
 package controllers.parts;
 
-import java.io.File;
-
-import controllers.BaseController;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import models.FileHelper;
 import models.rocket.parts.Motor;
+import controllers.BaseController;
 
 /**
  * Controller for the {@link Motor} view
@@ -62,9 +59,9 @@ public class MotorController extends BaseController {
   private void loadThrustFile() {
     // TODO: Joe implement me
     // update <thrustFile>
-    String fileName = FileHelper.openMotorFile(thrustFile);
-    thrustFile.setText(fileName);
-    motor.setThrustFile(fileName);
+    String fileName = FileHelper.openMotorFile(this.thrustFile);
+    this.thrustFile.setText(fileName);
+    this.motor.setThrustFile(fileName);
   }
 
   /**
@@ -80,47 +77,39 @@ public class MotorController extends BaseController {
    */
   public void initialize() {
     // Populate fields with whatever values we got
-    manufacturerValue.setText(motor.getManufacturer());
-    delaysValue.setText(motor.getDelays());
+    this.manufacturerValue.setText(this.motor.getManufacturer());
+    this.delaysValue.setText(this.motor.getDelays());
 
-    fuelMassValue.setText(Double.toString(motor.getFuelMass().getValue()));
-    fuelMassError.setText(Double.toString(motor.getFuelMass().getError()));
-    fuelMassUnits.setValue(motor.getFuelMass().getUnit().toString());
+    this.fuelMassValue.setText(Double.toString(this.motor.getFuelMass().getValue()));
+    this.fuelMassError.setText(Double.toString(this.motor.getFuelMass().getError()));
+    this.fuelMassUnits.setValue(this.motor.getFuelMass().getUnit().toString());
 
-    polarAngleValue.setText(Double.toString(motor.getPolarAngle().getValue()));
-    polarAngleError.setText(Double.toString(motor.getPolarAngle().getError()));
-    polarAngleUnits.setValue(motor.getPolarAngle().getUnit().toString());
+    this.polarAngleValue.setText(Double.toString(this.motor.getPolarAngle().getValue()));
+    this.polarAngleError.setText(Double.toString(this.motor.getPolarAngle().getError()));
+    this.polarAngleUnits.setValue(this.motor.getPolarAngle().getUnit().toString());
 
-    azimuthAngleValue.setText(Double.toString(motor.getAzimuthAngle().getValue()));
-    azimuthAngleError.setText(Double.toString(motor.getAzimuthAngle().getError()));
-    azimuthAngleUnits.setValue(motor.getAzimuthAngle().getUnit().toString());
+    this.azimuthAngleValue.setText(Double.toString(this.motor.getAzimuthAngle().getValue()));
+    this.azimuthAngleError.setText(Double.toString(this.motor.getAzimuthAngle().getError()));
+    this.azimuthAngleUnits.setValue(this.motor.getAzimuthAngle().getUnit().toString());
 
     // Set listeners
-    manufacturerValue.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> observable, String oldValue,
-          String newValue) {
-        motor.setManufacturer(newValue);
-      }
-    });
-    delaysValue.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> observable, String oldValue,
-          String newValue) {
-        motor.setDelays(newValue);
-      }
-    });
+    this.manufacturerValue.textProperty().addListener(
+        (ChangeListener<String>) (observable, oldValue, newValue) -> MotorController.this.motor
+            .setManufacturer(newValue));
+    this.delaysValue.textProperty().addListener(
+        (ChangeListener<String>) (observable, oldValue, newValue) -> MotorController.this.motor
+            .setDelays(newValue));
 
-    ListenerHelpers.addValueListener(fuelMassValue, motor.getFuelMass());
-    ListenerHelpers.addValueListener(polarAngleError, motor.getPolarAngle());
-    ListenerHelpers.addValueListener(azimuthAngleValue, motor.getAzimuthAngle());
+    ListenerHelpers.addValueListener(this.fuelMassValue, this.motor.getFuelMass());
+    ListenerHelpers.addValueListener(this.polarAngleError, this.motor.getPolarAngle());
+    ListenerHelpers.addValueListener(this.azimuthAngleValue, this.motor.getAzimuthAngle());
 
-    ListenerHelpers.addErrorListener(fuelMassError, motor.getFuelMass());
-    ListenerHelpers.addErrorListener(polarAngleError, motor.getPolarAngle());
-    ListenerHelpers.addErrorListener(azimuthAngleError, motor.getAzimuthAngle());
+    ListenerHelpers.addErrorListener(this.fuelMassError, this.motor.getFuelMass());
+    ListenerHelpers.addErrorListener(this.polarAngleError, this.motor.getPolarAngle());
+    ListenerHelpers.addErrorListener(this.azimuthAngleError, this.motor.getAzimuthAngle());
 
-    ListenerHelpers.addUnitListener(fuelMassUnits, motor.getFuelMass());
-    ListenerHelpers.addUnitListener(polarAngleUnits, motor.getPolarAngle());
-    ListenerHelpers.addUnitListener(azimuthAngleUnits, motor.getAzimuthAngle());
+    ListenerHelpers.addUnitListener(this.fuelMassUnits, this.motor.getFuelMass());
+    ListenerHelpers.addUnitListener(this.polarAngleUnits, this.motor.getPolarAngle());
+    ListenerHelpers.addUnitListener(this.azimuthAngleUnits, this.motor.getAzimuthAngle());
   }
 }

@@ -5,15 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import models.MainViewModel;
-import models.Measurement;
-import models.Unit;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -24,18 +19,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.AppSettings;
 import models.FileHelper;
 import models.ISerializer;
+import models.MainViewModel;
+import models.Measurement;
+import models.Unit;
 import models.report.DataTable;
 import models.rocket.Rocket;
 import models.rocket.data.XmlRocketSerializer;
 import models.rocket.parts.CircularCylinder;
 import models.rocket.parts.Motor;
 import models.rocket.parts.NoseCone;
-import models.rocket.parts.Parachute;
 import models.rocket.parts.RocketComponent;
 import models.rocket.parts.TrapezoidFinSet;
 import models.simulator.BirdSimulatorEngine;
@@ -117,22 +113,22 @@ public class SimulationController extends BaseController {
 
   @FXML
   void setDefaultRail() {
-    AppSettings.getInstance().setLaunchRail(mainViewModel.getSimulation().getLaunchRail());
+    AppSettings.getInstance().setLaunchRail(this.mainViewModel.getSimulation().getLaunchRail());
   }
 
   @FXML
   void motorChkBoxChange() {
-    if (motorChkBox.isSelected()) {
-      motorChcBox.setDisable(true);
+    if (this.motorChkBox.isSelected()) {
+      this.motorChcBox.setDisable(true);
     } else {
-      motorChcBox.setDisable(false);
+      this.motorChcBox.setDisable(false);
     }
   }
 
   @FXML
   void clkMotorChcBox() {
     ArrayList<String> options = new ArrayList<>();
-    for (RocketComponent component : mainViewModel.getRocket().getInteriorComponents()) {
+    for (RocketComponent component : this.mainViewModel.getRocket().getInteriorComponents()) {
       if (component instanceof Motor) {
         options.add(((Motor) component).getName());
       }
@@ -140,24 +136,24 @@ public class SimulationController extends BaseController {
     if (options.size() == 0) {
       options.add("No motors are defined");
     }
-    motorChcBox.setItems(FXCollections.observableArrayList(options));
-    motorChcBox.hide();
-    motorChcBox.show();
+    this.motorChcBox.setItems(FXCollections.observableArrayList(options));
+    this.motorChcBox.hide();
+    this.motorChcBox.show();
   }
 
   @FXML
   void finChkBoxChange() {
-    if (finChkBox.isSelected()) {
-      finChcBox.setDisable(true);
+    if (this.finChkBox.isSelected()) {
+      this.finChcBox.setDisable(true);
     } else {
-      finChcBox.setDisable(false);
+      this.finChcBox.setDisable(false);
     }
   }
 
   @FXML
   void clkFinChcBox() {
     ArrayList<String> options = new ArrayList<>();
-    for (RocketComponent component : mainViewModel.getRocket().getExteriorComponents()) {
+    for (RocketComponent component : this.mainViewModel.getRocket().getExteriorComponents()) {
       if (component instanceof TrapezoidFinSet) {
         options.add(((TrapezoidFinSet) component).getName());
       }
@@ -165,14 +161,15 @@ public class SimulationController extends BaseController {
     if (options.size() == 0) {
       options.add("No fin sets are defined");
     }
-    finChcBox.setItems(FXCollections.observableArrayList(options));
-    finChcBox.hide();
-    finChcBox.show();
+    this.finChcBox.setItems(FXCollections.observableArrayList(options));
+    this.finChcBox.hide();
+    this.finChcBox.show();
   }
 
   @FXML
   void openAtmosphereFile() {
-    atmosphereFilePath.setText(FileHelper.openAtmosphereFile(mainViewModel, finChkBox));
+    this.atmosphereFilePath.setText(FileHelper.openAtmosphereFile(this.mainViewModel,
+        this.finChkBox));
   }
 
   @FXML
@@ -209,14 +206,14 @@ public class SimulationController extends BaseController {
     ArrayList<RocketComponent> notFins = new ArrayList<>();
     ArrayList<RocketComponent> notMotors = new ArrayList<>();
 
-    for (RocketComponent component : mainViewModel.getRocket().getExteriorComponents()) {
+    for (RocketComponent component : this.mainViewModel.getRocket().getExteriorComponents()) {
       if (component instanceof TrapezoidFinSet) {
         finSets.add((TrapezoidFinSet) component);
       } else {
         notFins.add(component);
       }
     }
-    for (RocketComponent component : mainViewModel.getRocket().getInteriorComponents()) {
+    for (RocketComponent component : this.mainViewModel.getRocket().getInteriorComponents()) {
       if (component instanceof Motor) {
         motors.add((Motor) component);
       } else {
@@ -228,17 +225,17 @@ public class SimulationController extends BaseController {
       return;
     }
 
-    //Create a directory with the same name as the saved rocket
+    // Create a directory with the same name as the saved rocket
     File rocketDir = null;
     try {
-      rocketDir = FileHelper.createRocketDir(mainViewModel, finChkBox);
+      rocketDir = FileHelper.createRocketDir(this.mainViewModel, this.finChkBox);
     } catch (IOException ex) {
       logger.log(Level.SEVERE, "Simulations failed to run! Check file permissions.");
     }
 
     int finNum = 1;
     int motorNum = 1;
-    if (finChkBox.isSelected() && motorChkBox.isSelected()) {
+    if (this.finChkBox.isSelected() && this.motorChkBox.isSelected()) {
       for (TrapezoidFinSet finSet : finSets) {
         for (Motor motor : motors) {
           runSimulation(finSet, motor, notMotors, notFins, monteCarlo, rocketDir, finNum, motorNum);
@@ -247,10 +244,11 @@ public class SimulationController extends BaseController {
         finNum++;
       }
 
-    } else if (finChkBox.isSelected() && !motorChkBox.isSelected()) {
-      Motor motor = (Motor) mainViewModel.getRocket().getPartByName(motorChcBox.getValue());
+    } else if (this.finChkBox.isSelected() && !this.motorChkBox.isSelected()) {
+      Motor motor = (Motor) this.mainViewModel.getRocket().getPartByName(
+          this.motorChcBox.getValue());
       if (motor == null) {
-        MessageBoxController.showMessage("You have not selected any motors!", root);
+        MessageBoxController.showMessage("You have not selected any motors!", this.root);
         return;
       }
       for (TrapezoidFinSet finSet : finSets) {
@@ -258,10 +256,11 @@ public class SimulationController extends BaseController {
         finNum++;
       }
 
-    } else if (!finChkBox.isSelected() && motorChkBox.isSelected()) {
-      TrapezoidFinSet finSet = (TrapezoidFinSet) mainViewModel.getRocket().getPartByName(finChcBox.getValue());
+    } else if (!this.finChkBox.isSelected() && this.motorChkBox.isSelected()) {
+      TrapezoidFinSet finSet = (TrapezoidFinSet) this.mainViewModel.getRocket().getPartByName(
+          this.finChcBox.getValue());
       if (finSet == null) {
-        MessageBoxController.showMessage("You have not selected any fin sets!", root);
+        MessageBoxController.showMessage("You have not selected any fin sets!", this.root);
         return;
       }
       for (Motor motor : motors) {
@@ -269,16 +268,18 @@ public class SimulationController extends BaseController {
         motorNum++;
       }
 
-    } else if (!finChkBox.isSelected() && !motorChkBox.isSelected()) {
-      TrapezoidFinSet finSet = (TrapezoidFinSet) mainViewModel.getRocket().getPartByName(finChcBox.getValue());
+    } else if (!this.finChkBox.isSelected() && !this.motorChkBox.isSelected()) {
+      TrapezoidFinSet finSet = (TrapezoidFinSet) this.mainViewModel.getRocket().getPartByName(
+          this.finChcBox.getValue());
       if (finSet == null) {
-        MessageBoxController.showMessage("You have not selected any fin sets!", root);
+        MessageBoxController.showMessage("You have not selected any fin sets!", this.root);
         return;
       }
 
-      Motor motor = (Motor) mainViewModel.getRocket().getPartByName(motorChcBox.getValue());
+      Motor motor = (Motor) this.mainViewModel.getRocket().getPartByName(
+          this.motorChcBox.getValue());
       if (motor == null) {
-        MessageBoxController.showMessage("You have not selected any motors!", root);
+        MessageBoxController.showMessage("You have not selected any motors!", this.root);
         return;
       }
       runSimulation(finSet, motor, notMotors, notFins, monteCarlo, rocketDir, finNum, motorNum);
@@ -303,8 +304,8 @@ public class SimulationController extends BaseController {
   }
 
   private void runSimulation(TrapezoidFinSet finSet, Motor motor,
-    ArrayList<RocketComponent> notMotors, ArrayList<RocketComponent> notFins, boolean monteCarlo,
-    File rocketDir, int finNum, int motorNum) {
+      ArrayList<RocketComponent> notMotors, ArrayList<RocketComponent> notFins, boolean monteCarlo,
+      File rocketDir, int finNum, int motorNum) {
 
     File resultDir;
     try {
@@ -325,11 +326,11 @@ public class SimulationController extends BaseController {
     File innerRocketFile = createInnerRocketFile(innerRocket, resultDir, finNum, motorNum);
 
     Simulation simulation = createSimulation(innerRocketFile, resultsFile, motor,
-      mainViewModel.getSimulation().getAtmosphereFile());
+        this.mainViewModel.getSimulation().getAtmosphereFile());
 
     simulation.setIsMonteCarlo(monteCarlo);
     try {
-      simulation.setMonteNumber(Integer.parseInt(numberMonteCarlo.getText()));
+      simulation.setMonteNumber(Integer.parseInt(this.numberMonteCarlo.getText()));
     } catch (NumberFormatException nfe) {
       simulation.setIsMonteCarlo(false);
       simulation.setMonteNumber(1);
@@ -340,22 +341,23 @@ public class SimulationController extends BaseController {
     displayResult(result);
   }
 
-  private Simulation createSimulation(File tempRocketFile, File resultsOutput, Motor motor, String atmosphereFile) {
+  private Simulation createSimulation(File tempRocketFile, File resultsOutput, Motor motor,
+      String atmosphereFile) {
     Simulation simulation = new Simulation();
     simulation.setOutputFile(resultsOutput.toString());
     simulation.setAtmosphereFile(atmosphereFile);
     simulation.setEngineFile(motor.getENGFilePath());
-    simulation.setLaunchRail(mainViewModel.getSimulation().getLaunchRail());
+    simulation.setLaunchRail(this.mainViewModel.getSimulation().getLaunchRail());
     simulation.setRocketFile(tempRocketFile.getAbsolutePath());
     return simulation;
   }
 
   private Rocket createTempRocket(TrapezoidFinSet finSet, Motor motor,
-    ArrayList<RocketComponent> exteriors, ArrayList<RocketComponent> interiors) {
+      ArrayList<RocketComponent> exteriors, ArrayList<RocketComponent> interiors) {
     exteriors.add(finSet);
     interiors.add(motor);
 
-    Rocket rocket = mainViewModel.getRocket();
+    Rocket rocket = this.mainViewModel.getRocket();
     rocket.setExteriorComponents(exteriors);
     rocket.setInteriorComponents(interiors);
     return rocket;
@@ -376,40 +378,43 @@ public class SimulationController extends BaseController {
 
   private boolean simpleRocketValidator(ArrayList<Motor> motors, ArrayList<TrapezoidFinSet> finSets) {
     if (motors.isEmpty()) {
-      MessageBoxController.showMessage("Your rocket does not have any motors!", root);
+      MessageBoxController.showMessage("Your rocket does not have any motors!", this.root);
       return false;
     }
     if (finSets.isEmpty()) {
-      MessageBoxController.showMessage("Your rocket does not have any fin sets!", root);
+      MessageBoxController.showMessage("Your rocket does not have any fin sets!", this.root);
       return false;
     }
     NoseCone noseCone = null;
-    for (RocketComponent component : mainViewModel.getRocket().getExteriorComponents()) {
+    for (RocketComponent component : this.mainViewModel.getRocket().getExteriorComponents()) {
       if (component instanceof NoseCone) {
         noseCone = (NoseCone) component;
       }
     }
     if (noseCone == null) {
-      MessageBoxController.showMessage("Your rocket does not have a nose cone", root);
+      MessageBoxController.showMessage("Your rocket does not have a nose cone", this.root);
       return false;
     }
 
     CircularCylinder body = null;
-    for (RocketComponent component : mainViewModel.getRocket().getExteriorComponents()) {
+    for (RocketComponent component : this.mainViewModel.getRocket().getExteriorComponents()) {
       if (component instanceof CircularCylinder) {
         body = (CircularCylinder) component;
       }
     }
     if (body == null) {
-      MessageBoxController.showMessage("Your rocket does not have a body!", root);
+      MessageBoxController.showMessage("Your rocket does not have a body!", this.root);
       return false;
     }
 
-    //Will be added in when the simulator can handle atmosphere files (soon, so says the owner)
-    /*if (mainViewModel.getSimulation().getAtmosphereFile() == null) {
-      MessageBoxController.showMessage("You have not specified an atmosphere file!", root);
-      return false;
-    }*/
+    // Will be added in when the simulator can handle atmosphere files (soon, so
+    // says the owner)
+    /*
+     * if (mainViewModel.getSimulation().getAtmosphereFile() == null) {
+     * MessageBoxController
+     * .showMessage("You have not specified an atmosphere file!", root); return
+     * false; }
+     */
     return true;
   }
 
@@ -420,15 +425,12 @@ public class SimulationController extends BaseController {
    * @param measurement
    */
   private void addUnitListener(ChoiceBox<String> field, Measurement measurement) {
-    field.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        if (!arg2.isEmpty()) {
-          measurement.setUnit(Unit.valueOf(arg2));
-        }
-      }
-    }
-    );
+    field.getSelectionModel().selectedItemProperty()
+        .addListener((ChangeListener<String>) (arg0, arg1, arg2) -> {
+          if (!arg2.isEmpty()) {
+            measurement.setUnit(Unit.valueOf(arg2));
+          }
+        });
   }
 
   /**
@@ -438,16 +440,13 @@ public class SimulationController extends BaseController {
    * @param measurement
    */
   private void addValueListener(TextField field, Measurement measurement) {
-    field.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        try {
-          if (!arg2.isEmpty()) {
-            measurement.setValue(Double.parseDouble(arg2));
-          }
-        } catch (NumberFormatException e) {
-          e.printStackTrace();
+    field.textProperty().addListener((ChangeListener<String>) (arg0, arg1, arg2) -> {
+      try {
+        if (!arg2.isEmpty()) {
+          measurement.setValue(Double.parseDouble(arg2));
         }
+      } catch (NumberFormatException e) {
+        e.printStackTrace();
       }
     });
   }
@@ -459,58 +458,54 @@ public class SimulationController extends BaseController {
    * @param measurement
    */
   private void addErrorListener(TextField field, Measurement measurement) {
-    field.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        try {
-          if (!arg2.isEmpty()) {
-            measurement.setError(Double.parseDouble(arg2));
-          }
-        } catch (NumberFormatException e) {
-          e.printStackTrace();
+    field.textProperty().addListener((ChangeListener<String>) (arg0, arg1, arg2) -> {
+      try {
+        if (!arg2.isEmpty()) {
+          measurement.setError(Double.parseDouble(arg2));
         }
+      } catch (NumberFormatException e) {
+        e.printStackTrace();
       }
-    }
-    );
+    });
   }
 
   /**
    *
    */
   public void initialize() {
-    launchRail = AppSettings.getInstance().getLaunchRail();
-    mainViewModel.getSimulation().setLaunchRail(launchRail);
+    this.launchRail = AppSettings.getInstance().getLaunchRail();
+    this.mainViewModel.getSimulation().setLaunchRail(this.launchRail);
 
-    initializeLaunchControls(launchRail);
+    initializeLaunchControls(this.launchRail);
 
-    motorChcBox.setTooltip(new Tooltip("Choose a motor"));
-    finChcBox.setTooltip(new Tooltip("Choose a fin set"));
+    this.motorChcBox.setTooltip(new Tooltip("Choose a motor"));
+    this.finChcBox.setTooltip(new Tooltip("Choose a fin set"));
   }
 
   private void initializeLaunchControls(LaunchRail launchRail) {
-    lengthValue.setText(Double.toString(launchRail.getLength().getValue()));
-    lengthError.setText(Double.toString(launchRail.getLength().getError()));
-    lengthUnits.setValue(launchRail.getLength().getUnit().toString());
+    this.lengthValue.setText(Double.toString(launchRail.getLength().getValue()));
+    this.lengthError.setText(Double.toString(launchRail.getLength().getError()));
+    this.lengthUnits.setValue(launchRail.getLength().getUnit().toString());
 
-    polarAngleValue.setText(Double.toString(launchRail.getPolarAngle().getValue()));
-    polarAngleError.setText(Double.toString(launchRail.getPolarAngle().getError()));
-    polarAngleUnits.setValue(launchRail.getPolarAngle().getUnit().toString());
+    this.polarAngleValue.setText(Double.toString(launchRail.getPolarAngle().getValue()));
+    this.polarAngleError.setText(Double.toString(launchRail.getPolarAngle().getError()));
+    this.polarAngleUnits.setValue(launchRail.getPolarAngle().getUnit().toString());
 
-    azimuthAngleValue.setText(Double.toString(launchRail.getAzimuthAngle().getValue()));
-    azimuthAngleError.setText(Double.toString(launchRail.getAzimuthAngle().getError()));
-    azimuthAngleUnits.setValue(launchRail.getAzimuthAngle().getUnit().toString());
+    this.azimuthAngleValue.setText(Double.toString(launchRail.getAzimuthAngle().getValue()));
+    this.azimuthAngleError.setText(Double.toString(launchRail.getAzimuthAngle().getError()));
+    this.azimuthAngleUnits.setValue(launchRail.getAzimuthAngle().getUnit().toString());
 
-    addValueListener(lengthValue, launchRail.getLength());
-    addValueListener(polarAngleValue, launchRail.getPolarAngle());
-    addValueListener(azimuthAngleValue, launchRail.getAzimuthAngle());
+    addValueListener(this.lengthValue, launchRail.getLength());
+    addValueListener(this.polarAngleValue, launchRail.getPolarAngle());
+    addValueListener(this.azimuthAngleValue, launchRail.getAzimuthAngle());
 
-    addErrorListener(lengthError, launchRail.getLength());
-    addErrorListener(polarAngleError, launchRail.getPolarAngle());
-    addErrorListener(azimuthAngleError, launchRail.getAzimuthAngle());
+    addErrorListener(this.lengthError, launchRail.getLength());
+    addErrorListener(this.polarAngleError, launchRail.getPolarAngle());
+    addErrorListener(this.azimuthAngleError, launchRail.getAzimuthAngle());
 
-    addUnitListener(lengthUnits, launchRail.getLength());
-    addUnitListener(polarAngleUnits, launchRail.getPolarAngle());
-    addUnitListener(azimuthAngleUnits, launchRail.getAzimuthAngle());
+    addUnitListener(this.lengthUnits, launchRail.getLength());
+    addUnitListener(this.polarAngleUnits, launchRail.getPolarAngle());
+    addUnitListener(this.azimuthAngleUnits, launchRail.getAzimuthAngle());
     return;
   }
 }

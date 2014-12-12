@@ -16,7 +16,7 @@ public class CircularCylinder extends RocketComponent {
    * @return a {@link Measurement} for diameter
    */
   public Measurement getDiameter() {
-    return diameter;
+    return this.diameter;
   }
 
   /**

@@ -49,7 +49,7 @@ public class Rocket {
    * @return
    */
   public String getName() {
-    return name;
+    return this.name;
   }
 
   /**
@@ -65,7 +65,7 @@ public class Rocket {
    * @return
    */
   public Measurement getMass() {
-    return mass;
+    return this.mass;
   }
 
   /**
@@ -81,7 +81,7 @@ public class Rocket {
    * @return
    */
   public Map<String, Measurement> getOverrides() {
-    return overrides;
+    return this.overrides;
   }
 
   /**
@@ -96,7 +96,7 @@ public class Rocket {
    * @return interiorComponents
    */
   public List<RocketComponent> getInteriorComponents() {
-    return interiorComponents;
+    return this.interiorComponents;
   }
 
   /**
@@ -110,7 +110,7 @@ public class Rocket {
    * @return exteriorComponents
    */
   public List<RocketComponent> getExteriorComponents() {
-    return exteriorComponents;
+    return this.exteriorComponents;
   }
 
   /**
@@ -124,7 +124,7 @@ public class Rocket {
    * @return radialCenterOfMass
    */
   public Measurement getRadialCenterOfMass() {
-    return radialCenterOfMass;
+    return this.radialCenterOfMass;
   }
 
   /**
@@ -138,7 +138,7 @@ public class Rocket {
    * @return radialMomentOfInertia
    */
   public Measurement getRadialMomentOfInertia() {
-    return radialMomentOfInertia;
+    return this.radialMomentOfInertia;
   }
 
   /**
@@ -152,7 +152,7 @@ public class Rocket {
    * @return longitudinalMomentOfInertia
    */
   public Measurement getLongitudinalMomentOfInertia() {
-    return longitudinalMomentOfInertia;
+    return this.longitudinalMomentOfInertia;
   }
 
   /**

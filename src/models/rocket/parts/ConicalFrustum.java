@@ -5,7 +5,7 @@ import models.Unit;
 
 /**
  * A conical frustum
- * 
+ *
  * @author Brian Woodruff
  *
  */
@@ -17,7 +17,7 @@ public class ConicalFrustum extends RocketComponent {
    * @return a {@link Measurement} for upper diameter
    */
   public Measurement getUpperDiameter() {
-    return upperDiameter;
+    return this.upperDiameter;
   }
 
   /**
@@ -32,7 +32,7 @@ public class ConicalFrustum extends RocketComponent {
    * @return a {@link Measurement} for lower diameter
    */
   public Measurement getLowerDiameter() {
-    return lowerDiameter;
+    return this.lowerDiameter;
   }
 
   /**

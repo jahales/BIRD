@@ -2,6 +2,7 @@ package models.rocket.data;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+
 import models.ISerializer;
 import models.Measurement;
 import models.Unit;
@@ -12,6 +13,7 @@ import models.rocket.parts.NoseCone;
 import models.rocket.parts.Parachute;
 import models.rocket.parts.RocketComponent;
 import models.rocket.parts.TrapezoidFinSet;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -52,7 +54,7 @@ public class BirdRocketSerializerTests {
     // Serialize the rocket
     ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
     serializer.serialize(r1, outputStream1);
-    String result1 = outputStream1.toString().replaceAll("\\s+","");
+    String result1 = outputStream1.toString().replaceAll("\\s+", "");
 
     // Deserialize the rocket to see if it serialized correctly
     ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream1.toByteArray());
@@ -61,7 +63,7 @@ public class BirdRocketSerializerTests {
     // Reserialize the rocket for comparison
     ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
     serializer.serialize(r2, outputStream2);
-    String result2 = outputStream2.toString().replaceAll("\\s+","");
+    String result2 = outputStream2.toString().replaceAll("\\s+", "");
 
     return result1.equalsIgnoreCase(result2);
   }
@@ -123,14 +125,11 @@ public class BirdRocketSerializerTests {
     //
 
     String override = "";
-    String exterior = "<CircularCylinder Name=\"Body\">\n"
-        + "			<Mass Error=\"1\">7</Mass>\n"
+    String exterior = "<CircularCylinder Name=\"Body\">\n" + "			<Mass Error=\"1\">7</Mass>\n"
         + "			<AxialLength Error=\"2\">8</AxialLength>\n"
-        + "			<Diameter Error=\"3\">9</Diameter>	\n"
-        + "			<Thickness Error=\"4\">10</Thickness>\n"
+        + "			<Diameter Error=\"3\">9</Diameter>	\n" + "			<Thickness Error=\"4\">10</Thickness>\n"
         + "			<AxialOffset Error=\"5\">11</AxialOffset>\n"
-        + "			<RadialOffset Error=\"6\">12</RadialOffset>\n"
-        + "		</CircularCylinder>";
+        + "			<RadialOffset Error=\"6\">12</RadialOffset>\n" + "		</CircularCylinder>";
     String interior = "";
     String xml = buildRocketXmlString(override, exterior, interior);
 
@@ -160,14 +159,11 @@ public class BirdRocketSerializerTests {
     //
 
     String override = "";
-    String exterior = "<CircularCylinder Name=\"Body\">\n"
-        + "			<Mass Error=\"1\">7</Mass>\n"
-        + "			<Length Error=\"2\">8</Length>\n"
-        + "			<Diameter Error=\"3\">9</Diameter>	\n"
+    String exterior = "<CircularCylinder Name=\"Body\">\n" + "			<Mass Error=\"1\">7</Mass>\n"
+        + "			<Length Error=\"2\">8</Length>\n" + "			<Diameter Error=\"3\">9</Diameter>	\n"
         + "			<Thickness Error=\"4\">10</Thickness>\n"
         + "			<AxialOffset Error=\"5\">11</AxialOffset>\n"
-        + "			<RadialOffset Error=\"6\">12</RadialOffset>\n"
-        + "		</CircularCylinder>";
+        + "			<RadialOffset Error=\"6\">12</RadialOffset>\n" + "		</CircularCylinder>";
     String interior = "";
     String xml = buildRocketXmlString(override, exterior, interior);
 
@@ -197,8 +193,7 @@ public class BirdRocketSerializerTests {
     String override = "";
     String exterior = "<ConicalFrustum Name=\"BoatTail\">\n"
         + "			<UpperDiameter Error=\"1\">7</UpperDiameter>\n"
-        + "			<LowerDiameter Error=\"2\">8</LowerDiameter>\n"
-        + "		</ConicalFrustum>";
+        + "			<LowerDiameter Error=\"2\">8</LowerDiameter>\n" + "		</ConicalFrustum>";
     String interior = "";
     String xml = buildRocketXmlString(override, exterior, interior);
 
@@ -226,10 +221,8 @@ public class BirdRocketSerializerTests {
     //
 
     String override = "";
-    String exterior = "<NoseCone Name=\"Nose\">\n"
-        + "     <NoseParameter>11</NoseParameter>"
-        + "			<Diameter Error=\"1\">7</Diameter>\n"
-        + "			<NoseShape>Ogive</NoseShape>\n"
+    String exterior = "<NoseCone Name=\"Nose\">\n" + "     <NoseParameter>11</NoseParameter>"
+        + "			<Diameter Error=\"1\">7</Diameter>\n" + "			<NoseShape>Ogive</NoseShape>\n"
         + "		</NoseCone>";
     String interior = "";
     String xml = buildRocketXmlString(override, exterior, interior);
@@ -258,8 +251,7 @@ public class BirdRocketSerializerTests {
         + "     <DeployAtApogee>True</DeployAtApogee>"
         + "			<DragCoefficient Error=\"1\">4</DragCoefficient>\n"
         + "			<DeployedDiameter Error=\"2\">5</DeployedDiameter>\n"
-        + "			<DeploymentAltitude Error=\"3\">6</DeploymentAltitude>\n"
-        + "		</Parachute>";
+        + "			<DeploymentAltitude Error=\"3\">6</DeploymentAltitude>\n" + "		</Parachute>";
     String xml = buildRocketXmlString(override, exterior, interior);
 
     // Act
@@ -285,15 +277,12 @@ public class BirdRocketSerializerTests {
 
     String override = "";
     String interior = "";
-    String exterior = "<TrapezoidFinSet Name=\"FinSet\">\n"
-        + "     <Count>4</Count>"
-        + "			<RootChord Error=\"1\">11</RootChord>\n"
-        + "			<TipChord Error=\"2\">22</TipChord>\n"
+    String exterior = "<TrapezoidFinSet Name=\"FinSet\">\n" + "     <Count>4</Count>"
+        + "			<RootChord Error=\"1\">11</RootChord>\n" + "			<TipChord Error=\"2\">22</TipChord>\n"
         + "			<SpanLength Error=\"3\">33</SpanLength>\n"
         + "			<SweepLength Error=\"4\">44</SweepLength>\n"
         + "			<CantAngle Error=\"5\">55</CantAngle>\n"
-        + "			<BodyDiameter Error=\"6\">66</BodyDiameter>\n"
-        + "		</TrapezoidFinSet>";
+        + "			<BodyDiameter Error=\"6\">66</BodyDiameter>\n" + "		</TrapezoidFinSet>";
     String xml = buildRocketXmlString(override, exterior, interior);
 
     // Act
@@ -323,31 +312,23 @@ public class BirdRocketSerializerTests {
     // Arrange
     //
 
-    String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
-        + "<Rocket>\n"
-        + "  <Override/>\n"
-        + "  <Interior/>\n"
-        + "  <Exterior>\n"
-        + "    <CircularCylinder Name=\"\">\n"
-        + "      <Diameter Error=\"0.0\">0.0</Diameter>\n"
+    String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n" + "<Rocket>\n"
+        + "  <Override/>\n" + "  <Interior/>\n" + "  <Exterior>\n"
+        + "    <CircularCylinder Name=\"\">\n" + "      <Diameter Error=\"0.0\">0.0</Diameter>\n"
         + "      <AxialLength Error=\"0.0\">0.0</AxialLength>\n"
         + "      <AxialOffset Error=\"0.0\">0.0</AxialOffset>\n"
         + "      <Mass Error=\"0.0\">0.0</Mass>\n"
         + "      <RadialOffset Error=\"0.0\">0.0</RadialOffset>\n"
-        + "      <Thickness Error=\"0.0\">0.0</Thickness>\n"
-        + "    </CircularCylinder>\n"
-        + "    <NoseCone Name=\"\">\n"
-        + "      <NoseShape>OGIVE</NoseShape>\n"
+        + "      <Thickness Error=\"0.0\">0.0</Thickness>\n" + "    </CircularCylinder>\n"
+        + "    <NoseCone Name=\"\">\n" + "      <NoseShape>OGIVE</NoseShape>\n"
         + "      <ShapeParameter>0.0</ShapeParameter>\n"
         + "      <Diameter Error=\"0.0\">0.0</Diameter>\n"
         + "      <AxialLength Error=\"0.0\">0.0</AxialLength>\n"
         + "      <AxialOffset Error=\"0.0\">0.0</AxialOffset>\n"
         + "      <Mass Error=\"0.0\">0.0</Mass>\n"
         + "      <RadialOffset Error=\"0.0\">0.0</RadialOffset>\n"
-        + "      <Thickness Error=\"0.0\">0.0</Thickness>\n"
-        + "    </NoseCone>\n"
-        + "  </Exterior>\n"
-        + "</Rocket>";
+        + "      <Thickness Error=\"0.0\">0.0</Thickness>\n" + "    </NoseCone>\n"
+        + "  </Exterior>\n" + "</Rocket>";
 
     // Act
     //

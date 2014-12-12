@@ -3,12 +3,14 @@ package models.simulator.data;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
 import models.ISerializer;
 import models.Measurement;
 import models.Unit;
@@ -23,6 +25,7 @@ import models.rocket.parts.RocketComponent;
 import models.rocket.parts.TrapezoidFinSet;
 import models.simulator.LaunchRail;
 import models.simulator.Simulation;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -42,10 +45,10 @@ public class BirdSimulationSerializer implements ISerializer<Simulation> {
     // Write the rocket components
     ISerializer<Rocket> rocketSerializer = new XmlRocketSerializer();
     Rocket rocket = rocketSerializer.deserialize(new FileInputStream(o.getRocketFile()));
-    
+
     SerializeAtmosphere(rootElement, o.getLaunchRail());
     Serialize(rootElement, o.getAtmosphereFile());
-    
+
     Element settingsElement = document.createElement("Menu");
     rootElement.appendChild(settingsElement);
     settingsElement.setAttribute("Name", "Settings");
@@ -115,7 +118,7 @@ public class BirdSimulationSerializer implements ISerializer<Simulation> {
     AddItem(element, "Shape", shape);
     AddMeasurement(element, "Mass", c.getMass());
     AddMeasurement(element, "Offset", c.getAxialOffset());
-    AddMeasurement(element, "Length", c.getAxialLength());    
+    AddMeasurement(element, "Length", c.getAxialLength());
     AddMeasurement(element, "Thickness", c.getThickness());
   }
 
@@ -130,20 +133,20 @@ public class BirdSimulationSerializer implements ISerializer<Simulation> {
     Element fuelElement = document.createElement("Menu");
     fuelElement.setAttribute("Type", "Part");
     rootElement.appendChild(fuelElement);
-    
+
     Element thrustElement = document.createElement("Menu");
     thrustElement.setAttribute("Name", "Thrust");
     thrustElement.setAttribute("Type", "Setting");
     rootElement.appendChild(thrustElement);
-    AddItem(thrustElement, "ThrustFile", c.getThrustFile()); 
-    
+    AddItem(thrustElement, "ThrustFile", c.getThrustFile());
+
     Measurement motorMass = c.getMass();
     Measurement fuelMass = c.getFuelMass();
     motorMass.setValue(c.getMass().getValue() - c.getFuelMass().getValue());
- 
+
     c.setMass(motorMass);
     Serialize(motorElement, "Motor", (CircularCylinder) c);
-    
+
     c.setMass(fuelMass);
     Serialize(fuelElement, "Fuel", (CircularCylinder) c);
   }
@@ -154,10 +157,10 @@ public class BirdSimulationSerializer implements ISerializer<Simulation> {
     Element settingsElement = document.createElement("Menu");
     settingsElement.setAttribute("Type", "Setting");
     rootElement.appendChild(settingsElement);
-    
+
     Serialize(parachuteElement, "Parachute", (CircularCylinder) c);
-    
-    double r = (c.getDiameter().getValue()) / 2.0;
+
+    double r = c.getDiameter().getValue() / 2.0;
     Measurement ap = new Measurement(Math.PI * r * r, c.getDiameter().getError(), Unit.other);
     AddMeasurement(settingsElement, "Cd", c.getDragCoefficient());
     AddMeasurement(settingsElement, "Ap", ap);
@@ -185,10 +188,9 @@ public class BirdSimulationSerializer implements ISerializer<Simulation> {
     AddMeasurement(element, "InnerDiameter", new Measurement(0, 0, Unit.meters));
     AddMeasurement(element, "OuterDiameter", c.getDiameter());
   }
-  
-  private void Serialize(Element rootElement, String atmosphere)
-  {
-     Element e = rootElement.getOwnerDocument().createElement("Menu");
+
+  private void Serialize(Element rootElement, String atmosphere) {
+    Element e = rootElement.getOwnerDocument().createElement("Menu");
     rootElement.appendChild(e);
     e.setAttribute("Name", "Environment");
     e.setAttribute("Type", "Setting");
@@ -198,9 +200,8 @@ public class BirdSimulationSerializer implements ISerializer<Simulation> {
     AddMeasurement(e, "Wy", new Measurement(0, 0, Unit.other));
     AddMeasurement(e, "Wz", new Measurement(0, 0, Unit.other));
   }
-  
-  private void SerializeAtmosphere(Element rootElement, LaunchRail l)
-  {
+
+  private void SerializeAtmosphere(Element rootElement, LaunchRail l) {
     Element e = rootElement.getOwnerDocument().createElement("Menu");
     rootElement.appendChild(e);
     e.setAttribute("Name", "LaunchRail");

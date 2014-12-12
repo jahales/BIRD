@@ -6,7 +6,7 @@ import javafx.scene.shape.Line;
 /**
  * A group of lines and stuff that look like 'I'. Width is defined in the
  * constructor
- * 
+ *
  * @author Jacob, Brian
  */
 public class ErrorBar extends Group {
@@ -21,12 +21,12 @@ public class ErrorBar extends Group {
    *          height of error bar
    */
   public ErrorBar(double error) {
-    barHeight = error;
-    topBar =    new Line(-barWidth, barHeight, barWidth, barHeight);
-//              new Line(startX, startY, endX, endY);
-    bottomBar = new Line(-barWidth, -barHeight, barWidth, -barHeight);
+    this.barHeight = error;
+    this.topBar = new Line(-this.barWidth, this.barHeight, this.barWidth, this.barHeight);
+    // new Line(startX, startY, endX, endY);
+    this.bottomBar = new Line(-this.barWidth, -this.barHeight, this.barWidth, -this.barHeight);
 
-    verticalBar = new Line(0, barHeight, 0, -barHeight);
-    getChildren().addAll(topBar, bottomBar, verticalBar);
+    this.verticalBar = new Line(0, this.barHeight, 0, -this.barHeight);
+    getChildren().addAll(this.topBar, this.bottomBar, this.verticalBar);
   }
 }

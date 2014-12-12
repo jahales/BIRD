@@ -1,8 +1,8 @@
 package models.rocket.parts;
 
-import models.report.DataTable;
 import models.Measurement;
 import models.Unit;
+import models.report.DataTable;
 
 /**
  * A motor
@@ -24,11 +24,12 @@ public class Motor extends CircularCylinder {
    * @return manufacturer
    */
   public String getManufacturer() {
-    return manufacturer;
+    return this.manufacturer;
   }
 
   /**
-   * @param manufacturer name of manufacturer
+   * @param manufacturer
+   *          name of manufacturer
    */
   public void setManufacturer(String manufacturer) {
     this.manufacturer = manufacturer;
@@ -38,11 +39,12 @@ public class Motor extends CircularCylinder {
    * @return a string of delays
    */
   public String getDelays() {
-    return delays;
+    return this.delays;
   }
 
   /**
-   * @param delays a string of delays
+   * @param delays
+   *          a string of delays
    */
   public void setDelays(String delays) {
     this.delays = delays;
@@ -52,11 +54,12 @@ public class Motor extends CircularCylinder {
    * @return a {@link Measurement} for fuel mass
    */
   public Measurement getFuelMass() {
-    return fuelMass;
+    return this.fuelMass;
   }
 
   /**
-   * @param fuelMass a {@link Measurement} for fuel mass
+   * @param fuelMass
+   *          a {@link Measurement} for fuel mass
    */
   public void setFuelMass(Measurement fuelMass) {
     this.fuelMass = fuelMass;
@@ -66,11 +69,12 @@ public class Motor extends CircularCylinder {
    * @return a {@link Measurement} for polar angle
    */
   public Measurement getPolarAngle() {
-    return polarAngle;
+    return this.polarAngle;
   }
 
   /**
-   * @param polarAngle a {@link Measurement} for polar angle
+   * @param polarAngle
+   *          a {@link Measurement} for polar angle
    */
   public void setPolarAngle(Measurement polarAngle) {
     this.polarAngle = polarAngle;
@@ -80,11 +84,12 @@ public class Motor extends CircularCylinder {
    * @return a {@link Measurement} for azimuth angle
    */
   public Measurement getAzimuthAngle() {
-    return azimuthAngle;
+    return this.azimuthAngle;
   }
 
   /**
-   * @param azimuthAngle a {@link Measurement} for azimuth angle
+   * @param azimuthAngle
+   *          a {@link Measurement} for azimuth angle
    */
   public void setAzimuthAngle(Measurement azimuthAngle) {
     this.azimuthAngle = azimuthAngle;
@@ -94,22 +99,23 @@ public class Motor extends CircularCylinder {
    * @return thrust {@link DataTable}
    */
   public String getThrustFile() {
-    return thrustFile;
+    return this.thrustFile;
   }
 
   /**
-   * @param thrustFile thrust {@link DataTable}
+   * @param thrustFile
+   *          thrust {@link DataTable}
    */
   public void setThrustFile(String thrustFile) {
     this.thrustFile = thrustFile;
   }
 
   public String getENGFilePath() {
-    return ENGFilePath;
+    return this.ENGFilePath;
   }
 
   public void setENGFilePath(String ENGFilePath) {
     this.ENGFilePath = ENGFilePath;
   }
-  
+
 }

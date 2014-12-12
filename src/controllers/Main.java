@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,15 +11,18 @@ import models.MainViewModel;
 
 /**
  * Main class that contains the entry point for the JavaFX application.
+ *
  * @author Jacob
  */
 public class Main extends Application {
-  
+
   final static Logger logger = Logger.getLogger(Main.class.getName());
 
   /**
    * Entry point for the application.
-   * @param args Command line arguments.
+   *
+   * @param args
+   *          Command line arguments.
    */
   public static void main(String[] args) {
     Application.launch(Main.class, (java.lang.String[]) null);
@@ -35,10 +39,12 @@ public class Main extends Application {
   public static void startNewMainView() {
     startNewMainView(new Stage(), new MainViewModel());
   }
-  
+
   /**
    * Creates a new instance of the main view.
-   * @param model Model representing the initial state of the view.
+   *
+   * @param model
+   *          Model representing the initial state of the view.
    */
   public static void startNewMainView(MainViewModel model) {
     startNewMainView(new Stage(), model);
@@ -46,8 +52,11 @@ public class Main extends Application {
 
   /**
    * Creates a new instance of the main view.
-   * @param stage Stage that will host the main view.
-   * @param model Model representing the initial state of the view.
+   *
+   * @param stage
+   *          Stage that will host the main view.
+   * @param model
+   *          Model representing the initial state of the view.
    */
   public static void startNewMainView(Stage stage, MainViewModel model) {
     try {
@@ -55,8 +64,8 @@ public class Main extends Application {
       controllerFactory.addSharedInstance(model);
       controllerFactory.addSharedInstance(model.getRocket());
       IController controller = controllerFactory.create("/views/MainView.fxml");
-      
-      Scene scene = new Scene((Parent)controller.getView());
+
+      Scene scene = new Scene((Parent) controller.getView());
       stage.setScene(scene);
       stage.setTitle("BIRD");
       stage.show();

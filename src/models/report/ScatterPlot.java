@@ -7,7 +7,7 @@ import javafx.scene.chart.XYChart;
 /**
  * An extension of LineChart that enables customization of the node for each
  * point. This class uses ErrorBars as the node.
- * 
+ *
  * @author Brian Woodruff
  *
  */
@@ -24,7 +24,7 @@ public class ScatterPlot extends LineChart<Number, Number> {
 
   /**
    * Add a point to the chart.
-   * 
+   *
    * @param data
    *          a point
    */
@@ -41,7 +41,7 @@ public class ScatterPlot extends LineChart<Number, Number> {
 
   /**
    * Set chart title.
-   * 
+   *
    * @param title
    *          title for the chart
    */
@@ -51,7 +51,7 @@ public class ScatterPlot extends LineChart<Number, Number> {
 
   /**
    * Set X-axis name
-   * 
+   *
    * @param name
    *          x-axis name
    */
@@ -61,7 +61,7 @@ public class ScatterPlot extends LineChart<Number, Number> {
 
   /**
    * Set Y-axis name
-   * 
+   *
    * @param name
    *          y-axis name
    */

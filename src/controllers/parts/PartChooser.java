@@ -3,7 +3,6 @@ package controllers.parts;
 import java.util.List;
 
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,7 +21,8 @@ import javafx.util.Callback;
 import controllers.RocketCreationController.RocketPart;
 
 /**
- * Part chooser dialog window. Pass a list of internal and external parts to choose from.
+ * Part chooser dialog window. Pass a list of internal and external parts to
+ * choose from.
  *
  * @author Jacob, Brian Woodruff
  */
@@ -48,48 +48,50 @@ public class PartChooser {
   /**
    * Show dialog that returns the selected part
    *
-   * @param internal list of internal {@link RocketPart} to choose from
-   * @param external list of external {@link RocketPart} to choose from
-   * @param window the parent window that will own this child window
+   * @param internal
+   *          list of internal {@link RocketPart} to choose from
+   * @param external
+   *          list of external {@link RocketPart} to choose from
+   * @param window
+   *          the parent window that will own this child window
    * @return the selected {@link RocketPart}
-   * <p>
-   * <b>Note:</b> returns null if nothing was selected
+   *         <p>
+   *         <b>Note:</b> returns null if nothing was selected
    */
-  public RocketPart showPartDialog(List<RocketPart> internal,
-                                   List<RocketPart> external,
-                                   Window window) {
-    externalPartsList.setCellFactory(cellFactory);
-    internalPartsList.setCellFactory(cellFactory);
+  public RocketPart showPartDialog(List<RocketPart> internal, List<RocketPart> external,
+      Window window) {
+    this.externalPartsList.setCellFactory(this.cellFactory);
+    this.internalPartsList.setCellFactory(this.cellFactory);
 
-    externalPartsList.setItems(FXCollections.observableArrayList(external));
-    internalPartsList.setItems(FXCollections.observableArrayList(internal));
+    this.externalPartsList.setItems(FXCollections.observableArrayList(external));
+    this.internalPartsList.setItems(FXCollections.observableArrayList(internal));
 
-    keyEvent(internalPartsList);
-    keyEvent(externalPartsList);
+    keyEvent(this.internalPartsList);
+    keyEvent(this.externalPartsList);
 
-    selectedItem(internalPartsList, internalPartsTab);
-    selectedItem(externalPartsList, externalPartsTab);
+    selectedItem(this.internalPartsList, this.internalPartsTab);
+    selectedItem(this.externalPartsList, this.externalPartsTab);
 
     setOnAction();
 
-    internalPartsTab.setContent(internalPartsList);
-    externalPartsTab.setContent(externalPartsList);
+    this.internalPartsTab.setContent(this.internalPartsList);
+    this.externalPartsTab.setContent(this.externalPartsList);
 
-    tabs.getTabs().addAll(internalPartsTab, externalPartsTab);
+    this.tabs.getTabs().addAll(this.internalPartsTab, this.externalPartsTab);
 
     VBox vbox = new VBox();
     HBox hbox = new HBox();
 
-    hbox.getChildren().addAll(addPart, cancel);
-    vbox.getChildren().addAll(tabs, hbox);
+    hbox.getChildren().addAll(this.addPart, this.cancel);
+    vbox.getChildren().addAll(this.tabs, hbox);
 
-    stage.setTitle("Add part");
-    stage.initOwner(window);
-    stage.initModality(Modality.WINDOW_MODAL);
-    stage.setScene(new Scene(vbox));
-    stage.showAndWait();
+    this.stage.setTitle("Add part");
+    this.stage.initOwner(window);
+    this.stage.initModality(Modality.WINDOW_MODAL);
+    this.stage.setScene(new Scene(vbox));
+    this.stage.showAndWait();
 
-    return selectedRocketPart;
+    return this.selectedRocketPart;
   }
 
   /**
@@ -111,7 +113,9 @@ public class PartChooser {
     /**
      * EXAMPLE_ONE to Example One
      *
-     * @param string a string to be formatted from enum style to more human readable format
+     * @param string
+     *          a string to be formatted from enum style to more human readable
+     *          format
      * @return camel case string
      */
     private String toCamelCase(String string) {
@@ -126,7 +130,8 @@ public class PartChooser {
     /**
      * ExAmPLE to Example
      *
-     * @param string a string to be formated
+     * @param string
+     *          a string to be formated
      * @return a string formated in proper case
      */
     private String toProperCase(String string) {
@@ -137,36 +142,36 @@ public class PartChooser {
   /**
    * If tab is selected, set selected part to whatever is selected in the list
    *
-   * @param list list to insert into tab
-   * @param tab tab to insert list into
+   * @param list
+   *          list to insert into tab
+   * @param tab
+   *          tab to insert list into
    */
   private void selectedItem(ListView<RocketPart> list, Tab tab) {
-    list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<RocketPart>() {
-      @Override
-      public void changed(ObservableValue<? extends RocketPart> reserved, RocketPart old,
-          RocketPart current) {
-        if (tab.isSelected()) {
-          selectedRocketPart = current;
-        }
-      }
-    });
+    list.getSelectionModel().selectedItemProperty()
+        .addListener((ChangeListener<RocketPart>) (reserved, old, current) -> {
+          if (tab.isSelected()) {
+            PartChooser.this.selectedRocketPart = current;
+          }
+        });
   }
 
   /**
    * Set event for pressing 'Enter' and double clicking
    *
-   * @param list list to setup listeners for
+   * @param list
+   *          list to setup listeners for
    */
   private void keyEvent(ListView<RocketPart> list) {
     list.setOnKeyPressed((event) -> {
       if (event.getCode() == KeyCode.ENTER) {
-        stage.close();
+        this.stage.close();
       }
     });
 
     list.setOnMouseClicked((event) -> {
       if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-        stage.close();
+        this.stage.close();
       }
     });
   }
@@ -175,16 +180,16 @@ public class PartChooser {
    * Set events for pushing buttons and stuff
    */
   private void setOnAction() {
-    addPart.setOnAction((event) -> {
-      stage.close();
+    this.addPart.setOnAction((event) -> {
+      this.stage.close();
     });
-    cancel.setOnAction((event) -> {
-      selectedRocketPart = null;
-      stage.close();
+    this.cancel.setOnAction((event) -> {
+      this.selectedRocketPart = null;
+      this.stage.close();
     });
-    stage.setOnCloseRequest((event) -> {
-      selectedRocketPart = null;
-      stage.close();
+    this.stage.setOnCloseRequest((event) -> {
+      this.selectedRocketPart = null;
+      this.stage.close();
     });
   }
 }

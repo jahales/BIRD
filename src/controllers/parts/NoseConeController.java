@@ -1,13 +1,12 @@
 package controllers.parts;
 
-import controllers.BaseController;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import models.rocket.parts.NoseCone;
 import models.rocket.parts.NoseCone.NoseShape;
+import controllers.BaseController;
 
 /**
  * Controller for the {@link NoseCone} view
@@ -35,7 +34,8 @@ public class NoseConeController extends BaseController {
   private ChoiceBox<String> shape;
 
   /**
-   * @param rocket a rocket this view will modify
+   * @param rocket
+   *          a rocket this view will modify
    */
   public NoseConeController(NoseCone noseCone) {
     this.noseCone = noseCone;
@@ -46,35 +46,33 @@ public class NoseConeController extends BaseController {
    */
   public void initialize() {
     // Populate fields with whatever values we got
-    shapeParameter.setText(Double.toString(noseCone.getShapeParameter()));
-    
-    diameterValue.setText(Double.toString(noseCone.getDiameter().getValue()));
-    diameterError.setText(Double.toString(noseCone.getDiameter().getError()));
-    diameterUnits.setValue(noseCone.getDiameter().getUnit().toString());
-    
-//    shape.setValue(noseCone.getShapeParameterDescription()); // Not sure if this is correct!
-    
+    this.shapeParameter.setText(Double.toString(this.noseCone.getShapeParameter()));
+
+    this.diameterValue.setText(Double.toString(this.noseCone.getDiameter().getValue()));
+    this.diameterError.setText(Double.toString(this.noseCone.getDiameter().getError()));
+    this.diameterUnits.setValue(this.noseCone.getDiameter().getUnit().toString());
+
+    // shape.setValue(noseCone.getShapeParameterDescription()); // Not sure if
+    // this is correct!
+
     // Set listeners
-    ListenerHelpers.addUnitListener(diameterUnits, noseCone.getDiameter());
-    shape.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        noseCone.setNoseShape(NoseShape.valueOf(arg2.toUpperCase()));
+    ListenerHelpers.addUnitListener(this.diameterUnits, this.noseCone.getDiameter());
+    this.shape
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (ChangeListener<String>) (arg0, arg1, arg2) -> NoseConeController.this.noseCone
+                .setNoseShape(NoseShape.valueOf(arg2.toUpperCase())));
+
+    ListenerHelpers.addValueListener(this.diameterValue, this.noseCone.getDiameter());
+    this.shapeParameter.textProperty().addListener((ChangeListener<String>) (arg0, arg1, arg2) -> {
+      try {
+        NoseConeController.this.noseCone.setShapeParameter(Double.parseDouble(arg2));
+      } catch (NumberFormatException e) {
+        e.printStackTrace();
       }
     });
 
-    ListenerHelpers.addValueListener(diameterValue, noseCone.getDiameter());
-    shapeParameter.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-        try {
-          noseCone.setShapeParameter(Double.parseDouble(arg2));
-        } catch (NumberFormatException e) {
-          e.printStackTrace();
-        }
-      }
-    });
-
-    ListenerHelpers.addErrorListener(diameterError, noseCone.getDiameter());
+    ListenerHelpers.addErrorListener(this.diameterError, this.noseCone.getDiameter());
   }
 }

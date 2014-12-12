@@ -15,7 +15,7 @@ import models.ISerializer;
  * A csv reader that can read or write contents to a file. Contents may be
  * edited. This is a generic class. I would suggest using strings but
  * {@link Number} or whatever can be used.
- * 
+ *
  * @author Brian Woodruff
  *
  */
@@ -23,7 +23,7 @@ public class CSVReader implements ISerializer<DataTable> {
 
   /**
    * Convert a list of strings to a list of numbers
-   * 
+   *
    * @param stringList
    *          a list of strings to convert to a list of numbers
    * @return a list of numbers
@@ -41,13 +41,15 @@ public class CSVReader implements ISerializer<DataTable> {
     String columnNames = "";
     List<String> columnNameList = dataTable.getColumnNames();
     for (int i = 0; i < columnNameList.size(); i++) {
-      columnNames += columnNameList.get(i) + (i + 1 < columnNameList.size() ? "," : (dataTable.getRows() == 0 ? "" : "\n"));
+      columnNames += columnNameList.get(i)
+          + (i + 1 < columnNameList.size() ? "," : dataTable.getRows() == 0 ? "" : "\n");
     }
     outputStream.write(columnNames.getBytes(Charset.forName("UTF-8")));
     for (List<Number> row : dataTable.getData()) {
       String rowAsString = "";
       for (int i = 0; i < row.size(); i++) {
-        rowAsString += row.get(i) + (i + 1 < row.size() ? "," : (dataTable.getRows() == i ? "" : "\n"));
+        rowAsString += row.get(i)
+            + (i + 1 < row.size() ? "," : dataTable.getRows() == i ? "" : "\n");
       }
       outputStream.write(rowAsString.getBytes(Charset.forName("UTF-8")));
     }

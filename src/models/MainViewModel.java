@@ -1,6 +1,7 @@
 package models;
 
 import java.io.File;
+
 import models.rocket.Rocket;
 import models.simulator.Simulation;
 
@@ -23,7 +24,7 @@ public class MainViewModel {
    * @return rocket
    */
   public Rocket getRocket() {
-    return rocket;
+    return this.rocket;
   }
 
   /**
@@ -38,9 +39,9 @@ public class MainViewModel {
    * @return simulation
    */
   public Simulation getSimulation() {
-    return simulation;
+    return this.simulation;
   }
-  
+
   /**
    *
    * @param simulation
@@ -48,12 +49,12 @@ public class MainViewModel {
   public void setSimulation(Simulation simulation) {
     this.simulation = simulation;
   }
-  
+
   /**
    * @return neverBeenSaved
    */
   public boolean hasNeverBeenSaved() {
-    return neverBeenSaved;
+    return this.neverBeenSaved;
   }
 
   /**
@@ -67,7 +68,7 @@ public class MainViewModel {
    * @return presentWorkingFile
    */
   public File getPresentWorkingFile() {
-    return presentWorkingFile;
+    return this.presentWorkingFile;
   }
 
   /**
@@ -81,7 +82,7 @@ public class MainViewModel {
    * @return presentWorkingDirectory
    */
   public File getPresentWorkingDirectory() {
-    return presentWorkingDirectory;
+    return this.presentWorkingDirectory;
   }
 
   /**
@@ -95,7 +96,7 @@ public class MainViewModel {
    * @return unsaved
    */
   public boolean isUnsaved() {
-    return unsaved;
+    return this.unsaved;
   }
 
   /**

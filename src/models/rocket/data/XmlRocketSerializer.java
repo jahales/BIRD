@@ -9,8 +9,8 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import models.ISerializer;
 
+import models.ISerializer;
 import models.Measurement;
 import models.rocket.Rocket;
 import models.rocket.parts.CircularCylinder;
@@ -27,8 +27,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 /**
- * Serializes and deserializes a rocket for interoperability with other programs using the BIRD file
- * format.
+ * Serializes and deserializes a rocket for interoperability with other programs
+ * using the BIRD file format.
  *
  * @author Jacob
  */
@@ -37,8 +37,10 @@ public class XmlRocketSerializer implements ISerializer<Rocket> {
   /**
    * Serializes a rocket to the specified output stream
    *
-   * @param rocket The rocket to serialize
-   * @param outputStream The stream to write to
+   * @param rocket
+   *          The rocket to serialize
+   * @param outputStream
+   *          The stream to write to
    * @throws Exception
    */
   @Override
@@ -86,15 +88,15 @@ public class XmlRocketSerializer implements ISerializer<Rocket> {
     measurementElement.setTextContent(Double.toString(measurement.getValue()));
     return measurementElement;
   }
-  
-  private Element createElement(Document document, String name, String value)
-  {
+
+  private Element createElement(Document document, String name, String value) {
     Element element = document.createElement(name);
     element.setTextContent(value);
     return element;
   }
 
-  private Element createRocketComponentElement(Document document, RocketComponent component) throws Exception {
+  private Element createRocketComponentElement(Document document, RocketComponent component)
+      throws Exception {
     Element element = null;
 
     // Add the part-specific measurements and quantities
@@ -114,12 +116,16 @@ public class XmlRocketSerializer implements ISerializer<Rocket> {
       throw new Exception(""); // TODO: replace with better exception
     }
 
-    // Add the generic rocket component measurements to the new component element
+    // Add the generic rocket component measurements to the new component
+    // element
     element.setAttribute("Name", component.getName());
-    element.appendChild(createMeasurementElement(document, "AxialLength", component.getAxialLength()));
-    element.appendChild(createMeasurementElement(document, "AxialOffset", component.getAxialOffset()));
+    element.appendChild(createMeasurementElement(document, "AxialLength",
+        component.getAxialLength()));
+    element.appendChild(createMeasurementElement(document, "AxialOffset",
+        component.getAxialOffset()));
     element.appendChild(createMeasurementElement(document, "Mass", component.getMass()));
-    element.appendChild(createMeasurementElement(document, "RadialOffset", component.getRadialOffset()));
+    element.appendChild(createMeasurementElement(document, "RadialOffset",
+        component.getRadialOffset()));
     element.appendChild(createMeasurementElement(document, "Thickness", component.getThickness()));
 
     return element;
@@ -133,8 +139,10 @@ public class XmlRocketSerializer implements ISerializer<Rocket> {
 
   private Element createConicalFrustumElement(Document document, ConicalFrustum component) {
     Element element = document.createElement("ConicalFrustum");
-    element.appendChild(createMeasurementElement(document, "UpperDiameter", component.getUpperDiameter()));
-    element.appendChild(createMeasurementElement(document, "LowerDiameter", component.getLowerDiameter()));
+    element.appendChild(createMeasurementElement(document, "UpperDiameter",
+        component.getUpperDiameter()));
+    element.appendChild(createMeasurementElement(document, "LowerDiameter",
+        component.getLowerDiameter()));
 
     return element;
   }
@@ -143,11 +151,13 @@ public class XmlRocketSerializer implements ISerializer<Rocket> {
     Element element = document.createElement("Motor");
     element.appendChild(createMeasurementElement(document, "Diameter", component.getDiameter()));
     element.appendChild(createMeasurementElement(document, "FuelMass", component.getFuelMass()));
-    element.appendChild(createMeasurementElement(document, "PolarAngle", component.getPolarAngle()));
-    element.appendChild(createMeasurementElement(document, "AzimuthAngle", component.getAzimuthAngle()));
+    element
+        .appendChild(createMeasurementElement(document, "PolarAngle", component.getPolarAngle()));
+    element.appendChild(createMeasurementElement(document, "AzimuthAngle",
+        component.getAzimuthAngle()));
     element.appendChild(createElement(document, "Manufacturer", component.getManufacturer()));
     element.appendChild(createElement(document, "Delays", component.getDelays()));
-    element.appendChild(createElement(document, "ThrustFile", component.getThrustFile()));    
+    element.appendChild(createElement(document, "ThrustFile", component.getThrustFile()));
     return element;
   }
 
@@ -166,9 +176,12 @@ public class XmlRocketSerializer implements ISerializer<Rocket> {
   private Element createParachuteElement(Document document, Parachute component) {
     Element element = document.createElement("Parachute");
     element.appendChild(createMeasurementElement(document, "Diameter", component.getDiameter()));
-    element.appendChild(createMeasurementElement(document, "DragCoefficient", component.getDragCoefficient()));
-    element.appendChild(createMeasurementElement(document, "DeployedDiameter", component.getDeployedDiameter()));
-    element.appendChild(createMeasurementElement(document, "DeploymentAltitude", component.getDeploymentAltitude()));
+    element.appendChild(createMeasurementElement(document, "DragCoefficient",
+        component.getDragCoefficient()));
+    element.appendChild(createMeasurementElement(document, "DeployedDiameter",
+        component.getDeployedDiameter()));
+    element.appendChild(createMeasurementElement(document, "DeploymentAltitude",
+        component.getDeploymentAltitude()));
     return element;
   }
 
@@ -179,17 +192,21 @@ public class XmlRocketSerializer implements ISerializer<Rocket> {
     element.appendChild(finCountElement);
     element.appendChild(createMeasurementElement(document, "RootChord", component.getRootChord()));
     element.appendChild(createMeasurementElement(document, "TipChord", component.getTipChord()));
-    element.appendChild(createMeasurementElement(document, "SpanLength", component.getSpanLength()));
-    element.appendChild(createMeasurementElement(document, "SweepLength", component.getSweepLength()));
+    element
+        .appendChild(createMeasurementElement(document, "SpanLength", component.getSpanLength()));
+    element.appendChild(createMeasurementElement(document, "SweepLength",
+        component.getSweepLength()));
     element.appendChild(createMeasurementElement(document, "CantAngle", component.getCantAngle()));
-    element.appendChild(createMeasurementElement(document, "BodyDiameter", component.getBodyDiameter()));
+    element.appendChild(createMeasurementElement(document, "BodyDiameter",
+        component.getBodyDiameter()));
     return element;
   }
 
   /**
    * Deserializes a rocket from the specified input stream
    *
-   * @param stream The stream to read from
+   * @param stream
+   *          The stream to read from
    * @return Returns the deserialized Rocket
    * @throws Exception
    */
@@ -204,7 +221,7 @@ public class XmlRocketSerializer implements ISerializer<Rocket> {
       throw new Exception("Invalid root node: " + doc.getDocumentElement().getNodeName());
     }
 
-    // Load all of the override settings    
+    // Load all of the override settings
     NodeList overrideElements = doc.getElementsByTagName("Override");
 
     for (int i = 0; i < overrideElements.getLength(); i++) {
@@ -223,7 +240,7 @@ public class XmlRocketSerializer implements ISerializer<Rocket> {
       }
     }
 
-    // Load all of the exterior settings    
+    // Load all of the exterior settings
     NodeList exteriorElements = doc.getElementsByTagName("Exterior");
 
     for (int i = 0; i < exteriorElements.getLength(); i++) {
@@ -241,7 +258,7 @@ public class XmlRocketSerializer implements ISerializer<Rocket> {
       }
     }
 
-    // Load all of the interior settings    
+    // Load all of the interior settings
     NodeList interiorElements = doc.getElementsByTagName("Interior");
 
     for (int i = 0; i < interiorElements.getLength(); i++) {
@@ -316,26 +333,26 @@ public class XmlRocketSerializer implements ISerializer<Rocket> {
     RocketComponent component = null;
 
     switch (componentType.toUpperCase()) {
-      case "NOSECONE":
-        component = loadNoseCone(element);
-        break;
-      case "TRAPEZOIDFINSET":
-        component = loadTrapezoidFinSet(element);
-        break;
-      case "CONICALFRUSTUM":
-        component = loadConicalFrustum(element);
-        break;
-      case "CIRCULARCYLINDER":
-        component = loadCircularCylinder(element);
-        break;
-      case "PARACHUTE":
-        component = loadParachute(element);
-        break;
-      case "MOTOR":
-        component = loadMotor(element);
-        break;
-      default:
-        return null; // TODO: make this better
+    case "NOSECONE":
+      component = loadNoseCone(element);
+      break;
+    case "TRAPEZOIDFINSET":
+      component = loadTrapezoidFinSet(element);
+      break;
+    case "CONICALFRUSTUM":
+      component = loadConicalFrustum(element);
+      break;
+    case "CIRCULARCYLINDER":
+      component = loadCircularCylinder(element);
+      break;
+    case "PARACHUTE":
+      component = loadParachute(element);
+      break;
+    case "MOTOR":
+      component = loadMotor(element);
+      break;
+    default:
+      return null; // TODO: make this better
     }
 
     // Load the component properties common to all components
@@ -404,7 +421,7 @@ public class XmlRocketSerializer implements ISerializer<Rocket> {
     motor.setAzimuthAngle(loadMeasurementElement(element, "AzimuthAngle"));
     motor.setManufacturer(getElementValue(element, "Manufacturer"));
     motor.setDelays(getElementValue(element, "Delays"));
-    motor.setThrustFile(getElementValue(element, "ThrustFile"));    
+    motor.setThrustFile(getElementValue(element, "ThrustFile"));
     return motor;
   }
 }

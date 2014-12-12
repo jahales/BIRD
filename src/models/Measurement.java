@@ -1,13 +1,13 @@
 package models;
 
 import java.util.List;
+
 import javafx.collections.FXCollections;
-import models.Unit;
 
 /**
  * A Measurement contains a value, error and units of measurement. A conversion
  * method is available for converting the units.
- * 
+ *
  * @author Brian Woodruff
  *
  */
@@ -18,7 +18,7 @@ public class Measurement {
 
   /**
    * <h1>Preferred Constructor</h1>
-   * 
+   *
    * @param value
    *          value of measurement
    * @param error
@@ -35,8 +35,8 @@ public class Measurement {
   /**
    * <h1>Default Constructor</h1>
    * <p>
-   * <b>Note:</b> Units may not have been initialized, so use {@link setUnit}
-   * to avoid errors
+   * <b>Note:</b> Units may not have been initialized, so use {@link setUnit} to
+   * avoid errors
    */
   public Measurement() {
   }
@@ -45,7 +45,7 @@ public class Measurement {
    * @return the value of the {@link Measurement}
    */
   public double getValue() {
-    return value;
+    return this.value;
   }
 
   /**
@@ -60,7 +60,7 @@ public class Measurement {
    * @return the error of the {@link Measurement}
    */
   public double getError() {
-    return error;
+    return this.error;
   }
 
   /**
@@ -76,7 +76,7 @@ public class Measurement {
    * @return the {@link Unit} of measurement
    */
   public Unit getUnit() {
-    return unit;
+    return this.unit;
   }
 
   /**
@@ -91,7 +91,7 @@ public class Measurement {
   /**
    * Convert the {@link Unit} of a {@link Measurement}. <b>Note:</b> Only works
    * if the Units of measurement are of the same type as your unit.
-   * 
+   *
    * @param measurement
    *          The {@link Measurement} you are converting
    * @param unit

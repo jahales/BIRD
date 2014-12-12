@@ -1,13 +1,12 @@
 package controllers.parts;
 
-import controllers.BaseController;
-import controllers.RocketCreationController.RocketPart;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import models.rocket.parts.RocketComponent;
+import controllers.BaseController;
+import controllers.RocketCreationController.RocketPart;
 
 /**
  * Abstract controller for a {@link RocketPart}
@@ -70,7 +69,8 @@ public class ComponentController extends BaseController {
   /**
    * Adds listeners to all common elements of a {@link RocketComponent}.
    *
-   * @param component a {@link RocketComponent} this controller will modify
+   * @param component
+   *          a {@link RocketComponent} this controller will modify
    */
   public ComponentController(RocketComponent component) {
     this.component = component;
@@ -78,49 +78,46 @@ public class ComponentController extends BaseController {
 
   public void initialize() {
     // Populate fields with whatever values we got
-    name.setText(component.getName());
-    
-    massValue.setText(Double.toString(component.getMass().getValue()));
-    axialLengthValue.setText(Double.toString(component.getAxialLength().getValue()));
-    axialOffsetValue.setText(Double.toString(component.getAxialOffset().getValue()));
-    radialOffsetValue.setText(Double.toString(component.getRadialOffset().getValue()));
-    thicknessValue.setText(Double.toString(component.getThickness().getValue()));
-    
-    massError.setText(Double.toString(component.getMass().getError()));
-    axialLengthError.setText(Double.toString(component.getAxialLength().getError()));
-    axialOffsetError.setText(Double.toString(component.getAxialOffset().getError()));
-    radialOffsetError.setText(Double.toString(component.getRadialOffset().getError()));
-    thicknessError.setText(Double.toString(component.getThickness().getError()));
-    
-    massUnits.setValue(component.getMass().getUnit().toString());
-    axialLengthUnits.setValue(component.getAxialLength().getUnit().toString());
-    axialOffsetUnits.setValue(component.getAxialOffset().getUnit().toString());
-    radialOffsetUnits.setValue(component.getRadialOffset().getUnit().toString());
-    thicknessUnits.setValue(component.getThickness().getUnit().toString());
-    
+    this.name.setText(this.component.getName());
+
+    this.massValue.setText(Double.toString(this.component.getMass().getValue()));
+    this.axialLengthValue.setText(Double.toString(this.component.getAxialLength().getValue()));
+    this.axialOffsetValue.setText(Double.toString(this.component.getAxialOffset().getValue()));
+    this.radialOffsetValue.setText(Double.toString(this.component.getRadialOffset().getValue()));
+    this.thicknessValue.setText(Double.toString(this.component.getThickness().getValue()));
+
+    this.massError.setText(Double.toString(this.component.getMass().getError()));
+    this.axialLengthError.setText(Double.toString(this.component.getAxialLength().getError()));
+    this.axialOffsetError.setText(Double.toString(this.component.getAxialOffset().getError()));
+    this.radialOffsetError.setText(Double.toString(this.component.getRadialOffset().getError()));
+    this.thicknessError.setText(Double.toString(this.component.getThickness().getError()));
+
+    this.massUnits.setValue(this.component.getMass().getUnit().toString());
+    this.axialLengthUnits.setValue(this.component.getAxialLength().getUnit().toString());
+    this.axialOffsetUnits.setValue(this.component.getAxialOffset().getUnit().toString());
+    this.radialOffsetUnits.setValue(this.component.getRadialOffset().getUnit().toString());
+    this.thicknessUnits.setValue(this.component.getThickness().getUnit().toString());
+
     // Set listeners
-    name.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> reserved, String old, String current) {
-        component.setName(current);
-      }
-    });
-    ListenerHelpers.addValueListener(massValue, component.getMass());
-    ListenerHelpers.addValueListener(axialLengthValue, component.getAxialLength());
-    ListenerHelpers.addValueListener(axialOffsetValue, component.getAxialOffset());
-    ListenerHelpers.addValueListener(radialOffsetValue, component.getRadialOffset());
-    ListenerHelpers.addValueListener(thicknessValue, component.getThickness());
+    this.name.textProperty().addListener(
+        (ChangeListener<String>) (reserved, old, current) -> ComponentController.this.component
+            .setName(current));
+    ListenerHelpers.addValueListener(this.massValue, this.component.getMass());
+    ListenerHelpers.addValueListener(this.axialLengthValue, this.component.getAxialLength());
+    ListenerHelpers.addValueListener(this.axialOffsetValue, this.component.getAxialOffset());
+    ListenerHelpers.addValueListener(this.radialOffsetValue, this.component.getRadialOffset());
+    ListenerHelpers.addValueListener(this.thicknessValue, this.component.getThickness());
 
-    ListenerHelpers.addErrorListener(massError, component.getMass());
-    ListenerHelpers.addErrorListener(axialLengthError, component.getAxialLength());
-    ListenerHelpers.addErrorListener(axialOffsetError, component.getAxialOffset());
-    ListenerHelpers.addErrorListener(radialOffsetError, component.getRadialOffset());
-    ListenerHelpers.addErrorListener(thicknessError, component.getThickness());
+    ListenerHelpers.addErrorListener(this.massError, this.component.getMass());
+    ListenerHelpers.addErrorListener(this.axialLengthError, this.component.getAxialLength());
+    ListenerHelpers.addErrorListener(this.axialOffsetError, this.component.getAxialOffset());
+    ListenerHelpers.addErrorListener(this.radialOffsetError, this.component.getRadialOffset());
+    ListenerHelpers.addErrorListener(this.thicknessError, this.component.getThickness());
 
-    ListenerHelpers.addUnitListener(massUnits, component.getMass());
-    ListenerHelpers.addUnitListener(axialLengthUnits, component.getAxialLength());
-    ListenerHelpers.addUnitListener(axialOffsetUnits, component.getAxialOffset());
-    ListenerHelpers.addUnitListener(radialOffsetUnits, component.getRadialOffset());
-    ListenerHelpers.addUnitListener(thicknessUnits, component.getThickness());
+    ListenerHelpers.addUnitListener(this.massUnits, this.component.getMass());
+    ListenerHelpers.addUnitListener(this.axialLengthUnits, this.component.getAxialLength());
+    ListenerHelpers.addUnitListener(this.axialOffsetUnits, this.component.getAxialOffset());
+    ListenerHelpers.addUnitListener(this.radialOffsetUnits, this.component.getRadialOffset());
+    ListenerHelpers.addUnitListener(this.thicknessUnits, this.component.getThickness());
   }
 }
