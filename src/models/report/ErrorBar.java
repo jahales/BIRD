@@ -21,12 +21,12 @@ public class ErrorBar extends Group {
    *          height of error bar
    */
   public ErrorBar(double error) {
-    this.barHeight = error;
-    this.topBar = new Line(-this.barWidth, this.barHeight, this.barWidth, this.barHeight);
+    barHeight = error;
+    topBar = new Line(-barWidth, barHeight, barWidth, barHeight);
     // new Line(startX, startY, endX, endY);
-    this.bottomBar = new Line(-this.barWidth, -this.barHeight, this.barWidth, -this.barHeight);
+    bottomBar = new Line(-barWidth, -barHeight, barWidth, -barHeight);
 
-    this.verticalBar = new Line(0, this.barHeight, 0, -this.barHeight);
-    getChildren().addAll(this.topBar, this.bottomBar, this.verticalBar);
+    verticalBar = new Line(0, barHeight, 0, -barHeight);
+    getChildren().addAll(topBar, bottomBar, verticalBar);
   }
 }

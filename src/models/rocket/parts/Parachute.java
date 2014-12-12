@@ -19,7 +19,7 @@ public class Parachute extends CircularCylinder {
    * @return a {@link Measurement} for drag coefficient
    */
   public Measurement getDragCoefficient() {
-    return this.dragCoefficient;
+    return dragCoefficient;
   }
 
   /**
@@ -34,7 +34,7 @@ public class Parachute extends CircularCylinder {
    * @return a {@link Measurement} for deployed diameter
    */
   public Measurement getDeployedDiameter() {
-    return this.deployedDiameter;
+    return deployedDiameter;
   }
 
   /**
@@ -49,7 +49,7 @@ public class Parachute extends CircularCylinder {
    * @return a {@link Measurement} for deployment altitude
    */
   public Measurement getDeploymentAltitude() {
-    return this.deploymentAltitude;
+    return deploymentAltitude;
   }
 
   /**
@@ -64,7 +64,7 @@ public class Parachute extends CircularCylinder {
    * @return whether parachute is deployed at apogee
    */
   public Boolean getDeployAtApogee() {
-    return this.deployAtApogee;
+    return deployAtApogee;
   }
 
   /**

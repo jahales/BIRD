@@ -39,7 +39,7 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
 
   /**
    * Creates a new FXML controller using the specified URL.
-   * 
+   *
    * @param url
    *          Location of the view FXML file.
    * @return Returns a reference to the controller casted as an IController
@@ -65,7 +65,7 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
    */
   public void addSharedInstance(Object instance) {
     for (Class<?> c = instance.getClass(); c != null; c = c.getSuperclass()) {
-      this.typeInstanceMap.put(c, instance);
+      typeInstanceMap.put(c, instance);
     }
   }
 
@@ -152,7 +152,7 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
    * @return Returns a new or shared instance if possible, otherwise null.
    */
   private Object resolveParameter(Class<?> type) {
-    Object instance = this.typeInstanceMap.get(type);
+    Object instance = typeInstanceMap.get(type);
 
     if (instance == null) {
       try {

@@ -14,14 +14,14 @@ import models.rocket.Rocket;
 /**
  * Serializes and deserializes a rocket for interoperability with other programs
  * using the Cambridge Rocketry file format.
- * 
+ *
  * @author Jacob
  */
 public class CambridgeRocketSerializer implements ISerializer<Rocket> {
 
   /**
    * Serializes a rocket to the specified output stream
-   * 
+   *
    * @param rocket
    *          The rocket to serialize
    * @param outputStream
@@ -31,17 +31,17 @@ public class CambridgeRocketSerializer implements ISerializer<Rocket> {
   @Override
   public void serialize(Rocket rocket, OutputStream outputStream) throws Exception {
     throw new UnsupportedOperationException("Not supported yet."); // To change
-                                                                   // body of
-                                                                   // generated
-                                                                   // methods,
-                                                                   // choose
-                                                                   // Tools |
-                                                                   // Templates.
+    // body of
+    // generated
+    // methods,
+    // choose
+    // Tools |
+    // Templates.
   }
 
   /**
    * Deserializes a rocket from the specified input stream
-   * 
+   *
    * @param inputStream
    *          The stream to read from
    * @return Returns the deserialized Rocket
@@ -50,12 +50,12 @@ public class CambridgeRocketSerializer implements ISerializer<Rocket> {
   @Override
   public Rocket deserialize(InputStream inputStream) throws Exception {
     throw new UnsupportedOperationException("Not supported yet."); // To change
-                                                                   // body of
-                                                                   // generated
-                                                                   // methods,
-                                                                   // choose
-                                                                   // Tools |
-                                                                   // Templates.
+    // body of
+    // generated
+    // methods,
+    // choose
+    // Tools |
+    // Templates.
   }
 
 }

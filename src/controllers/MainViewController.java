@@ -31,7 +31,7 @@ public class MainViewController extends BaseController {
    * @param modelState
    */
   public MainViewController(MainViewModel mainViewState) {
-    this.mainViewModel = mainViewState;
+    mainViewModel = mainViewState;
   }
 
   /**
@@ -42,13 +42,13 @@ public class MainViewController extends BaseController {
   @FXML
   void fileNew() {
     // Spawn new instance with mostly empty data
-    FileHelper.spawnNewInstance(new Rocket(), this.mainViewModel);
+    FileHelper.spawnNewInstance(new Rocket(), mainViewModel);
   }
 
   @FXML
   void menuIOpenReport() {
     // Spawn new instance with mostly empty data
-    FileHelper.spawnNewInstance(new Rocket(), this.mainViewModel);
+    FileHelper.spawnNewInstance(new Rocket(), mainViewModel);
   }
 
   /**
@@ -58,7 +58,7 @@ public class MainViewController extends BaseController {
    */
   @FXML
   void fileOpen() {
-    FileHelper.open(this.mainViewModel, this.root);
+    FileHelper.open(mainViewModel, root);
   }
 
   /**
@@ -68,7 +68,7 @@ public class MainViewController extends BaseController {
    */
   @FXML
   void fileSave() {
-    FileHelper.save(this.mainViewModel, this.root);
+    FileHelper.save(mainViewModel, root);
   }
 
   /**
@@ -78,7 +78,7 @@ public class MainViewController extends BaseController {
    */
   @FXML
   void fileSaveAs() {
-    FileHelper.fileSaveAs(this.mainViewModel, this.root);
+    FileHelper.fileSaveAs(mainViewModel, root);
   }
 
   /**
@@ -90,7 +90,7 @@ public class MainViewController extends BaseController {
   void fileQuit() {
     if (promptSaveQuit()) {
       AppSettings.getInstance().saveProperties();
-      Stage stage = (Stage) this.root.getScene().getWindow();
+      Stage stage = (Stage) root.getScene().getWindow();
       stage.close();
     }
   }
@@ -116,7 +116,7 @@ public class MainViewController extends BaseController {
       Scene scene = new Scene((Parent) controller.getView());
       Stage stage = new Stage();
       stage.setScene(scene);
-      stage.initOwner(this.root.getScene().getWindow());
+      stage.initOwner(root.getScene().getWindow());
       stage.setTitle("Do you wish to save?");
       stage.showAndWait();
 

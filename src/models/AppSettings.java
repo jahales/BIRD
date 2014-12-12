@@ -1,7 +1,7 @@
 /*
- * AppSettings controls access to the application properties file, 
- * and follows the singleton design pattern. 
- * 
+ * AppSettings controls access to the application properties file,
+ * and follows the singleton design pattern.
+ *
  */
 package models;
 
@@ -10,8 +10,8 @@ import java.io.OutputStream;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import models.simulator.LaunchRail;
-import models.Unit;
 
 /**
  *
@@ -43,8 +43,8 @@ public class AppSettings {
   }
 
   /**
-     *
-     */
+   *
+   */
   public void loadProperties() {
     try {
       Properties prop = new Properties();
@@ -102,9 +102,6 @@ public class AppSettings {
 
       // save properties to project root folder
       output = new FileOutputStream("src/models/AppSettings.properties");
-      if (output == null) {
-        System.out.println("output stream is null");
-      }
       prop.store(output, "");
 
       if (output != null) {

@@ -26,7 +26,7 @@ public class BirdSimulatorEngine implements ISimulationEngine {
    * @return simulation
    */
   public Simulation getSimulation() {
-    return this.simulation;
+    return simulation;
   }
 
   /**
@@ -46,7 +46,7 @@ public class BirdSimulatorEngine implements ISimulationEngine {
         byte[] buffer = new byte[4096];
         int read = 0;
 
-        try (OutputStream os = new FileOutputStream(this.exeFile)) {
+        try (OutputStream os = new FileOutputStream(exeFile)) {
           while ((read = is.read(buffer)) > 0) {
             os.write(buffer, 0, read);
           }
@@ -64,9 +64,9 @@ public class BirdSimulatorEngine implements ISimulationEngine {
       String cmd = null;
 
       if (simulation.isMonteCarlo()) {
-        cmd = this.exeFile + " mc " + settingsFile + " " + simulation.getMonteNumber();
+        cmd = exeFile + " mc " + settingsFile + " " + simulation.getMonteNumber();
       } else {
-        cmd = this.exeFile + " run " + settingsFile;
+        cmd = exeFile + " run " + settingsFile;
       }
 
       // Run the simulator and return the result

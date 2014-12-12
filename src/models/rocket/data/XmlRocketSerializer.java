@@ -152,7 +152,7 @@ public class XmlRocketSerializer implements ISerializer<Rocket> {
     element.appendChild(createMeasurementElement(document, "Diameter", component.getDiameter()));
     element.appendChild(createMeasurementElement(document, "FuelMass", component.getFuelMass()));
     element
-        .appendChild(createMeasurementElement(document, "PolarAngle", component.getPolarAngle()));
+    .appendChild(createMeasurementElement(document, "PolarAngle", component.getPolarAngle()));
     element.appendChild(createMeasurementElement(document, "AzimuthAngle",
         component.getAzimuthAngle()));
     element.appendChild(createElement(document, "Manufacturer", component.getManufacturer()));
@@ -193,7 +193,7 @@ public class XmlRocketSerializer implements ISerializer<Rocket> {
     element.appendChild(createMeasurementElement(document, "RootChord", component.getRootChord()));
     element.appendChild(createMeasurementElement(document, "TipChord", component.getTipChord()));
     element
-        .appendChild(createMeasurementElement(document, "SpanLength", component.getSpanLength()));
+    .appendChild(createMeasurementElement(document, "SpanLength", component.getSpanLength()));
     element.appendChild(createMeasurementElement(document, "SweepLength",
         component.getSweepLength()));
     element.appendChild(createMeasurementElement(document, "CantAngle", component.getCantAngle()));

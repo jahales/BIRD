@@ -18,14 +18,14 @@ public class Simulation {
   private LaunchRail launchRail = new LaunchRail();
 
   public String getOutputFile() {
-    return this.outputFile;
+    return outputFile;
   }
 
   /**
    * @return rocketFile
    */
   public String getRocketFile() {
-    return this.rocketFile;
+    return rocketFile;
   }
 
   /**
@@ -39,7 +39,7 @@ public class Simulation {
    * @return engineFile
    */
   public String getEngineFile() {
-    return this.engineFile;
+    return engineFile;
   }
 
   /**
@@ -53,7 +53,7 @@ public class Simulation {
    * @return atmosphereFile
    */
   public String getAtmosphereFile() {
-    return this.atmosphereFile;
+    return atmosphereFile;
   }
 
   /**
@@ -67,7 +67,7 @@ public class Simulation {
    * @return launchRailFile
    */
   public String getLaunchRailFile() {
-    return this.launchRailFile;
+    return launchRailFile;
   }
 
   /**
@@ -81,7 +81,7 @@ public class Simulation {
    * @return launchRail
    */
   public LaunchRail getLaunchRail() {
-    return this.launchRail;
+    return launchRail;
   }
 
   /**
@@ -92,15 +92,15 @@ public class Simulation {
   }
 
   public boolean isMonteCarlo() {
-    return this.monteCarlo;
+    return monteCarlo;
   }
 
   public void setIsMonteCarlo(boolean isMonteCarlo) {
-    this.monteCarlo = isMonteCarlo;
+    monteCarlo = isMonteCarlo;
   }
 
   public int getMonteNumber() {
-    return this.monteNumber;
+    return monteNumber;
   }
 
   public void setMonteNumber(int monteNumber) {

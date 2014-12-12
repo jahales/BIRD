@@ -53,44 +53,29 @@ public class ParachuteController extends BaseController {
    */
   public void initialize() {
     // Populate fields with whatever values we got
-    this.dragCoefficientValue.setText(Double.toString(this.parachute.getDragCoefficient()
-        .getValue()));
-    this.deployedDiameterValue.setText(Double.toString(this.parachute.getDeployedDiameter()
-        .getValue()));
-    this.deploymentAltitudeValue.setText(Double.toString(this.parachute.getDeploymentAltitude()
-        .getValue()));
+    dragCoefficientValue.setText(Double.toString(parachute.getDragCoefficient().getValue()));
+    deployedDiameterValue.setText(Double.toString(parachute.getDeployedDiameter().getValue()));
+    deploymentAltitudeValue.setText(Double.toString(parachute.getDeploymentAltitude().getValue()));
 
-    this.dragCoefficientError.setText(Double.toString(this.parachute.getDragCoefficient()
-        .getError()));
-    this.deployedDiameterError.setText(Double.toString(this.parachute.getDeployedDiameter()
-        .getError()));
-    this.deploymentAltitudeError.setText(Double.toString(this.parachute.getDeploymentAltitude()
-        .getError()));
+    dragCoefficientError.setText(Double.toString(parachute.getDragCoefficient().getError()));
+    deployedDiameterError.setText(Double.toString(parachute.getDeployedDiameter().getError()));
+    deploymentAltitudeError.setText(Double.toString(parachute.getDeploymentAltitude().getError()));
 
-    this.deployedDiameterUnits.setValue(this.parachute.getDeployedDiameter().getUnit().toString());
-    this.deployedAltitudeUnits
-        .setValue(this.parachute.getDeploymentAltitude().getUnit().toString());
+    deployedDiameterUnits.setValue(parachute.getDeployedDiameter().getUnit().toString());
+    deployedAltitudeUnits.setValue(parachute.getDeploymentAltitude().getUnit().toString());
 
     // parachute.getDeployAtApogee(); // Missing implementation
 
     // Set listeners
-    ListenerHelpers.addValueListener(this.deployedDiameterValue,
-        this.parachute.getDeployedDiameter());
-    ListenerHelpers.addValueListener(this.deploymentAltitudeValue,
-        this.parachute.getDeploymentAltitude());
-    ListenerHelpers
-        .addValueListener(this.dragCoefficientValue, this.parachute.getDragCoefficient());
+    ListenerHelpers.addValueListener(deployedDiameterValue, parachute.getDeployedDiameter());
+    ListenerHelpers.addValueListener(deploymentAltitudeValue, parachute.getDeploymentAltitude());
+    ListenerHelpers.addValueListener(dragCoefficientValue, parachute.getDragCoefficient());
 
-    ListenerHelpers.addErrorListener(this.deployedDiameterError,
-        this.parachute.getDeployedDiameter());
-    ListenerHelpers.addErrorListener(this.deploymentAltitudeError,
-        this.parachute.getDeploymentAltitude());
-    ListenerHelpers
-        .addErrorListener(this.dragCoefficientError, this.parachute.getDragCoefficient());
+    ListenerHelpers.addErrorListener(deployedDiameterError, parachute.getDeployedDiameter());
+    ListenerHelpers.addErrorListener(deploymentAltitudeError, parachute.getDeploymentAltitude());
+    ListenerHelpers.addErrorListener(dragCoefficientError, parachute.getDragCoefficient());
 
-    ListenerHelpers.addUnitListener(this.deployedDiameterUnits,
-        this.parachute.getDeployedDiameter());
-    ListenerHelpers.addUnitListener(this.deployedAltitudeUnits,
-        this.parachute.getDeploymentAltitude());
+    ListenerHelpers.addUnitListener(deployedDiameterUnits, parachute.getDeployedDiameter());
+    ListenerHelpers.addUnitListener(deployedAltitudeUnits, parachute.getDeploymentAltitude());
   }
 }

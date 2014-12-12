@@ -37,15 +37,15 @@ public class CircularCylinderController extends BaseController {
    */
   public void initialize() {
     // Populate fields with whatever values we got
-    this.diameterValue.setText(Double.toString(this.circularCylinder.getDiameter().getValue()));
-    this.diameterError.setText(Double.toString(this.circularCylinder.getDiameter().getError()));
-    this.diameterUnits.setValue(this.circularCylinder.getDiameter().getUnit().toString());
+    diameterValue.setText(Double.toString(circularCylinder.getDiameter().getValue()));
+    diameterError.setText(Double.toString(circularCylinder.getDiameter().getError()));
+    diameterUnits.setValue(circularCylinder.getDiameter().getUnit().toString());
 
     // Set listeners
-    ListenerHelpers.addValueListener(this.diameterValue, this.circularCylinder.getDiameter());
+    ListenerHelpers.addValueListener(diameterValue, circularCylinder.getDiameter());
 
-    ListenerHelpers.addErrorListener(this.diameterError, this.circularCylinder.getDiameter());
+    ListenerHelpers.addErrorListener(diameterError, circularCylinder.getDiameter());
 
-    ListenerHelpers.addUnitListener(this.diameterUnits, this.circularCylinder.getDiameter());
+    ListenerHelpers.addUnitListener(diameterUnits, circularCylinder.getDiameter());
   }
 }

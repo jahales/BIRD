@@ -17,7 +17,7 @@ public class ConicalFrustum extends RocketComponent {
    * @return a {@link Measurement} for upper diameter
    */
   public Measurement getUpperDiameter() {
-    return this.upperDiameter;
+    return upperDiameter;
   }
 
   /**
@@ -32,7 +32,7 @@ public class ConicalFrustum extends RocketComponent {
    * @return a {@link Measurement} for lower diameter
    */
   public Measurement getLowerDiameter() {
-    return this.lowerDiameter;
+    return lowerDiameter;
   }
 
   /**
