@@ -19,7 +19,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
@@ -190,51 +189,6 @@ public class RocketCreationController extends BaseController {
     }
   }
 
-  /**
-   * Tree cell to convert name to more friendly format
-   *
-   * @author Brian Woodruff
-   *
-   */
-  private class MyTreeCell extends TreeCell<String> {
-
-    @Override
-    protected void updateItem(String item, boolean empty) {
-      super.updateItem(item, empty);
-      if (!empty) {
-        setText(toCamelCase(item));
-      }
-    }
-
-    /**
-     * EXAMPLE_ONE to Example One
-     *
-     * @param string
-     *          a string to be formatted from enum style to more human readable
-     *          format
-     * @return camel case string
-     */
-    private String toCamelCase(String string) {
-      String[] parts = string.split("_");
-      String camelCaseString = "";
-      for (String part : parts) {
-        camelCaseString += " " + toProperCase(part);
-      }
-      return camelCaseString;
-    }
-
-    /**
-     * ExAmPLE to Example
-     *
-     * @param string
-     *          a string to be formated
-     * @return a string formated in proper case
-     */
-    private String toProperCase(String string) {
-      return string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
-    }
-  }
-
   @FXML
   private TreeView<String> partList;
 
@@ -357,10 +311,6 @@ public class RocketCreationController extends BaseController {
    */
   public void initialize() {
     setMaps();
-
-    partList.setCellFactory((event) -> {
-      return new MyTreeCell();
-    });
     
     ContextMenu contextMenu = new ContextMenu();
     MenuItem menuItem = new MenuItem("Delete");
