@@ -12,17 +12,17 @@
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#fileNew" text="New">
+                        <MenuItem mnemonicParsing="false" onAction="#fileNewRocket" text="New Rocket">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#fileOpen" text="Open">
+                        <MenuItem mnemonicParsing="false" onAction="#fileOpenRocket" text="Open Rocket">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#menuIOpenReport" text="Open Report">
+                        <MenuItem mnemonicParsing="false" onAction="#fileOpenReport" text="Open Report">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="R" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>

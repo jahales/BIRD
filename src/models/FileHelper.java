@@ -44,12 +44,12 @@ public class FileHelper {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");
     // Set initial file path
-    configInitialDirectory(fileChooser, mainViewModel);
+    configInitialDirectory(fileChooser);
     fileChooser.getExtensionFilters().add(new ExtensionFilter("CSV file", "*.csv"));
     openFile = fileChooser.showOpenDialog(root.getScene().getWindow());
 
     if (openFile != null) {
-      mainViewModel.setPresentWorkingDirectory(openFile.getParentFile());
+      AppSettings.getInstance().setPresentWorkingDirectory(openFile.getParentFile());
 
       try {
         DataTable dataTable = new CSVReader().deserialize(new FileInputStream(openFile));
@@ -77,16 +77,15 @@ public class FileHelper {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");
     // Set initial file path
-    configInitialDirectory(fileChooser, mainViewModel);
+    configInitialDirectory(fileChooser);
     fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
     openFile = fileChooser.showOpenDialog(root.getScene().getWindow());
 
     if (openFile != null) {
-      mainViewModel.setPresentWorkingDirectory(openFile.getParentFile());
+      AppSettings.getInstance().setPresentWorkingDirectory(openFile.getParentFile());
 
       try {
         MainViewModel newModel = new MainViewModel();
-        newModel.setPresentWorkingDirectory(mainViewModel.getPresentWorkingDirectory());
         newModel.setPresentWorkingFile(openFile);
         newModel.setRocket(loadRocket(openFile));
         newModel.setNeverBeenSaved(false);
@@ -103,7 +102,7 @@ public class FileHelper {
     if (mainViewModel.hasNeverBeenSaved()) {
       FileChooser fileChooser = new FileChooser();
       fileChooser.setTitle("Open Resource File");
-      configInitialDirectory(fileChooser, mainViewModel);
+      configInitialDirectory(fileChooser);
       fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
       saveFile = fileChooser.showSaveDialog(root.getScene().getWindow());
 
@@ -111,7 +110,6 @@ public class FileHelper {
         saveRocket(saveFile, mainViewModel);
         mainViewModel.setNeverBeenSaved(false);
         mainViewModel.setPresentWorkingFile(saveFile);
-        mainViewModel.setPresentWorkingDirectory(saveFile.getParentFile());
       } catch (Exception ex) {
         // Inform user that the saving did not work.
       }
@@ -123,7 +121,6 @@ public class FileHelper {
           saveRocket(saveFile, mainViewModel);
           mainViewModel.setNeverBeenSaved(false);
           mainViewModel.setPresentWorkingFile(saveFile);
-          mainViewModel.setPresentWorkingDirectory(saveFile.getParentFile());
         } catch (Exception ex) {
           // Inform user that the saving did not work.
         }
@@ -151,7 +148,7 @@ public class FileHelper {
     File saveFile;
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");
-    configInitialDirectory(fileChooser, mainViewModel);
+    configInitialDirectory(fileChooser);
     fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
     saveFile = fileChooser.showSaveDialog(root.getScene().getWindow());
 
@@ -159,7 +156,6 @@ public class FileHelper {
       saveRocket(saveFile, mainViewModel);
       mainViewModel.setNeverBeenSaved(false);
       mainViewModel.setPresentWorkingFile(saveFile);
-      mainViewModel.setPresentWorkingDirectory(saveFile.getParentFile());
     } catch (Exception ex) {
       // Inform user that the saving did not work.
     }
@@ -168,6 +164,7 @@ public class FileHelper {
   private static Rocket loadRocket(File openFile) throws Exception {
     try {
       try {
+        AppSettings.getInstance().setPresentWorkingDirectory(openFile.getParentFile());
         InputStream inputStream = new FileInputStream(openFile);
         ISerializer<Rocket> serializer = new XmlRocketSerializer();
         return serializer.deserialize(inputStream);
@@ -184,7 +181,7 @@ public class FileHelper {
   static private void saveRocket(File saveFile, MainViewModel mainViewModel) throws Exception {
     try {
       // Set the new present working directory to the save file's directory
-      mainViewModel.setPresentWorkingDirectory(saveFile.getParentFile());
+      AppSettings.getInstance().setPresentWorkingDirectory(saveFile.getParentFile());
     } catch (NullPointerException npex) {
       logger.log(Level.WARNING, "File Chooser did not choose a file", npex);
       throw new Exception();
@@ -203,7 +200,7 @@ public class FileHelper {
   static public String openAtmosphereFile(MainViewModel mainViewModel, Node root) {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Atmosphere File");
-    FileHelper.configInitialDirectory(fileChooser, mainViewModel);
+    FileHelper.configInitialDirectory(fileChooser);
     fileChooser.getExtensionFilters().add(new ExtensionFilter("CSV file", "*.csv"));
     File file = fileChooser.showOpenDialog(root.getScene().getWindow());
     if (file != null) {
@@ -213,14 +210,8 @@ public class FileHelper {
     return "";
   }
 
-  static private void configInitialDirectory(FileChooser fileChooser, MainViewModel mainViewModel) {
-    if (mainViewModel.getPresentWorkingDirectory() == null) {
-      // If no present working directory, use default
-      fileChooser.setInitialDirectory(new File(AppSettings.getInstance().getDefaultRocketPath()));
-    } else {
-      // If there's a present working directory, open up to that directory
-      fileChooser.setInitialDirectory(mainViewModel.getPresentWorkingDirectory());
-    }
+  static private void configInitialDirectory(FileChooser fileChooser) {
+    fileChooser.setInitialDirectory(AppSettings.getInstance().getPresentWorkingDirectory());
     // Make sure the initial directory is a directory
     if (!fileChooser.getInitialDirectory().isDirectory()) {
       logger.warning("Invalid initial directory path");
@@ -230,7 +221,6 @@ public class FileHelper {
 
   public static void spawnNewInstance(Rocket rocket, MainViewModel mainViewModel) {
     MainViewModel newModel = new MainViewModel();
-    newModel.setPresentWorkingDirectory(mainViewModel.getPresentWorkingDirectory());
     newModel.setPresentWorkingFile(mainViewModel.getPresentWorkingFile());
     newModel.setRocket(rocket);
     Main.startNewMainView(newModel);

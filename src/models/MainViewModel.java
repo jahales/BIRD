@@ -16,7 +16,6 @@ public class MainViewModel {
   private boolean unsaved = false;
   private boolean neverBeenSaved = true;
   private File presentWorkingFile;
-  private File presentWorkingDirectory;
   private Rocket rocket = new Rocket();
   private Simulation simulation = new Simulation();
 
@@ -76,20 +75,6 @@ public class MainViewModel {
    */
   public void setPresentWorkingFile(File presentWorkingFile) {
     this.presentWorkingFile = presentWorkingFile;
-  }
-
-  /**
-   * @return presentWorkingDirectory
-   */
-  public File getPresentWorkingDirectory() {
-    return presentWorkingDirectory;
-  }
-
-  /**
-   * @param presentWorkingDirectory
-   */
-  public void setPresentWorkingDirectory(File presentWorkingDirectory) {
-    this.presentWorkingDirectory = presentWorkingDirectory;
   }
 
   /**
