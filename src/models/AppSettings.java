@@ -19,136 +19,135 @@ import models.Unit;
  */
 public class AppSettings {
 
-    Logger logger = Logger.getLogger(AppSettings.class.getName());
-    private static AppSettings appSettings;
-    //TODO: add properties for most recently used files.
-    private String defaultRocketPath = new String();
-    private LaunchRail launchRail = new LaunchRail();
+  Logger logger = Logger.getLogger(AppSettings.class.getName());
+  private static AppSettings appSettings;
+  // TODO: add properties for most recently used files.
+  private String defaultRocketPath = new String();
+  private LaunchRail launchRail = new LaunchRail();
 
-    /**
-     * Private constructor
-     */
-    private AppSettings() {
-        loadProperties();
+  /**
+   * Private constructor
+   */
+  private AppSettings() {
+    loadProperties();
+  }
+
+  /**
+   * @return appSettings
+   */
+  public static AppSettings getInstance() {
+    if (appSettings == null) {
+      appSettings = new AppSettings();
     }
+    return appSettings;
+  }
 
-    /**
-     * @return appSettings
-     */
-    public static AppSettings getInstance() {
-        if (appSettings == null) {
-            appSettings = new AppSettings();
-        }
-        return appSettings;
-    }
-
-    /**
+  /**
      *
      */
-    public void loadProperties() {
-        try {
-            Properties prop = new Properties();
-            prop.load(getClass().getClassLoader().getResourceAsStream("models/AppSettings.properties"));
-            //Load property values
-            defaultRocketPath = prop.getProperty("defaultRocketPath");
+  public void loadProperties() {
+    try {
+      Properties prop = new Properties();
+      prop.load(getClass().getClassLoader().getResourceAsStream("models/AppSettings.properties"));
+      // Load property values
+      defaultRocketPath = prop.getProperty("defaultRocketPath");
 
-            //Launch Rail
-            Measurement length = new Measurement();
-            length.setValue(Double.parseDouble(prop.getProperty("length")));
-            length.setError(Double.parseDouble(prop.getProperty("lengthError")));
-            length.setUnit(Unit.valueOf(prop.getProperty("lengthUnits")));
-            launchRail.setLength(length);
+      // Launch Rail
+      Measurement length = new Measurement();
+      length.setValue(Double.parseDouble(prop.getProperty("length")));
+      length.setError(Double.parseDouble(prop.getProperty("lengthError")));
+      length.setUnit(Unit.valueOf(prop.getProperty("lengthUnits")));
+      launchRail.setLength(length);
 
-            Measurement polarAngle = new Measurement();
-            polarAngle.setValue(Double.parseDouble(prop.getProperty("polarAngle")));
-            polarAngle.setError(Double.parseDouble(prop.getProperty("polarAngleError")));
-            polarAngle.setUnit(Unit.valueOf(prop.getProperty("polarAngleUnits")));
-            launchRail.setPolarAngle(polarAngle);
+      Measurement polarAngle = new Measurement();
+      polarAngle.setValue(Double.parseDouble(prop.getProperty("polarAngle")));
+      polarAngle.setError(Double.parseDouble(prop.getProperty("polarAngleError")));
+      polarAngle.setUnit(Unit.valueOf(prop.getProperty("polarAngleUnits")));
+      launchRail.setPolarAngle(polarAngle);
 
-            Measurement azimuthAngle = new Measurement();
-            azimuthAngle.setValue(Double.parseDouble(prop.getProperty("azimuthAngle")));
-            azimuthAngle.setError(Double.parseDouble(prop.getProperty("azimuthAngleError")));
-            azimuthAngle.setUnit(Unit.valueOf(prop.getProperty("azimuthAngleUnits")));
-            launchRail.setAzimuthAngle(azimuthAngle);
+      Measurement azimuthAngle = new Measurement();
+      azimuthAngle.setValue(Double.parseDouble(prop.getProperty("azimuthAngle")));
+      azimuthAngle.setError(Double.parseDouble(prop.getProperty("azimuthAngleError")));
+      azimuthAngle.setUnit(Unit.valueOf(prop.getProperty("azimuthAngleUnits")));
+      launchRail.setAzimuthAngle(azimuthAngle);
 
-        } catch (Exception ex) {
-            logger.log(Level.SEVERE, "Load Properties Failed", ex);
-        }
+    } catch (Exception ex) {
+      logger.log(Level.SEVERE, "Load Properties Failed", ex);
     }
+  }
 
-    /**
-     * UNTESTED
-     */
-    public void saveProperties() {
-        Properties prop = new Properties();
-        OutputStream output;
-        try {
-            // set the property values
-            prop.setProperty("defaultRocketPath", defaultRocketPath);
+  /**
+   * UNTESTED
+   */
+  public void saveProperties() {
+    Properties prop = new Properties();
+    OutputStream output;
+    try {
+      // set the property values
+      prop.setProperty("defaultRocketPath", defaultRocketPath);
 
-            //Launch Rail
-            prop.setProperty("length", Double.toString(launchRail.getLength().getValue()));
-            prop.setProperty("lengthError", Double.toString(launchRail.getLength().getError()));
-            prop.setProperty("lengthUnits", launchRail.getLength().getUnit().toString());
+      // Launch Rail
+      prop.setProperty("length", Double.toString(launchRail.getLength().getValue()));
+      prop.setProperty("lengthError", Double.toString(launchRail.getLength().getError()));
+      prop.setProperty("lengthUnits", launchRail.getLength().getUnit().toString());
 
-            prop.setProperty("polarAngle", Double.toString(launchRail.getPolarAngle().getValue()));
-            prop.setProperty("polarAngleError", Double.toString(launchRail.getPolarAngle().getError()));
-            prop.setProperty("polarAngleUnits", launchRail.getPolarAngle().getUnit().toString());
+      prop.setProperty("polarAngle", Double.toString(launchRail.getPolarAngle().getValue()));
+      prop.setProperty("polarAngleError", Double.toString(launchRail.getPolarAngle().getError()));
+      prop.setProperty("polarAngleUnits", launchRail.getPolarAngle().getUnit().toString());
 
-            prop.setProperty("azimuthAngle", Double.toString(launchRail.getAzimuthAngle().getValue()));
-            prop.setProperty("azimuthAngleError", Double.toString(launchRail.getAzimuthAngle().getError()));
-            prop.setProperty("azimuthAngleUnits", launchRail.getAzimuthAngle().getUnit().toString());
+      prop.setProperty("azimuthAngle", Double.toString(launchRail.getAzimuthAngle().getValue()));
+      prop.setProperty("azimuthAngleError",
+          Double.toString(launchRail.getAzimuthAngle().getError()));
+      prop.setProperty("azimuthAngleUnits", launchRail.getAzimuthAngle().getUnit().toString());
 
+      // save properties to project root folder
+      output = new FileOutputStream("src/models/AppSettings.properties");
+      if (output == null) {
+        System.out.println("output stream is null");
+      }
+      prop.store(output, "");
 
-            // save properties to project root folder
-            output = new FileOutputStream("src/models/AppSettings.properties");  
-            if (output == null)
-            {
-                System.out.println("output stream is null");
-            }
-            prop.store(output, "");
+      if (output != null) {
+        output.close();
+      }
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    } finally {
 
-             if (output != null) {
-             output.close();
-             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-
-        }
     }
+  }
 
-    /**
-     *
-     * @return
-     */
-    public String getDefaultRocketPath() {
-        return defaultRocketPath;
-    }
+  /**
+   *
+   * @return
+   */
+  public String getDefaultRocketPath() {
+    return defaultRocketPath;
+  }
 
-    /**
-     *
-     * @param defaultRocketPath
-     */
-    public void setDefaultRocketPath(String defaultRocketPath) {
-        this.defaultRocketPath = defaultRocketPath;
-        AppSettings.getInstance().saveProperties();
-    }
+  /**
+   *
+   * @param defaultRocketPath
+   */
+  public void setDefaultRocketPath(String defaultRocketPath) {
+    this.defaultRocketPath = defaultRocketPath;
+    AppSettings.getInstance().saveProperties();
+  }
 
-    /**
-     *
-     * @return
-     */
-    public LaunchRail getLaunchRail() {
-        return launchRail;
-    }
+  /**
+   *
+   * @return
+   */
+  public LaunchRail getLaunchRail() {
+    return launchRail;
+  }
 
-    /**
-     *
-     * @param launchRail
-     */
-    public void setLaunchRail(LaunchRail launchRail) {
-        this.launchRail = launchRail;
-        AppSettings.getInstance().saveProperties();
-    }
+  /**
+   *
+   * @param launchRail
+   */
+  public void setLaunchRail(LaunchRail launchRail) {
+    this.launchRail = launchRail;
+    AppSettings.getInstance().saveProperties();
+  }
 }
