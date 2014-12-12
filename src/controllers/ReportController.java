@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -30,8 +31,6 @@ import models.report.ErrorBar;
  *
  */
 public class ReportController extends BaseController {
-  DataTable table = null;
-  private static final int MAX_NODES_IN_GRAGH = 50;
 
   @FXML
   private LineChart<Number, Number> graph;
@@ -49,8 +48,9 @@ public class ReportController extends BaseController {
   private ListView<String> yAxisChoices;
 
   Map<String, XYChart.Series<Number, Number>> independentVariableList = new HashMap<String, XYChart.Series<Number, Number>>();
-
   List<Number> dependentVariableList = new ArrayList<Number>();
+  DataTable table = null;
+  private static final int MAX_NODES_IN_GRAGH = 50;
 
   public ReportController(DataTable table) {
     this.table = table;
@@ -65,10 +65,19 @@ public class ReportController extends BaseController {
     if (table == null || table.getColumnNames().size() < 1) {
       return;
     }
-
+    
+    
+    ObservableList<String> names = FXCollections.observableArrayList();
+    
+    for (String name : table.getColumnNames()) {
+      if (!name.contains("Error")) {
+        names.add(name);
+      }
+    }
+    
     // X axis
-    xAxisChoices.setItems(FXCollections.observableArrayList(table.getColumnNames()));
-    xAxisChoices.setValue(table.getColumnNames().get(0));
+    xAxisChoices.getItems().addAll(names);
+    xAxisChoices.setValue(names.get(0));
     xAxisChoices.getSelectionModel().selectedItemProperty()
         .addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
           dependentVariableList = table.getColumn(newValue);
@@ -79,7 +88,7 @@ public class ReportController extends BaseController {
         });
 
     // Y axis
-    yAxisChoices.setItems(FXCollections.observableArrayList(table.getColumnNames()));
+    yAxisChoices.setItems(names);
     yAxisChoices.setCellFactory(checkBoxFactory);
 
     dependentVariableList = table.getColumn(xAxisChoices.getValue());
@@ -100,6 +109,7 @@ public class ReportController extends BaseController {
     return (observable, oldValue, newValue) -> {
       if (newValue == true) {
         List<Number> independantVariableColumn = table.getColumn(independentAxis);
+        List<Number> errorColumn = table.getColumn(independentAxis + "Error");
 
         XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
         series.setName(independentAxis);
@@ -109,7 +119,9 @@ public class ReportController extends BaseController {
           XYChart.Data<Number, Number> data;
           data = new XYChart.Data<Number, Number>(dependentVariableList.get((int) i),
               independantVariableColumn.get((int) i));
-          data.setNode(new ErrorBar(7));
+          if (errorColumn != null) {
+            data.setNode(new ErrorBar(errorColumn.get((int) i).doubleValue()));
+          }
           series.getData().add(data);
         }
 
