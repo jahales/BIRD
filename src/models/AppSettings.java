@@ -5,6 +5,7 @@
  */
 package models;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Properties;
@@ -21,10 +22,11 @@ public class AppSettings {
 
   Logger logger = Logger.getLogger(AppSettings.class.getName());
   private static AppSettings appSettings;
+  
   // TODO: add properties for most recently used files.
-  private String defaultRocketPath = new String();
   private LaunchRail launchRail = new LaunchRail();
-
+  private File presentWorkingDirectory;
+  
   /**
    * Private constructor
    */
@@ -50,7 +52,7 @@ public class AppSettings {
       Properties prop = new Properties();
       prop.load(getClass().getClassLoader().getResourceAsStream("models/AppSettings.properties"));
       // Load property values
-      defaultRocketPath = prop.getProperty("defaultRocketPath");
+      presentWorkingDirectory = new File(prop.getProperty("defaultRocketPath"));
 
       // Launch Rail
       Measurement length = new Measurement();
@@ -84,7 +86,7 @@ public class AppSettings {
     OutputStream output;
     try {
       // set the property values
-      prop.setProperty("defaultRocketPath", defaultRocketPath);
+      prop.setProperty("defaultRocketPath", presentWorkingDirectory.getPath());
 
       // Launch Rail
       prop.setProperty("length", Double.toString(launchRail.getLength().getValue()));
@@ -118,23 +120,6 @@ public class AppSettings {
    *
    * @return
    */
-  public String getDefaultRocketPath() {
-    return defaultRocketPath;
-  }
-
-  /**
-   *
-   * @param defaultRocketPath
-   */
-  public void setDefaultRocketPath(String defaultRocketPath) {
-    this.defaultRocketPath = defaultRocketPath;
-    AppSettings.getInstance().saveProperties();
-  }
-
-  /**
-   *
-   * @return
-   */
   public LaunchRail getLaunchRail() {
     return launchRail;
   }
@@ -147,4 +132,15 @@ public class AppSettings {
     this.launchRail = launchRail;
     AppSettings.getInstance().saveProperties();
   }
+
+  public File getPresentWorkingDirectory() {
+    return presentWorkingDirectory;
+  }
+
+  public void setPresentWorkingDirectory(File presentWorkingDirectory) {
+    this.presentWorkingDirectory = presentWorkingDirectory;
+    this.saveProperties();
+  }
+  
+  
 }

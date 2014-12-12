@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import models.AppSettings;
 import models.FileHelper;
 import models.MainViewModel;
 import models.rocket.Rocket;
@@ -40,13 +39,13 @@ public class MainViewController extends BaseController {
    * @param event
    */
   @FXML
-  void fileNew() {
+  void fileNewRocket() {
     // Spawn new instance with mostly empty data
     FileHelper.spawnNewInstance(new Rocket(), this.mainViewModel);
   }
 
   @FXML
-  void menuIOpenReport() {
+  void fileOpenReport() {
     FileHelper.openCSV(mainViewModel, root);
   }
 
@@ -56,7 +55,7 @@ public class MainViewController extends BaseController {
    * @param event
    */
   @FXML
-  void fileOpen() {
+  void fileOpenRocket() {
     FileHelper.open(this.mainViewModel, this.root);
   }
 
@@ -88,7 +87,6 @@ public class MainViewController extends BaseController {
   @FXML
   void fileQuit() {
     if (promptSaveQuit()) {
-      AppSettings.getInstance().saveProperties();
       Stage stage = (Stage) this.root.getScene().getWindow();
       stage.close();
     }
