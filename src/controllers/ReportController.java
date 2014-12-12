@@ -102,8 +102,7 @@ public class ReportController extends BaseController {
         List<Number> independantVariableColumn = table.getColumn(independentAxis);
 
         XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
-        // :TODO Look at this line of code below
-        series.setName(xAxisChoices.getValue());
+        series.setName(independentAxis);
 
         double skips = (double) dependentVariableList.size() / (double) MAX_NODES_IN_GRAGH;
         for (double i = 0; i < dependentVariableList.size(); i += skips) {
