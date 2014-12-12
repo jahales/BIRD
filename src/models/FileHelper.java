@@ -5,6 +5,8 @@
  */
 package models;
 
+import controllers.ControllerFactory;
+import controllers.IController;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -20,6 +22,11 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import models.rocket.Rocket;
 import models.rocket.data.XmlRocketSerializer;
 import controllers.Main;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import models.report.CSVReader;
+import models.report.DataTable;
 
 /**
  *
@@ -28,6 +35,39 @@ import controllers.Main;
 public class FileHelper {
 
   final static Logger logger = Logger.getLogger(FileHelper.class.getName());
+
+  public static void openCSV(MainViewModel mainViewModel, Node root) {
+    if (mainViewModel.isUnsaved()) {
+      //TODO: prompt user if he wants to save or not
+    }
+    File openFile;
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Resource File");
+    // Set initial file path
+    configInitialDirectory(fileChooser, mainViewModel);
+    fileChooser.getExtensionFilters().add(new ExtensionFilter("CSV file", "*.csv"));
+    openFile = fileChooser.showOpenDialog(root.getScene().getWindow());
+
+    if (openFile != null) {
+      mainViewModel.setPresentWorkingDirectory(openFile.getParentFile());
+
+      try {
+        DataTable dataTable = new CSVReader().deserialize(new FileInputStream(openFile));
+        ControllerFactory controllerFactory = new ControllerFactory();
+        controllerFactory.addSharedInstance(dataTable);
+        IController controller = controllerFactory.create("/views/Report.fxml");
+
+        Scene scene = new Scene((Parent) controller.getView());
+        Stage stage = new Stage();
+        stage.initOwner(root.getScene().getWindow());
+        stage.setScene(scene);
+        stage.setTitle("BIRD Results");
+        stage.show();
+      } catch (Exception ex) {
+        logger.log(Level.WARNING, "Failed to create Report.fxml", ex);
+      }
+    }
+  }
 
   public static void open(MainViewModel mainViewModel, Node root) {
     if (mainViewModel.isUnsaved()) {
@@ -49,6 +89,7 @@ public class FileHelper {
         newModel.setPresentWorkingDirectory(mainViewModel.getPresentWorkingDirectory());
         newModel.setPresentWorkingFile(openFile);
         newModel.setRocket(loadRocket(openFile));
+        newModel.setNeverBeenSaved(false);
         Main.startNewMainView(newModel);
       } catch (Exception ex) {
         // Needs a prompt to let the user know that loading the file errored
