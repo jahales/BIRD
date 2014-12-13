@@ -161,5 +161,4 @@ public class Rocket {
   public void setLongitudinalMomentOfInertia(Measurement longitudinalMomentOfInertia) {
     this.longitudinalMomentOfInertia = longitudinalMomentOfInertia;
   }
-
 }

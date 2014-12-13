@@ -13,7 +13,6 @@ import models.simulator.Simulation;
  */
 public class MainViewModel {
 
-  private boolean unsaved = false;
   private boolean neverBeenSaved = true;
   private File presentWorkingFile;
   private Rocket rocket = new Rocket();
@@ -75,19 +74,5 @@ public class MainViewModel {
    */
   public void setPresentWorkingFile(File presentWorkingFile) {
     this.presentWorkingFile = presentWorkingFile;
-  }
-
-  /**
-   * @return unsaved
-   */
-  public boolean isUnsaved() {
-    return unsaved;
-  }
-
-  /**
-   * @param unsaved
-   */
-  public void setUnsaved(boolean unsaved) {
-    this.unsaved = unsaved;
   }
 }

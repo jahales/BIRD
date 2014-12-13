@@ -37,9 +37,6 @@ public class FileHelper {
   final static Logger logger = Logger.getLogger(FileHelper.class.getName());
 
   public static void openCSV(MainViewModel mainViewModel, Node root) {
-    if (mainViewModel.isUnsaved()) {
-      //TODO: prompt user if he wants to save or not
-    }
     File openFile;
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");
@@ -70,9 +67,6 @@ public class FileHelper {
   }
 
   public static void open(MainViewModel mainViewModel, Node root) {
-    if (mainViewModel.isUnsaved()) {
-      //TODO: prompt user if he wants to save or not
-    }
     File openFile;
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");

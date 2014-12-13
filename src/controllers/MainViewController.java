@@ -1,6 +1,5 @@
 package controllers;
 
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,8 +13,7 @@ import models.MainViewModel;
 import models.rocket.Rocket;
 
 /**
- * Main view of our program. 3 Tabs are included. This controller focuses on
- * menu items.
+ * Main view of our program. 3 Tabs are included. This controller focuses on menu items.
  *
  * @author Brian Woodruff, Joseph Hales
  *
@@ -88,7 +86,12 @@ public class MainViewController extends BaseController {
    */
   @FXML
   void fileQuit() {
-    if (promptSaveQuit()) {
+    if (mainViewModel.isUnsaved()) {
+      if (promptSave()) {
+        Stage stage = (Stage) this.root.getScene().getWindow();
+        stage.close();
+      }
+    } else {
       Stage stage = (Stage) this.root.getScene().getWindow();
       stage.close();
     }
@@ -104,12 +107,12 @@ public class MainViewController extends BaseController {
 
   }
 
-  private boolean promptSaveQuit() {
+  private boolean promptSave() {
     try {
       // Create the view and controller
       ControllerFactory controllerFactory = new ControllerFactory();
       SaveDialogController controller = (SaveDialogController) controllerFactory
-          .create("/views/SaveDialog.fxml");
+        .create("/views/SaveDialog.fxml");
 
       // Setup the stage
       Scene scene = new Scene((Parent) controller.getView());
