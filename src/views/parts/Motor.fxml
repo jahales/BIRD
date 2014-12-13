@@ -48,6 +48,7 @@
 				<Label text="Thrust" GridPane.rowIndex="5" />
 				<Label fx:id="thrustFile" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.columnSpan="2" />
  				<Button mnemonicParsing="false" onAction="#loadThrustFile" prefWidth="150" text="Choose File" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                                <Button fx:id="exportThrustButton" mnemonicParsing="false" onAction="#exportThrustFile" prefWidth="150" text="Export Thrust" GridPane.columnIndex="3" GridPane.rowIndex="6" />
 			</children>
 		</GridPane>
 	</children>
