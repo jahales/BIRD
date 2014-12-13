@@ -5,7 +5,7 @@
 <?import javafx.collections.*?>
 
 
-<ChoiceBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" value="seconds">
+<ChoiceBox prefWidth="100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" value="seconds">
 	<items>
 		<FXCollections fx:factory="observableArrayList">
 			<String fx:value="milliseconds" />

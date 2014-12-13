@@ -1,0 +1,13 @@
+.label {
+   
+}
+
+.Measurement
+{
+	-fx-max-width: 80px;
+}
+
+.FilePath
+{
+	-fx-max-width: 260px;
+}

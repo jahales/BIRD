@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import models.AppSettings;
 import models.FileHelper;
 import models.MainViewModel;
 import models.rocket.Rocket;
