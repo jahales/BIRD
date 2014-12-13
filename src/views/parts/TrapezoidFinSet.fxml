@@ -37,9 +37,6 @@
 				<TextField fx:id="sweepLengthError" GridPane.columnIndex="2" GridPane.rowIndex="3" />
 				<fx:include fx:id="sweepLengthUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="3" />
 			</children>
-			<padding>
-				<Insets bottom="0" left="10" right="0" top="0" />
-			</padding>
 		</GridPane>
 	</children>
 </VBox>

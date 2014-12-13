@@ -220,6 +220,11 @@ public class RocketCreationController extends BaseController {
    */
   public RocketCreationController(Rocket rocket) {
     this.rocket = rocket;
+    
+  }
+  
+  private void initializeModel()
+  {
     setMaps();
 
     try {
@@ -339,6 +344,8 @@ public class RocketCreationController extends BaseController {
     partList.getSelectionModel().selectedItemProperty().addListener(selectionEvent);
     partList.setRoot(treeViewRoot);
     partList.setShowRoot(false);
+    
+    initializeModel();
   }
 
   /**

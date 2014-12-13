@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
 import controllers.RocketCreationController.RocketPart;
+import javafx.geometry.Insets;
 
 /**
  * Part chooser dialog window. Pass a list of internal and external parts to
@@ -84,6 +85,10 @@ public class PartChooser {
 
     hbox.getChildren().addAll(addPart, cancel);
     vbox.getChildren().addAll(tabs, hbox);
+    hbox.setPadding(new Insets(5));
+    
+    vbox.setMaxHeight(200);
+    vbox.setPrefWidth(400);
 
     stage.setTitle("Add part");
     stage.initOwner(window);

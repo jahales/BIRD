@@ -134,7 +134,7 @@ public class FileHelper {
     fileChooser.setTitle("Open Resource File");
     // Set initial file path
     configInitialDirectory(fileChooser);
-    fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
+    fileChooser.getExtensionFilters().add(new ExtensionFilter("CSV file", "*.csv"));
     openFile = fileChooser.showOpenDialog(root.getScene().getWindow());
     if (openFile != null) {
       return openFile.getAbsolutePath();
