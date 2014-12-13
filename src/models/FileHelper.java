@@ -75,20 +75,23 @@ public class FileHelper {
     fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
     openFile = fileChooser.showOpenDialog(root.getScene().getWindow());
 
-    if (openFile != null) {
-      AppSettings.getInstance().setPresentWorkingDirectory(openFile.getParentFile());
-
-      try {
-        MainViewModel newModel = new MainViewModel();
-        newModel.setPresentWorkingFile(openFile);
-        newModel.setRocket(loadRocket(openFile));
-        newModel.setNeverBeenSaved(false);
-        Main.startNewMainView(newModel);
-      } catch (Exception ex) {
-        // Needs a prompt to let the user know that loading the file errored
-        logger.log(Level.SEVERE, "Load rocket failed");
-      }
+    if (openFile == null) {
+      return;
     }
+    
+    AppSettings.getInstance().setPresentWorkingDirectory(openFile.getParentFile());
+
+    try {
+      MainViewModel newModel = new MainViewModel();
+      newModel.setPresentWorkingFile(openFile);
+      newModel.setRocket(loadRocket(openFile));
+      newModel.setNeverBeenSaved(false);
+      Main.startNewMainView(newModel);
+    } catch (Exception ex) {
+      // Needs a prompt to let the user know that loading the file errored
+      logger.log(Level.SEVERE, "Load rocket failed");
+    }
+
   }
 
   public static void save(MainViewModel mainViewModel, Node root) {
@@ -99,6 +102,10 @@ public class FileHelper {
       configInitialDirectory(fileChooser);
       fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
       saveFile = fileChooser.showSaveDialog(root.getScene().getWindow());
+
+      if (saveFile == null) {
+        return;
+      }
 
       try {
         saveRocket(saveFile, mainViewModel);
@@ -144,6 +151,10 @@ public class FileHelper {
     configInitialDirectory(fileChooser);
     fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
     saveFile = fileChooser.showSaveDialog(root.getScene().getWindow());
+
+    if (saveFile == null) {
+      return;
+    }
 
     try {
       saveRocket(saveFile, mainViewModel);

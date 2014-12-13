@@ -75,4 +75,7 @@ public class MainViewModel {
   public void setPresentWorkingFile(File presentWorkingFile) {
     this.presentWorkingFile = presentWorkingFile;
   }
+  public boolean isUnsaved() {
+    return true;
+  }
 }
