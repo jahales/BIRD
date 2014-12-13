@@ -55,7 +55,7 @@ public class MainViewController extends BaseController {
    */
   @FXML
   void fileOpenRocket() {
-    FileHelper.open(this.mainViewModel, this.root);
+    FileHelper.openRocket(this.mainViewModel, this.root);
   }
 
   /**
@@ -65,7 +65,7 @@ public class MainViewController extends BaseController {
    */
   @FXML
   void fileSave() {
-    FileHelper.save(this.mainViewModel, this.root);
+    FileHelper.saveRocket(this.mainViewModel, this.root);
   }
 
   /**
@@ -75,7 +75,7 @@ public class MainViewController extends BaseController {
    */
   @FXML
   void fileSaveAs() {
-    FileHelper.fileSaveAs(this.mainViewModel, this.root);
+    FileHelper.RocketSaveAs(this.mainViewModel, this.root);
   }
 
   /**

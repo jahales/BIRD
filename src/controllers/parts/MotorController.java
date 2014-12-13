@@ -69,8 +69,6 @@ public class MotorController extends BaseController {
 
   @FXML
   private void loadThrustFile() {
-    // TODO: Joe implement me
-    // update <thrustFile>
     String fileName = FileHelper.openMotorFile(thrustFile);
     thrustFile.setText(fileName);
     motor.setThrustFile(fileName);
@@ -78,59 +76,7 @@ public class MotorController extends BaseController {
 
   @FXML
   private void exportThrustFile() throws Exception {
-    // Make sure there is a .CSV file attached to the motor
-    if (this.motor == null || motor.getThrustFile() == null || motor.getThrustFile().equals(""))
-    {
-      MessageBoxController.showMessage("No thrust .csv file is attached to the motor.", this.exportThrustButton);
-    }
-    
-    // Select a file to export to
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Export Thrust Data");
-    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("ENG file", "*.eng"));
-    File exportFile = fileChooser.showSaveDialog(this.exportThrustButton.getScene().getWindow());
-
-    if (exportFile == null) {
-      return;
-    }
-
-    // Load the thrust data
-    CSVReader reader = new CSVReader();
-    DataTable csv = reader.deserialize(new FileInputStream(motor.getThrustFile()));
-    
-    // Create the .ENG string
-    StringBuilder sb = new StringBuilder();
-    sb.append(motor.getName());
-    sb.append(" ");
-    sb.append(motor.getDiameter().getValue());
-    sb.append(" ");
-    sb.append(motor.getAxialLength().getValue());
-    sb.append(" ");
-    sb.append(motor.getDelays());
-    sb.append(" ");
-    sb.append(motor.getFuelMass().getValue());
-    sb.append(" ");
-    sb.append(motor.getMass().getValue());
-    sb.append(" ");
-    sb.append(motor.getManufacturer());
-    sb.append(" ");
-    sb.append("\r\n");
-    
-    List<Number> t = csv.getColumn("t");
-    List<Number> f = csv.getColumn("N");
-    
-    for (int i = 0; i < csv.getRows(); i++)
-    {
-      sb.append(t.get(i));
-      sb.append(" ");
-      sb.append(f.get(i));
-      sb.append("\r\n");
-    }
-    
-    // Write the .ENG file
-    PrintWriter out = new PrintWriter(exportFile);
-    out.print(sb.toString());
-    out.close();
+    FileHelper.exportMotorFile(this.motor, thrustFile);
   }
 
   /**

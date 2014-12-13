@@ -22,11 +22,15 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import models.rocket.Rocket;
 import models.rocket.data.XmlRocketSerializer;
 import controllers.Main;
+import controllers.MessageBoxController;
+import java.io.FileNotFoundException;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.report.CSVReader;
 import models.report.DataTable;
+import models.rocket.data.RaspEngineSerializer;
+import models.rocket.parts.Motor;
 
 /**
  *
@@ -66,7 +70,7 @@ public class FileHelper {
     }
   }
 
-  public static void open(MainViewModel mainViewModel, Node root) {
+  public static void openRocket(MainViewModel mainViewModel, Node root) {
     File openFile;
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");
@@ -78,7 +82,7 @@ public class FileHelper {
     if (openFile == null) {
       return;
     }
-    
+
     AppSettings.getInstance().setPresentWorkingDirectory(openFile.getParentFile());
 
     try {
@@ -94,7 +98,28 @@ public class FileHelper {
 
   }
 
-  public static void save(MainViewModel mainViewModel, Node root) {
+  static public void RocketSaveAs(MainViewModel mainViewModel, Node root) {
+    File saveFile;
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Resource File");
+    configInitialDirectory(fileChooser);
+    fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
+    saveFile = fileChooser.showSaveDialog(root.getScene().getWindow());
+
+    if (saveFile == null) {
+      return;
+    }
+
+    try {
+      writeRocket(saveFile, mainViewModel);
+      mainViewModel.setNeverBeenSaved(false);
+      mainViewModel.setPresentWorkingFile(saveFile);
+    } catch (Exception ex) {
+      // Inform user that the saving did not work.
+    }
+  }
+
+  public static void saveRocket(MainViewModel mainViewModel, Node root) {
     File saveFile;
     if (mainViewModel.hasNeverBeenSaved()) {
       FileChooser fileChooser = new FileChooser();
@@ -108,7 +133,7 @@ public class FileHelper {
       }
 
       try {
-        saveRocket(saveFile, mainViewModel);
+        writeRocket(saveFile, mainViewModel);
         mainViewModel.setNeverBeenSaved(false);
         mainViewModel.setPresentWorkingFile(saveFile);
       } catch (Exception ex) {
@@ -119,7 +144,7 @@ public class FileHelper {
         // Only attempt to save if there's actually been a change
         saveFile = mainViewModel.getPresentWorkingFile();
         try {
-          saveRocket(saveFile, mainViewModel);
+          writeRocket(saveFile, mainViewModel);
           mainViewModel.setNeverBeenSaved(false);
           mainViewModel.setPresentWorkingFile(saveFile);
         } catch (Exception ex) {
@@ -144,24 +169,31 @@ public class FileHelper {
     }
   }
 
-  static public void fileSaveAs(MainViewModel mainViewModel, Node root) {
-    File saveFile;
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Open Resource File");
-    configInitialDirectory(fileChooser);
-    fileChooser.getExtensionFilters().add(new ExtensionFilter("XML file", "*.xml"));
-    saveFile = fileChooser.showSaveDialog(root.getScene().getWindow());
-
-    if (saveFile == null) {
+  public static void exportMotorFile(Motor motor, Node root) {
+    // Make sure there is a .CSV file attached to the motor
+    if (motor == null || motor.getThrustFile() == null || motor.getThrustFile().equals("")) {
+      MessageBoxController.showMessage("No thrust .csv file is attached to the motor.", root);
       return;
     }
 
+    // Select a file to export to
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Export Thrust Data");
+    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("ENG file", "*.eng"));
+    configInitialDirectory(fileChooser);
+    File exportFile = fileChooser.showSaveDialog(root.getScene().getWindow());
+
+    if (exportFile == null) {
+      return;
+    }
     try {
-      saveRocket(saveFile, mainViewModel);
-      mainViewModel.setNeverBeenSaved(false);
-      mainViewModel.setPresentWorkingFile(saveFile);
+      OutputStream outStream = new FileOutputStream(exportFile);
+      ISerializer serializer = new RaspEngineSerializer();
+      serializer.serialize(motor, outStream);
+      AppSettings.getInstance().setPresentWorkingDirectory(exportFile.getParentFile());
     } catch (Exception ex) {
-      // Inform user that the saving did not work.
+      MessageBoxController.showMessage("Exporting to .ENG Failed!", root);
+      logger.log(Level.WARNING, ".ENG file export failed");
     }
   }
 
@@ -182,7 +214,7 @@ public class FileHelper {
     }
   }
 
-  static private void saveRocket(File saveFile, MainViewModel mainViewModel) throws Exception {
+  static private void writeRocket(File saveFile, MainViewModel mainViewModel) throws Exception {
     try {
       // Set the new present working directory to the save file's directory
       AppSettings.getInstance().setPresentWorkingDirectory(saveFile.getParentFile());
@@ -233,7 +265,7 @@ public class FileHelper {
   public static File createRocketDir(MainViewModel mainViewModel, Node root) throws IOException {
     File rocketFolder;
     if (mainViewModel.getPresentWorkingFile() == null) {
-      save(mainViewModel, root);
+      saveRocket(mainViewModel, root);
     }
     int dotIndex = mainViewModel.getPresentWorkingFile().getName().indexOf(".");
     rocketFolder = new File(mainViewModel.getPresentWorkingFile().getParentFile().getPath(),
