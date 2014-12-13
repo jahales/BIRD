@@ -9,7 +9,6 @@
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.parts.NoseConeController">
 	<children>
 		<fx:include source="RocketComponent.fxml" />
-		<Separator prefWidth="200.0" />
 		<GridPane hgap="5.0" vgap="5.0">
 			<columnConstraints>
 				<ColumnConstraints prefWidth="125" />
@@ -32,9 +31,6 @@
 				<Label text="Nose Shape" GridPane.rowIndex="2" />
 				<fx:include fx:id="shape" source="fxmlpieces/Shape.fxml" GridPane.columnIndex="3" GridPane.rowIndex="2" />
 			</children>
-			<padding>
-				<Insets bottom="0" left="10" right="0" top="0" />
-			</padding>
 		</GridPane>
 	</children>
 </VBox>

@@ -8,7 +8,7 @@
 
 <VBox fx:id="root" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SimulationController">
    <children>
-      <TitledPane minWidth="540.0" text="Fin and Motor Variants">
+      <TitledPane minWidth="520.0" text="Fin and Motor Variants">
          <content>
             <GridPane>
               <columnConstraints>

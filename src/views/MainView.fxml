@@ -40,12 +40,6 @@
                         <MenuItem mnemonicParsing="false" onAction="#fileQuit" text="Quit" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit" />
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#helpAbout" text="About" />
-                    </items>
-                </Menu>
             </menus>
         </MenuBar>
         <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">

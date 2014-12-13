@@ -8,7 +8,7 @@
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.parts.FinController">
 	<children>
 		<fx:include source="RocketComponent.fxml" />
-		<GridPane>
+		<GridPane hgap="5.0" vgap="5.0">
 			<columnConstraints>
 				<ColumnConstraints prefWidth="125" />
 				<ColumnConstraints prefWidth="100" />

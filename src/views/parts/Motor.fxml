@@ -8,7 +8,6 @@
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.parts.MotorController">
 	<children>
 		<fx:include source="CircularCylinder.fxml" />
-		<Separator prefWidth="200.0" />
 		<GridPane hgap="5.0" vgap="5.0">
 			<columnConstraints>
 				<ColumnConstraints prefWidth="125" />
@@ -50,9 +49,6 @@
 				<Label fx:id="thrustFile" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.columnSpan="2" />
  				<Button mnemonicParsing="false" onAction="#loadThrustFile" prefWidth="150" text="Choose File" GridPane.columnIndex="3" GridPane.rowIndex="5" />
 			</children>
-			<padding>
-				<Insets bottom="0" left="10" right="0" top="0" />
-			</padding>
 		</GridPane>
 	</children>
 </VBox>

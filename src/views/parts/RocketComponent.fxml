@@ -49,7 +49,4 @@
 		<TextField fx:id="thicknessError" GridPane.columnIndex="2" GridPane.rowIndex="6" />
 		<fx:include fx:id="thicknessUnits" source="fxmlpieces/Length.fxml" GridPane.columnIndex="3" GridPane.rowIndex="6" />
 	</children>
-	<padding>
-		<Insets bottom="0" left="10" right="0" top="10" />
-	</padding>
 </GridPane>
