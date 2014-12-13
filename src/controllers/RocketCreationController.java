@@ -25,6 +25,9 @@ import models.rocket.parts.Parachute;
 import models.rocket.parts.RocketComponent;
 import models.rocket.parts.TrapezoidFinSet;
 import controllers.parts.PartChooser;
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
  * Controller for the rocket creation view
@@ -58,7 +61,7 @@ public class RocketCreationController extends BaseController {
      * @param pane
      *          an AchorPane to set the view
      */
-    public void setPaneNode(AnchorPane pane) {
+    public void setPaneNode(Pane pane) {
     }
 
     /**
@@ -95,7 +98,7 @@ public class RocketCreationController extends BaseController {
     }
 
     @Override
-    public void setPaneNode(AnchorPane pane) {
+    public void setPaneNode(Pane pane) {
       pane.getChildren().clear();
       pane.getChildren().add(view);
     }
@@ -188,7 +191,7 @@ public class RocketCreationController extends BaseController {
   private TreeView<String> partList;
 
   @FXML
-  private AnchorPane partViewer;
+  private VBox partViewer;
 
   Rocket rocket;
 

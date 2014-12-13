@@ -247,6 +247,12 @@ public class SimulationController extends BaseController {
         MessageBoxController.showMessage("You have not selected any motors!", root);
         return;
       }
+      else if (motor.getThrustFile() == null || motor.getThrustFile().equals(""))
+      {
+        MessageBoxController.showMessage("The selected motor does not have an associated thrust file!", root);
+        return;
+      }
+      
       for (TrapezoidFinSet finSet : finSets) {
         runSimulation(finSet, motor, notMotors, notFins, monteCarlo, rocketDir, finNum, motorNum);
         finNum++;
@@ -501,6 +507,5 @@ public class SimulationController extends BaseController {
     addUnitListener(lengthUnits, launchRail.getLength());
     addUnitListener(polarAngleUnits, launchRail.getPolarAngle());
     addUnitListener(azimuthAngleUnits, launchRail.getAzimuthAngle());
-    return;
   }
 }

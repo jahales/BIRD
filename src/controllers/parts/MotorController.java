@@ -79,6 +79,7 @@ public class MotorController extends BaseController {
     // Populate fields with whatever values we got
     manufacturerValue.setText(motor.getManufacturer());
     delaysValue.setText(motor.getDelays());
+    thrustFile.setText(motor.getThrustFile());
 
     fuelMassValue.setText(Double.toString(motor.getFuelMass().getValue()));
     fuelMassError.setText(Double.toString(motor.getFuelMass().getError()));
@@ -99,6 +100,9 @@ public class MotorController extends BaseController {
     delaysValue.textProperty().addListener(
         (ChangeListener<String>) (observable, oldValue, newValue) -> MotorController.this.motor
         .setDelays(newValue));
+    thrustFile.textProperty().addListener(
+        (ChangeListener<String>) (observable, oldValue, newValue) -> MotorController.this.motor
+        .setThrustFile(newValue));
 
     ListenerHelpers.addValueListener(fuelMassValue, motor.getFuelMass());
     ListenerHelpers.addValueListener(polarAngleError, motor.getPolarAngle());
