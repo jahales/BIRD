@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
+
 <HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ReportController">
 	<children>
 		<VBox alignment="TOP_LEFT" prefHeight="400" prefWidth="200" spacing="5">
@@ -12,6 +14,7 @@
 				<ChoiceBox fx:id="xAxisChoices" />
 				<Label text="Y Axis" />
 				<ListView fx:id="yAxisChoices" prefHeight="123" VBox.vgrow="ALWAYS" />
+            <Button fx:id="printButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Print" />
 			</children>
 			<padding>
 				<Insets bottom="5" left="5" right="5" top="5" />
@@ -19,7 +22,7 @@
 		</VBox>
 		<LineChart fx:id="graph" title="Results" HBox.hgrow="ALWAYS">
 			<xAxis>
-				<NumberAxis fx:id="xAxis" side="BOTTOM" />
+				<NumberAxis side="BOTTOM" fx:id="xAxis" />
 			</xAxis>
 			<yAxis>
 				<NumberAxis fx:id="yAxis" side="LEFT" />

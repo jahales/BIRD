@@ -160,7 +160,7 @@ public class BirdSimulationSerializer implements ISerializer<Simulation> {
 
     Serialize(parachuteElement, "Parachute", (CircularCylinder) c);
 
-    double r = c.getDiameter().getValue() / 2.0;
+    double r = c.getDeployedDiameter().getValue() / 2.0;
     Measurement ap = new Measurement(Math.PI * r * r, c.getDiameter().getError(), Unit.other);
     AddMeasurement(settingsElement, "Cd", c.getDragCoefficient());
     AddMeasurement(settingsElement, "Ap", ap);
@@ -169,9 +169,12 @@ public class BirdSimulationSerializer implements ISerializer<Simulation> {
 
   private void Serialize(Element element, String name, TrapezoidFinSet c) {
     SerializeComponent(element, name, "Trapezoid", c);
+    Measurement midChord = new Measurement(0, 0, Unit.meters);
+    midChord.setValue(c.getSweepLength().getValue() + c.getTipChord().getValue() / 2.0);
+    midChord.setError(c.getSweepLength().getError() + c.getTipChord().getError() / 2.0);
     AddItem(element, "Count", Integer.toString(c.getCount()));
     AddMeasurement(element, "TipChord", c.getTipChord());
-    AddMeasurement(element, "MidChord", c.getAxialLength()); // TODO: fix me
+    AddMeasurement(element, "MidChord", midChord); 
     AddMeasurement(element, "Span", c.getAxialLength());
     AddMeasurement(element, "TotalSpan", c.getAxialLength());
     AddMeasurement(element, "BodyDiameter", c.getAxialLength());

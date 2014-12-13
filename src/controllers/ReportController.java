@@ -11,21 +11,28 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.print.PageLayout;
+import javafx.print.PageOrientation;
+import javafx.print.Paper;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
+import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.scene.transform.Scale;
 import javafx.util.Callback;
 import models.report.DataTable;
 import models.report.DataTable.RowFormatError;
 import models.report.ErrorBar;
 
 /**
- * Controller for Report view. Gets axis choices from user and displays results
- * on graph.
+ * Controller for Report view. Gets axis choices from user and displays results on graph.
  *
  * @author Brian Woodruff
  *
@@ -47,6 +54,9 @@ public class ReportController extends BaseController {
   @FXML
   private ListView<String> yAxisChoices;
 
+  @FXML
+  Button printButton;
+
   Map<String, XYChart.Series<Number, Number>> independentVariableList = new HashMap<String, XYChart.Series<Number, Number>>();
   List<Number> dependentVariableList = new ArrayList<Number>();
   DataTable table = null;
@@ -65,16 +75,15 @@ public class ReportController extends BaseController {
     if (table == null || table.getColumnNames().size() < 1) {
       return;
     }
-    
-    
+
     ObservableList<String> names = FXCollections.observableArrayList();
-    
+
     for (String name : table.getColumnNames()) {
       if (!name.contains("Error")) {
         names.add(name);
       }
     }
-    
+
     // X axis
     xAxisChoices.getItems().addAll(names);
     xAxisChoices.setValue(names.get(0));
@@ -93,6 +102,11 @@ public class ReportController extends BaseController {
 
     dependentVariableList = table.getColumn(xAxisChoices.getValue());
     yAxisChoices.getItems().remove(xAxisChoices.getValue());
+
+    // When the user clicks the print button the webview node is printed
+    printButton.setOnAction(aEvent -> {
+      print(getView());
+    });
   }
 
   Callback<ListView<String>, ListCell<String>> checkBoxFactory = CheckBoxListCell
@@ -131,5 +145,32 @@ public class ReportController extends BaseController {
         graph.getData().remove(independentVariableList.get(independentAxis));
       }
     };
+  }
+
+  private void print(final Node node) {
+    // Attempt to select a printer that can print to PDF files
+    Printer printer = Printer.getDefaultPrinter();
+
+    for (Printer p : Printer.getAllPrinters()) {
+      if (p.getName().contains("PDF") || p.getName().contains("pdf")) {
+        printer = p;
+        break;
+      }
+    }
+
+    PageLayout pageLayout = printer.createPageLayout(Paper.NA_LETTER, PageOrientation.PORTRAIT, Printer.MarginType.DEFAULT);
+    double scaleX = pageLayout.getPrintableWidth() / node.getBoundsInParent().getWidth();
+    double scaleY = pageLayout.getPrintableHeight() / node.getBoundsInParent().getHeight();
+    node.getTransforms().add(new Scale(scaleX, scaleY));
+    
+    PrinterJob job = PrinterJob.createPrinterJob(printer);
+    if (job != null) {
+      boolean success = job.printPage(node);
+      if (success) {
+        job.endJob();
+      }
+    }
+    
+    node.getTransforms().clear();
   }
 }
