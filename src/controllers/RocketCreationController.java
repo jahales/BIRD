@@ -15,7 +15,6 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.layout.AnchorPane;
 import models.rocket.Rocket;
 import models.rocket.parts.CircularCylinder;
 import models.rocket.parts.ConicalFrustum;
@@ -25,7 +24,6 @@ import models.rocket.parts.Parachute;
 import models.rocket.parts.RocketComponent;
 import models.rocket.parts.TrapezoidFinSet;
 import controllers.parts.PartChooser;
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
