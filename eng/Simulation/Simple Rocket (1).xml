@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Simulation>
+	<Menu Name="Settings" Type="Setting" Description="">
+		<Item Name="OutputFileName" Value="C:\Temp\Result (1).csv" Description="" />
+	</Menu>
+	<Menu Name="Environment" Type="Setting" Description="">
+		<Item Name="Elevation" Value="0" Description="" />
+		<Item Name="Temperature" Value="21.00" Error="0" Description="" />
+		<Item Name="Wx" Value="5.00" Error="0.1" Description="" />
+		<Item Name="Wy" Value="0.00" Error="0" Description="" />
+		<Item Name="Wz" Value="0.00" Error="0" Description="" />
+	</Menu>
+	<Menu Name="Thrust" Type="Setting" Description="">
+		<Item Name="ThrustFile" Value="C:\Users\Jacob\Documents\Source Control\byui-rocket-simulator\Simulation\5198-M1101-WH-0.csv" Description="" />
+	</Menu>
+	<Menu Name="Parachute" Type="Setting" Description="">
+		<Item Name="Ap" Value="0.196" Error=".0002" Description="" />
+		<Item Name="Cd" Value="0.800" Error=".002" Description="" />
+	</Menu>
+	<Menu Name="LaunchRail" Type="Setting" Description="">
+		<Item Name="Length" Value="0" Description="" />
+		<Item Name="Cf" Value="0.00" Description="" />
+		<Item Name="Ux" Value="0.00" Description="" />
+		<Item Name="Uy" Value="0.00" Description="" />
+		<Item Name="Uz" Value="1.00" Description="" />
+	</Menu>
+	<Menu Name="Nose" Type="Part" Description="">
+		<Item Name="Shape" Value="Ogive" Error="" Description="" />
+		<Item Name="Mass" Value="0.0665" Error="0.001" Description="" />
+		<Item Name="Offset" Value="0.000" Error="0.000" Description="" />
+		<Item Name="Length" Value="0.300" Error="0.001" Description="" />
+		<Item Name="Diameter" Value="0.08" Error="0.001" Description="" />
+	</Menu>
+	<Menu Name="Body" Type="Part" Description="">
+		<Item Name="Shape" Value="Cylinder" Description="" />
+		<Item Name="Mass" Value="0.667" Error="0.001" Description="" />
+		<Item Name="Offset" Value="0.300" Error="0.001" Description="" />
+		<Item Name="Length" Value="2.000" Error="0.001" Description="" />
+		<Item Name="InnerDiameter" Value="0.076" Error="0.001" Description="" />
+		<Item Name="OuterDiameter" Value="0.080" Error="0.001" Description="" />
+	</Menu>
+	<Menu Name="Fins" Type="Part" Description="">
+		<Item Name="Shape" Value="Trapezoid" Description="" />
+		<Item Name="Mass" Value="0.143" Error="0.001" Description="" />
+		<Item Name="Offset" Value="1.75" Error="0.001" Description="" />		
+		<Item Name="Length" Value="0.2" Error="0.001" Description="" />
+		<Item Name="Count" Value="4" Description="" />
+		<Item Name="Thickness" Value="0.003" Error="0.001" Description="" />
+		<Item Name="TipChord" Value="0.15" Error="0.001" Description="" />
+		<Item Name="MidChord" Value="0.142077" Error="0.001" Description="" />
+		<Item Name="Span" Value="0.1" Error="0.001" Description="" />
+		<Item Name="TotalSpan" Value="0.225" Error="0.001" Description="" />
+		<Item Name="BodyDiameter" Value="0.08" Error="0.001" Description="" />
+	</Menu>
+	<Menu Name="Tail" Type="Part" Description="">
+		<Item Name="Shape" Value="ConicalFrustrum" Error="" Description="" />
+		<Item Name="Mass" Value="0.000" Error="0.000" Description="" />
+		<Item Name="Offset" Value="2.300" Error="0.000" Description="" />
+		<Item Name="Length" Value="0.00" Error="0.000" Description="" />
+		<Item Name="UpperDiameter" Value="0.076" Error="0.000" Description="" />
+		<Item Name="LowerDiameter" Value="0.076" Error="0.000" Description="" />
+		<Item Name="Thickness" Value="0.000" Error="0.000" Description="" />
+	</Menu>
+		<Menu Name="Fuel" Type="Part" Description="">
+		<Item Name="Shape" Value="Cylinder" Error="0.001" Description="" />
+		<Item Name="Mass" Value="3.096" Error="0.001" Description="" />
+		<Item Name="Offset" Value="1.679" Error="0.001" Description="" />
+		<Item Name="Length" Value="0.621" Error="0.001" Description="" />
+		<Item Name="InnerDiameter" Value="0.000" Error="0.000" Description="" />
+		<Item Name="OuterDiameter" Value="0.075" Error="0.001" Description="" />
+	</Menu>
+	<Menu Name="Motor" Type="Part" Description="">
+		<Item Name="Shape" Value="Cylinder" Error="0.001" Description="" />
+		<Item Name="Mass" Value="1.842" Error="0.001" Description="" />
+		<Item Name="Offset" Value="1.679" Error="0.001" Description="" />
+		<Item Name="Length" Value="0.621" Error="0.001" Description="" />
+		<Item Name="InnerDiameter" Value="0.000" Error="0.001" Description="" />
+		<Item Name="OuterDiameter" Value="0.075" Error="0.001" Description="" />
+	</Menu>
+	<Menu Name="Payload" Type="Part" Description="">
+		<Item Name="Shape" Value="Cylinder" Error="0.001" Description="" />
+		<Item Name="Mass" Value="4.54" Error="0.001" Description="" />
+		<Item Name="Offset" Value="1.50" Error="0.001" Description="" />
+		<Item Name="Length" Value="0.15" Error="0.001" Description="" />
+		<Item Name="InnerDiameter" Value="0.000" Error="0.000" Description="" />
+		<Item Name="OuterDiameter" Value="0.050" Error="0.001" Description="" />
+	</Menu>
+	<Menu Name="Other" Type="Part" Description="">
+		<Item Name="Shape" Value="Cylinder" Error="0.001" Description="" />
+		<Item Name="Mass" Value="0.0164" Error="0.001" Description="" />
+		<Item Name="Offset" Value="0.3" Error="0.001" Description="" />
+		<Item Name="Length" Value="0.1" Error="0.001" Description="" />
+		<Item Name="InnerDiameter" Value="0.000" Error="0.000" Description="" />
+		<Item Name="OuterDiameter" Value="0.050" Error="0.001" Description="" />
+	</Menu>
+</Simulation>
+
+
+
+
+
+
+
+
+
+
+
