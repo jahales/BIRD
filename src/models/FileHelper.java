@@ -15,7 +15,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import models.rocket.data.RaspEngineSerializer;
 import javafx.scene.Node;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -29,7 +29,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.report.CSVReader;
 import models.report.DataTable;
-import models.rocket.data.RaspEngineSerializer;
 import models.rocket.parts.Motor;
 
 /**
@@ -40,6 +39,12 @@ public class FileHelper {
 
   final static Logger logger = Logger.getLogger(FileHelper.class.getName());
 
+  /**
+   * Opens a CSV file and loads it into a new report view.
+   *
+   * @param mainViewModel
+   * @param root
+   */
   public static void openCSV(MainViewModel mainViewModel, Node root) {
     File openFile;
     FileChooser fileChooser = new FileChooser();
@@ -70,6 +75,12 @@ public class FileHelper {
     }
   }
 
+  /**
+   * Loads a rocket, and opens a new window with a new mainviewmodel
+   *
+   * @param mainViewModel
+   * @param root
+   */
   public static void openRocket(MainViewModel mainViewModel, Node root) {
     File openFile;
     FileChooser fileChooser = new FileChooser();
@@ -92,12 +103,18 @@ public class FileHelper {
       newModel.setNeverBeenSaved(false);
       Main.startNewMainView(newModel);
     } catch (Exception ex) {
-      // Needs a prompt to let the user know that loading the file errored
+      MessageBoxController.showMessage("Loading Failed!", root);
       logger.log(Level.SEVERE, "Load rocket failed");
     }
 
   }
 
+  /**
+   * Saves the rocket with a prompt for location
+   *
+   * @param mainViewModel
+   * @param root
+   */
   static public void RocketSaveAs(MainViewModel mainViewModel, Node root) {
     File saveFile;
     FileChooser fileChooser = new FileChooser();
@@ -115,10 +132,16 @@ public class FileHelper {
       mainViewModel.setNeverBeenSaved(false);
       mainViewModel.setPresentWorkingFile(saveFile);
     } catch (Exception ex) {
-      // Inform user that the saving did not work.
+      MessageBoxController.showMessage("Saving Failed!", root);
     }
   }
 
+  /**
+   * Saves the rocket, if it hasn't been saved, it prompts for location
+   *
+   * @param mainViewModel
+   * @param root
+   */
   public static void saveRocket(MainViewModel mainViewModel, Node root) {
     File saveFile;
     if (mainViewModel.hasNeverBeenSaved()) {
@@ -137,7 +160,7 @@ public class FileHelper {
         mainViewModel.setNeverBeenSaved(false);
         mainViewModel.setPresentWorkingFile(saveFile);
       } catch (Exception ex) {
-        // Inform user that the saving did not work.
+        MessageBoxController.showMessage("Saving Failed!", root);
       }
     } else {
       if (mainViewModel.isUnsaved()) {
@@ -148,12 +171,17 @@ public class FileHelper {
           mainViewModel.setNeverBeenSaved(false);
           mainViewModel.setPresentWorkingFile(saveFile);
         } catch (Exception ex) {
-          // Inform user that the saving did not work.
+          MessageBoxController.showMessage("Saving Failed!", root);
         }
       }
     }
   }
 
+  /**
+   * Gets the location of a motor file, but doesn't read any information
+   * @param root
+   * @return 
+   */
   static public String openMotorFile(Node root) {
     File openFile;
     FileChooser fileChooser = new FileChooser();
@@ -169,6 +197,11 @@ public class FileHelper {
     }
   }
 
+  /**
+   * Takes a CSV file and relevant motor and creates a .eng file
+   * @param motor
+   * @param root 
+   */
   public static void exportMotorFile(Motor motor, Node root) {
     // Make sure there is a .CSV file attached to the motor
     if (motor == null || motor.getThrustFile() == null || motor.getThrustFile().equals("")) {
@@ -197,6 +230,12 @@ public class FileHelper {
     }
   }
 
+  /**
+   * Given a file path, this function loads a rocket into a mainViewModel
+   * @param openFile
+   * @return
+   * @throws Exception 
+   */
   private static Rocket loadRocket(File openFile) throws Exception {
     try {
       try {
@@ -214,6 +253,12 @@ public class FileHelper {
     }
   }
 
+  /**
+   * Given a filepath, this writes a rocket to a file
+   * @param saveFile
+   * @param mainViewModel
+   * @throws Exception 
+   */
   static private void writeRocket(File saveFile, MainViewModel mainViewModel) throws Exception {
     try {
       // Set the new present working directory to the save file's directory
@@ -233,6 +278,12 @@ public class FileHelper {
     }
   }
 
+  /**
+   * gets the location, but does not read, an atmosphere file
+   * @param mainViewModel
+   * @param root
+   * @return 
+   */
   static public String openAtmosphereFile(MainViewModel mainViewModel, Node root) {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Atmosphere File");
@@ -246,6 +297,10 @@ public class FileHelper {
     return "";
   }
 
+  /**
+   * Helper function to help set up a file chooser.
+   * @param fileChooser 
+   */
   static private void configInitialDirectory(FileChooser fileChooser) {
     fileChooser.setInitialDirectory(AppSettings.getInstance().getPresentWorkingDirectory());
     // Make sure the initial directory is a directory
@@ -255,6 +310,11 @@ public class FileHelper {
     }
   }
 
+  /**
+   * Creates a new instance of the application
+   * @param rocket
+   * @param mainViewModel 
+   */
   public static void spawnNewInstance(Rocket rocket, MainViewModel mainViewModel) {
     MainViewModel newModel = new MainViewModel();
     newModel.setPresentWorkingFile(mainViewModel.getPresentWorkingFile());
@@ -262,6 +322,13 @@ public class FileHelper {
     Main.startNewMainView(newModel);
   }
 
+  /**
+   * Creates a directory to be used for storing results files.
+   * @param mainViewModel
+   * @param root
+   * @return
+   * @throws IOException 
+   */
   public static File createRocketDir(MainViewModel mainViewModel, Node root) throws IOException {
     File rocketFolder;
     if (mainViewModel.getPresentWorkingFile() == null) {
@@ -274,6 +341,14 @@ public class FileHelper {
     return rocketFolder;
   }
 
+  /**
+   * creates a folder for the results of one specific variant of a rocket
+   * @param rocketFolder
+   * @param finNum
+   * @param motorNum
+   * @return
+   * @throws IOException 
+   */
   public static File createResultsFolder(File rocketFolder, int finNum, int motorNum)
     throws IOException {
     File file = new File(rocketFolder, "Variant-Motor" + motorNum + "-FinSet" + finNum);
@@ -281,6 +356,14 @@ public class FileHelper {
     return file;
   }
 
+  /**
+   * Creates the file for the results of one specific variant of a rocket
+   * @param resultsFolder
+   * @param finNum
+   * @param motorNum
+   * @return
+   * @throws IOException 
+   */
   public static File spawnResultsFilePath(File resultsFolder, int finNum, int motorNum)
     throws IOException {
     File file = new File(resultsFolder, "Variant-Motor" + motorNum + "-FinSet" + finNum + ".csv");

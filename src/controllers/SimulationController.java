@@ -179,6 +179,10 @@ public class SimulationController extends BaseController {
     prepareAndRunSimulation(true);
   }
 
+  /**
+   * Spawns a report view with a given dataTable
+   * @param dataTable 
+   */
   public static void startNewReportView(DataTable dataTable) {
     try {
       Stage stage = new Stage();
@@ -195,6 +199,10 @@ public class SimulationController extends BaseController {
     }
   }
 
+  /**
+   * Does simple validation, data entry into a simulation object, and sends it off to be run
+   * @param monteCarlo 
+   */
   private void prepareAndRunSimulation(boolean monteCarlo) {
 
     ArrayList<TrapezoidFinSet> finSets = new ArrayList<>();
@@ -286,6 +294,10 @@ public class SimulationController extends BaseController {
     }
   }
 
+  /**
+   * Displays the results in the report view
+   * @param dataTable 
+   */
   private void displayResult(DataTable dataTable) {
     try {
       ControllerFactory controllerFactory = new ControllerFactory();
@@ -303,6 +315,17 @@ public class SimulationController extends BaseController {
     }
   }
 
+  /**
+   * Creates and runs a simulation
+   * @param finSet
+   * @param motor
+   * @param notMotors
+   * @param notFins
+   * @param monteCarlo
+   * @param rocketDir
+   * @param finNum
+   * @param motorNum 
+   */
   private void runSimulation(TrapezoidFinSet finSet, Motor motor,
       ArrayList<RocketComponent> notMotors, ArrayList<RocketComponent> notFins, boolean monteCarlo,
       File rocketDir, int finNum, int motorNum) {
@@ -341,6 +364,14 @@ public class SimulationController extends BaseController {
     displayResult(result);
   }
 
+  /**
+   * Creates an simulation object
+   * @param tempRocketFile
+   * @param resultsOutput
+   * @param motor
+   * @param atmosphereFile
+   * @return 
+   */
   private Simulation createSimulation(File tempRocketFile, File resultsOutput, Motor motor,
       String atmosphereFile) {
     Simulation simulation = new Simulation();
@@ -352,6 +383,14 @@ public class SimulationController extends BaseController {
     return simulation;
   }
 
+  /**
+   * Creates a temporary rocket object to write to a file that contains only 1 motor/ 1 fin
+   * @param finSet
+   * @param motor
+   * @param exteriors
+   * @param interiors
+   * @return 
+   */
   private Rocket createTempRocket(TrapezoidFinSet finSet, Motor motor,
       ArrayList<RocketComponent> exteriors, ArrayList<RocketComponent> interiors) {
     exteriors.add(finSet);
@@ -363,6 +402,14 @@ public class SimulationController extends BaseController {
     return rocket;
   }
 
+  /**
+   * Writes a rocket file that is to be placed among the results.
+   * @param rocket
+   * @param rocketSimDir
+   * @param finNum
+   * @param motorNum
+   * @return 
+   */
   private File createInnerRocketFile(Rocket rocket, File rocketSimDir, int finNum, int motorNum) {
     File rocketFile = new File(rocketSimDir, rocketSimDir.getName() + ".xml");
     try {
@@ -376,6 +423,12 @@ public class SimulationController extends BaseController {
     return rocketFile;
   }
 
+  /**
+   * A simple validator. Deep validation to be done in the model
+   * @param motors
+   * @param finSets
+   * @return 
+   */
   private boolean simpleRocketValidator(ArrayList<Motor> motors, ArrayList<TrapezoidFinSet> finSets) {
     if (motors.isEmpty()) {
       MessageBoxController.showMessage("Your rocket does not have any motors!", root);

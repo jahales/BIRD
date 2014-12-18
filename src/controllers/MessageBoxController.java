@@ -26,6 +26,11 @@ public class MessageBoxController extends BaseController {
     ((Stage) lblMessage.getScene().getWindow()).close();
   }
 
+  /**
+   * Creates a pop-up with the input text, tied to owner node
+   * @param message
+   * @param owner 
+   */
   static public void showMessage(String message, Node owner) {
     try {
       ControllerFactory controllerFactory = new ControllerFactory();
